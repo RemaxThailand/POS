@@ -219,14 +219,13 @@ namespace PowerPOS
                 }
 
                 dt = new DataTable();
-                dt = Util.DBQuery(string.Format(@"SELECT COUNT(ReceivedDate) Received FROM Barcode WHERE ReceivedDate IS NOT NULL AND OrderNo = '{0}'
-                        UNION ALL SELECT COUNT(ReceivedDate) Received FROM Barcode WHERE ReceivedDate IS NULL AND OrderNo = '{0}'", cbbOrderNo.SelectedItem.ToString()));
+                dt = Util.DBQuery(string.Format(@"SELECT COUNT(ReceivedBy) Received FROM Barcode WHERE ReceivedBy <> '' AND OrderNo = '{0}'
+                        UNION ALL SELECT COUNT(ReceivedBy) Received FROM Barcode WHERE ReceivedBy = '' AND OrderNo = '{0}'", cbbOrderNo.SelectedItem.ToString()));
 
                 lblListCount.Text = receivedGridView.RowCount.ToString() + " " + "รายการ";
                 lblReceived.Text = dt.Rows[0]["Received"].ToString();
-                lblNoReceived.Text = dt.Rows[1]["Received"].ToString();
-                int val = int.Parse(dt.Rows[0]["Received"].ToString()) + int.Parse(dt.Rows[1]["Received"].ToString());
-                lblProductCount.Text = val.ToString();
+                lblNoReceived.Text = dt.Rows[1]["Received"].ToString();                
+                lblProductCount.Text = _QTY.ToString();
                 txtBarcode.Focus();
             }
             catch (Exception ex)

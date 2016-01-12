@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
-using ThaiNationalIDCard;
+//using ThaiNationalIDCard;
 using System.Threading;
 using System.Globalization;
 using System.IO;

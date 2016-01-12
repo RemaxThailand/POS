@@ -431,7 +431,7 @@ namespace PowerPOS
                     }
                     catch (Exception ex)
                     {
-                        //MessageBox.Show(ex.ToString());
+                        MessageBox.Show(ex.ToString());
                         pnlPrice.Visible = false;
                     }
                 }

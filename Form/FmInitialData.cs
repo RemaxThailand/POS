@@ -477,7 +477,7 @@ namespace PowerPOS
                        jsonProduct.result[i].webPrice3, jsonProduct.result[i].webPrice4, jsonProduct.result[i].webPrice5, jsonProduct.result[i].webWarranty,
                        jsonProduct.result[i].isPromotion == null ? 0 : jsonProduct.result[i].isPromotion == true ? 1 : 0, jsonProduct.result[i].pricePromotion == null ? 0 : jsonProduct.result[i].pricePromotion, jsonProduct.result[i].cost,
                        jsonProduct.result[i].category == null ? "" : jsonProduct.result[i].category, jsonProduct.result[i].brand == null ? "" : jsonProduct.result[i].brand, jsonProduct.result[i].barcode == null ? "" : jsonProduct.result[i].barcode, 
-                       jsonProduct.result[i].Quantity == null ? "" : jsonProduct.result[i].Quantity));
+                       jsonProduct.result[i].quantity == null ? "" : jsonProduct.result[i].quantity));
                     d++;
                     if (d % 30 == 0)
                     {
