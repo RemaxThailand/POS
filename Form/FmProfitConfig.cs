@@ -52,7 +52,7 @@ namespace PowerPOS
             }
             else
             {
-                DataTable dt = Util.DBQuery(@"SELECT IFNULL(price,0) price, IFNULL(price1,0) price1,  IFNULL(price2,0) price2, IFNULL(price3,0) price3, IFNULL(price4,0) price4 FROM Category c LEFT JOIN CategoryProfit p ON c.id = p.id WHERE LOWER(name) = '" + cbCategory.SelectedItem.ToString().ToLower() + "'");
+                DataTable dt = Util.DBQuery(@"SELECT IFNULL(price,0) price, IFNULL(price1,0) price1,  IFNULL(price2,0) price2, IFNULL(price3,0) price3, IFNULL(price4,0) price4 FROM Category c LEFT JOIN CategoryProfit p ON c.Category = p.Category WHERE LOWER(name) = '" + cbCategory.SelectedItem.ToString().ToLower() + "'");
                 nudPrice.Value = int.Parse(dt.Rows[0]["price"].ToString());
                 nudPrice1.Value = int.Parse(dt.Rows[0]["price1"].ToString());
                 nudPrice2.Value = int.Parse(dt.Rows[0]["price2"].ToString());
@@ -65,7 +65,7 @@ namespace PowerPOS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO CategoryProfit (id, price, price1, price2,price3,price4, Sync) VALUES ((SELECT id FROM Category WHERE LOWER(name) = '{3}'), {0}, {1}, {2}, {3}, {4}, 1)",
+            Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO CategoryProfit (Category, price, price1, price2,price3,price4, Sync) VALUES ((SELECT Category FROM Category WHERE LOWER(name) = '{3}'), {0}, {1}, {2}, {3}, {4}, 1)",
                nudPrice.Value, nudPrice1.Value, nudPrice2.Value, nudPrice3.Value, nudPrice4.Value, cbCategory.SelectedItem.ToString().ToLower()));
             btnSave.Enabled = false;
         }

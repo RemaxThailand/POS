@@ -27,7 +27,7 @@ namespace PowerPOS
             LoadData();
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             DataTable dt;
             DataRow row;
@@ -56,8 +56,8 @@ namespace PowerPOS
             for (a = 0; a < _TABLE_CUSTOMER.Rows.Count; a++)
             {
                 var mobile = (_TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Length == 10) ? _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(0, 3) + "-" +
-                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(3, 4) + "-" +
-                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(7, 3)
+                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(3, 3) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(6, 4)
                     : _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString();
 
                 var citizen = (_TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Length == 13) ? _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(0, 1) + "-" +

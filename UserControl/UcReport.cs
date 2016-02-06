@@ -34,23 +34,35 @@ namespace PowerPOS
 
         public void LoadData()
         {
-            DataTable dt;
+            DataTable dt, dtQty;
             DataRow row;
             int i, a;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
-           _TABLE_REPORT = Util.DBQuery(string.Format(@"
-                SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
-                FROM SellHeader h
+            //_TABLE_REPORT = Util.DBQuery(string.Format(@"
+            //     SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
+            //     FROM SellHeader h
+            //     LEFT JOIN Customer c
+            //     ON h.Customer = c.Customer
+            //    LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
+            //     ON h.sellNo = b.sellNo
+            //     WHERE h.SellDate LIKE '{0}%'
+            //       AND h.Customer NOT IN ('000001','000002')
+            //       AND b.sellPrice IS NOT NULL   
+            //     ORDER BY h.SellDate DESC
+            // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
+
+            _TABLE_REPORT = Util.DBQuery(string.Format(@"
+                 SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid
+               FROM SellHeader h
                 LEFT JOIN Customer c
-                ON h.Customer = c.Customer
-               LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
-                ON h.sellNo = b.sellNo
+                ON h.Customer = c.Customer 
                 WHERE h.SellDate LIKE '{0}%'
                   AND h.Customer NOT IN ('000001','000002')
-                  AND b.sellPrice IS NOT NULL   
-                ORDER BY h.SellDate DESC
-            ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
+                  AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                ORDER BY SellDate DESC
+             ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
+           
 
             reportGridView.OptionsBehavior.AutoPopulateColumns = false;
             reportGridControl.MainView = reportGridView;
@@ -83,13 +95,28 @@ namespace PowerPOS
             }
 
             reportGridControl.DataSource = dt;
+
+            lblListCount.Text = reportGridView.RowCount.ToString() + " รายการ";
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+            dtQty = Util.DBQuery(string.Format(@"SELECT SUM(d.Quantity) QTY FROM SellHeader h
+                            LEFT JOIN SellDetail d
+                            ON h.SellNo = d.SellNo 
+                            WHERE h.SellDate LIKE '{0}%'
+                              AND h.Customer NOT IN ('000001','000002')
+                              AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                            ORDER BY SellDate DESC
+                         ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
+
+            lblProductCount.Text = dtQty.Rows[0]["QTY"].ToString() + " ชิ้น";
+
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try
             {
-                dt = Util.DBQuery(string.Format(@"SELECT SUM(b.sellPrice)  Total,COUNT(DISTINCT DATE(h.SellDate)) CountDate,SUM(b.sellPrice)  /COUNT(DISTINCT DATE(h.SellDate)) AVG
+                dt = Util.DBQuery(string.Format(@"SELECT SUM(h.totalPrice)  Total,COUNT(DISTINCT DATE(h.SellDate)) CountDate,SUM(h.totalPrice)/COUNT(DISTINCT DATE(h.SellDate)) AVG
                 FROM SellHeader h
-                LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{2}' GROUP BY Product,SellNo) b 
-                ON h.sellNo = b.sellNo
+                --LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{2}' GROUP BY Product,SellNo) b 
+                --ON h.sellNo = b.sellNo
                 WHERE SUBSTR(h.SellDate,1,10) BETWEEN '{0}' AND '{1}'
             ", Convert.ToDateTime(dtpDate.Value.AddDays(-30)).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpDate.Value.AddDays(1)).ToString("yyyy-MM-dd"), Param.UserId));
                 var avg30 = double.Parse(dt.Rows[0]["AVG"].ToString());
@@ -153,7 +180,7 @@ namespace PowerPOS
                 DrawImage(sumPrice, sumProfit, avg30, max, chart);
             }
             catch (Exception ex)
-                {
+            {
                 Console.WriteLine(ex.ToString());
             }
         }
@@ -163,7 +190,7 @@ namespace PowerPOS
             pictureEdit1.Image = new Bitmap(Properties.Resources.daily);
             using (Graphics g = Graphics.FromImage(pictureEdit1.Image))
             {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                 g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
@@ -275,7 +302,6 @@ namespace PowerPOS
         private void reportGridControl_MouseClick(object sender, MouseEventArgs e)
         {
             sellNo = reportGridView.GetRowCellDisplayText(reportGridView.FocusedRowHandle, reportGridView.Columns["SaleNo"]);
-            lblSellNo.Text = sellNo;
         }
 
         private void btnPrint_Click(object sender, EventArgs e)

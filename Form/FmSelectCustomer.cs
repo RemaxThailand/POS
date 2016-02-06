@@ -8,11 +8,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Views.Base;
 
 namespace PowerPOS
 {
     public partial class FmSelectCustomer : DevExpress.XtraEditors.XtraForm
     {
+        DataTable _TABLE_CUSTOMER;
+        public static string Firstname;
+        public static string Lastname;
+        public static string Nickname;
+        public static string tel;
+
         public FmSelectCustomer()
         {
             InitializeComponent();
@@ -20,81 +27,59 @@ namespace PowerPOS
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            //DataTable dt = Util.DBQuery(string.Format(@"SELECT ID, Firstname, Lastname, IFNULL(Nickname, '') Nickname, IFNULL(CardNo, '') CardNo, IFNULL(CitizenID, '') CitizenID, 
-            //        IFNULL(Mobile, '') Mobile, IFNULL(Sex, '') Sex, IFNULL(Birthday, '') Birthday, SellPrice
-            //        FROM Customer
-            //        WHERE Firstname LIKE '%{0}%'
-            //        OR Lastname LIKE '%{0}%'
-            //        OR Nickname LIKE '%{0}%'
-            //        OR CardNo LIKE '%{0}%'
-            //        OR CitizenID LIKE '%{0}%'
-            //        OR Mobile LIKE '%{0}%'
-            //        LIMIT 10", txtSearch.Text.Trim()));
+            DataTable dt;
+            DataRow row;
+            int i, a;
+            _TABLE_CUSTOMER = Util.DBQuery(string.Format(@"SELECT Customer, Firstname, Lastname, IFNULL(Nickname, '') Nickname, IFNULL(CardNo, '') CardNo, IFNULL(CitizenID, '') CitizenID, 
+                    IFNULL(Mobile, '') Mobile, IFNULL(Sex, '') Sex, IFNULL(Birthday, '') Birthday, SellPrice
+                    FROM Customer
+                    WHERE Firstname LIKE '%{0}%'
+                    OR Lastname LIKE '%{0}%'
+                    OR Nickname LIKE '%{0}%'
+                    OR CardNo LIKE '%{0}%'
+                    OR CitizenID LIKE '%{0}%'
+                    OR Mobile LIKE '%{0}%'
+                    LIMIT 10", txtSearch.Text.Trim()));
 
-            //table1.BeginUpdate();
-            //tableModel1.Rows.Clear();
-            //tableModel1.RowHeight = 22;
-            //for (int i = 0; i < dt.Rows.Count; i++)
-            //{
-            //    var mobile = (dt.Rows[i]["Mobile"].ToString().Length == 10) ? dt.Rows[i]["Mobile"].ToString().Substring(0, 3) + "-" +
-            //        dt.Rows[i]["Mobile"].ToString().Substring(3, 4) + "-" +
-            //        dt.Rows[i]["Mobile"].ToString().Substring(7, 3)
-            //        : dt.Rows[i]["Mobile"].ToString();
-            //    var citizen = (dt.Rows[i]["CitizenID"].ToString().Length == 13) ? dt.Rows[i]["CitizenID"].ToString().Substring(0, 1) + "-" +
-            //        dt.Rows[i]["CitizenID"].ToString().Substring(1, 4) + "-" +
-            //        dt.Rows[i]["CitizenID"].ToString().Substring(5, 5) + "-" +
-            //        dt.Rows[i]["CitizenID"].ToString().Substring(10, 2) + "-" +
-            //        dt.Rows[i]["CitizenID"].ToString().Substring(12, 1)
-            //        : dt.Rows[i]["CitizenID"].ToString();
-            //    tableModel1.Rows.Add(new Row(
-            //        new Cell[] {
-            //            new Cell(dt.Rows[i]["ID"].ToString()),
-            //            new Cell("" + (tableModel1.Rows.Count + 1)),
-            //            new Cell(dt.Rows[i]["Firstname"].ToString()),
-            //            new Cell(dt.Rows[i]["Lastname"].ToString()),
-            //            new Cell(dt.Rows[i]["Nickname"].ToString()),
-            //            new Cell(dt.Rows[i]["CardNo"].ToString()),
-            //            new Cell(mobile),
-            //            new Cell(citizen) ,
-            //            new Cell(dt.Rows[i]["Birthday"].ToString()),
-            //            new Cell(dt.Rows[i]["Sex"].ToString()),
-            //            new Cell(dt.Rows[i]["SellPrice"].ToString())
-            //        }));
-            //}
-            //table1.EndUpdate();
-        }
+            customerGridView.OptionsBehavior.AutoPopulateColumns = false;
+            customerGridControl.MainView = customerGridView;
 
-        private void gridControl1_DoubleClick(object sender, EventArgs e)
-        {
-            //if (table1.TableModel.Rows.Count > 0)
-            //{
-            //    try
-            //    {
-            //        var row = e.Row;
-            //        var name = (table1.TableModel.Rows[row].Cells[0].Text == "000000") ? "ลูกค้าทั่วไป" :
-            //            table1.TableModel.Rows[row].Cells[2].Text +
-            //            ((table1.TableModel.Rows[row].Cells[4].Text != "") ? " (" + table1.TableModel.Rows[row].Cells[4].Text + ")" : "");
-            //        Param.SelectCustomerId = table1.TableModel.Rows[row].Cells[0].Text;
-            //        Param.SelectCustomerName = name;
+            dt = new DataTable();
+            for (i = 0; i < ((ColumnView)customerGridControl.MainView).Columns.Count; i++)
+            {
+                dt.Columns.Add(customerGridView.Columns[i].FieldName);
+            }
 
-            //        Param.SelectCustomerAge = table1.TableModel.Rows[row].Cells[8].Text == "" ? 0 : (int)DateTime.Today.Subtract(Convert.ToDateTime(table1.TableModel.Rows[row].Cells[8].Text).Date).TotalDays / 365;
-            //        //Param.SelectCustomerAge = Param.SelectCustomerAge == DateTime.Today.Year ? 0 : Param.SelectCustomerAge;
-            //        Param.SelectCustomerSex = table1.TableModel.Rows[row].Cells[9].Text;
-            //        Param.SelectCustomerSellPrice = int.Parse(table1.TableModel.Rows[row].Cells[10].Text);
+            for (a = 0; a < _TABLE_CUSTOMER.Rows.Count; a++)
+            {
+                var mobile = (_TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Length == 10) ? _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(0, 3) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(3, 4) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString().Substring(7, 3)
+                    : _TABLE_CUSTOMER.Rows[a]["Mobile"].ToString();
 
-            //        Firstname = table1.TableModel.Rows[row].Cells[2].Text;
-            //        Lastname = table1.TableModel.Rows[row].Cells[3].Text;
-            //        Nickname = table1.TableModel.Rows[row].Cells[4].Text;
-            //        tel = table1.TableModel.Rows[row].Cells[6].Text;
+                var citizen = (_TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Length == 13) ? _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(0, 1) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(1, 4) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(5, 5) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(10, 2) + "-" +
+                    _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString().Substring(12, 1)
+                    : _TABLE_CUSTOMER.Rows[a]["CitizenID"].ToString();
 
-            //        this.DialogResult = DialogResult.OK;
-            //        //this.Dispose();
-            //    }
-            //    catch
-            //    {
+                row = dt.NewRow();
+                row[0] = (a + 1) * 1;
+                row[1] = _TABLE_CUSTOMER.Rows[a]["Customer"].ToString().Split(' ')[0];
+                row[2] = _TABLE_CUSTOMER.Rows[a]["Firstname"].ToString().Split(' ')[0];
+                row[3] = _TABLE_CUSTOMER.Rows[a]["Lastname"].ToString().Split(' ')[0];
+                row[4] = _TABLE_CUSTOMER.Rows[a]["Nickname"].ToString();
+                row[5] = _TABLE_CUSTOMER.Rows[a]["CardNo"].ToString();
+                row[6] = mobile;
+                row[7] = citizen;
+                row[8] = _TABLE_CUSTOMER.Rows[a]["SellPrice"].ToString();
+                row[9] = _TABLE_CUSTOMER.Rows[a]["Birthday"].ToString();
+                row[10] = _TABLE_CUSTOMER.Rows[a]["Sex"].ToString();
+                dt.Rows.Add(row);
+            }
 
-            //    }
-            //}
+            customerGridControl.DataSource = dt;
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
@@ -102,6 +87,38 @@ namespace PowerPOS
             if (e.KeyCode == Keys.Return && txtSearch.Text.Trim() != "")
             {
                 btnSearch_Click(sender, e);
+            }
+        }
+
+        private void customerGridControl_DoubleClick(object sender, EventArgs e)
+        {
+            if (customerGridView.RowCount > 0)
+            {
+                try
+                {
+                    var name = (customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["ID"]).ToString() == "000000") ? "ลูกค้าทั่วไป" :
+                        customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Firstname"]).ToString() +
+                        ((customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Nickname"]).ToString() != "") ? " (" + customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Nickname"]).ToString() + ")" : "");
+                    Param.SelectCustomerId = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["ID"]).ToString();
+                    Param.SelectCustomerName = name;
+
+                    Param.SelectCustomerAge = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Birthday"]).ToString() == "" ? 0 : (int)DateTime.Today.Subtract(Convert.ToDateTime(customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Birthday"]).ToString()).Date).TotalDays / 365;
+                    //Param.SelectCustomerAge = Param.SelectCustomerAge == DateTime.Today.Year ? 0 : Param.SelectCustomerAge;
+                    Param.SelectCustomerSex = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Sex"]).ToString();
+                    Param.SelectCustomerSellPrice = int.Parse(customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["SellPrice"]).ToString());
+
+                    Firstname = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Firstname"]).ToString();
+                    Lastname = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Lastname"]).ToString();
+                    Nickname = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Nickname"]).ToString();
+                    tel = customerGridView.GetRowCellDisplayText(customerGridView.FocusedRowHandle, customerGridView.Columns["Mobile"]).ToString();
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Dispose();
+                }
+                catch
+                {
+
+                }
             }
         }
     }

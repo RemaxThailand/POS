@@ -19,13 +19,14 @@ namespace PowerPOS
         //public static string ApiUrl = "http://api.powerdd.com";
         //public static string ApiKey = "27AD365F-FBFF-4994-BB9C-97ABAF80EFBB";
 
-        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic };
+        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit };
 
         public static string ApiShopId; //= "5BB7C6B3-F6D0-4926-B14F-C580DD148612";
         public static string ShopId;// = "00000002";
         public static string ApiUrl;//= "http://api-test.powerdd.com/";
         public static string ApiKey;// = "TEST-0001";
         public static string UserId;
+        public static string UserCode;
         public static bool ApiChecked;
         public static string LicenseKey;
         public static string CpuId;
@@ -61,6 +62,9 @@ namespace PowerPOS
         public static string SelectCustomerSex;
         public static int SelectCustomerAge;
         public static int SelectCustomerSellPrice;
+
+        public static string amount;
+        public static string product;
 
         public static string LogoPath;
         public const string LogoUrl = "https://lh3.googleusercontent.com/of2iTh9rSFHDQreN0Pu1CIV1_-K9BwqTyfFqNMkDtRA=w2655-no";

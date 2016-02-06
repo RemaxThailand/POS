@@ -57,6 +57,21 @@
             this.btnNewCount = new DevExpress.XtraEditors.SimpleButton();
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.lblNoReceived = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.lblReceived = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.lblListCount = new DevExpress.XtraEditors.LabelControl();
+            this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.stockGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockGridView)).BeginInit();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -75,6 +90,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
+            this.panelControl17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
+            this.panelControl8.SuspendLayout();
             this.SuspendLayout();
             // 
             // stockGridControl
@@ -84,7 +108,7 @@
             this.stockGridControl.Location = new System.Drawing.Point(227, 0);
             this.stockGridControl.MainView = this.stockGridView;
             this.stockGridControl.Name = "stockGridControl";
-            this.stockGridControl.Size = new System.Drawing.Size(747, 545);
+            this.stockGridControl.Size = new System.Drawing.Size(849, 498);
             this.stockGridControl.TabIndex = 6;
             this.stockGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.stockGridView});
@@ -451,20 +475,173 @@
             // 
             this.panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl7.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl7.Location = new System.Drawing.Point(974, 0);
+            this.panelControl7.Location = new System.Drawing.Point(1076, 0);
             this.panelControl7.Name = "panelControl7";
             this.panelControl7.Size = new System.Drawing.Size(10, 545);
             this.panelControl7.TabIndex = 7;
+            // 
+            // panelControl17
+            // 
+            this.panelControl17.Controls.Add(this.panelControl8);
+            this.panelControl17.Controls.Add(this.groupControl1);
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl17.Location = new System.Drawing.Point(227, 498);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(849, 47);
+            this.panelControl17.TabIndex = 8;
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Appearance.Options.UseFont = true;
+            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.Location = new System.Drawing.Point(0, 4);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(163, 35);
+            this.btnPrint.TabIndex = 1;
+            this.btnPrint.Text = "พิมพ์รายงานสต็อค";
+            // 
+            // panelControl20
+            // 
+            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl20.Location = new System.Drawing.Point(0, 0);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(191, 4);
+            this.panelControl20.TabIndex = 20;
+            // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl19.Location = new System.Drawing.Point(0, 39);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(191, 4);
+            this.panelControl19.TabIndex = 19;
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl18.Location = new System.Drawing.Point(163, 4);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(28, 35);
+            this.panelControl18.TabIndex = 18;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl1.Controls.Add(this.labelControl6);
+            this.groupControl1.Controls.Add(this.lblNoReceived);
+            this.groupControl1.Controls.Add(this.labelControl8);
+            this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.lblReceived);
+            this.groupControl1.Controls.Add(this.labelControl1);
+            this.groupControl1.Controls.Add(this.lblListCount);
+            this.groupControl1.Controls.Add(this.lblProductCount);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupControl1.Location = new System.Drawing.Point(199, 2);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.ShowCaption = false;
+            this.groupControl1.Size = new System.Drawing.Size(648, 43);
+            this.groupControl1.TabIndex = 29;
+            this.groupControl1.Text = "groupControl1";
+            // 
+            // labelControl6
+            // 
+            this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl6.Location = new System.Drawing.Point(7, 23);
+            this.labelControl6.Name = "labelControl6";
+            this.labelControl6.Size = new System.Drawing.Size(126, 16);
+            this.labelControl6.TabIndex = 25;
+            this.labelControl6.Text = "จำนวนที่ตรวจสอบแล้ว :";
+            // 
+            // lblNoReceived
+            // 
+            this.lblNoReceived.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoReceived.Location = new System.Drawing.Point(372, 23);
+            this.lblNoReceived.Name = "lblNoReceived";
+            this.lblNoReceived.Size = new System.Drawing.Size(27, 16);
+            this.lblNoReceived.TabIndex = 28;
+            this.lblNoReceived.Text = "0 ชิ้น";
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl8.Location = new System.Drawing.Point(233, 23);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(133, 16);
+            this.labelControl8.TabIndex = 27;
+            this.labelControl8.Text = "จำนวนที่ยังไม่ตรวจสอบ :";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Location = new System.Drawing.Point(485, 4);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(84, 16);
+            this.labelControl2.TabIndex = 19;
+            this.labelControl2.Text = "จำนวนรายการ :";
+            // 
+            // lblReceived
+            // 
+            this.lblReceived.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReceived.Location = new System.Drawing.Point(139, 23);
+            this.lblReceived.Name = "lblReceived";
+            this.lblReceived.Size = new System.Drawing.Size(27, 16);
+            this.lblReceived.TabIndex = 26;
+            this.lblReceived.Text = "0 ชิ้น";
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Location = new System.Drawing.Point(456, 23);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(113, 16);
+            this.labelControl1.TabIndex = 20;
+            this.labelControl1.Text = "จำนวนสินค้าทั้งหมด :";
+            // 
+            // lblListCount
+            // 
+            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCount.Location = new System.Drawing.Point(575, 4);
+            this.lblListCount.Name = "lblListCount";
+            this.lblListCount.Size = new System.Drawing.Size(0, 16);
+            this.lblListCount.TabIndex = 22;
+            // 
+            // lblProductCount
+            // 
+            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductCount.Location = new System.Drawing.Point(575, 23);
+            this.lblProductCount.Name = "lblProductCount";
+            this.lblProductCount.Size = new System.Drawing.Size(27, 16);
+            this.lblProductCount.TabIndex = 23;
+            this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // panelControl8
+            // 
+            this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl8.Controls.Add(this.btnPrint);
+            this.panelControl8.Controls.Add(this.panelControl18);
+            this.panelControl8.Controls.Add(this.panelControl20);
+            this.panelControl8.Controls.Add(this.panelControl19);
+            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl8.Location = new System.Drawing.Point(2, 2);
+            this.panelControl8.Name = "panelControl8";
+            this.panelControl8.Size = new System.Drawing.Size(191, 43);
+            this.panelControl8.TabIndex = 30;
             // 
             // UcStock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.stockGridControl);
+            this.Controls.Add(this.panelControl17);
             this.Controls.Add(this.panelControl7);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcStock";
-            this.Size = new System.Drawing.Size(984, 545);
+            this.Size = new System.Drawing.Size(1086, 545);
             this.Load += new System.EventHandler(this.UcStock_Load);
             ((System.ComponentModel.ISupportInitialize)(this.stockGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockGridView)).EndInit();
@@ -484,6 +661,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
+            this.panelControl17.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
+            this.panelControl8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -517,5 +704,20 @@
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.SimpleButton btnNewCount;
         private DevExpress.XtraEditors.PanelControl panelControl7;
+        private DevExpress.XtraEditors.PanelControl panelControl17;
+        private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraEditors.PanelControl panelControl20;
+        private DevExpress.XtraEditors.PanelControl panelControl19;
+        private DevExpress.XtraEditors.PanelControl panelControl18;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.LabelControl lblNoReceived;
+        private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl lblReceived;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl lblListCount;
+        private DevExpress.XtraEditors.LabelControl lblProductCount;
+        private DevExpress.XtraEditors.PanelControl panelControl8;
     }
 }

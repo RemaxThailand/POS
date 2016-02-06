@@ -13,6 +13,7 @@ using System.Threading;
 using System.Globalization;
 using System.IO;
 using System.Drawing.Imaging;
+using ThaiNationalIDCard;
 
 namespace PowerPOS
 {
@@ -94,9 +95,29 @@ namespace PowerPOS
                 cbbDistrictS.SelectedItem = row["ShopDistrict"].ToString();
                 txtZipCodeS.Text = row["ShopZipcode"].ToString();
                 cbxSameAddress.Checked = row["ShopSameAddress"].ToString() == "True";
-                cbbSellPrice.SelectedItem = row["SellPrice"].ToString() == "0" ? "0" : "ส่ง " + row["SellPrice"].ToString();
+                cbbSellPrice.SelectedIndex = 2;//cbbSellPrice.Properties.GetKeyValueByDisplayText( (row["SellPrice"].ToString() == "0" ? 0 : int.Parse(row["SellPrice"].ToString()));
                 cbbCredit.SelectedItem = row["Credit"].ToString() + " วัน";
+
+                //เรียกรูปจาก Folder Resources/Images/Customer/ เพื่อแสดงที่ PictureBox
+                var filename = @"Resources/Images/Customer/" + row["CitizenID"].ToString() + ".jpg";
+                try { ptbPhoto.Image = Image.FromFile(filename); }
+                catch
+                {
+                    //if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                    //{
+                    //    DownloadImage(@"Resources/Images/Customer/", @"Resources/Images/Customer/", row["CitizenID"].ToString() + ".jpg");
+                    //}
+                }
             }
+        }
+
+        private void DownloadImage(string url, string savePath, string fileName)
+        {
+            //ptbPhoto.Location = url;
+            ////ptbProduct.Image = Image.FromFile(url);
+            //DownloadImage d = new DownloadImage();
+            //Thread thread = new Thread(() => d.Download(url, savePath, fileName));
+            //thread.Start();
         }
 
         private void FmAddCustomer_Load(object sender, EventArgs e)
@@ -106,58 +127,60 @@ namespace PowerPOS
             cbbSellPrice.Properties.Items.Add("ปลีก");
             cbbSellPrice.Properties.Items.Add("ส่ง1");
             cbbSellPrice.Properties.Items.Add("ส่ง2");
+            cbbSellPrice.Properties.Items.Add("ส่ง3");
+            cbbSellPrice.Properties.Items.Add("ส่ง4");
             cbbSellPrice.SelectedIndex = 0;
         }
 
         private void btnSmartCard_Click(object sender, EventArgs e)
         {
-            //btnSmartCard.Enabled = false;
-            //ThaiIDCard idcard = new ThaiIDCard();
-            //Personal personal = idcard.readAll();
-            //Personal personal_photo = idcard.readAllPhoto();
+            btnSmartCard.Enabled = false;
+            ThaiIDCard idcard = new ThaiIDCard();
+            Personal personal = idcard.readAll();
+            Personal personal_photo = idcard.readAllPhoto();
 
-            //if (personal != null)
-            //{
-            //    btnSelectImage.Visible = false;
-            //    txtCitizenId.Text = personal.Citizenid;
-            //    txtName.Text = personal.Th_Firstname;
-            //    txtLastname.Text = personal.Th_Lastname;
+            if (personal != null)
+            {
+                btnSelectImage.Visible = false;
+                txtCitizenId.Text = personal.Citizenid;
+                txtName.Text = personal.Th_Firstname;
+                txtLastname.Text = personal.Th_Lastname;
 
-            //    rdbMan.Checked = personal.Sex == "1";
-            //    rdbWoman.Checked = personal.Sex != "1";
-            //    cbbProvince.SelectedItem = personal.addrProvince.Replace("จังหวัด", "");
-            //    //lblProvince.Text = personal.addrAmphur + " " + personal.addrProvince  personal.addrTambol;
+                rdbMan.Checked = personal.Sex == "1";
+                rdbWoman.Checked = personal.Sex != "1";
+                cbbProvince.SelectedItem = personal.addrProvince.Replace("จังหวัด", "");
+                //lblProvince.Text = personal.addrAmphur + " " + personal.addrProvince  personal.addrTambol;
 
-            //    string[] address = personal.Address.Replace(personal.addrTambol, "").Replace(personal.addrAmphur, "").Replace(personal.addrProvince, "").Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            //    StringBuilder sb = new StringBuilder(address[0]);
-            //    for (int i = 1; i < address.Length; i++)
-            //    {
-            //        sb.Append(" " + address[i]);
-            //    }
-            //    txtAddress1.Text = sb.ToString();
+                string[] address = personal.Address.Replace(personal.addrTambol, "").Replace(personal.addrAmphur, "").Replace(personal.addrProvince, "").Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                StringBuilder sb = new StringBuilder(address[0]);
+                for (int i = 1; i < address.Length; i++)
+                {
+                    sb.Append(" " + address[i]);
+                }
+                txtAddress1.Text = sb.ToString();
 
-            //    txtSubDistrict.Text = personal.addrTambol.Replace("แขวง", "").Replace("ตำบล", "");
-            //    cbbDistrict.SelectedItem = personal.addrAmphur.Replace("เขต", "").Replace("อำเภอ", "");
+                txtSubDistrict.Text = personal.addrTambol.Replace("แขวง", "").Replace("ตำบล", "");
+                cbbDistrict.SelectedItem = personal.addrAmphur.Replace("เขต", "").Replace("อำเภอ", "");
 
-            //    //txtAddress.Text = personal.Address.Replace(personal.addrTambol, "").Replace(personal.addrAmphur, "").Replace(personal.addrProvince, "").Trim();
-            //    //txtSubDistrict.Text = personal.addrTambol;
-            //    //dtBirthday.Value = personal.Birthday;
-            //    //dtIssue.Value = personal.Issue;
-            //    //dtExpire.Value = personal.Expire;
-            //    _PHOTO = personal_photo.PhotoBitmap;
-            //    ptbPhoto.Image = personal_photo.PhotoBitmap;
+                //txtAddress.Text = personal.Address.Replace(personal.addrTambol, "").Replace(personal.addrAmphur, "").Replace(personal.addrProvince, "").Trim();
+                //txtSubDistrict.Text = personal.addrTambol;
+                //dtBirthday.Value = personal.Birthday;
+                //dtIssue.Value = personal.Issue;
+                //dtExpire.Value = personal.Expire;
+                _PHOTO = personal_photo.PhotoBitmap;
+                ptbPhoto.Image = personal_photo.PhotoBitmap;
 
-            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
-            //    dtpBarthday.Text = personal.Birthday.ToString("d MMMM yyyy");
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
+                dtpBarthday.Text = personal.Birthday.ToString("d MMMM yyyy");
 
-            //    LoadCustomerData(sender, e, "CitizenID", txtCitizenId.Text.Trim());
-            //}
-            //else
-            //{
-            //    MessageBox.Show("ไม่สามารถอ่านข้อมูลได้\nกรุณาติดตั้งเครื่องอ่าน Smart Card ให้เรียบร้อย\nแล้วลองใหม่อีกครั้ง", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+                LoadCustomerData(sender, e, "CitizenID", txtCitizenId.Text.Trim());
+            }
+            else
+            {
+                MessageBox.Show("ไม่สามารถอ่านข้อมูลได้\nกรุณาติดตั้งเครื่องอ่าน Smart Card ให้เรียบร้อย\nแล้วลองใหม่อีกครั้ง", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            //btnSmartCard.Enabled = true;
+            btnSmartCard.Enabled = true;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -181,12 +204,14 @@ namespace PowerPOS
                 {
                     var column = "Mobile";
                     var data = txtMobile.Text.Trim();
+                    var firstname = txtName.Text.Trim();
+                    var lastname = txtLastname.Text.Trim();
                     if (txtCitizenId.Text.Trim() != "" && txtCitizenId.Text.Trim().Length == 13)
                     {
                         column = "CitizenID";
                         data = txtCitizenId.Text.Trim();
                     }
-                    DataTable dt = Util.DBQuery(@"SELECT COUNT(*) cnt FROM Customer WHERE " + column + " = '" + data + "'");
+                    DataTable dt = Util.DBQuery(@"SELECT COUNT(*) cnt FROM Customer WHERE " + column + " = '" + data + "' OR (firstname = '" + firstname + "' AND lastname = '" + lastname + "')");
                     insert = dt.Rows[0]["cnt"].ToString() == "0";
                     if (!insert)
                     {
@@ -195,8 +220,8 @@ namespace PowerPOS
                         CitizenID = '{5}', CardNo = '{6}', Mobile = '{7}', Email = '{8}', Address = '{9}', Address2 = '{10}', SubDistrict = '{11}', District = '{12}', Province = '{13}', Zipcode = '{14}',
                         ShopName = '{15}', ShopSameAddress = {16}, ShopAddress = '{17}', ShopAddress2 = '{18}', ShopSubDistrict = '{19}', ShopDistrict = '{20}', ShopProvince = '{21}', ShopZipcode = '{22}',
                         UpdateDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), UpdateBy = '{23}', SellPrice = {24}, Credit = {25}, Sync = 1
-                        WHERE Mobile = '{7}'",
-                            txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), (rdbMan.Checked) ? "M" : ((rdbWoman.Checked) ? "F" : "null"), dtpBarthday.Value.ToString("yyyy-MM-dd"),
+                        WHERE Mobile = '{7}' OR (firstname = '{26}' AND lastname = '{27}')",
+                            txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), (rdbMan.Checked) ? "M" : ((rdbWoman.Checked) ? "F" : "null"), dtpBarthday.Value,
                             txtCitizenId.Text.Trim(), txtCardId.Text.Trim(), txtMobile.Text.Trim(), txtEmail.Text.Trim(), txtAddress1.Text.Trim(), txtAddress2.Text.Trim(),
                             txtSubDistrict.Text.Trim(),
                             cbbDistrict.SelectedItem == null ? "" : cbbDistrict.SelectedItem.ToString(),
@@ -205,7 +230,7 @@ namespace PowerPOS
                             cbbDistrictS.SelectedItem == null ? "" : cbbDistrictS.SelectedItem.ToString(),
                             cbbProvinceS.SelectedItem.ToString() == "จังหวัด" ? "" : cbbProvinceS.SelectedItem.ToString(), txtZipCodeS.Text.Trim(), Param.UserId,
                             cbbSellPrice.SelectedItem.ToString().Replace("ปลีก", "0").Replace("ส่ง", ""),
-                            cbbCredit.SelectedItem.ToString().Replace(" วัน", "")
+                            cbbCredit.SelectedItem.ToString().Replace(" วัน", ""),firstname,lastname
                         ));
                     }
                 }
@@ -216,16 +241,16 @@ namespace PowerPOS
                     Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                     Util.DBExecute(string.Format(@"INSERT INTO Customer (Customer, Sex, Birthday, 
                     CitizenID, CardNo, Mobile, Firstname, Lastname, Nickname, Email, Address, Address2, SubDistrict, District, Province, Zipcode,
-                    ShopName, ShopSameAddress, ShopAddress, ShopAddress2, ShopSubDistrict, ShopDistrict, ShopProvince, ShopZipcode, AddDate, AddBy, SellPrice, Credit, Sync) VALUES (
+                    ShopName, ShopSameAddress, ShopAddress, ShopAddress2, ShopSubDistrict, ShopDistrict, ShopProvince, ShopZipcode, AddDate, AddBy, SellPrice, Credit, Sync, Shop) VALUES (
                     (   SELECT IFNULL('{24}'||SUBSTR('000000'||(SUBSTR(MAX(Customer), 2, 6)+1), -6, 6), '{24}000001') Customer
                         FROM Customer
                         WHERE SUBSTR(customer, 1, 1) = '{24}'),
-                    '{0}', '{1}', '{2}', '{3}', '{4}',
+                    '{0}',  STRFTIME('%Y-%m-%d %H:%M:%S', '{1}'),'{2}', '{3}', '{4}',
                     '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}',
-                    '{15}', {16}, '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{23}', {25}, {26}, 1)",
+                    '{15}', {16}, '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{23}', {25}, {26}, 1, '{27}')",
                         (rdbMan.Checked) ? "M" : ((rdbWoman.Checked) ? "F" : "null"),
-                        dtpBarthday.Value.ToString("yyyy-MM-dd") == DateTime.Now.ToString("yyyy-MM-dd") ? "" : dtpBarthday.Value.ToString("yyyy-MM-dd"),
-                        txtCitizenId.Text.Trim(), txtCardId.Text.Trim(), txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), txtMobile.Text.Trim(), txtEmail.Text.Trim(), txtAddress1.Text.Trim(), txtAddress2.Text.Trim(),
+                        dtpBarthday.Value.ToString("yyyy-MM-dd HH:mm:ss") == DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") ? "" : dtpBarthday.Value.ToString("yyyy-MM-dd HH:mm:ss"),
+                        txtCitizenId.Text.Trim(), txtCardId.Text.Trim(), txtMobile.Text.Trim(), txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), txtEmail.Text.Trim(), txtAddress1.Text.Trim(), txtAddress2.Text.Trim(),
                         txtSubDistrict.Text.Trim(),
                         cbbDistrict.SelectedItem == null ? "" : cbbDistrict.SelectedItem.ToString(),
                         cbbProvince.SelectedItem.ToString() == "จังหวัด" ? "" : cbbProvince.SelectedItem.ToString(), txtZipCode.Text.Trim(),
@@ -233,23 +258,27 @@ namespace PowerPOS
                         cbbDistrictS.SelectedItem == null ? "" : cbbDistrictS.SelectedItem.ToString(),
                         cbbProvinceS.SelectedItem.ToString() == "จังหวัด" ? "" : cbbProvinceS.SelectedItem.ToString(), txtZipCodeS.Text.Trim(), Param.UserId, Param.DevicePrefix,
                         cbbSellPrice.SelectedItem.ToString().Replace("ปลีก", "0").Replace("ส่ง", ""),
-                        cbbCredit.SelectedItem.ToString().Replace(" วัน", "")
+                        cbbCredit.SelectedItem.ToString().Replace(" วัน", ""), Param.ShopId
                     ));
 
                 }
 
-                if (_PHOTO != null)
+                var filename = @"Resources/Images/Customer/" + txtCitizenId.Text.Trim() + ".jpg";
+                if (!File.Exists(filename))
                 {
-                    string path = Directory.GetCurrentDirectory();
-                    //if (!Directory.Exists(path + @"/Resources")) Directory.CreateDirectory(path + "/Resources");
-                    //if (!Directory.Exists(path + @"/Resources/Images")) Directory.CreateDirectory(path + @"/Resources/Images");
-                    if (!Directory.Exists(path + @"/Resources/Images/Customer")) Directory.CreateDirectory(path + @"/Resources/Images/Customer");
-                    using (Bitmap tempImage = new Bitmap(_PHOTO))
+                    if (_PHOTO != null)
                     {
-                        var name = path + @"/Resources/Images/Customer/" + txtCitizenId.Text.Trim() + ".jpg";
-                        if (File.Exists(name))
-                            File.Delete(name);
-                        tempImage.Save(name, ImageFormat.Jpeg);
+                        string path = Directory.GetCurrentDirectory();
+                        //if (!Directory.Exists(path + @"/Resources")) Directory.CreateDirectory(path + "/Resources");
+                        //if (!Directory.Exists(path + @"/Resources/Images")) Directory.CreateDirectory(path + @"/Resources/Images");
+                        if (!Directory.Exists(path + @"/Resources/Images/Customer")) Directory.CreateDirectory(path + @"/Resources/Images/Customer");
+                        using (Bitmap tempImage = new Bitmap(_PHOTO))
+                        {
+                            var name = path + @"/Resources/Images/Customer/" + txtCitizenId.Text.Trim() + ".jpg";
+                            if (File.Exists(name))
+                                File.Delete(name);
+                            tempImage.Save(name, ImageFormat.Jpeg);
+                        }
                     }
                 }
                 this.DialogResult = DialogResult.OK;

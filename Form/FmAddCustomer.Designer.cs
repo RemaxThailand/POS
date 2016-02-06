@@ -350,7 +350,7 @@
             this.btnSelectImage.Appearance.Options.UseFont = true;
             this.btnSelectImage.Location = new System.Drawing.Point(20, 170);
             this.btnSelectImage.Name = "btnSelectImage";
-            this.btnSelectImage.Size = new System.Drawing.Size(131, 23);
+            this.btnSelectImage.Size = new System.Drawing.Size(139, 23);
             this.btnSelectImage.TabIndex = 22;
             this.btnSelectImage.Text = "เลือกภาพถ่าย";
             this.btnSelectImage.Visible = false;
@@ -361,7 +361,7 @@
             this.ptbPhoto.Name = "ptbPhoto";
             this.ptbPhoto.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.ptbPhoto.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.ptbPhoto.Size = new System.Drawing.Size(130, 160);
+            this.ptbPhoto.Size = new System.Drawing.Size(138, 160);
             this.ptbPhoto.TabIndex = 21;
             // 
             // xtraTabPage2
@@ -698,6 +698,7 @@
             this.cbbDcPercent.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbbDcPercent.Size = new System.Drawing.Size(91, 22);
             this.cbbDcPercent.TabIndex = 56;
+            this.cbbDcPercent.Visible = false;
             this.cbbDcPercent.SelectedIndexChanged += new System.EventHandler(this.CheckInputData);
             // 
             // labelControl23
@@ -708,6 +709,7 @@
             this.labelControl23.Size = new System.Drawing.Size(102, 16);
             this.labelControl23.TabIndex = 55;
             this.labelControl23.Text = "เปอร์เซ็นต์ส่วนลด :";
+            this.labelControl23.Visible = false;
             // 
             // cbbSellPrice
             // 

@@ -74,7 +74,7 @@
             this.clWebPrice4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pnlPrice = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.grbPrice = new DevExpress.XtraEditors.GroupControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.txtPercent4 = new DevExpress.XtraEditors.TextEdit();
@@ -105,6 +105,14 @@
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTotal = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.lblListCount = new DevExpress.XtraEditors.LabelControl();
+            this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent2.Properties)).BeginInit();
@@ -124,8 +132,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.productGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlPrice)).BeginInit();
             this.pnlPrice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grbPrice)).BeginInit();
+            this.grbPrice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent4.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice4.Properties)).BeginInit();
@@ -147,6 +155,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
+            this.panelControl6.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl4
@@ -417,7 +429,7 @@
             this.productGridControl.Location = new System.Drawing.Point(258, 150);
             this.productGridControl.MainView = this.productGridview;
             this.productGridControl.Name = "productGridControl";
-            this.productGridControl.Size = new System.Drawing.Size(937, 377);
+            this.productGridControl.Size = new System.Drawing.Size(937, 436);
             this.productGridControl.TabIndex = 6;
             this.productGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.productGridview});
@@ -761,7 +773,7 @@
             // 
             // pnlPrice
             // 
-            this.pnlPrice.Controls.Add(this.groupControl2);
+            this.pnlPrice.Controls.Add(this.grbPrice);
             this.pnlPrice.Controls.Add(this.panelControl3);
             this.pnlPrice.Controls.Add(this.panelControl2);
             this.pnlPrice.Dock = System.Windows.Forms.DockStyle.Top;
@@ -771,42 +783,42 @@
             this.pnlPrice.TabIndex = 5;
             this.pnlPrice.Visible = false;
             // 
-            // groupControl2
+            // grbPrice
             // 
-            this.groupControl2.Controls.Add(this.labelControl7);
-            this.groupControl2.Controls.Add(this.labelControl10);
-            this.groupControl2.Controls.Add(this.txtPercent4);
-            this.groupControl2.Controls.Add(this.txtPercent3);
-            this.groupControl2.Controls.Add(this.nudPrice4);
-            this.groupControl2.Controls.Add(this.nudPrice3);
-            this.groupControl2.Controls.Add(this.txtPrice4);
-            this.groupControl2.Controls.Add(this.txtPrice3);
-            this.groupControl2.Controls.Add(this.btnUsePercentPrice);
-            this.groupControl2.Controls.Add(this.btnUseWebPrice);
-            this.groupControl2.Controls.Add(this.btnConfig);
-            this.groupControl2.Controls.Add(this.btnSave);
-            this.groupControl2.Controls.Add(this.labelControl6);
-            this.groupControl2.Controls.Add(this.labelControl5);
-            this.groupControl2.Controls.Add(this.labelControl4);
-            this.groupControl2.Controls.Add(this.panelControl4);
-            this.groupControl2.Controls.Add(this.txtPercent2);
-            this.groupControl2.Controls.Add(this.txtPercent1);
-            this.groupControl2.Controls.Add(this.txtPercent);
-            this.groupControl2.Controls.Add(this.nudPrice2);
-            this.groupControl2.Controls.Add(this.nudPrice1);
-            this.groupControl2.Controls.Add(this.nudPrice);
-            this.groupControl2.Controls.Add(this.txtPrice2);
-            this.groupControl2.Controls.Add(this.txtPrice1);
-            this.groupControl2.Controls.Add(this.txtPrice);
-            this.groupControl2.Controls.Add(this.labelControl3);
-            this.groupControl2.Controls.Add(this.labelControl2);
-            this.groupControl2.Controls.Add(this.labelControl1);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupControl2.Location = new System.Drawing.Point(153, 2);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(751, 146);
-            this.groupControl2.TabIndex = 1;
-            this.groupControl2.Text = "ราคาขาย";
+            this.grbPrice.Controls.Add(this.labelControl7);
+            this.grbPrice.Controls.Add(this.labelControl10);
+            this.grbPrice.Controls.Add(this.txtPercent4);
+            this.grbPrice.Controls.Add(this.txtPercent3);
+            this.grbPrice.Controls.Add(this.nudPrice4);
+            this.grbPrice.Controls.Add(this.nudPrice3);
+            this.grbPrice.Controls.Add(this.txtPrice4);
+            this.grbPrice.Controls.Add(this.txtPrice3);
+            this.grbPrice.Controls.Add(this.btnUsePercentPrice);
+            this.grbPrice.Controls.Add(this.btnUseWebPrice);
+            this.grbPrice.Controls.Add(this.btnConfig);
+            this.grbPrice.Controls.Add(this.btnSave);
+            this.grbPrice.Controls.Add(this.labelControl6);
+            this.grbPrice.Controls.Add(this.labelControl5);
+            this.grbPrice.Controls.Add(this.labelControl4);
+            this.grbPrice.Controls.Add(this.panelControl4);
+            this.grbPrice.Controls.Add(this.txtPercent2);
+            this.grbPrice.Controls.Add(this.txtPercent1);
+            this.grbPrice.Controls.Add(this.txtPercent);
+            this.grbPrice.Controls.Add(this.nudPrice2);
+            this.grbPrice.Controls.Add(this.nudPrice1);
+            this.grbPrice.Controls.Add(this.nudPrice);
+            this.grbPrice.Controls.Add(this.txtPrice2);
+            this.grbPrice.Controls.Add(this.txtPrice1);
+            this.grbPrice.Controls.Add(this.txtPrice);
+            this.grbPrice.Controls.Add(this.labelControl3);
+            this.grbPrice.Controls.Add(this.labelControl2);
+            this.grbPrice.Controls.Add(this.labelControl1);
+            this.grbPrice.Dock = System.Windows.Forms.DockStyle.Left;
+            this.grbPrice.Location = new System.Drawing.Point(153, 2);
+            this.grbPrice.Name = "grbPrice";
+            this.grbPrice.Size = new System.Drawing.Size(751, 146);
+            this.grbPrice.TabIndex = 1;
+            this.grbPrice.Text = "ราคาขาย";
             // 
             // labelControl7
             // 
@@ -1023,7 +1035,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl5.Location = new System.Drawing.Point(1195, 0);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(10, 527);
+            this.panelControl5.Size = new System.Drawing.Size(10, 606);
             this.panelControl5.TabIndex = 7;
             // 
             // navBarControl1
@@ -1040,7 +1052,7 @@
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 248;
             this.navBarControl1.OptionsNavPane.ShowOverflowPanel = false;
             this.navBarControl1.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-            this.navBarControl1.Size = new System.Drawing.Size(248, 527);
+            this.navBarControl1.Size = new System.Drawing.Size(248, 606);
             this.navBarControl1.TabIndex = 8;
             this.navBarControl1.Text = "navBarControl1";
             // 
@@ -1062,7 +1074,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl1);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(248, 441);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(248, 520);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl1
@@ -1075,7 +1087,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl1.Size = new System.Drawing.Size(248, 441);
+            this.panelControl1.Size = new System.Drawing.Size(248, 520);
             this.panelControl1.TabIndex = 0;
             // 
             // gbOrderNo
@@ -1175,20 +1187,104 @@
             this.panelControl13.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl13.Location = new System.Drawing.Point(248, 0);
             this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(10, 527);
+            this.panelControl13.Size = new System.Drawing.Size(10, 606);
             this.panelControl13.TabIndex = 9;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl1.Controls.Add(this.labelControl11);
+            this.groupControl1.Controls.Add(this.lblTotal);
+            this.groupControl1.Controls.Add(this.labelControl13);
+            this.groupControl1.Controls.Add(this.labelControl14);
+            this.groupControl1.Controls.Add(this.lblListCount);
+            this.groupControl1.Controls.Add(this.lblProductCount);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupControl1.Location = new System.Drawing.Point(183, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.ShowCaption = false;
+            this.groupControl1.Size = new System.Drawing.Size(754, 20);
+            this.groupControl1.TabIndex = 30;
+            this.groupControl1.Text = "groupControl1";
+            // 
+            // labelControl11
+            // 
+            this.labelControl11.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl11.Location = new System.Drawing.Point(537, 3);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(108, 16);
+            this.labelControl11.TabIndex = 24;
+            this.labelControl11.Text = "มูลค่าสินค้าทั้งหมด :";
+            this.labelControl11.Visible = false;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Location = new System.Drawing.Point(656, 3);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(34, 16);
+            this.lblTotal.TabIndex = 25;
+            this.lblTotal.Text = "0 บาท";
+            this.lblTotal.Visible = false;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Location = new System.Drawing.Point(132, 3);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(84, 16);
+            this.labelControl13.TabIndex = 19;
+            this.labelControl13.Text = "จำนวนรายการ :";
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl14.Location = new System.Drawing.Point(340, 3);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(113, 16);
+            this.labelControl14.TabIndex = 20;
+            this.labelControl14.Text = "จำนวนสินค้าทั้งหมด :";
+            // 
+            // lblListCount
+            // 
+            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCount.Location = new System.Drawing.Point(222, 3);
+            this.lblListCount.Name = "lblListCount";
+            this.lblListCount.Size = new System.Drawing.Size(51, 16);
+            this.lblListCount.TabIndex = 22;
+            this.lblListCount.Text = "0 รายการ";
+            // 
+            // lblProductCount
+            // 
+            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductCount.Location = new System.Drawing.Point(459, 3);
+            this.lblProductCount.Name = "lblProductCount";
+            this.lblProductCount.Size = new System.Drawing.Size(27, 16);
+            this.lblProductCount.TabIndex = 23;
+            this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // panelControl6
+            // 
+            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl6.Controls.Add(this.groupControl1);
+            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl6.Location = new System.Drawing.Point(258, 586);
+            this.panelControl6.Name = "panelControl6";
+            this.panelControl6.Size = new System.Drawing.Size(937, 20);
+            this.panelControl6.TabIndex = 31;
             // 
             // UcProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.productGridControl);
+            this.Controls.Add(this.panelControl6);
             this.Controls.Add(this.pnlPrice);
             this.Controls.Add(this.panelControl5);
             this.Controls.Add(this.panelControl13);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcProduct";
-            this.Size = new System.Drawing.Size(1205, 527);
+            this.Size = new System.Drawing.Size(1205, 606);
             this.Load += new System.EventHandler(this.UcProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
@@ -1210,9 +1306,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.productGridview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pnlPrice)).EndInit();
             this.pnlPrice.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            this.groupControl2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grbPrice)).EndInit();
+            this.grbPrice.ResumeLayout(false);
+            this.grbPrice.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent4.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice4.Properties)).EndInit();
@@ -1234,6 +1330,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
+            this.panelControl6.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1261,7 +1362,7 @@
         private DevExpress.XtraGrid.GridControl productGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView productGridview;
         private DevExpress.XtraEditors.PanelControl pnlPrice;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.GroupControl grbPrice;
         private DevExpress.XtraEditors.SimpleButton btnUsePercentPrice;
         private DevExpress.XtraEditors.SimpleButton btnUseWebPrice;
         private DevExpress.XtraEditors.SimpleButton btnConfig;
@@ -1316,5 +1417,13 @@
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.TextEdit txtSearch;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl11;
+        private DevExpress.XtraEditors.LabelControl lblTotal;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.LabelControl labelControl14;
+        private DevExpress.XtraEditors.LabelControl lblListCount;
+        private DevExpress.XtraEditors.LabelControl lblProductCount;
+        private DevExpress.XtraEditors.PanelControl panelControl6;
     }
 }

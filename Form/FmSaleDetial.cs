@@ -25,21 +25,34 @@ namespace PowerPOS
 
         private void FmSaleDetial_Load(object sender, EventArgs e)
         {
-            _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT p.Product, p.Name, p.Price{2} Price, b.ProductCount, sd.SellPrice, sh.SellNo, sh.SellDate, sh.TotalPrice, c.Firstname, c.Lastname
-                    FROM (SELECT Product, COUNT(*) ProductCount,SellNo FROM Barcode WHERE SellBy = '{0}' AND SellNo = '{3}' GROUP BY Product,SellNo) b 
+            //_TABLE_SALE = Util.DBQuery(string.Format(@"SELECT p.Product, p.Name, p.Price{2} Price, b.ProductCount, sd.SellPrice, sh.SellNo, sh.SellDate, sh.TotalPrice, c.Firstname||' '||c.Lastname name
+            //        FROM (SELECT Product, COUNT(*) ProductCount,SellNo FROM Barcode WHERE SellBy = '{0}' AND SellNo = '{3}' GROUP BY Product,SellNo) b 
+            //            LEFT JOIN Product p 
+            //            ON b.Product = p.Product
+            //            LEFT JOIN SellDetail sd
+            //            ON b.Product = sd.Product
+            //            LEFT JOIN SellHeader sh
+            //            ON sd.SellNo = sh.SellNo
+            //            LEFT JOIN Customer c
+            //            ON sh.Customer = c.Customer
+            //        WHERE p.Shop = '{1}' AND sd.SellNo = '{3}'
+            //        GROUP BY b.Product,b.SellNo", Param.UserId, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, UcReport.sellNo));
+
+            _TABLE_SALE = Util.DBQuery(string.Format(@"
+                    SELECT p.Product , p.Name, sd.Quantity, sd.SellPrice, sh.SellNo, sh.SellDate, sh.TotalPrice, c.Firstname||' '||c.Lastname customer
+                     FROM  SellDetail sd
                         LEFT JOIN Product p 
-                        ON b.Product = p.Product
-                        LEFT JOIN SellDetail sd
-                        ON b.Product = sd.Product
-                        LEFT JOIN SellHeader sh
+                        ON sd.Product = p.Product 
+                         LEFT JOIN SellHeader sh
                         ON sd.SellNo = sh.SellNo
                         LEFT JOIN Customer c
-                        ON sh.Customer = c.Customer
-                    WHERE p.Shop = '{1}' AND sd.SellNo = '{3}'
-                    GROUP BY b.Product,b.SellNo", Param.UserId, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, UcReport.sellNo));
+                        ON sh.Customer = c.Customer 
+                    WHERE sd.SellNo = '{0}'", UcReport.sellNo));
 
+            if(_TABLE_SALE.Rows.Count > 0)
+            { 
             //var sumPrice = 0;
-            lblCustomer.Text = _TABLE_SALE.Rows[0]["Firstname"].ToString() + " " + _TABLE_SALE.Rows[0]["Lastname"].ToString();
+            lblCustomer.Text = _TABLE_SALE.Rows[0]["customer"].ToString();
             lblSellDate.Text = Convert.ToDateTime(_TABLE_SALE.Rows[0]["SellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
             lblSellNo.Text = _TABLE_SALE.Rows[0]["SellNo"].ToString();
             lblTotal.Text = double.Parse(_TABLE_SALE.Rows[0]["TotalPrice"].ToString()).ToString("#,##0.00");
@@ -53,22 +66,23 @@ namespace PowerPOS
                 dt.Columns.Add(saleGridView.Columns[i].FieldName);
             }
 
-            if (_TABLE_SALE.Rows.Count > 0)
-            {
-                for (a = 0; a < _TABLE_SALE.Rows.Count; a++)
+                if (_TABLE_SALE.Rows.Count > 0)
                 {
-                    var total = int.Parse(_TABLE_SALE.Rows[a]["SellPrice"].ToString()) / int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString());
-                    row = dt.NewRow();
-                    row[0] = (a + 1) * 1;
-                    row[1] = _TABLE_SALE.Rows[a]["Product"].ToString();
-                    row[2] = _TABLE_SALE.Rows[a]["Name"].ToString();
-                    row[3] = total;
-                    row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["ProductCount"].ToString()).ToString("#,##0");
-                    row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["SellPrice"].ToString()).ToString("#,##0");
-                    dt.Rows.Add(row);
-                }
+                    for (a = 0; a < _TABLE_SALE.Rows.Count; a++)
+                    {
+                        var total = int.Parse(_TABLE_SALE.Rows[a]["SellPrice"].ToString()) / int.Parse(_TABLE_SALE.Rows[a]["Quantity"].ToString());
+                        row = dt.NewRow();
+                        row[0] = (a + 1) * 1;
+                        row[1] = _TABLE_SALE.Rows[a]["Product"].ToString();
+                        row[2] = _TABLE_SALE.Rows[a]["Name"].ToString();
+                        row[3] = total;
+                        row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Quantity"].ToString()).ToString("#,##0");
+                        row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["SellPrice"].ToString()).ToString("#,##0");
+                        dt.Rows.Add(row);
+                    }
 
-                saleGridControl.DataSource = dt;
+                    saleGridControl.DataSource = dt;
+                }
                 //table1.BeginUpdate();
                 //tableModel1.Rows.Clear();
                 //tableModel1.RowHeight = 22;

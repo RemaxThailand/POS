@@ -41,7 +41,22 @@
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
+            this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
+            this.ptbProduct = new System.Windows.Forms.PictureBox();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
+            this.btnReturn = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.lblWarranty = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
+            this.lblStatusReturn = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
+            this.txtBarcodeReturn = new DevExpress.XtraEditors.TextEdit();
+            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl12 = new DevExpress.XtraEditors.PanelControl();
@@ -73,21 +88,6 @@
             this.lblPrice = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
-            this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
-            this.ptbProduct = new System.Windows.Forms.PictureBox();
-            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
-            this.btnReturn = new DevExpress.XtraEditors.SimpleButton();
-            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.lblWarranty = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
-            this.lblStatusReturn = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
-            this.txtBarcodeReturn = new DevExpress.XtraEditors.TextEdit();
-            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.navBarGroupControlContainer3 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -101,15 +101,27 @@
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl29 = new DevExpress.XtraEditors.PanelControl();
+            this.lblListCount = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl32 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl28 = new DevExpress.XtraEditors.PanelControl();
+            this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl30 = new DevExpress.XtraEditors.PanelControl();
             this.returnGridControl = new DevExpress.XtraGrid.GridControl();
             this.returnGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.clNoRe = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSaleDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clCustomer = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clProductName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSalePrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -118,6 +130,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
+            this.navBarGroupControlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
+            this.panelControl13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
@@ -134,18 +158,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
-            this.navBarGroupControlContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
-            this.panelControl13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             this.navBarGroupControlContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             this.panelControl11.SuspendLayout();
@@ -158,6 +170,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
+            this.panelControl27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl29)).BeginInit();
+            this.panelControl29.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl32)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).BeginInit();
+            this.panelControl28.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
@@ -172,10 +196,11 @@
             this.productGridControl.Location = new System.Drawing.Point(2, 2);
             this.productGridControl.MainView = this.productGridView;
             this.productGridControl.Name = "productGridControl";
-            this.productGridControl.Size = new System.Drawing.Size(688, 713);
+            this.productGridControl.Size = new System.Drawing.Size(880, 688);
             this.productGridControl.TabIndex = 0;
             this.productGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.productGridView});
+            this.productGridControl.EditorKeyDown += new System.Windows.Forms.KeyEventHandler(this.productGridControl_EditorKeyDown);
             // 
             // productGridView
             // 
@@ -193,14 +218,15 @@
             this.productGridView.GridControl = this.productGridControl;
             this.productGridView.Name = "productGridView";
             this.productGridView.OptionsView.ShowGroupPanel = false;
+            this.productGridView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.productGridView_CellValueChanged);
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceCell.Options.UseFont = true;
             this.clNo.AppearanceCell.Options.UseTextOptions = true;
             this.clNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -217,9 +243,9 @@
             // 
             // clProduct
             // 
-            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceCell.Options.UseFont = true;
-            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceHeader.Options.UseFont = true;
             this.clProduct.AppearanceHeader.Options.UseTextOptions = true;
             this.clProduct.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -235,9 +261,9 @@
             // 
             // clName
             // 
-            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceCell.Options.UseFont = true;
-            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceHeader.Options.UseFont = true;
             this.clName.AppearanceHeader.Options.UseTextOptions = true;
             this.clName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -252,18 +278,17 @@
             // 
             // clPrice
             // 
-            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceCell.Options.UseFont = true;
             this.clPrice.AppearanceCell.Options.UseTextOptions = true;
             this.clPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceHeader.Options.UseFont = true;
             this.clPrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clPrice.Caption = "ราคา";
             this.clPrice.FieldName = "Price";
             this.clPrice.Name = "clPrice";
-            this.clPrice.OptionsColumn.AllowEdit = false;
             this.clPrice.OptionsColumn.AllowMove = false;
             this.clPrice.OptionsColumn.FixedWidth = true;
             this.clPrice.Visible = true;
@@ -272,11 +297,11 @@
             // 
             // clQty
             // 
-            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQty.AppearanceCell.Options.UseFont = true;
             this.clQty.AppearanceCell.Options.UseTextOptions = true;
             this.clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQty.AppearanceHeader.Options.UseFont = true;
             this.clQty.AppearanceHeader.Options.UseTextOptions = true;
             this.clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -292,11 +317,11 @@
             // 
             // clTotal
             // 
-            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceCell.Options.UseFont = true;
             this.clTotal.AppearanceCell.Options.UseTextOptions = true;
             this.clTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceHeader.Options.UseFont = true;
             this.clTotal.AppearanceHeader.Options.UseTextOptions = true;
             this.clTotal.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -346,17 +371,185 @@
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "navBarControl1";
             // 
-            // navBarGroup1
+            // navBarGroup2
             // 
-            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.navBarGroup1.Appearance.Options.UseFont = true;
-            this.navBarGroup1.Caption = "ขายสินค้า";
-            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
-            this.navBarGroup1.Expanded = true;
-            this.navBarGroup1.GroupClientHeight = 80;
-            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
-            this.navBarGroup1.Name = "navBarGroup1";
+            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.navBarGroup2.Appearance.Options.UseFont = true;
+            this.navBarGroup2.Caption = "รับสินค้าคืน";
+            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.GroupClientHeight = 80;
+            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
+            this.navBarGroup2.Name = "navBarGroup2";
+            // 
+            // navBarGroupControlContainer1
+            // 
+            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
+            this.navBarGroupControlContainer1.Controls.Add(this.panelControl13);
+            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(227, 539);
+            this.navBarGroupControlContainer1.TabIndex = 0;
+            // 
+            // panelControl13
+            // 
+            this.panelControl13.Controls.Add(this.ptbProduct);
+            this.panelControl13.Controls.Add(this.panelControl21);
+            this.panelControl13.Controls.Add(this.panelControl20);
+            this.panelControl13.Controls.Add(this.panelControl18);
+            this.panelControl13.Controls.Add(this.btnReturn);
+            this.panelControl13.Controls.Add(this.panelControl19);
+            this.panelControl13.Controls.Add(this.lblWarranty);
+            this.panelControl13.Controls.Add(this.panelControl14);
+            this.panelControl13.Controls.Add(this.lblStatusReturn);
+            this.panelControl13.Controls.Add(this.panelControl15);
+            this.panelControl13.Controls.Add(this.txtBarcodeReturn);
+            this.panelControl13.Controls.Add(this.panelControl16);
+            this.panelControl13.Controls.Add(this.labelControl3);
+            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl13.Location = new System.Drawing.Point(0, 0);
+            this.panelControl13.Name = "panelControl13";
+            this.panelControl13.Size = new System.Drawing.Size(227, 539);
+            this.panelControl13.TabIndex = 0;
+            // 
+            // ptbProduct
+            // 
+            this.ptbProduct.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ptbProduct.Location = new System.Drawing.Point(12, 159);
+            this.ptbProduct.Name = "ptbProduct";
+            this.ptbProduct.Size = new System.Drawing.Size(203, 203);
+            this.ptbProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProduct.TabIndex = 26;
+            this.ptbProduct.TabStop = false;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl21.Location = new System.Drawing.Point(215, 159);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(10, 378);
+            this.panelControl21.TabIndex = 25;
+            // 
+            // panelControl20
+            // 
+            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl20.Location = new System.Drawing.Point(2, 159);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(10, 378);
+            this.panelControl20.TabIndex = 24;
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl18.Location = new System.Drawing.Point(2, 149);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(223, 10);
+            this.panelControl18.TabIndex = 23;
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReturn.Appearance.Options.UseFont = true;
+            this.btnReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReturn.Location = new System.Drawing.Point(2, 114);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(223, 35);
+            this.btnReturn.TabIndex = 21;
+            this.btnReturn.Text = "รับคืนสินค้า";
+            this.btnReturn.Visible = false;
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl19.Location = new System.Drawing.Point(2, 109);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(223, 5);
+            this.panelControl19.TabIndex = 22;
+            // 
+            // lblWarranty
+            // 
+            this.lblWarranty.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWarranty.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblWarranty.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblWarranty.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblWarranty.Location = new System.Drawing.Point(2, 83);
+            this.lblWarranty.Name = "lblWarranty";
+            this.lblWarranty.Size = new System.Drawing.Size(223, 26);
+            this.lblWarranty.TabIndex = 18;
+            this.lblWarranty.Text = "รับคืนภายใน 7 วัน (เหลืออีก 5 วัน)";
+            this.lblWarranty.Visible = false;
+            // 
+            // panelControl14
+            // 
+            this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl14.Location = new System.Drawing.Point(2, 78);
+            this.panelControl14.Name = "panelControl14";
+            this.panelControl14.Size = new System.Drawing.Size(223, 5);
+            this.panelControl14.TabIndex = 15;
+            // 
+            // lblStatusReturn
+            // 
+            this.lblStatusReturn.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblStatusReturn.Appearance.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblStatusReturn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblStatusReturn.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblStatusReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblStatusReturn.Location = new System.Drawing.Point(2, 53);
+            this.lblStatusReturn.Name = "lblStatusReturn";
+            this.lblStatusReturn.Size = new System.Drawing.Size(223, 25);
+            this.lblStatusReturn.TabIndex = 14;
+            this.lblStatusReturn.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
+            this.lblStatusReturn.Visible = false;
+            // 
+            // panelControl15
+            // 
+            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl15.Location = new System.Drawing.Point(2, 48);
+            this.panelControl15.Name = "panelControl15";
+            this.panelControl15.Size = new System.Drawing.Size(223, 5);
+            this.panelControl15.TabIndex = 13;
+            // 
+            // txtBarcodeReturn
+            // 
+            this.txtBarcodeReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtBarcodeReturn.EditValue = "";
+            this.txtBarcodeReturn.Location = new System.Drawing.Point(2, 20);
+            this.txtBarcodeReturn.Name = "txtBarcodeReturn";
+            this.txtBarcodeReturn.Properties.Appearance.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.txtBarcodeReturn.Properties.Appearance.Options.UseFont = true;
+            this.txtBarcodeReturn.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtBarcodeReturn.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtBarcodeReturn.Size = new System.Drawing.Size(223, 28);
+            this.txtBarcodeReturn.TabIndex = 12;
+            this.txtBarcodeReturn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeReturn_KeyDown);
+            // 
+            // panelControl16
+            // 
+            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl16.Location = new System.Drawing.Point(2, 15);
+            this.panelControl16.Name = "panelControl16";
+            this.panelControl16.Size = new System.Drawing.Size(223, 5);
+            this.panelControl16.TabIndex = 16;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
+            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl3.Location = new System.Drawing.Point(2, 2);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(223, 13);
+            this.labelControl3.TabIndex = 11;
+            this.labelControl3.Text = "บาร์โค้ด";
             // 
             // navBarGroupControlContainer2
             // 
@@ -665,7 +858,6 @@
             this.txtBarcode.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.txtBarcode.Size = new System.Drawing.Size(221, 28);
             this.txtBarcode.TabIndex = 6;
-            this.txtBarcode.TextChanged += new System.EventHandler(this.txtBarcode_TextChanged);
             this.txtBarcode.Enter += new System.EventHandler(this.txtBarcode_Enter);
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
             // 
@@ -746,175 +938,6 @@
             this.label3.Size = new System.Drawing.Size(29, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "ราคา";
-            // 
-            // navBarGroupControlContainer1
-            // 
-            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
-            this.navBarGroupControlContainer1.Controls.Add(this.panelControl13);
-            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(227, 539);
-            this.navBarGroupControlContainer1.TabIndex = 0;
-            // 
-            // panelControl13
-            // 
-            this.panelControl13.Controls.Add(this.ptbProduct);
-            this.panelControl13.Controls.Add(this.panelControl21);
-            this.panelControl13.Controls.Add(this.panelControl20);
-            this.panelControl13.Controls.Add(this.panelControl18);
-            this.panelControl13.Controls.Add(this.btnReturn);
-            this.panelControl13.Controls.Add(this.panelControl19);
-            this.panelControl13.Controls.Add(this.lblWarranty);
-            this.panelControl13.Controls.Add(this.panelControl14);
-            this.panelControl13.Controls.Add(this.lblStatusReturn);
-            this.panelControl13.Controls.Add(this.panelControl15);
-            this.panelControl13.Controls.Add(this.txtBarcodeReturn);
-            this.panelControl13.Controls.Add(this.panelControl16);
-            this.panelControl13.Controls.Add(this.labelControl3);
-            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl13.Location = new System.Drawing.Point(0, 0);
-            this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(227, 539);
-            this.panelControl13.TabIndex = 0;
-            // 
-            // ptbProduct
-            // 
-            this.ptbProduct.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ptbProduct.Location = new System.Drawing.Point(12, 159);
-            this.ptbProduct.Name = "ptbProduct";
-            this.ptbProduct.Size = new System.Drawing.Size(203, 203);
-            this.ptbProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProduct.TabIndex = 26;
-            this.ptbProduct.TabStop = false;
-            // 
-            // panelControl21
-            // 
-            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(215, 159);
-            this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(10, 378);
-            this.panelControl21.TabIndex = 25;
-            // 
-            // panelControl20
-            // 
-            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl20.Location = new System.Drawing.Point(2, 159);
-            this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(10, 378);
-            this.panelControl20.TabIndex = 24;
-            // 
-            // panelControl18
-            // 
-            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl18.Location = new System.Drawing.Point(2, 149);
-            this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(223, 10);
-            this.panelControl18.TabIndex = 23;
-            // 
-            // btnReturn
-            // 
-            this.btnReturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReturn.Appearance.Options.UseFont = true;
-            this.btnReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnReturn.Location = new System.Drawing.Point(2, 114);
-            this.btnReturn.Name = "btnReturn";
-            this.btnReturn.Size = new System.Drawing.Size(223, 35);
-            this.btnReturn.TabIndex = 21;
-            this.btnReturn.Text = "รับคืนสินค้า";
-            this.btnReturn.Visible = false;
-            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
-            // 
-            // panelControl19
-            // 
-            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl19.Location = new System.Drawing.Point(2, 109);
-            this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(223, 5);
-            this.panelControl19.TabIndex = 22;
-            // 
-            // lblWarranty
-            // 
-            this.lblWarranty.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWarranty.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblWarranty.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblWarranty.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblWarranty.Location = new System.Drawing.Point(2, 83);
-            this.lblWarranty.Name = "lblWarranty";
-            this.lblWarranty.Size = new System.Drawing.Size(223, 26);
-            this.lblWarranty.TabIndex = 18;
-            this.lblWarranty.Text = "รับคืนภายใน 7 วัน (เหลืออีก 5 วัน)";
-            this.lblWarranty.Visible = false;
-            // 
-            // panelControl14
-            // 
-            this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl14.Location = new System.Drawing.Point(2, 78);
-            this.panelControl14.Name = "panelControl14";
-            this.panelControl14.Size = new System.Drawing.Size(223, 5);
-            this.panelControl14.TabIndex = 15;
-            // 
-            // lblStatusReturn
-            // 
-            this.lblStatusReturn.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblStatusReturn.Appearance.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblStatusReturn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblStatusReturn.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblStatusReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblStatusReturn.Location = new System.Drawing.Point(2, 53);
-            this.lblStatusReturn.Name = "lblStatusReturn";
-            this.lblStatusReturn.Size = new System.Drawing.Size(223, 25);
-            this.lblStatusReturn.TabIndex = 14;
-            this.lblStatusReturn.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
-            this.lblStatusReturn.Visible = false;
-            // 
-            // panelControl15
-            // 
-            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl15.Location = new System.Drawing.Point(2, 48);
-            this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(223, 5);
-            this.panelControl15.TabIndex = 13;
-            // 
-            // txtBarcodeReturn
-            // 
-            this.txtBarcodeReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtBarcodeReturn.EditValue = "";
-            this.txtBarcodeReturn.Location = new System.Drawing.Point(2, 20);
-            this.txtBarcodeReturn.Name = "txtBarcodeReturn";
-            this.txtBarcodeReturn.Properties.Appearance.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
-            this.txtBarcodeReturn.Properties.Appearance.Options.UseFont = true;
-            this.txtBarcodeReturn.Properties.Appearance.Options.UseTextOptions = true;
-            this.txtBarcodeReturn.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtBarcodeReturn.Size = new System.Drawing.Size(223, 28);
-            this.txtBarcodeReturn.TabIndex = 12;
-            this.txtBarcodeReturn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeReturn_KeyDown);
-            // 
-            // panelControl16
-            // 
-            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl16.Location = new System.Drawing.Point(2, 15);
-            this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(223, 5);
-            this.panelControl16.TabIndex = 16;
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
-            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl3.Location = new System.Drawing.Point(2, 2);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(223, 13);
-            this.labelControl3.TabIndex = 11;
-            this.labelControl3.Text = "บาร์โค้ด";
             // 
             // navBarGroupControlContainer3
             // 
@@ -1067,16 +1090,17 @@
             this.labelControl6.TabIndex = 19;
             this.labelControl6.Text = "บาร์โค้ด";
             // 
-            // navBarGroup2
+            // navBarGroup1
             // 
-            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.navBarGroup2.Appearance.Options.UseFont = true;
-            this.navBarGroup2.Caption = "รับสินค้าคืน";
-            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
-            this.navBarGroup2.GroupClientHeight = 80;
-            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
-            this.navBarGroup2.Name = "navBarGroup2";
+            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.navBarGroup1.Appearance.Options.UseFont = true;
+            this.navBarGroup1.Caption = "ขายสินค้า";
+            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.GroupClientHeight = 80;
+            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
+            this.navBarGroup1.Name = "navBarGroup1";
             // 
             // navBarGroup3
             // 
@@ -1093,14 +1117,127 @@
             // 
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl1.Controls.Add(this.productGridControl);
+            this.panelControl1.Controls.Add(this.panelControl27);
             this.panelControl1.Controls.Add(this.returnGridControl);
             this.panelControl1.Controls.Add(this.panelControl17);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(227, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(2);
-            this.panelControl1.Size = new System.Drawing.Size(702, 717);
+            this.panelControl1.Size = new System.Drawing.Size(894, 717);
             this.panelControl1.TabIndex = 2;
+            // 
+            // panelControl27
+            // 
+            this.panelControl27.Controls.Add(this.groupControl2);
+            this.panelControl27.Controls.Add(this.groupControl3);
+            this.panelControl27.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl27.Location = new System.Drawing.Point(2, 690);
+            this.panelControl27.Name = "panelControl27";
+            this.panelControl27.Size = new System.Drawing.Size(880, 25);
+            this.panelControl27.TabIndex = 19;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl2.Controls.Add(this.panelControl29);
+            this.groupControl2.Controls.Add(this.panelControl32);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl2.Location = new System.Drawing.Point(2, 2);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.ShowCaption = false;
+            this.groupControl2.Size = new System.Drawing.Size(271, 21);
+            this.groupControl2.TabIndex = 30;
+            this.groupControl2.Text = "groupControl2";
+            // 
+            // panelControl29
+            // 
+            this.panelControl29.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl29.Controls.Add(this.lblListCount);
+            this.panelControl29.Controls.Add(this.labelControl13);
+            this.panelControl29.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl29.Location = new System.Drawing.Point(0, 0);
+            this.panelControl29.Name = "panelControl29";
+            this.panelControl29.Size = new System.Drawing.Size(178, 21);
+            this.panelControl29.TabIndex = 31;
+            // 
+            // lblListCount
+            // 
+            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCount.Location = new System.Drawing.Point(94, 3);
+            this.lblListCount.Name = "lblListCount";
+            this.lblListCount.Size = new System.Drawing.Size(51, 16);
+            this.lblListCount.TabIndex = 25;
+            this.lblListCount.Text = "0 รายการ";
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Location = new System.Drawing.Point(4, 3);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(84, 16);
+            this.labelControl13.TabIndex = 24;
+            this.labelControl13.Text = "จำนวนรายการ :";
+            // 
+            // panelControl32
+            // 
+            this.panelControl32.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl32.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl32.Location = new System.Drawing.Point(178, 0);
+            this.panelControl32.Name = "panelControl32";
+            this.panelControl32.Size = new System.Drawing.Size(93, 21);
+            this.panelControl32.TabIndex = 24;
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl3.Controls.Add(this.panelControl28);
+            this.groupControl3.Controls.Add(this.panelControl30);
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupControl3.Location = new System.Drawing.Point(621, 2);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(257, 21);
+            this.groupControl3.TabIndex = 29;
+            this.groupControl3.Text = "groupControl3";
+            // 
+            // panelControl28
+            // 
+            this.panelControl28.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl28.Controls.Add(this.lblProductCount);
+            this.panelControl28.Controls.Add(this.labelControl10);
+            this.panelControl28.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl28.Location = new System.Drawing.Point(78, 0);
+            this.panelControl28.Name = "panelControl28";
+            this.panelControl28.Size = new System.Drawing.Size(179, 21);
+            this.panelControl28.TabIndex = 30;
+            // 
+            // lblProductCount
+            // 
+            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductCount.Location = new System.Drawing.Point(120, 3);
+            this.lblProductCount.Name = "lblProductCount";
+            this.lblProductCount.Size = new System.Drawing.Size(27, 16);
+            this.lblProductCount.TabIndex = 23;
+            this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // labelControl10
+            // 
+            this.labelControl10.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl10.Location = new System.Drawing.Point(1, 3);
+            this.labelControl10.Name = "labelControl10";
+            this.labelControl10.Size = new System.Drawing.Size(113, 16);
+            this.labelControl10.TabIndex = 20;
+            this.labelControl10.Text = "จำนวนสินค้าทั้งหมด :";
+            // 
+            // panelControl30
+            // 
+            this.panelControl30.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl30.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl30.Location = new System.Drawing.Point(0, 0);
+            this.panelControl30.Name = "panelControl30";
+            this.panelControl30.Size = new System.Drawing.Size(86, 21);
+            this.panelControl30.TabIndex = 31;
             // 
             // returnGridControl
             // 
@@ -1108,7 +1245,7 @@
             this.returnGridControl.Location = new System.Drawing.Point(2, 2);
             this.returnGridControl.MainView = this.returnGridView;
             this.returnGridControl.Name = "returnGridControl";
-            this.returnGridControl.Size = new System.Drawing.Size(688, 713);
+            this.returnGridControl.Size = new System.Drawing.Size(880, 713);
             this.returnGridControl.TabIndex = 1;
             this.returnGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.returnGridView});
@@ -1120,7 +1257,8 @@
             this.clNoRe,
             this.clSaleDate,
             this.clCustomer,
-            this.clProductName,
+            this.clPName,
+            this.clQuantity,
             this.clSalePrice});
             this.returnGridView.GridControl = this.returnGridControl;
             this.returnGridView.Name = "returnGridView";
@@ -1128,9 +1266,9 @@
             // 
             // clNoRe
             // 
-            this.clNoRe.AppearanceCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clNoRe.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clNoRe.AppearanceCell.Options.UseFont = true;
-            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clNoRe.AppearanceHeader.Options.UseFont = true;
             this.clNoRe.AppearanceHeader.Options.UseTextOptions = true;
             this.clNoRe.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1147,9 +1285,11 @@
             // 
             // clSaleDate
             // 
-            this.clSaleDate.AppearanceCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSaleDate.AppearanceCell.Options.UseFont = true;
-            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleDate.AppearanceCell.Options.UseTextOptions = true;
+            this.clSaleDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSaleDate.AppearanceHeader.Options.UseFont = true;
             this.clSaleDate.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1166,9 +1306,11 @@
             // 
             // clCustomer
             // 
-            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clCustomer.AppearanceCell.Options.UseFont = true;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clCustomer.AppearanceCell.Options.UseTextOptions = true;
+            this.clCustomer.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clCustomer.AppearanceHeader.Options.UseFont = true;
             this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
             this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1183,32 +1325,55 @@
             this.clCustomer.VisibleIndex = 2;
             this.clCustomer.Width = 150;
             // 
-            // clProductName
+            // clPName
             // 
-            this.clProductName.AppearanceCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.clProductName.AppearanceCell.Options.UseFont = true;
-            this.clProductName.AppearanceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.clProductName.AppearanceHeader.Options.UseFont = true;
-            this.clProductName.AppearanceHeader.Options.UseTextOptions = true;
-            this.clProductName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clProductName.Caption = "ชื่อสินค้า";
-            this.clProductName.FieldName = "ProductName";
-            this.clProductName.Name = "clProductName";
-            this.clProductName.OptionsColumn.AllowEdit = false;
-            this.clProductName.OptionsColumn.AllowMove = false;
-            this.clProductName.OptionsColumn.AllowSize = false;
-            this.clProductName.OptionsColumn.FixedWidth = true;
-            this.clProductName.Visible = true;
-            this.clProductName.VisibleIndex = 3;
-            this.clProductName.Width = 200;
+            this.clPName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clPName.AppearanceCell.Options.UseFont = true;
+            this.clPName.AppearanceCell.Options.UseTextOptions = true;
+            this.clPName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clPName.AppearanceHeader.Options.UseFont = true;
+            this.clPName.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPName.Caption = "ชื่อสินค้า";
+            this.clPName.FieldName = "Name";
+            this.clPName.Name = "clPName";
+            this.clPName.OptionsColumn.AllowEdit = false;
+            this.clPName.OptionsColumn.AllowMove = false;
+            this.clPName.OptionsColumn.AllowSize = false;
+            this.clPName.OptionsColumn.FixedWidth = true;
+            this.clPName.Visible = true;
+            this.clPName.VisibleIndex = 3;
+            this.clPName.Width = 200;
+            // 
+            // clQuantity
+            // 
+            this.clQuantity.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clQuantity.AppearanceCell.Options.UseFont = true;
+            this.clQuantity.AppearanceCell.Options.UseTextOptions = true;
+            this.clQuantity.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.clQuantity.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clQuantity.AppearanceHeader.Options.UseFont = true;
+            this.clQuantity.AppearanceHeader.Options.UseTextOptions = true;
+            this.clQuantity.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clQuantity.Caption = "จำนวน";
+            this.clQuantity.FieldName = "Quantity";
+            this.clQuantity.Name = "clQuantity";
+            this.clQuantity.OptionsColumn.AllowEdit = false;
+            this.clQuantity.OptionsColumn.AllowMove = false;
+            this.clQuantity.OptionsColumn.AllowSize = false;
+            this.clQuantity.OptionsColumn.FixedWidth = true;
+            this.clQuantity.Visible = true;
+            this.clQuantity.VisibleIndex = 4;
+            this.clQuantity.Width = 100;
             // 
             // clSalePrice
             // 
-            this.clSalePrice.AppearanceCell.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSalePrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSalePrice.AppearanceCell.Options.UseFont = true;
             this.clSalePrice.AppearanceCell.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSalePrice.AppearanceHeader.Options.UseFont = true;
             this.clSalePrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1220,14 +1385,14 @@
             this.clSalePrice.OptionsColumn.AllowSize = false;
             this.clSalePrice.OptionsColumn.FixedWidth = true;
             this.clSalePrice.Visible = true;
-            this.clSalePrice.VisibleIndex = 4;
+            this.clSalePrice.VisibleIndex = 5;
             this.clSalePrice.Width = 100;
             // 
             // panelControl17
             // 
             this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl17.Location = new System.Drawing.Point(690, 2);
+            this.panelControl17.Location = new System.Drawing.Point(882, 2);
             this.panelControl17.Name = "panelControl17";
             this.panelControl17.Size = new System.Drawing.Size(10, 713);
             this.panelControl17.TabIndex = 18;
@@ -1239,13 +1404,25 @@
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcSale";
-            this.Size = new System.Drawing.Size(929, 717);
+            this.Size = new System.Drawing.Size(1121, 717);
             this.Load += new System.EventHandler(this.UcSale_Load);
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
+            this.navBarGroupControlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
+            this.panelControl13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
@@ -1263,18 +1440,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
-            this.navBarGroupControlContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
-            this.panelControl13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             this.navBarGroupControlContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             this.panelControl11.ResumeLayout(false);
@@ -1287,6 +1452,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
+            this.panelControl27.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl29)).EndInit();
+            this.panelControl29.ResumeLayout(false);
+            this.panelControl29.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl32)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).EndInit();
+            this.panelControl28.ResumeLayout(false);
+            this.panelControl28.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
@@ -1376,7 +1555,19 @@
         private DevExpress.XtraGrid.Columns.GridColumn clSaleDate;
         private DevExpress.XtraGrid.Columns.GridColumn clCustomer;
         private DevExpress.XtraGrid.Columns.GridColumn clSalePrice;
-        private DevExpress.XtraGrid.Columns.GridColumn clProductName;
+        private DevExpress.XtraGrid.Columns.GridColumn clQuantity;
         private DevExpress.XtraEditors.PanelControl panelControl17;
+        private DevExpress.XtraEditors.PanelControl panelControl27;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl10;
+        private DevExpress.XtraEditors.LabelControl lblProductCount;
+        private DevExpress.XtraEditors.PanelControl panelControl28;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.PanelControl panelControl29;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.PanelControl panelControl32;
+        private DevExpress.XtraEditors.PanelControl panelControl30;
+        private DevExpress.XtraEditors.LabelControl lblListCount;
+        private DevExpress.XtraGrid.Columns.GridColumn clPName;
     }
 }

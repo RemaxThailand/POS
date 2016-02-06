@@ -503,10 +503,10 @@ namespace PowerPOS
                 i = 0;
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
-                    string price = dt.Rows[i]["price"].ToString() + "," + dt.Rows[i]["price1"].ToString() + "," + dt.Rows[i]["price2"].ToString() + "," + dt.Rows[i]["price3"].ToString() + "," + dt.Rows[i]["price4"].ToString() + "," + dt.Rows[i]["price5"].ToString();
+                    string val = dt.Rows[i]["price"].ToString() + "," + dt.Rows[i]["price1"].ToString() + "," + dt.Rows[i]["price2"].ToString() + "," + dt.Rows[i]["price3"].ToString() + "," + dt.Rows[i]["price4"].ToString() + "," + dt.Rows[i]["price5"].ToString() + "," + dt.Rows[i]["quantity"].ToString() + "," + dt.Rows[i]["cost"].ToString();
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updatePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "price,price1,price2,price3,price4,price5",  price)
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "price,price1,price2,price3,price4,price5,quantity,cost", val)
                     ));
                     if (!json.success.Value)
                     {
@@ -514,6 +514,35 @@ namespace PowerPOS
                     }
 
                     Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+
+            //## PurchaseOrder (Noserial) ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM PurchaseOrder WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string val = dt.Rows[i]["ReceivedQuantity"].ToString() + "," + dt.Rows[i]["ReceivedBy"].ToString() + "," + dt.Rows[i]["ReceivedDate"].ToString();
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateNsPos",
+                    string.Format("shop={0}&orderno={4}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "receivedQuantity,receivedBy,receivedDate", val, dt.Rows[i]["orderNo"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                    Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+
                 }
             }
             catch (Exception ex)
@@ -560,69 +589,38 @@ namespace PowerPOS
             //}
 
             ////## Customer ##//
-            //try
-            //{
-            //    dt = Util.DBQuery("SELECT * FROM Customer WHERE Sync = 1");
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM Customer WHERE Sync = 1");
+                i = 0;
+                //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
+                //    TableBatchOperation batchOperation = new TableBatchOperation();
 
-            //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
-            //    TableBatchOperation batchOperation = new TableBatchOperation();
-            //    for (int i = 0; i < dt.Rows.Count; i++)
-            //    {
-            //        DataRow row = dt.Rows[i];
-            //        dynamic d = new DynamicEntity(Param.ShopId, row["ID"].ToString());
-            //        //CustomerEntity d = new CustomerEntity(Param.ShopId, row["ID"].ToString());
-            //        d.Member = row["Member"].ToString();
-            //        d.Name = row["Firstname"].ToString() + " " + row["Lastname"].ToString();
-            //        d.Firstname = row["Firstname"].ToString();
-            //        d.Lastname = row["Lastname"].ToString();
-            //        d.Nickname = row["Nickname"].ToString();
-            //        d.CitizenID = row["CitizenID"].ToString();
-            //        try { d.Birthday = Convert.ToDateTime(row["Birthday"].ToString()); } catch { }
-            //        d.Sex = row["Sex"].ToString();
-            //        d.CardNo = row["CardNo"].ToString();
-            //        d.Mobile = row["Mobile"].ToString();
-            //        d.Email = row["Email"].ToString();
-            //        d.ShopName = row["ShopName"].ToString();
-            //        d.Address = row["Address"].ToString();
-            //        d.Address2 = row["Address2"].ToString();
-            //        d.SubDistrict = row["SubDistrict"].ToString();
-            //        d.District = row["District"].ToString();
-            //        d.Province = row["Province"].ToString();
-            //        d.ZipCode = row["ZipCode"].ToString();
-            //        d.ShopSameAddress = row["ShopSameAddress"].ToString() == "True";
-            //        d.ShopAddress = row["ShopAddress"].ToString();
-            //        d.ShopAddress2 = row["ShopAddress2"].ToString();
-            //        d.ShopSubDistrict = row["ShopSubDistrict"].ToString();
-            //        d.ShopDistrict = row["ShopDistrict"].ToString();
-            //        d.ShopProvince = row["ShopProvince"].ToString();
-            //        d.ShopZipCode = row["ShopZipCode"].ToString();
-            //        d.SellPrice = int.Parse(row["SellPrice"].ToString());
-            //        d.DiscountPercent = int.Parse(row["DiscountPercent"].ToString());
-            //        d.Credit = int.Parse(row["Credit"].ToString());
-            //        d.Comment = row["Comment"].ToString();
-            //        try { d.AddDate = Convert.ToDateTime(row["AddDate"].ToString()); } catch { }
-            //        d.AddBy = row["AddBy"].ToString();
-            //        try { d.UpdateDate = Convert.ToDateTime(row["UpdateDate"].ToString()); } catch { }
-            //        d.UpdateBy = row["UpdateBy"].ToString();
+                for ( i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/Add",
+                    string.Format("shop={0}&mobile={1}&firstname={2}&lastname={3}&nickname={4}&sex={5}&birthday={6}&citizen={7}&cardno={8}&email={9}&address={10}&address2={11}&subdistrict={12}&district={13}&province={14}&zipcode={15}&shopname={16}&shopsameaddress={17}&shopaddress={18}&shopaddress2={19}&shopsubdistrict={20}&shopdistrict={21}&shopprovince={22}&shopzipcode={23}&credit={24}&sellprice={25}&customer={26}",
+                                Param.ApiShopId, dt.Rows[i]["mobile"].ToString(), dt.Rows[i]["firstname"].ToString(), dt.Rows[i]["lastname"].ToString(), dt.Rows[i]["nickname"].ToString(),
+                                dt.Rows[i]["sex"].ToString(), dt.Rows[i]["birthday"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["birthday"].ToString()), dt.Rows[i]["citizenId"].ToString(), dt.Rows[i]["cardno"].ToString(), dt.Rows[i]["email"].ToString(),
+                                dt.Rows[i]["address"].ToString(), dt.Rows[i]["address2"].ToString(), dt.Rows[i]["subdistrict"].ToString(), dt.Rows[i]["district"].ToString(), dt.Rows[i]["province"].ToString(),
+                                dt.Rows[i]["zipcode"].ToString(), dt.Rows[i]["shopname"].ToString(), dt.Rows[i]["shopsameaddress"].ToString() == "False" ? 0 : 1, dt.Rows[i]["shopaddress"].ToString(), dt.Rows[i]["shopaddress2"].ToString(),
+                                dt.Rows[i]["shopsubdistrict"].ToString(), dt.Rows[i]["shopdistrict"].ToString(), dt.Rows[i]["shopprovince"].ToString(), dt.Rows[i]["shopzipcode"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["sellprice"].ToString(),
+                                dt.Rows[i]["customer"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
 
-            //        batchOperation.InsertOrMerge(d);
-
-            //        Util.DBExecute(string.Format("UPDATE Customer SET Sync = 0 WHERE ID = '{0}'", row["ID"].ToString()));
-
-            //        if (batchOperation.Count == 100)
-            //        {
-            //            azureTable.ExecuteBatch(batchOperation);
-            //            batchOperation = new TableBatchOperation();
-            //        }
-            //    }
-            //    if (batchOperation.Count > 0)
-            //        azureTable.ExecuteBatch(batchOperation);
-            //}
-            //catch (Exception ex)
-            //{
-            //    WriteErrorLog(ex.Message);
-            //    WriteErrorLog(ex.StackTrace);
-            //}
+                    Util.DBExecute(string.Format("UPDATE Customer SET Sync = 0 WHERE customer = '{0}'", dt.Rows[i]["customer"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
 
             //## SellHeader ##//
             try
@@ -661,9 +659,9 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleDetailAdd",
-                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&barcode={5}&comment={6}",
+                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&quantity={5}&comment={6}",
                             Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
-                           dt.Rows[i]["cost"].ToString(), dt.Rows[i]["barcode"].ToString(), dt.Rows[i]["comment"].ToString())
+                           dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString())
                     ));
                     if (!json.success.Value)
                     {
@@ -688,8 +686,8 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/return/returnAdd",
-                    string.Format("shop={0}&returnNo={1}&barcode={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}",
-                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["barcode"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(), 
+                    string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}",
+                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(), 
                                 dt.Rows[i]["returnDate"].ToString(),dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()))
                     ));
                     if (!json.success.Value)
@@ -698,6 +696,60 @@ namespace PowerPOS
                     }
 
                     Util.DBExecute(string.Format("UPDATE ReturnProduct SET Sync = 0 WHERE SellNo = '{0}' AND Barcode = '{1}'", dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+            ////## ChangePrice ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM ChangePrice WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/ChangePriceAdd",
+                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&change={4}&by={5}&date={6}",
+                            Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["price"].ToString(),
+                           dt.Rows[i]["priceChange"].ToString(), dt.Rows[i]["changeBy"].ToString(), dt.Rows[i]["changeDate"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                    Util.DBExecute(string.Format("UPDATE ChangePrice SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+            ////## CreditCustomer ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM CreditCustomer WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/creditAdd",
+                    string.Format("shop={0}&creditno={1}&saleno={2}&paidprice={3}&paidby={4}&paiddate={5}",
+                            Param.ApiShopId, dt.Rows[i]["creditNo"].ToString(), dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["paidPrice"].ToString(),
+                           dt.Rows[i]["paidBy"].ToString(), dt.Rows[i]["paidDate"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                    Util.DBExecute(string.Format("UPDATE CreditCustomer SET Sync = 0 WHERE creditNo = '{0}'", dt.Rows[i]["creditNo"].ToString()));
                 }
             }
             catch (Exception ex)
@@ -797,15 +849,196 @@ namespace PowerPOS
         private static void PrintReceipt(PrintPageEventArgs g, string sellNo)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            try
+            {
 
-
-            DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy
+                DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy
                     FROM SellHeader h
                         LEFT JOIN Customer c
                         ON h.Customer = c.Customer
                     WHERE h.SellNo = '{0}'"
-                , sellNo));
+                    , sellNo));
 
+                var width = 280;
+                var gab = 5;
+
+                //if (Param.SystemConfig.Bill.PrintLogo == "Y")
+                //{
+                //    if (!File.Exists(Param.LogoPath))
+                //    {
+                //        if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+                //        if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+                //        using (var client = new WebClient())
+                //        {
+                //            client.DownloadFile(new Uri(Param.LogoUrl), Param.LogoPath);
+                //            Param.SystemConfig.Bill.Logo = Param.LogoUrl;
+                //        }
+                //    }
+                //    Image image = Image.FromFile(Param.LogoPath);
+                //    Rectangle destRect = new Rectangle(0, 0, width, 64);
+                //    //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
+                //    g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+                //}
+
+
+                SolidBrush brush = new SolidBrush(Color.Black);
+                Font stringFont = new Font("Calibri", 6);
+                //if (Param.SystemConfig.Bill.Logo == Param.LogoUrl && Param.SystemConfig.Bill.PrintLogo == "Y")
+                //{
+                //g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                //g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                //stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                //g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                //}
+
+                var pX = 0;
+                var pY = 65;
+                stringFont = new Font("Calibri", 7);
+                g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
+
+                stringFont = new Font("DilleniaUPC", 13);
+                g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 188, pY));
+
+                stringFont = new Font("Calibri", 10, FontStyle.Bold);
+                string measureString = sellNo;
+                SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
+                pY += 20;
+
+                stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
+                measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+                pY += 30;
+
+                stringFont = new Font("Cordia New", 10);
+                DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                            FROM  SellDetail sd
+                                LEFT JOIN Product p 
+                                ON sd.Product = p.Product 
+                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
+
+                var sumQty = 0;
+                var sumPrice = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 16, pY));
+
+                    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 230, pY + 3, 150, 10);
+                    g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                        stringFont, brush, new PointF(pX + 232, pY));
+                    measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                    sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                    pY += 13;
+                }
+
+                pY += 4;
+                stringFont = new Font("Cordia New", 12, FontStyle.Bold);
+                g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+                measureString = "" + sumPrice.ToString("#,##0");
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                pY += 17;
+                stringFont = new Font("Cordia New", 11);
+                g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                pY += 23;
+
+                g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+                pY += 5;
+
+                stringFont = new Font("DilleniaUPC", 10);
+                g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
+                    ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+                    " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                    : "")
+                    , stringFont, brush, new PointF(pX, pY));
+
+                /*stringFont = new Font("DilleniaUPC", 11);
+                measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
+                pY += 17;
+
+                stringFont = new Font("Calibri", 8, FontStyle.Bold);
+                measureString = Param.FooterText;
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+
+        public static void PrintOrder(string orderNo)
+        {
+            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM Barcode WHERE OrderNo = '{0}'", orderNo));
+
+            var hight = 195 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
+            //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
+            //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
+            PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
+            paperSize.RawKind = (int)PaperKind.Custom;
+
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.PaperSize = paperSize;
+            pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+            pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+            //pd.PrinterSettings.PrinterName = "GP-80250 Series";
+            //pd.PrinterSettings.PrinterName = "POS80";
+
+            pd.PrintPage += (_, g) =>
+            {
+                PrintOrder(g, orderNo);
+            };
+            pd.Print();
+
+        }
+
+
+        private static void PrintOrder(PrintPageEventArgs g, string orderNo)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+
+            DataTable dtHeader = Util.DBQuery(string.Format(@"
+                    SELECT DISTINCT p.sku, b.Product, p.Name, COUNT(*) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, c.name Category
+                    FROM Barcode b
+                        LEFT JOIN Product p
+                            ON b.Product = p.Product
+                            AND p.Shop = '{0}'
+                        LEFT JOIN(
+                                SELECT DISTINCT Product, COUNT(*) ReceivedCount
+                                FROM Barcode
+                                WHERE ReceivedDate IS NOT NULL
+                                AND ReceivedBy = '{2}'
+                                AND OrderNo = '{1}'
+                                GROUP BY Product
+                        ) r
+                            ON b.Product = r.Product
+                        LEFT JOIN Category c
+                            ON p.category = c.category
+                    WHERE(b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
+                        AND b.OrderNo = '{1}'
+                    GROUP BY b.Product
+                    --ORDER BY c.name, p.Name
+                    UNION ALL
+                    SELECT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, c.name category
+                    FROM PurchaseOrder po
+                        LEFT JOIN Product p
+                        ON po.Product = p.product
+                    LEFT JOIN Category c
+                    ON p.Category = c.category
+                    WHERE po.OrderNo = '{1}'
+                ", Param.ShopId, orderNo, Param.UserId));
             var width = 280;
             var gab = 5;
 
@@ -840,85 +1073,102 @@ namespace PowerPOS
 
             var pX = 0;
             var pY = 65;
-            stringFont = new Font("Calibri", 7);
-            g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
+            //stringFont = new Font("Calibri", 7);
+            //g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 
-            stringFont = new Font("DilleniaUPC", 13);
-            g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 188, pY));
+            //stringFont = new Font("DilleniaUPC", 13);
+            //g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 188, pY));
 
-            stringFont = new Font("Calibri", 10, FontStyle.Bold);
-            string measureString = sellNo;
+            //stringFont = new Font("Calibri", 10, FontStyle.Bold);
+            //string measureString = sellNo;
+            //SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
+            //pY += 20;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            string measureString = "รายงานรับเข้าสินค้า"; 
             SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
-            g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
-            pY += 20;
-
-            stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
-            measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
-            stringSize = g.Graphics.MeasureString(measureString, stringFont);
             g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
             pY += 30;
 
-            stringFont = new Font("DilleniaUPC", 9);
-            DataTable dt = Util.DBQuery(string.Format(@"SELECT Name, ProductCount, SellPrice
-                    FROM (SELECT product, SUM(SellPrice) SellPrice, COUNT(*) ProductCount FROM Barcode WHERE SellNo = '{0}' GROUP BY product) b 
-                        LEFT JOIN Product p 
-                        ON b.Product = p.Product
-                        AND p.Shop = '{1}'
-                ", sellNo, Param.ShopId));
-            var sumQty = 0;
-            var sumPrice = 0;
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 16, pY));
+            stringFont = new Font("DilleniaUPC", 13);
+            g.Graphics.DrawString("วันที่ ", stringFont, brush, new PointF(pX, pY));
 
-                g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 230, pY + 3, 150, 10);
-                g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
-                    stringFont, brush, new PointF(pX + 232, pY));
-                measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-                sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
-                sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
-                pY += 13;
-            }
-
-            pY += 4;
-            stringFont = new Font("DilleniaUPC", 12, FontStyle.Bold);
-            g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
-            measureString = "" + sumPrice.ToString("#,##0");
+            stringFont = new Font("Calibri", 10);
+            measureString = DateTime.Now.ToString("dd/MM/yyyy  HH:MM:ss") ;
             stringSize = g.Graphics.MeasureString(measureString, stringFont);
-            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-            pY += 17;
-            stringFont = new Font("DilleniaUPC", 11);
-            g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-            measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 30, pY + 3));
+            pY += 20;
+
+            stringFont = new Font("DilleniaUPC", 13);
+            g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX, pY));
+
+            stringFont = new Font("Calibri", 10);
+            measureString = orderNo;
             stringSize = g.Graphics.MeasureString(measureString, stringFont);
-            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-            pY += 23;
+            g.Graphics.DrawString(orderNo, stringFont, brush, new PointF(pX + 30, pY + 3));
+            pY += 20;
 
-            g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
-            pY += 5;
+            //stringFont = new Font("Cordia New", 10);
+            //DataTable dt = Util.DBQuery(string.Format(@"SELECT Name, ProductCount, SellPrice
+            //        FROM (SELECT product, SUM(SellPrice) SellPrice, COUNT(*) ProductCount FROM Barcode WHERE SellNo = '{0}' GROUP BY product) b 
+            //            LEFT JOIN Product p 
+            //            ON b.Product = p.Product
+            //            AND p.Shop = '{1}'
+            //    ", sellNo, Param.ShopId));
+            //var sumQty = 0;
+            //var sumPrice = 0;
+            //for (int i = 0; i < dt.Rows.Count; i++)
+            //{
+            //    g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+            //    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 16, pY));
 
-            stringFont = new Font("DilleniaUPC", 9);
-            g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
-                ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
-                " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
-                : "")
-                , stringFont, brush, new PointF(pX, pY));
+            //    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 230, pY + 3, 150, 10);
+            //    g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+            //        stringFont, brush, new PointF(pX + 232, pY));
+            //    measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+            //    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+            //    sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+            //    sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+            //    pY += 13;
+            //}
 
-            /*stringFont = new Font("DilleniaUPC", 11);
-            measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
-            stringSize = g.Graphics.MeasureString(measureString, stringFont);
-            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
-            pY += 17;
+            //pY += 4;
+            //stringFont = new Font("Cordia New", 12, FontStyle.Bold);
+            //g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+            //measureString = "" + sumPrice.ToString("#,##0");
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+            //pY += 17;
+            //stringFont = new Font("Cordia New", 11);
+            //g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+            //measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+            //pY += 23;
 
-            stringFont = new Font("Calibri", 8, FontStyle.Bold);
-            measureString = Param.FooterText;
-            stringSize = g.Graphics.MeasureString(measureString, stringFont);
-            g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+            //g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+            //pY += 5;
+
+            //stringFont = new Font("DilleniaUPC", 10);
+            //g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
+            //    ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+            //    " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+            //    : "")
+            //    , stringFont, brush, new PointF(pX, pY));
+
+            ///*stringFont = new Font("DilleniaUPC", 11);
+            //measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
+            //pY += 17;
+
+            //stringFont = new Font("Calibri", 8, FontStyle.Bold);
+            //measureString = Param.FooterText;
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
 
         }
-
     }
 }

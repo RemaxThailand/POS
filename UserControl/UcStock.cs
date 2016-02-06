@@ -41,7 +41,7 @@ namespace PowerPOS
             //cbbPrintType.SelectedIndex = 0;
         }
 
-        private void LoadData()
+        public void LoadData()
         {
             _FIRST_LOAD = false;
             SearchData();
@@ -124,6 +124,11 @@ namespace PowerPOS
                 stockGridView.Columns["Progress"].ColumnEdit = ritem;
 
                 stockGridControl.DataSource = dt;
+                int val = _QTY - _RECEIVED;
+                lblListCount.Text = stockGridView.RowCount.ToString() + " รายการ";
+                lblProductCount.Text = _RECEIVED.ToString() + " ชิ้น";
+                lblReceived.Text = _QTY.ToString() + " ชิ้น";
+                lblNoReceived.Text = val.ToString();
             }
             txtBarcode.Select();
         }
@@ -173,7 +178,7 @@ namespace PowerPOS
                     }
                     catch (Exception ex)
                     {
-                        //MessageBox.Show(ex.ToString());
+                        Console.WriteLine(ex.ToString());
                         //pnlPrice.Visible = false;
                     }
                 }
@@ -202,9 +207,12 @@ namespace PowerPOS
             {
                 if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
                 {
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.product, p.Image, IFNULL(SellDate, '') SellDate,b.Stock 
-                    FROM Barcode b LEFT JOIN Product p ON b.product = p.product
-                    WHERE Barcode = '{0}'  AND p.Shop = '{1}' AND SellDate IS NULL", txtBarcode.Text, Param.ShopId));
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.product, p.Image, IFNULL(SellDate, '') SellDate,b.inStock 
+                    FROM Barcode b 
+                        LEFT JOIN Product p 
+                        ON b.product = p.product
+                    WHERE b.Barcode = '{0}'  AND p.Shop = '{1}' AND b.SellDate IS NULL", 
+                     txtBarcode.Text, Param.ShopId));
 
                     lblStatus.Visible = true;
 
@@ -219,7 +227,7 @@ namespace PowerPOS
                     {
                         Param.ProductId = dt.Rows[0]["product"].ToString();
 
-                        if (dt.Rows[0]["Stock"].ToString() != "0")
+                        if (dt.Rows[0]["inStock"].ToString() != "False")
                         {
                             lblStatus.ForeColor = Color.Red;
                             //lblStatus.Text = "เคยตรวจสอบสินค้าชิ้นนี้แล้ว";
@@ -228,7 +236,7 @@ namespace PowerPOS
                         }
                         else
                         {
-                            Util.DBExecute(string.Format(@"UPDATE Barcode SET Stock = 1, Sync = 1 WHERE Barcode = '{0}'", txtBarcode.Text));
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 1, Sync = 1 WHERE Barcode = '{0}'", txtBarcode.Text));
                             SearchData();
 
                             lblStatus.ForeColor = Color.Green;

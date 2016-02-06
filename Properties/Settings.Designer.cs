@@ -25,7 +25,7 @@ namespace PowerPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://api-test.remaxthailand.co.th")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.remaxthailand.co.th")]
         public string ApiUrl {
             get {
                 return ((string)(this["ApiUrl"]));
@@ -154,7 +154,7 @@ namespace PowerPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TEST-0001")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1300D462-2B4E-4235-B617-02537B4127D1")]
         public string ApiKey {
             get {
                 return ((string)(this["ApiKey"]));
@@ -199,7 +199,7 @@ namespace PowerPOS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://api.powerdd.com/img/remax/product/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://img.remaxthailand.co.th/300x300/product/")]
         public string ImagePath {
             get {
                 return ((string)(this["ImagePath"]));

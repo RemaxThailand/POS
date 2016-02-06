@@ -173,8 +173,8 @@ namespace PowerPOS
 
         private void bwLoadShopApplication_DoWork(object sender, DoWorkEventArgs e)
         {
-            var i = 0;
-            var d = 0;
+            //var i = 0;
+            //var d = 0;
 
             string config = Util.GetApiData("/shop-config/pos",
                string.Format("shop={0}", Param.ApiShopId));
@@ -260,6 +260,223 @@ namespace PowerPOS
 
             LoadCategory(Param.ShopId);
             LoadBrand(Param.ShopId);
+
+
+            //PurchaseOrder
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS PurchaseOrder (
+                shop   NVARCHAR(10) NOT NULL,
+                orderNo  NVARCHAR(20) NOT NULL,
+                product  NVARCHAR(10)NOT NULL,
+                quantity INT NOT NULL,
+                receivedQuantity INT ,
+                priceCost FLOAT NOT NULL DEFAULT 0 ,
+                priceTotal FLOAT NOT NULL DEFAULT 0 ,
+                orderDate  NVARCHAR(50) NOT NULL,
+                receivedDate  NVARCHAR(50),
+                receivedBy  NVARCHAR(10),
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, orderNo, product))");
+
+            string purchase = Util.GetApiData("/product/infoNsPos",
+                    string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonPurchase = JsonConvert.DeserializeObject(purchase);
+            Console.WriteLine(jsonPurchase.success);
+
+            if (jsonPurchase.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
+                    priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
+                d = 0;
+                for (i = 0; i < jsonPurchase.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7}, {8}, '{9}'",
+                        jsonPurchase.result[i].shop, jsonPurchase.result[i].orderNo, jsonPurchase.result[i].product, jsonPurchase.result[i].quantity == null ? 0 : jsonPurchase.result[i].quantity, jsonPurchase.result[i].receivedQuantity == null ? 0 : jsonPurchase.result[i].receivedQuantity,
+                        jsonPurchase.result[i].priceCost == null ? 0 : jsonPurchase.result[i].priceCost, jsonPurchase.result[i].priceTotal == null ? 0 : jsonPurchase.result[i].priceTotal,
+                        jsonPurchase.result[i].orderDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].orderDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
+                        jsonPurchase.result[i].receivedDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].receivedDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonPurchase.result[i].receivedBy));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
+                        priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+
+                Console.WriteLine("Load PurchaseOrder = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
+            }
+            else
+            {
+                Console.WriteLine(jsonPurchase.errorMessage);
+            }
+
+
+            //SellTemp
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SellTemp (
+                product  NVARCHAR(20) NOT NULL,
+                productName  NVARCHAR(100) NOT NULL,
+                price FLOAT NOT NULL DEFAULT 0,
+                amount FLOAT NOT NULL DEFAULT 0 ,
+                totalPrice FLOAT NOT NULL DEFAULT 0,
+                priceCost FLOAT NOT NULL DEFAULT 0)");
+
+
+            //CreditCustomer
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS CreditCustomer (
+                shop   NVARCHAR(10) NOT NULL,
+                creditNo  NVARCHAR(20) NOT NULL,
+                sellNo  NVARCHAR(20) NOT NULL,
+                paidPrice FLOAT,
+                paidBy NVARCHAR(10),
+                paidDate NVARCHAR(50),
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, creditNo, sellNo))");
+
+            string customer = Util.GetApiData("/customer/creditInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
+            Console.WriteLine(jsonCustomer.success);
+
+            if (jsonCustomer.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+                d = 0;
+                for (i = 0; i < jsonCustomer.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}",
+                        jsonCustomer.result[i].shop, jsonCustomer.result[i].creditNo, jsonCustomer.result[i].sellNo, jsonCustomer.result[i].paidPrice, jsonCustomer.result[i].paidBy,
+                        jsonCustomer.result[i].paidDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].paidDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonCustomer.errorMessage);
+            }
+
+            //ChangePrice
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS ChangePrice (
+                shop   NVARCHAR(10) NOT NULL,
+                sellNo  NVARCHAR(20) NOT NULL,
+                price FLOAT NOT NULL DEFAULT 0,
+                priceChange FLOAT NOT NULL DEFAULT 0,
+                product NVARCHAR(20) NOT NULL,
+                changeBy NVARCHAR(10),
+                changeDate NVARCHAR(50),
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, sellNo, product))");
+
+            string change = Util.GetApiData("/sale/changePriceInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonChange = JsonConvert.DeserializeObject(change);
+            Console.WriteLine(jsonChange.success);
+
+            if (jsonChange.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO ChangePrice (shop, sellNo, product, price, priceChange, changeBy, changeDate) ");
+                d = 0;
+                for (i = 0; i < jsonChange.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6}",
+                        jsonChange.result[i].shop, jsonChange.result[i].sellNo, jsonChange.result[i].product, jsonChange.result[i].price, jsonChange.result[i].priceChange, jsonChange.result[i].changeBy,
+                        jsonChange.result[i].changeDate.ToString() == "" ? "NULL" : "'" + jsonChange.result[i].changeDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO ChangePrice (shop, sellNo, product, price, priceChange, changeBy, changeDate) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonChange.errorMessage);
+            }
+
+            //Employee
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Employee (
+                shop   NVARCHAR(10) NOT NULL,
+                employeeId  NVARCHAR(20) NOT NULL,
+                firstname NVARCHAR(50) NOT NULL,
+                lastname NVARCHAR(50),
+                nickname NVARCHAR(30),
+                code NVARCHAR(20),
+                username NVARCHAR(30),
+                password NVARCHAR(30),
+                addDate NVARCHAR(50),
+                updateDate NVARCHAR(50),
+                status BIT DEFAULT 1,
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, employeeId))");
+
+            string employee = Util.GetApiData("/employee/Info",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonEmployee = JsonConvert.DeserializeObject(employee);
+            Console.WriteLine(jsonEmployee.success);
+
+            if (jsonEmployee.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
+                    code, username, password, addDate, updateDate, status) ");
+                d = 0;
+                for (i = 0; i < jsonEmployee.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', {8}, {9}, '{10}'",
+                        jsonEmployee.result[i].shop, jsonEmployee.result[i].employeeID, jsonEmployee.result[i].firstname, jsonEmployee.result[i].lastname, jsonEmployee.result[i].nickname,
+                        jsonEmployee.result[i].code, jsonEmployee.result[i].username, jsonEmployee.result[i].password,
+                        jsonEmployee.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
+                        jsonEmployee.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployee.result[i].status));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
+                        code, username, password, addDate, updateDate, status) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonEmployee.errorMessage);
+            }
+
         }
 
         private void LoadCategory(string shop)
@@ -475,7 +692,7 @@ namespace PowerPOS
                        jsonProduct.result[i].image == null ? "" : jsonProduct.result[i].image, jsonProduct.result[i].price, jsonProduct.result[i].price1, jsonProduct.result[i].price2, jsonProduct.result[i].price3, jsonProduct.result[i].price4, 
                        jsonProduct.result[i].webWarranty, jsonProduct.result[i].webPrice, jsonProduct.result[i].webPrice1, jsonProduct.result[i].webPrice2,
                        jsonProduct.result[i].webPrice3, jsonProduct.result[i].webPrice4, jsonProduct.result[i].webPrice5, jsonProduct.result[i].webWarranty,
-                       jsonProduct.result[i].isPromotion == null ? 0 : jsonProduct.result[i].isPromotion == true ? 1 : 0, jsonProduct.result[i].pricePromotion == null ? 0 : jsonProduct.result[i].pricePromotion, jsonProduct.result[i].cost,
+                       jsonProduct.result[i].isPromotion == null ? 0 : jsonProduct.result[i].isPromotion == true ? 1 : 0, jsonProduct.result[i].pricePromotion == null ? 0 : jsonProduct.result[i].pricePromotion, jsonProduct.result[i].costShop,
                        jsonProduct.result[i].category == null ? "" : jsonProduct.result[i].category, jsonProduct.result[i].brand == null ? "" : jsonProduct.result[i].brand, jsonProduct.result[i].barcode == null ? "" : jsonProduct.result[i].barcode, 
                        jsonProduct.result[i].quantity == null ? "" : jsonProduct.result[i].quantity));
                     d++;
@@ -489,6 +706,8 @@ namespace PowerPOS
                 }
                 Util.DBExecute(sb.ToString());
             }
+
+        
         }
 
         private void bwLoadProduct_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -654,7 +873,7 @@ namespace PowerPOS
                     sync BIT DEFAULT 0,
                     PRIMARY KEY (shop, customer))");
 
-            string customer = Util.GetApiData("/customer/customerInfo",
+            string customer = Util.GetApiData("/customer/Info",
               string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
@@ -694,15 +913,13 @@ namespace PowerPOS
 
                 Console.WriteLine("Load shop Customer = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
             }
-            if (d == 0)
-            {
-                const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy, Sync)";
-                var sbd = new StringBuilder(comm);
-                sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', 1 
-                                          UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', 1 
-                                          UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', 1", Param.ShopId));
-                Util.DBExecute(sbd.ToString());
-            }
+
+            const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy)";
+            var sbd = new StringBuilder(comm);
+            sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000' 
+                                        UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'
+                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'", Param.ShopId));
+            Util.DBExecute(sbd.ToString());
         }
 
         private void bwLoadCustomer_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -777,12 +994,12 @@ namespace PowerPOS
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SellDetail (
                 sellNo NVARCHAR(10) NOT NULL,
                 product NVARCHAR(8) NOT NULL,
-                barcode NVARCHAR(20) NOT NULL,
+                quantity INT NOT NULL,
                 sellPrice FLOAT NOT NULL,
                 cost FLOAT DEFAULT 0,
                 comment NVARCHAR(256),
                 sync BIT DEFAULT 0,
-                PRIMARY KEY (sellNo, product, barcode))");
+                PRIMARY KEY (sellNo, product))");
             //quantity INT NOT NULL,
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -795,7 +1012,7 @@ namespace PowerPOS
 
             if (jsonSellDetail.success.Value)
             {
-                const string comm = @"INSERT OR REPLACE INTO SellDetail (sellNo, product, barcode, sellPrice, cost, comment) ";
+                const string comm = @"INSERT OR REPLACE INTO SellDetail (sellNo, product, quantity, sellPrice, cost, comment) ";
                 var sbb = new StringBuilder(comm);
 
                 i = 0;
@@ -804,7 +1021,7 @@ namespace PowerPOS
                 {
                     if (d != 0) sbb.Append(" UNION ALL ");
                     sbb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}'",
-                        jsonSellDetail.result[i].sellNo, jsonSellDetail.result[i].product, jsonSellDetail.result[i].barcode,
+                        jsonSellDetail.result[i].sellNo, jsonSellDetail.result[i].product, jsonSellDetail.result[i].qty,
                         jsonSellDetail.result[i].sellPrice, jsonSellDetail.result[i].cost, jsonSellDetail.result[i].comment));
                     d++;
                     if (d % 500 == 0)
@@ -835,7 +1052,7 @@ namespace PowerPOS
                 sellNo NVARCHAR(10) NOT NULL,
                 returnDate NVARCHAR(30),
                 product NVARCHAR(10) NOT NULL,
-                barcode NVARCHAR(20) NOT NULL,
+                quantity INT NOT NULL,
                 sellPrice DOUBLE NOT NULL,
                 returnBy NVARCHAR(10),
                 sync BOOL DEFAULT 0,
@@ -849,7 +1066,7 @@ namespace PowerPOS
 
             if (jsonReturn.success.Value)
             {
-                const string comm = @"INSERT OR REPLACE INTO ReturnProduct (returnNo, sellNo, returnDate, product, barcode, sellPrice, returnBy) ";
+                const string comm = @"INSERT OR REPLACE INTO ReturnProduct (returnNo, sellNo, returnDate, product, quantity, sellPrice, returnBy) ";
                 var sbb = new StringBuilder(comm);
 
                 i = 0;
@@ -859,7 +1076,7 @@ namespace PowerPOS
                     if (d != 0) sbb.Append(" UNION ALL ");
                     sbb.Append(string.Format(@" SELECT '{0}', '{1}', {2}, '{3}', '{4}', '{5}', '{6}'",
                         jsonReturn.result[i].returnNo, jsonReturn.result[i].sellNo, jsonReturn.result[i].returnDate == null ? "NULL" : "'" + jsonReturn.result[i].returnDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
-                        jsonReturn.result[i].product, jsonReturn.result[i].barcode, jsonReturn.result[i].sellPrice, jsonReturn.result[i].returnBy));
+                        jsonReturn.result[i].product, jsonReturn.result[i].quantity, jsonReturn.result[i].sellPrice, jsonReturn.result[i].returnBy));
                     d++;
                     if (d % 500 == 0)
                     {

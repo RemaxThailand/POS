@@ -20,6 +20,8 @@ namespace PowerPOS
         public bool _FIRST_LOAD;
         DataTable _TABLE_PRODUCT;
         private int _ROW_INDEX = -1;
+        private int _QTY = 0;
+        private double _TOTAL = 0, _VAL = 0;
         string id;
         public static string barcode;
         string _STREAM_IMAGE_URL;
@@ -56,17 +58,15 @@ namespace PowerPOS
             _FIRST_LOAD = true;
             LoadData();
             txtSearch.Focus();
-            //if (Param.SystemConfig.SellPrice != null)
-            //{
-            //    btnUseWebPrice.Enabled = false;
-            //    btnSave.Enabled = false;
-            //    btnUsePercentPrice.Enabled = false;
-            //    btnConfig.Enabled = false;
-            //}
         }
 
         public void LoadData()
         {
+            if (Param.MemberType == "Shop")
+            {
+                grbPrice.Enabled = false;
+            }
+
             DataTable dt = Util.DBQuery(string.Format(@"SELECT Name FROM Category ORDER BY Priority, Name"));
             cbbCategory.Properties.Items.Clear();
             cbbCategory.Properties.Items.Add("หมวดหมู่สินค้าทั้งหมด");
@@ -94,105 +94,138 @@ namespace PowerPOS
             DataTable dt;
             DataRow row ;
             int i,a;
-
+            _QTY = 0;
+            _TOTAL = 0;
+            _VAL = 0;
             //dt = Util.DBQuery(string.Format("SELECT * FROM shopConfig WHERE shop = '{0}'", Param.ShopId));
-
-            if (!_FIRST_LOAD)
+            try
             {
-                if (Param.ShopType == "shop")
+                if (!_FIRST_LOAD)
                 {
-                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, IFNULL(cnt.ProductCount, 0) Qty, c.Name Category, bb.name Brand,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  
-                    IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4,IFNULL(p.Price5, 0)  Price5,
-                    p.Image, p.sku, IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, 
-                    IFNULL(p.webPrice4, 0)  webPrice4,IFNULL(p.webPrice5, 0)  webPrice5
-                    FROM Barcode b
-                          LEFT JOIN Product p
-                              ON b.Product = p.product
-                              AND p.Shop = '{0}'
-                          LEFT JOIN Category c
-                              ON p.Category = c.Category
-                              AND p.Shop = c.Shop
-                          LEFT JOIN Brand bb
-                              ON p.Brand = bb.Brand
-                          LEFT JOIN (
-                              SELECT Product, AVG(Cost+OperationCost) Cost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND (SellNo = '' OR SellNo IS NULL) GROUP BY Product
-                          ) cnt
-                    ON p.Product = cnt.Product
-                    WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5}
-                      ORDER BY p.Category, p.Name", Param.ShopId, txtSearch.Text.Trim(),
-                            (cbbCategory.SelectedIndex != 0) ? "AND c.Name = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
-                            (cbbBrand.SelectedIndex != 0) ? "AND b.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
-                            (cbNoPrice.Checked) ? "AND p.Price = 0" : "",
-                            (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : ""
-                        ));
-                }
-                else
-                {
-                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, IFNULL(cnt.ProductCount, 0) Qty, c.Name Category, bb.name Brand,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  
-                    IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4,IFNULL(p.Price5, 0)  Price5, p.Image, p.sku,
-                    IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4,IFNULL(p.webPrice5, 0)  webPrice5
-                    FROM Barcode b
-                        LEFT JOIN Product p
-                            ON b.Product = p.Product
-                            --AND p.Shop = '{0}'
-                        LEFT JOIN Category c
-                            ON p.Category = c.Category
-                            --AND p.Shop = c.Shop
-                        LEFT JOIN Brand bb
-                            ON p.brand = bb.brand
-                            --AND p.Shop = bb.Shop
-                        LEFT JOIN (
-                            SELECT Product, AVG(Cost+OperationCost) Cost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND (SellNo = '' OR SellNo IS NULL) GROUP BY Product
-                        ) cnt
-		            ON p.product = cnt.Product
-		            WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5}
-                    ORDER BY p.Category, p.Name", Param.ShopId, txtSearch.Text.Trim(),
-                       (cbbCategory.SelectedIndex != 0) ? "AND c.Name = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
-                       (cbbBrand.SelectedIndex != 0) ? "AND bb.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
-                       (cbNoPrice.Checked) ? "AND (p.Price = 0 OR p.Price = '' OR p.Price = null)" : "",
-                       (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : ""
+                    //if (Param.ShopType == "shop")
+                    //{
+                    //    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, IFNULL(cnt.ProductCount, 0) Qty, c.Name Category, bb.name Brand,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  
+                    //    IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4,IFNULL(p.Price5, 0)  Price5,
+                    //    p.Image, p.sku, IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, 
+                    //    IFNULL(p.webPrice4, 0)  webPrice4,IFNULL(p.webPrice5, 0)  webPrice5
+                    //    FROM Barcode b
+                    //          LEFT JOIN Product p
+                    //              ON b.Product = p.product
+                    //              AND p.Shop = '{0}'
+                    //          LEFT JOIN Category c
+                    //              ON p.Category = c.Category
+                    //              AND p.Shop = c.Shop
+                    //          LEFT JOIN Brand bb
+                    //              ON p.Brand = bb.Brand
+                    //          LEFT JOIN (
+                    //              SELECT Product, AVG(Cost+OperationCost) Cost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND (SellNo = '' OR SellNo IS NULL) GROUP BY Product
+                    //          ) cnt
+                    //    ON p.Product = cnt.Product
+                    //    WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5}
+                    //      ORDER BY p.Category, p.Name", Param.ShopId, txtSearch.Text.Trim(),
+                    //            (cbbCategory.SelectedIndex != 0) ? "AND c.Name = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
+                    //            (cbbBrand.SelectedIndex != 0) ? "AND b.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
+                    //            (cbNoPrice.Checked) ? "AND p.Price = 0" : "",
+                    //            (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : ""
+                    //        ));
+                    //}
+                    //else
+                    //{
+                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT product, name, category, brand, image, sku,warranty,IFNULL((SUM(cost)+SUM(OperationCost))/SUM(qty),0) cost, price, price1, price2, price3, price4, price5, webprice, webprice1, webprice2, webprice3, webprice4, webprice5, SUM(qty) qty FROM (
+                    SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  IFNULL(cnt.OperationCost,0) OperationCost, 
+                                        IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
+                                        IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount,0) Qty
+                                        FROM Barcode b
+                                            LEFT JOIN Product p
+                                                ON b.Product = p.Product
+                                            LEFT JOIN Category c
+                                                ON p.Category = c.Category
+                                            LEFT JOIN Brand bb
+                                                ON p.brand = bb.brand
+                                            LEFT JOIN (
+                                                SELECT Product, SUM(Cost) Cost, SUM(OperationCost) OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND (SellNo = '' OR SellNo IS NULL) GROUP BY Product
+                                            ) cnt
+		                                ON p.product = cnt.Product
+                    UNION ALL
+                    SELECT DISTINCT p.product, p.Name, c.Name Category, b.Name Brand,p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty,   IFNULL(b.PriceCost * cntP.Quantity ,0) Cost, 0 OperationCost,
+                                        IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0)  Price3,IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
+                                        IFNULL(p.WebPrice,0) WebPrice, IFNULL(p.WebPrice1,0) WebPrice1, IFNULL(p.WebPrice2,0) WebPrice2, IFNULL(p.WebPrice3,0) WebPrice3, IFNULL(p.WebPrice4,0) WebPrice4, IFNULL(p.WebPrice5,0) WebPrice5, IFNULL(cntP.Quantity,0) ProductCount                    
+                                        FROM PurchaseOrder b
+                                            LEFT JOIN Product  p
+                                                ON b.Product = p.product
+                                            LEFT JOIN Category c
+                                                ON p.Category = c.Category 
+                                            LEFT JOIN Brand b
+                                                ON p.Brand = b.Brand 
+                                            LEFT JOIN 
+                                            (
+                                                SELECT Product, Quantity, Name, Cost FROM Product
+                                            ) cntP
+                                            ON cntP.Product = p.product
+                    )
+                    
+		            WHERE (product LIKE '%{1}%' OR Name LIKE '%{1}%') {2} {3} {4} {5}
+                    GROUP BY product 
+                    ORDER BY Category, Name", Param.ShopId, txtSearch.Text.Trim(),
+                       (cbbCategory.SelectedIndex != 0) ? "AND Name = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
+                       (cbbBrand.SelectedIndex != 0) ? "AND Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
+                       (cbNoPrice.Checked) ? "AND (Price = 0 OR Price = '' OR Price = null)" : "",
+                       (cbNoStock.Checked) ? "AND IFNULL(Qty, 0) = 0" : ""
                    ));
+                    //}
+                    productGridview.OptionsBehavior.AutoPopulateColumns = false;
+                    productGridControl.MainView = productGridview;
+
+                    dt = new DataTable();
+                    for (i = 0; i < ((ColumnView)productGridControl.MainView).Columns.Count; i++)
+                    {
+                        dt.Columns.Add(productGridview.Columns[i].FieldName);
+                    }
+
+                    for (a = 0; a < _TABLE_PRODUCT.Rows.Count; a++)
+                    {
+                        int warranty = int.Parse(_TABLE_PRODUCT.Rows[a]["Warranty"].ToString());
+                        row = dt.NewRow();
+                        row[0] = (a + 1) * 1;
+                        row[1] = _TABLE_PRODUCT.Rows[a]["product"].ToString();
+                        row[2] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
+                        row[3] = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Qty"]).ToString("#,##0");
+                        row[4] = _TABLE_PRODUCT.Rows[a]["Category"].ToString();
+                        row[5] = _TABLE_PRODUCT.Rows[a]["Brand"].ToString();
+                        row[6] = (warranty == 365) ? "1 ปี" : ((warranty == 0) ? "-" : ((warranty % 30 == 0) ? warranty / 30 + " เดือน" : warranty + " วัน"));
+                        row[7] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["cost"]).ToString("#,##0");
+                        row[8] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price"]).ToString("#,##0");
+                        row[9] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price1"]).ToString("#,##0");
+                        row[10] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price2"]).ToString("#,##0");
+                        row[11] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
+                        row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
+                        row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
+                        row[14] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
+                        row[15] = _TABLE_PRODUCT.Rows[a]["Sku"].ToString();
+                        row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
+                        row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
+                        row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");
+                        row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
+                        row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
+                        row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
+                        dt.Rows.Add(row);
+                        _TOTAL += double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString());
+                        _QTY += int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
+                        _VAL += _TOTAL * _QTY;
+                    }
+
+                    productGridControl.DataSource = dt;
+
+                    //var val = _QTY * _TOTAL;
+                    lblListCount.Text = productGridview.RowCount.ToString("#,##0");
+                    lblTotal.Text = _VAL.ToString("#,##0.00");
+                    lblProductCount.Text = _QTY.ToString("#,##0");
+
                 }
-                productGridview.OptionsBehavior.AutoPopulateColumns = false;
-                productGridControl.MainView = productGridview;
-
-                dt = new DataTable();
-                for (i = 0; i < ((ColumnView)productGridControl.MainView).Columns.Count; i++)
-                {
-                    dt.Columns.Add(productGridview.Columns[i].FieldName);
-                }
-
-                for (a = 0; a < _TABLE_PRODUCT.Rows.Count; a++)
-                {
-                    int warranty = int.Parse(_TABLE_PRODUCT.Rows[a]["Warranty"].ToString());
-                    row = dt.NewRow();
-                    row[0] = (a + 1)*1;
-                    row[1] = _TABLE_PRODUCT.Rows[a]["product"].ToString();
-                    row[2] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
-                    row[3] = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Qty"]).ToString("#,##0");
-                    row[4] = _TABLE_PRODUCT.Rows[a]["Category"].ToString();
-                    row[5] = _TABLE_PRODUCT.Rows[a]["Brand"].ToString();
-                    row[6] = (warranty == 365) ? "1 ปี" : ((warranty == 0) ? "-" : ((warranty % 30 == 0) ? warranty / 30 + " เดือน" : warranty + " วัน"));
-                    row[7] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Cost"]).ToString("#,##0");
-                    row[8] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price"]).ToString("#,##0");
-                    row[9] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price1"]).ToString("#,##0");
-                    row[10] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price2"]).ToString("#,##0");
-                    row[11] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
-                    row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
-                    row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
-                    row[14] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
-                    row[15] = _TABLE_PRODUCT.Rows[a]["Sku"].ToString();
-                    row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
-                    row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
-                    row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");
-                    row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
-                    row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
-                    row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
-                    dt.Rows.Add(row);
-                }
-
-                productGridControl.DataSource = dt;
-
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
             //table1.EndUpdate();
 
@@ -202,6 +235,73 @@ namespace PowerPOS
 
         private void gridControl1_Click(object sender, EventArgs e)
         {
+            if (!_FIRST_LOAD)
+            {
+                if (productGridview.RowCount > 0)
+                {
+                    try
+                    {
+                        _ROW_INDEX = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["No"]));
+                        pnlPrice.Visible = true;
+                        ptbProduct.Image = null;
+                        //ptbProduct.Image = null;
+                        Param.ProductId = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["product"]);
+                        Param.CategoryName = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["category"]);
+                        lblCategory.Text = Param.CategoryName;
+
+                        var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
+                        DataTable dt = Util.DBQuery(string.Format("SELECT Image FROM Product WHERE product = '{0}'", Param.ProductId));
+
+                        _STREAM_IMAGE_URL = Param.ImagePath + "/" + productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["Sku"]) + "/" + productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["Image"]).Split(',')[0];
+
+                        if (!File.Exists(filename))
+                        {
+                            if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                            {
+                                DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                            }
+                        }
+                        else
+                        {
+                            try { ptbProduct.Image = Image.FromFile(filename); }
+                            catch
+                            {
+                                if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                                {
+                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                }
+                            }
+                        }
+
+                        lblCost.Text = Convert.ToDouble(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["cost"])).ToString("#,##0.00");
+                        txtPrice.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice"]).ToString();
+                        txtPrice1.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice1"]).ToString();
+                        txtPrice2.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice2"]).ToString();
+                        txtPrice3.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice3"]).ToString();
+                        txtPrice4.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice4"]).ToString();
+                        nudPrice.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price"]));
+                        nudPrice1.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price1"]));
+                        nudPrice2.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price2"]));
+                        nudPrice3.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price3"]));
+                        nudPrice4.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price4"]));
+                        nudPrice_ValueChanged(sender, e);
+                        nudPrice1_ValueChanged(sender, e);
+                        nudPrice2_ValueChanged(sender, e);
+                        nudPrice3_ValueChanged(sender, e);
+                        nudPrice4_ValueChanged(sender, e);
+                        btnSave.Enabled = false;
+                        lblCategory.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["category"]);
+                        id = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["product"]);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        pnlPrice.Visible = false;
+                    }
+                }
+            }
+
             //if (productGridview.RowCount > 0)
             //{
             //    try
@@ -376,7 +476,7 @@ namespace PowerPOS
                 {
                     try
                     {
-                        _ROW_INDEX = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["No"]));
+                        _ROW_INDEX = Convert.ToInt32(productGridview.GetDataRow(e.FocusedRowHandle)["No"].ToString());
                         pnlPrice.Visible = true;
                         ptbProduct.Image = null;
                         //ptbProduct.Image = null;
@@ -414,11 +514,11 @@ namespace PowerPOS
                         txtPrice2.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice2"]).ToString();
                         txtPrice3.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice3"]).ToString();
                         txtPrice4.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice4"]).ToString();
-                        nudPrice.Value = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price"]));
-                        nudPrice1.Value = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price1"]));
-                        nudPrice2.Value = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price2"]));
-                        nudPrice3.Value = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price3"]));
-                        nudPrice4.Value = Convert.ToInt32(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price4"]));
+                        nudPrice.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price"]));
+                        nudPrice1.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price1"]));
+                        nudPrice2.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price2"]));
+                        nudPrice3.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price3"]));
+                        nudPrice4.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price4"]));
                         nudPrice_ValueChanged(sender, e);
                         nudPrice1_ValueChanged(sender, e);
                         nudPrice2_ValueChanged(sender, e);
@@ -431,7 +531,7 @@ namespace PowerPOS
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.ToString());
+                        Console.WriteLine(ex.ToString());
                         pnlPrice.Visible = false;
                     }
                 }

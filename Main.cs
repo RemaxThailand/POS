@@ -14,7 +14,7 @@ namespace PowerPOS
     public partial class Main : Form
     {
         #region Parameter
-        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic};
+        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit};
         XtraUserControl _USER_CONTROL;
         UcSale _UC_SALE;
         UcStock _UC_STOCK;
@@ -25,12 +25,14 @@ namespace PowerPOS
         UcConfig _UC_CONFIG;
         UcClaim _UC_CLAIM;
         UcStatistic _UC_STATISTIC;
+        UcCredit _UC_CREDIT;
         #endregion
 
         public Main()
         {
             InitializeComponent();
             Param.UserId = "0000";
+            Param.UserCode = "1234";
             Util.ConnectSQLiteDatabase();
             Util.GetCpuId();
             this.Opacity = 0;
@@ -177,6 +179,10 @@ namespace PowerPOS
             {
                 AddPanel(Param.Screen.Statistic);
             }
+            else if (e.Element.Name == "navCredit")
+            {
+                AddPanel(Param.Screen.Credit);
+            }
         }
         #endregion
 
@@ -201,6 +207,7 @@ namespace PowerPOS
                 case Param.Screen.Stock:
                     if (_UC_STOCK == null) _UC_STOCK = new UcStock();
                     _USER_CONTROL = _UC_STOCK;
+                    _UC_STOCK.LoadData();
                     break;
                 case Param.Screen.Product:
                     if (_UC_PRODUCT == null) _UC_PRODUCT = new UcProduct();
@@ -211,6 +218,7 @@ namespace PowerPOS
                 case Param.Screen.Customer:
                     if (_UC_CUSTOMER == null) _UC_CUSTOMER = new UcCustomer();
                     _USER_CONTROL = _UC_CUSTOMER;
+                    _UC_CUSTOMER.LoadData();
                     break;
                 case Param.Screen.Report:
                     if (_UC_REPORT == null) _UC_REPORT = new UcReport();
@@ -228,6 +236,11 @@ namespace PowerPOS
                 case Param.Screen.Statistic:
                     if (_UC_STATISTIC == null) _UC_STATISTIC = new UcStatistic();
                     _USER_CONTROL = _UC_STATISTIC;
+                    break;
+                case Param.Screen.Credit:
+                    if (_UC_CREDIT == null) _UC_CREDIT = new UcCredit();
+                    _USER_CONTROL = _UC_CREDIT;
+                    _UC_CREDIT.LoadData();
                     break;
             }
             if (!pnlMain.Contains(_USER_CONTROL))

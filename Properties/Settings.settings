@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="ApiUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://api-test.remaxthailand.co.th</Value>
+      <Value Profile="(Default)">https://api.remaxthailand.co.th</Value>
     </Setting>
     <Setting Name="LicenseKey" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -36,7 +36,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ApiKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">TEST-0001</Value>
+      <Value Profile="(Default)">1300D462-2B4E-4235-B617-02537B4127D1</Value>
     </Setting>
     <Setting Name="LogoPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
@@ -48,7 +48,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ImagePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://api.powerdd.com/img/remax/product/</Value>
+      <Value Profile="(Default)">https://img.remaxthailand.co.th/300x300/product/</Value>
     </Setting>
     <Setting Name="ShopType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
