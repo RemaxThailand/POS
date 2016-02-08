@@ -96,12 +96,10 @@
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.gbOrderNo = new DevExpress.XtraEditors.GroupControl();
             this.cbbBrand = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbNoStock = new DevExpress.XtraEditors.CheckEdit();
             this.cbbCategory = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbNoPrice = new DevExpress.XtraEditors.CheckEdit();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
@@ -113,6 +111,7 @@
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            this.gbOrderNo = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent2.Properties)).BeginInit();
@@ -146,19 +145,18 @@
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
-            this.gbOrderNo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             this.panelControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
+            this.gbOrderNo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl4
@@ -1090,25 +1088,9 @@
             this.panelControl1.Size = new System.Drawing.Size(248, 520);
             this.panelControl1.TabIndex = 0;
             // 
-            // gbOrderNo
-            // 
-            this.gbOrderNo.Controls.Add(this.cbbBrand);
-            this.gbOrderNo.Controls.Add(this.cbNoStock);
-            this.gbOrderNo.Controls.Add(this.cbbCategory);
-            this.gbOrderNo.Controls.Add(this.cbNoPrice);
-            this.gbOrderNo.Controls.Add(this.comboBoxEdit1);
-            this.gbOrderNo.Controls.Add(this.txtSearch);
-            this.gbOrderNo.Controls.Add(this.btnSearch);
-            this.gbOrderNo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbOrderNo.Location = new System.Drawing.Point(3, 3);
-            this.gbOrderNo.Name = "gbOrderNo";
-            this.gbOrderNo.Size = new System.Drawing.Size(242, 161);
-            this.gbOrderNo.TabIndex = 18;
-            this.gbOrderNo.Text = "ค้นหาข้อมูล";
-            // 
             // cbbBrand
             // 
-            this.cbbBrand.Location = new System.Drawing.Point(15, 57);
+            this.cbbBrand.Location = new System.Drawing.Point(13, 49);
             this.cbbBrand.Name = "cbbBrand";
             this.cbbBrand.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbBrand.Properties.Appearance.Options.UseFont = true;
@@ -1121,7 +1103,7 @@
             // 
             // cbNoStock
             // 
-            this.cbNoStock.Location = new System.Drawing.Point(15, 129);
+            this.cbNoStock.Location = new System.Drawing.Point(13, 121);
             this.cbNoStock.Name = "cbNoStock";
             this.cbNoStock.Properties.Caption = "สินค้าที่ไม่มีในคลังสินค้า";
             this.cbNoStock.Size = new System.Drawing.Size(210, 19);
@@ -1130,7 +1112,7 @@
             // 
             // cbbCategory
             // 
-            this.cbbCategory.Location = new System.Drawing.Point(15, 31);
+            this.cbbCategory.Location = new System.Drawing.Point(13, 23);
             this.cbbCategory.Name = "cbbCategory";
             this.cbbCategory.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbCategory.Properties.Appearance.Options.UseFont = true;
@@ -1143,25 +1125,16 @@
             // 
             // cbNoPrice
             // 
-            this.cbNoPrice.Location = new System.Drawing.Point(15, 109);
+            this.cbNoPrice.Location = new System.Drawing.Point(13, 101);
             this.cbNoPrice.Name = "cbNoPrice";
             this.cbNoPrice.Properties.Caption = "สินค้าที่ยังไม่กำหนดราคาขาย";
             this.cbNoPrice.Size = new System.Drawing.Size(210, 19);
             this.cbNoPrice.TabIndex = 13;
             this.cbNoPrice.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
             // 
-            // comboBoxEdit1
-            // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(-17, -17);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(100, 20);
-            this.comboBoxEdit1.TabIndex = 12;
-            // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(15, 83);
+            this.txtSearch.Location = new System.Drawing.Point(13, 75);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Properties.Appearance.Options.UseFont = true;
@@ -1175,7 +1148,7 @@
             // 
             this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(200, 82);
+            this.btnSearch.Location = new System.Drawing.Point(198, 74);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(25, 23);
             this.btnSearch.TabIndex = 10;
@@ -1273,6 +1246,21 @@
             this.panelControl6.Size = new System.Drawing.Size(937, 20);
             this.panelControl6.TabIndex = 31;
             // 
+            // gbOrderNo
+            // 
+            this.gbOrderNo.Controls.Add(this.cbbBrand);
+            this.gbOrderNo.Controls.Add(this.cbbCategory);
+            this.gbOrderNo.Controls.Add(this.cbNoStock);
+            this.gbOrderNo.Controls.Add(this.btnSearch);
+            this.gbOrderNo.Controls.Add(this.txtSearch);
+            this.gbOrderNo.Controls.Add(this.cbNoPrice);
+            this.gbOrderNo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbOrderNo.Location = new System.Drawing.Point(3, 3);
+            this.gbOrderNo.Name = "gbOrderNo";
+            this.gbOrderNo.Size = new System.Drawing.Size(242, 157);
+            this.gbOrderNo.TabIndex = 19;
+            this.gbOrderNo.Text = "ค้นหาข้อมูล";
+            // 
             // UcProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1321,13 +1309,10 @@
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
-            this.gbOrderNo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
@@ -1335,6 +1320,8 @@
             this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             this.panelControl6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
+            this.gbOrderNo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1409,12 +1396,10 @@
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer2;
         private DevExpress.XtraEditors.PanelControl panelControl13;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.GroupControl gbOrderNo;
         private DevExpress.XtraEditors.ComboBoxEdit cbbBrand;
         private DevExpress.XtraEditors.CheckEdit cbNoStock;
         private DevExpress.XtraEditors.ComboBoxEdit cbbCategory;
         private DevExpress.XtraEditors.CheckEdit cbNoPrice;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.TextEdit txtSearch;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.XtraEditors.GroupControl groupControl1;
@@ -1425,5 +1410,6 @@
         private DevExpress.XtraEditors.LabelControl lblListCount;
         private DevExpress.XtraEditors.LabelControl lblProductCount;
         private DevExpress.XtraEditors.PanelControl panelControl6;
+        private DevExpress.XtraEditors.GroupControl gbOrderNo;
     }
 }

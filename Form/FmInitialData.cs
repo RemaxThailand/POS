@@ -1052,11 +1052,12 @@ namespace PowerPOS
                 sellNo NVARCHAR(10) NOT NULL,
                 returnDate NVARCHAR(30),
                 product NVARCHAR(10) NOT NULL,
+                barcode NVARCHAR(30) NOT NULL,
                 quantity INT NOT NULL,
                 sellPrice DOUBLE NOT NULL,
                 returnBy NVARCHAR(10),
                 sync BOOL DEFAULT 0,
-                PRIMARY KEY (sellNo, barcode))");
+                PRIMARY KEY (returnNo, sellNo, barcode))");
 
             string Return = Util.GetApiData("/return/returnInfo",
             string.Format("shop={0}", Param.ApiShopId));
@@ -1066,7 +1067,7 @@ namespace PowerPOS
 
             if (jsonReturn.success.Value)
             {
-                const string comm = @"INSERT OR REPLACE INTO ReturnProduct (returnNo, sellNo, returnDate, product, quantity, sellPrice, returnBy) ";
+                const string comm = @"INSERT OR REPLACE INTO ReturnProduct (returnNo, sellNo, returnDate, product, barcode, quantity, sellPrice, returnBy) ";
                 var sbb = new StringBuilder(comm);
 
                 i = 0;
@@ -1076,7 +1077,7 @@ namespace PowerPOS
                     if (d != 0) sbb.Append(" UNION ALL ");
                     sbb.Append(string.Format(@" SELECT '{0}', '{1}', {2}, '{3}', '{4}', '{5}', '{6}'",
                         jsonReturn.result[i].returnNo, jsonReturn.result[i].sellNo, jsonReturn.result[i].returnDate == null ? "NULL" : "'" + jsonReturn.result[i].returnDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
-                        jsonReturn.result[i].product, jsonReturn.result[i].quantity, jsonReturn.result[i].sellPrice, jsonReturn.result[i].returnBy));
+                        jsonReturn.result[i].product, jsonReturn.result[i].barcode, jsonReturn.result[i].quantity, jsonReturn.result[i].sellPrice, jsonReturn.result[i].returnBy));
                     d++;
                     if (d % 500 == 0)
                     {

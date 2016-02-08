@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcConfig));
             this.gbxBill = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.btnSaveBill = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
@@ -54,12 +55,13 @@
             this.rdbLogoNotPrint = new System.Windows.Forms.RadioButton();
             this.rdbLogoPrint = new System.Windows.Forms.RadioButton();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.rdbNotPrint = new System.Windows.Forms.RadioButton();
             this.rdbPrint = new System.Windows.Forms.RadioButton();
             this.nudPrintCount = new DevExpress.XtraEditors.SpinEdit();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.rdbAlert = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
@@ -78,7 +80,6 @@
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.gbxBill)).BeginInit();
             this.gbxBill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -104,9 +105,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             this.panelControl7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
@@ -116,8 +119,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxBill
@@ -138,6 +139,7 @@
             // panelControl1
             // 
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl1.Controls.Add(this.labelControl1);
             this.panelControl1.Controls.Add(this.panelControl13);
             this.panelControl1.Controls.Add(this.panelControl14);
             this.panelControl1.Controls.Add(this.groupControl4);
@@ -155,6 +157,16 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(304, 588);
             this.panelControl1.TabIndex = 0;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.labelControl1.Location = new System.Drawing.Point(10, 572);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(59, 16);
+            this.labelControl1.TabIndex = 1;
+            this.labelControl1.Text = "V 1.0.0.11";
             // 
             // panelControl13
             // 
@@ -405,6 +417,31 @@
             this.panelControl4.Size = new System.Drawing.Size(284, 10);
             this.panelControl4.TabIndex = 17;
             // 
+            // panelControl5
+            // 
+            this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl5.Controls.Add(this.groupControl1);
+            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl5.Location = new System.Drawing.Point(10, 10);
+            this.panelControl5.Name = "panelControl5";
+            this.panelControl5.Size = new System.Drawing.Size(284, 86);
+            this.panelControl5.TabIndex = 18;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.rdbNotPrint);
+            this.groupControl1.Controls.Add(this.rdbPrint);
+            this.groupControl1.Controls.Add(this.nudPrintCount);
+            this.groupControl1.Controls.Add(this.rdbAlert);
+            this.groupControl1.Controls.Add(this.label2);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl1.Location = new System.Drawing.Point(0, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.ShowCaption = false;
+            this.groupControl1.Size = new System.Drawing.Size(284, 85);
+            this.groupControl1.TabIndex = 0;
+            this.groupControl1.Text = "groupControl1";
+            // 
             // rdbNotPrint
             // 
             this.rdbNotPrint.AutoSize = true;
@@ -448,26 +485,6 @@
             this.nudPrintCount.TabIndex = 19;
             this.nudPrintCount.ValueChanged += new System.EventHandler(this.nudPrintCount_ValueChanged);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(212, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 16);
-            this.label2.TabIndex = 15;
-            this.label2.Text = "ใบ";
-            // 
-            // panelControl5
-            // 
-            this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl5.Controls.Add(this.groupControl1);
-            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl5.Location = new System.Drawing.Point(10, 10);
-            this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(284, 86);
-            this.panelControl5.TabIndex = 18;
-            // 
             // rdbAlert
             // 
             this.rdbAlert.AutoSize = true;
@@ -480,6 +497,16 @@
             this.rdbAlert.Text = "แจ้งเตือนว่าจะพิมพ์หรือไม่";
             this.rdbAlert.UseVisualStyleBackColor = true;
             this.rdbAlert.CheckedChanged += new System.EventHandler(this.rdbAlert_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(212, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(22, 16);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "ใบ";
             // 
             // panelControl3
             // 
@@ -628,21 +655,6 @@
             this.panelControl20.Size = new System.Drawing.Size(10, 629);
             this.panelControl20.TabIndex = 21;
             // 
-            // groupControl1
-            // 
-            this.groupControl1.Controls.Add(this.rdbNotPrint);
-            this.groupControl1.Controls.Add(this.rdbPrint);
-            this.groupControl1.Controls.Add(this.nudPrintCount);
-            this.groupControl1.Controls.Add(this.rdbAlert);
-            this.groupControl1.Controls.Add(this.label2);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl1.Location = new System.Drawing.Point(0, 0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.ShowCaption = false;
-            this.groupControl1.Size = new System.Drawing.Size(284, 85);
-            this.groupControl1.TabIndex = 0;
-            this.groupControl1.Text = "groupControl1";
-            // 
             // UcConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -662,6 +674,7 @@
             this.gbxBill.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
             this.panelControl13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
@@ -684,9 +697,12 @@
             this.panelControl7.ResumeLayout(false);
             this.panelControl7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
+            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
@@ -697,9 +713,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
-            this.groupControl1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -756,5 +769,6 @@
         private System.Windows.Forms.RadioButton rdbNotPrint;
         private DevExpress.XtraEditors.PanelControl panelControl20;
         private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
     }
 }

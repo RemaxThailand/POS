@@ -86,21 +86,35 @@ namespace PowerPOS
             int i, a;
             int _QTY = 0;
 
-            //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-            //                WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}'", Param.CpuId, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+            dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode b
+                        WHERE NOT EXISTS (SELECT *
+                          FROM ChangePrice cp
+                          WHERE b.product = cp.product
+                          AND cp.SellNo = '{0}')
+                        AND b.SellBy = '{0}'", Param.CpuId));
+            if (dt.Rows.Count > 0)
+            {
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}'", Param.CpuId, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+            }
 
+            dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
+                    WHERE NOT EXISTS (SELECT *
+                      FROM ChangePrice cp
+                      WHERE st.product = cp.product
+                      AND cp.SellNo = '{0}')", Param.CpuId));
+            if (dt.Rows.Count > 0)
+            {
 
-            //dt = Util.DBQuery(@"SELECT product, productName, price, amount FROM sellTemp");
-            //if (dt.Rows.Count > 0)
-            //{
-
-            //    Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
-            //        Price = '{1}',
-            //        TotalPrice = '{1}' * sellTemp.Amount,
-            //        PriceCost = (SELECT p.Cost FROM Product p
-            //        WHERE sellTemp.product = p.Product) * sellTemp.Amount", 
-            //        Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price));
-            //}
+                Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
+                    Price = (SELECT p.Price{0} FROM Product p
+                    WHERE sellTemp.product = p.product),
+                    TotalPrice =  (SELECT p.Price{0} FROM Product p
+                    WHERE sellTemp.product = p.product) * sellTemp.Amount,
+                    PriceCost = (SELECT p.Cost FROM Product p
+                    WHERE sellTemp.product = p.Product) * sellTemp.Amount",
+                    Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price));
+            }
 
             _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice FROM 
                         (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount
@@ -109,6 +123,7 @@ namespace PowerPOS
                             ON b.Product = p.product
                         LEFT JOIN ChangePrice cp
                         ON cp.product = p.product
+                        AND cp.SellNo = '{0}'
                     UNION ALL
                     SELECT product, productName, price,  price priceA, amount FROM sellTemp)
                     GROUP BY product", Param.CpuId, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
@@ -470,19 +485,19 @@ namespace PowerPOS
         {
             DataTable dt;
 
-            DataTable RId = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(Barcode), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(Barcode), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}R'), 3)||'0001') Return
+            DataTable RId = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(barcode), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(barcode), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}R'), 3)||'0001') Return
                                             FROM ReturnProduct
-                                            WHERE SUBSTR(Barcode, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
-                                            AND SUBSTR(Barcode, 5, 1) = '{0}'", Param.DevicePrefix));
+                                            WHERE SUBSTR(barcode, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
+                                            AND SUBSTR(barcode, 5, 1) = '{0}'", Param.DevicePrefix));
             var Return = RId.Rows[0]["Return"].ToString();
 
-            dt = Util.DBQuery(string.Format(@"SELECT b.OrderNo, p.ID, p.CoverImage, IFNULL(b.ReceivedDate, '') ReceivedDate 
-                    FROM Barcode b LEFT JOIN Product p ON b.product = p.id WHERE b.Barcode = '{0}'", txtBarcode.Text));
+            dt = Util.DBQuery(string.Format(@"SELECT b.OrderNo, p.product, p.Image, IFNULL(b.ReceivedDate, '') ReceivedDate 
+                    FROM Barcode b LEFT JOIN Product p ON b.product = p.product WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
             if (dt.Rows.Count == 0)
             {
                 if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะยืนยันการรับคืนสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    string Bar = FmReturnSell.Pid + "-" + Return;
+                    string Bar = Return + "-" + dt.Rows[0]["product"].ToString();
                     Util.DBExecute(string.Format(@"INSERT INTO ReturnProduct (ReturnNo, SellNo, ReturnDate, Product, Barcode, SellPrice, Quantity, ReturnBy, Sync)
                                              SELECT '{0}', '{1}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{2}', '{3}', '{4}', '{5}', '{6}', 1 ",
                        Return, FmReturnSell.sellN, FmReturnSell.Pid, Bar, FmReturnSell.sellP, Param.amount, Param.UserId));
@@ -586,8 +601,8 @@ namespace PowerPOS
                 {
                     Param.BarcodeNo = txtBarcodeReturn.Text;
 
-                    dt = Util.DBQuery(string.Format(@"SELECT b.OrderNo, p.ID, p.CoverImage, IFNULL(b.ReceivedDate, '') ReceivedDate 
-                    FROM Barcode b LEFT JOIN Product p ON b.product = p.id WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
+                    dt = Util.DBQuery(string.Format(@"SELECT b.OrderNo, p.Product, p.Image, IFNULL(b.ReceivedDate, '') ReceivedDate
+                    FROM Barcode b LEFT JOIN Product p ON b.product = p.Product WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
                     if (dt.Rows.Count == 0)
                     {
                         dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%'", txtBarcodeReturn.Text));
@@ -687,7 +702,7 @@ namespace PowerPOS
                     else
                     {
                         _TABLE_RETURN = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, 
-                    b.ReceivedDate, b.ReceivedBy, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku
+                    b.ReceivedDate, b.ReceivedBy, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku, 1 Amount
                     FROM Barcode b 
                         LEFT JOIN Product p 
                         ON b.Product = p.Product 
@@ -734,7 +749,8 @@ namespace PowerPOS
                                     row[1] = Convert.ToDateTime(_TABLE_RETURN.Rows[a]["SellDate"]).ToLocalTime().ToString("dd MMMM yyyy", CultureInfo.CreateSpecificCulture("th-TH")); ;
                                     row[2] = customer;
                                     row[3] = _TABLE_RETURN.Rows[a]["Name"].ToString();
-                                    row[4] = Convert.ToInt32(_TABLE_RETURN.Rows[a]["Price"].ToString()).ToString("#,##0");
+                                    row[4] = _TABLE_RETURN.Rows[a]["Amount"].ToString();
+                                    row[5] = Convert.ToInt32(_TABLE_RETURN.Rows[a]["Price"].ToString()).ToString("#,##0");
                                     dt.Rows.Add(row);
                                 }
 

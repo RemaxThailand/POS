@@ -686,9 +686,9 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/return/returnAdd",
-                    string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}",
+                    string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}&barcode={8}",
                                 Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(), 
-                                dt.Rows[i]["returnDate"].ToString(),dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()))
+                                dt.Rows[i]["returnDate"].ToString(),dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()), dt.Rows[i]["barcode"].ToString())
                     ));
                     if (!json.success.Value)
                     {

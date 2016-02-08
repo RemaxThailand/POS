@@ -34,32 +34,22 @@
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.ptbShop = new DevExpress.XtraEditors.PictureEdit();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
-            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
-            this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.navBarGroupControlContainer3 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
-            this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
-            this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
             this.reportGridControl = new DevExpress.XtraGrid.GridControl();
             this.reportGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.clNo = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -83,6 +73,17 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
+            this.pictureEdit3 = new DevExpress.XtraEditors.PictureEdit();
+            this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            this.pictureEdit2 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -90,6 +91,7 @@
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -97,10 +99,6 @@
             this.navBarGroupControlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
-            this.panelControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
@@ -108,12 +106,6 @@
             this.navBarGroupControlContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             this.panelControl7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
-            this.panelControl8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
@@ -127,6 +119,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
+            this.panelControl8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
+            this.panelControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -187,27 +189,26 @@
             this.panelControl2.Size = new System.Drawing.Size(240, 519);
             this.panelControl2.TabIndex = 0;
             // 
-            // btnPrint
-            // 
-            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrint.Appearance.Options.UseFont = true;
-            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
-            this.btnPrint.Location = new System.Drawing.Point(0, 4);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(178, 35);
-            this.btnPrint.TabIndex = 0;
-            this.btnPrint.Text = "พิมพ์ใบเสร็จ";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
-            // 
             // panelControl3
             // 
+            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl3.Controls.Add(this.ptbShop);
             this.panelControl3.Controls.Add(this.pictureEdit1);
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl3.Location = new System.Drawing.Point(3, 78);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(234, 350);
             this.panelControl3.TabIndex = 2;
+            // 
+            // ptbShop
+            // 
+            this.ptbShop.EditValue = global::PowerPOS.Properties.Resources.dailyShop;
+            this.ptbShop.Location = new System.Drawing.Point(2, 2);
+            this.ptbShop.Name = "ptbShop";
+            this.ptbShop.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.ptbShop.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.ptbShop.Size = new System.Drawing.Size(230, 146);
+            this.ptbShop.TabIndex = 4;
             // 
             // pictureEdit1
             // 
@@ -272,35 +273,6 @@
             this.panelControl4.Size = new System.Drawing.Size(240, 442);
             this.panelControl4.TabIndex = 1;
             // 
-            // panelControl5
-            // 
-            this.panelControl5.Controls.Add(this.pictureEdit2);
-            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl5.Location = new System.Drawing.Point(3, 78);
-            this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(234, 350);
-            this.panelControl5.TabIndex = 2;
-            // 
-            // pictureEdit2
-            // 
-            this.pictureEdit2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureEdit2.EditValue = global::PowerPOS.Properties.Resources.daily;
-            this.pictureEdit2.Location = new System.Drawing.Point(2, 2);
-            this.pictureEdit2.Name = "pictureEdit2";
-            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.pictureEdit2.Size = new System.Drawing.Size(230, 346);
-            this.pictureEdit2.TabIndex = 0;
-            // 
-            // panelControl6
-            // 
-            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl6.Location = new System.Drawing.Point(3, 66);
-            this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(234, 12);
-            this.panelControl6.TabIndex = 1;
-            // 
             // groupControl2
             // 
             this.groupControl2.Controls.Add(this.comboBoxEdit1);
@@ -345,7 +317,7 @@
             this.navBarGroupControlContainer3.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer3.Controls.Add(this.panelControl7);
             this.navBarGroupControlContainer3.Name = "navBarGroupControlContainer3";
-            this.navBarGroupControlContainer3.Size = new System.Drawing.Size(240, 442);
+            this.navBarGroupControlContainer3.Size = new System.Drawing.Size(240, 519);
             this.navBarGroupControlContainer3.TabIndex = 3;
             // 
             // panelControl7
@@ -360,84 +332,8 @@
             this.panelControl7.Location = new System.Drawing.Point(0, 0);
             this.panelControl7.Name = "panelControl7";
             this.panelControl7.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl7.Size = new System.Drawing.Size(240, 442);
+            this.panelControl7.Size = new System.Drawing.Size(240, 519);
             this.panelControl7.TabIndex = 1;
-            // 
-            // panelControl8
-            // 
-            this.panelControl8.Controls.Add(this.pictureEdit3);
-            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl8.Location = new System.Drawing.Point(3, 111);
-            this.panelControl8.Name = "panelControl8";
-            this.panelControl8.Size = new System.Drawing.Size(234, 350);
-            this.panelControl8.TabIndex = 2;
-            // 
-            // pictureEdit3
-            // 
-            this.pictureEdit3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureEdit3.EditValue = global::PowerPOS.Properties.Resources.daily;
-            this.pictureEdit3.Location = new System.Drawing.Point(2, 2);
-            this.pictureEdit3.Name = "pictureEdit3";
-            this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit3.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.pictureEdit3.Size = new System.Drawing.Size(230, 346);
-            this.pictureEdit3.TabIndex = 0;
-            // 
-            // panelControl9
-            // 
-            this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl9.Location = new System.Drawing.Point(3, 99);
-            this.panelControl9.Name = "panelControl9";
-            this.panelControl9.Size = new System.Drawing.Size(234, 12);
-            this.panelControl9.TabIndex = 1;
-            // 
-            // groupControl3
-            // 
-            this.groupControl3.Controls.Add(this.labelControl2);
-            this.groupControl3.Controls.Add(this.labelControl1);
-            this.groupControl3.Controls.Add(this.dtpEndDate);
-            this.groupControl3.Controls.Add(this.dtpStartDate);
-            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl3.Location = new System.Drawing.Point(3, 3);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(234, 96);
-            this.groupControl3.TabIndex = 0;
-            this.groupControl3.Text = "ค้นหาข้อมูล";
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Location = new System.Drawing.Point(26, 62);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(16, 16);
-            this.labelControl2.TabIndex = 3;
-            this.labelControl2.Text = "ถึง";
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Location = new System.Drawing.Point(9, 33);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(33, 16);
-            this.labelControl1.TabIndex = 2;
-            this.labelControl1.Text = "ตั้งแต่";
-            // 
-            // dtpEndDate
-            // 
-            this.dtpEndDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpEndDate.Location = new System.Drawing.Point(48, 59);
-            this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(173, 23);
-            this.dtpEndDate.TabIndex = 1;
-            // 
-            // dtpStartDate
-            // 
-            this.dtpStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStartDate.Location = new System.Drawing.Point(48, 30);
-            this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(173, 23);
-            this.dtpStartDate.TabIndex = 0;
             // 
             // navBarGroup3
             // 
@@ -460,6 +356,19 @@
             this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
             this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
             this.navBarGroup2.Name = "navBarGroup2";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Appearance.Options.UseFont = true;
+            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.Location = new System.Drawing.Point(0, 4);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(178, 35);
+            this.btnPrint.TabIndex = 0;
+            this.btnPrint.Text = "พิมพ์ใบเสร็จ";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // reportGridControl
             // 
@@ -735,6 +644,111 @@
             this.lblProductCount.TabIndex = 23;
             this.lblProductCount.Text = "0 ชิ้น";
             // 
+            // dtpStartDate
+            // 
+            this.dtpStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpStartDate.Location = new System.Drawing.Point(48, 30);
+            this.dtpStartDate.Name = "dtpStartDate";
+            this.dtpStartDate.Size = new System.Drawing.Size(173, 23);
+            this.dtpStartDate.TabIndex = 0;
+            // 
+            // dtpEndDate
+            // 
+            this.dtpEndDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpEndDate.Location = new System.Drawing.Point(48, 59);
+            this.dtpEndDate.Name = "dtpEndDate";
+            this.dtpEndDate.Size = new System.Drawing.Size(173, 23);
+            this.dtpEndDate.TabIndex = 1;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Location = new System.Drawing.Point(9, 33);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(33, 16);
+            this.labelControl1.TabIndex = 2;
+            this.labelControl1.Text = "ตั้งแต่";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Location = new System.Drawing.Point(26, 62);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(16, 16);
+            this.labelControl2.TabIndex = 3;
+            this.labelControl2.Text = "ถึง";
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Controls.Add(this.labelControl2);
+            this.groupControl3.Controls.Add(this.labelControl1);
+            this.groupControl3.Controls.Add(this.dtpEndDate);
+            this.groupControl3.Controls.Add(this.dtpStartDate);
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl3.Location = new System.Drawing.Point(3, 3);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(234, 96);
+            this.groupControl3.TabIndex = 0;
+            this.groupControl3.Text = "ค้นหาข้อมูล";
+            // 
+            // panelControl9
+            // 
+            this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl9.Location = new System.Drawing.Point(3, 99);
+            this.panelControl9.Name = "panelControl9";
+            this.panelControl9.Size = new System.Drawing.Size(234, 12);
+            this.panelControl9.TabIndex = 1;
+            // 
+            // panelControl8
+            // 
+            this.panelControl8.Controls.Add(this.pictureEdit3);
+            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl8.Location = new System.Drawing.Point(3, 111);
+            this.panelControl8.Name = "panelControl8";
+            this.panelControl8.Size = new System.Drawing.Size(234, 350);
+            this.panelControl8.TabIndex = 2;
+            // 
+            // pictureEdit3
+            // 
+            this.pictureEdit3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureEdit3.EditValue = global::PowerPOS.Properties.Resources.daily;
+            this.pictureEdit3.Location = new System.Drawing.Point(2, 2);
+            this.pictureEdit3.Name = "pictureEdit3";
+            this.pictureEdit3.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit3.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit3.Size = new System.Drawing.Size(230, 346);
+            this.pictureEdit3.TabIndex = 0;
+            // 
+            // panelControl6
+            // 
+            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl6.Location = new System.Drawing.Point(3, 66);
+            this.panelControl6.Name = "panelControl6";
+            this.panelControl6.Size = new System.Drawing.Size(234, 12);
+            this.panelControl6.TabIndex = 1;
+            // 
+            // panelControl5
+            // 
+            this.panelControl5.Controls.Add(this.pictureEdit2);
+            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl5.Location = new System.Drawing.Point(3, 78);
+            this.panelControl5.Name = "panelControl5";
+            this.panelControl5.Size = new System.Drawing.Size(234, 350);
+            this.panelControl5.TabIndex = 2;
+            // 
+            // pictureEdit2
+            // 
+            this.pictureEdit2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureEdit2.EditValue = global::PowerPOS.Properties.Resources.daily;
+            this.pictureEdit2.Location = new System.Drawing.Point(2, 2);
+            this.pictureEdit2.Name = "pictureEdit2";
+            this.pictureEdit2.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit2.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit2.Size = new System.Drawing.Size(230, 346);
+            this.pictureEdit2.TabIndex = 0;
+            // 
             // UcReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -753,6 +767,7 @@
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
@@ -760,10 +775,6 @@
             this.navBarGroupControlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
-            this.panelControl5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
@@ -771,13 +782,6 @@
             this.navBarGroupControlContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             this.panelControl7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
-            this.panelControl8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            this.groupControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
@@ -792,6 +796,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             this.groupControl5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
+            this.panelControl8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
+            this.panelControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit2.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -819,21 +834,10 @@
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
         private System.Windows.Forms.DateTimePicker dtpDate;
         private DevExpress.XtraEditors.PanelControl panelControl4;
-        private DevExpress.XtraEditors.PanelControl panelControl5;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
-        private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private DevExpress.XtraNavBar.NavBarGroup navBarGroup3;
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer3;
         private DevExpress.XtraEditors.PanelControl panelControl7;
-        private DevExpress.XtraEditors.PanelControl panelControl8;
-        private DevExpress.XtraEditors.PictureEdit pictureEdit3;
-        private DevExpress.XtraEditors.PanelControl panelControl9;
-        private DevExpress.XtraEditors.GroupControl groupControl3;
-        private System.Windows.Forms.DateTimePicker dtpStartDate;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private System.Windows.Forms.DateTimePicker dtpEndDate;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraEditors.PanelControl panelControl10;
@@ -851,5 +855,17 @@
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.LabelControl lblListCount;
         private DevExpress.XtraEditors.LabelControl lblProductCount;
+        private DevExpress.XtraEditors.PictureEdit ptbShop;
+        private DevExpress.XtraEditors.PanelControl panelControl5;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit2;
+        private DevExpress.XtraEditors.PanelControl panelControl6;
+        private DevExpress.XtraEditors.PanelControl panelControl8;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit3;
+        private DevExpress.XtraEditors.PanelControl panelControl9;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private System.Windows.Forms.DateTimePicker dtpEndDate;
+        private System.Windows.Forms.DateTimePicker dtpStartDate;
     }
 }

@@ -67,7 +67,7 @@ namespace PowerPOS
                 grbPrice.Enabled = false;
             }
 
-            DataTable dt = Util.DBQuery(string.Format(@"SELECT Name FROM Category ORDER BY Priority, Name"));
+            DataTable dt = Util.DBQuery(string.Format(@"SELECT DISTINCT Name FROM Category ORDER BY Priority, Name"));
             cbbCategory.Properties.Items.Clear();
             cbbCategory.Properties.Items.Add("หมวดหมู่สินค้าทั้งหมด");
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -76,7 +76,7 @@ namespace PowerPOS
             }
             cbbCategory.SelectedIndex = 0;
 
-            dt = Util.DBQuery(string.Format(@"SELECT Name FROM Brand ORDER BY Priority, Name"));
+            dt = Util.DBQuery(string.Format(@"SELECT DISTINCT Name FROM Brand ORDER BY Priority, Name"));
             cbbBrand.Properties.Items.Clear();
             cbbBrand.Properties.Items.Add("ยี่ห้อสินค้าทั้งหมด");
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -167,8 +167,8 @@ namespace PowerPOS
 		            WHERE (product LIKE '%{1}%' OR Name LIKE '%{1}%') {2} {3} {4} {5}
                     GROUP BY product 
                     ORDER BY Category, Name", Param.ShopId, txtSearch.Text.Trim(),
-                       (cbbCategory.SelectedIndex != 0) ? "AND Name = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
-                       (cbbBrand.SelectedIndex != 0) ? "AND Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
+                       (cbbCategory.SelectedIndex != 0) ? "AND category = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
+                       (cbbBrand.SelectedIndex != 0) ? "AND brand = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
                        (cbNoPrice.Checked) ? "AND (Price = 0 OR Price = '' OR Price = null)" : "",
                        (cbNoStock.Checked) ? "AND IFNULL(Qty, 0) = 0" : ""
                    ));

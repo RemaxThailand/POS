@@ -338,11 +338,11 @@
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl1.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.labelControl1.Location = new System.Drawing.Point(205, 15);
+            this.labelControl1.Location = new System.Drawing.Point(191, 15);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(49, 16);
+            this.labelControl1.Size = new System.Drawing.Size(64, 16);
             this.labelControl1.TabIndex = 23;
-            this.labelControl1.Text = "มือถือ* :";
+            this.labelControl1.Text = "เบอร์โทร* :";
             // 
             // btnSelectImage
             // 
@@ -735,6 +735,7 @@
             // 
             // cbbCredit
             // 
+            this.cbbCredit.Enabled = false;
             this.cbbCredit.Location = new System.Drawing.Point(166, 20);
             this.cbbCredit.Name = "cbbCredit";
             this.cbbCredit.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -749,6 +750,7 @@
             // labelControl21
             // 
             this.labelControl21.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl21.Enabled = false;
             this.labelControl21.Location = new System.Drawing.Point(89, 23);
             this.labelControl21.Name = "labelControl21";
             this.labelControl21.Size = new System.Drawing.Size(71, 16);

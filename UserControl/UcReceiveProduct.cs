@@ -24,7 +24,7 @@ namespace PowerPOS
         DataTable _TABLE_RECEIVED, dt;
         private int _ROW_INDEX = -1;
         int row = -1;
-        string _STREAM_IMAGE_URL;
+        string _STREAM_IMAGE_URL, _SKU;
 
         public static string productNo;
         public static string OrderNo;
@@ -46,7 +46,7 @@ namespace PowerPOS
         public void LoadData()
         {
             DataTable dt, dtab;
-                dt = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b WHERE ReceivedDate IS NULL GROUP BY b.orderNo
+                dt = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b  GROUP BY b.orderNo
                                     UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
                                     GROUP BY orderNo HAVING SUM(N) <> SUM(R) 
                                     UNION ALL
@@ -70,7 +70,7 @@ namespace PowerPOS
                 }
                 cbbOrderNo.SelectedIndex = 0;
 
-                dtab = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b WHERE ReceivedDate IS NULL GROUP BY b.orderNo
+                dtab = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b GROUP BY b.orderNo
                                     UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
                                     GROUP BY orderNo HAVING SUM(N) = SUM(R) 
                                     UNION ALL
@@ -139,15 +139,15 @@ namespace PowerPOS
                         LEFT JOIN ( 
                                 SELECT DISTINCT bb.Product, COUNT(*) Count 
                                 FROM Barcode bb
-                                WHERE bb.OrderNo =  '1601B01061' 
+                                WHERE bb.OrderNo =  '{1}' 
                                 GROUP BY bb.Product
                         ) co
+                        ON p.product = co.product
                     WHERE (b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
                         AND b.OrderNo = '{1}'
                     GROUP BY b.Product
-                    --ORDER BY c.name,p.Name
                     UNION ALL
-                    SELECT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity , c.name category
+                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity , c.name category
                     FROM PurchaseOrder po
                         LEFT JOIN Product p
                         ON po.Product = p.product
@@ -241,7 +241,7 @@ namespace PowerPOS
                 _RECEIVED = 0;
                 int i, a;
                 _TABLE_RECEIVED = Util.DBQuery(string.Format(@"
-                    SELECT DISTINCT b.Product, p.Name, COUNT(*) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, c.name Category
+                    SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, c.name Category
                     FROM Barcode b
                         LEFT JOIN Product p
                             ON b.Product = p.Product 
@@ -257,10 +257,24 @@ namespace PowerPOS
                             ON b.Product = r.Product
                         LEFT JOIN Category c
                             ON p.category = c.category
+                         LEFT JOIN ( 
+                                SELECT DISTINCT bb.Product, COUNT(*) Count 
+                                FROM Barcode bb
+                                WHERE bb.OrderNo =  '{1}' 
+                                GROUP BY bb.Product
+                        ) co
+                            ON p.product = co.product
                     WHERE (b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
                         AND b.OrderNo = '{1}'
                     GROUP BY b.Product
-                    ORDER BY p.Name
+                       UNION ALL
+                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity , c.name category
+                    FROM PurchaseOrder po
+                        LEFT JOIN Product p
+                        ON po.Product = p.product
+                    LEFT JOIN Category c
+                    ON p.Category = c.category
+                    WHERE po.OrderNo = '{1}'
                  ", Param.ShopId, cbbOrder.SelectedItem.ToString(), Param.UserId));
 
                 receivedGridView.OptionsBehavior.AutoPopulateColumns = false;
@@ -283,6 +297,7 @@ namespace PowerPOS
                     row[4] = Convert.ToInt32(_TABLE_RECEIVED.Rows[a]["ProductCount"]).ToString("#,##0");
                     row[5] = Convert.ToInt32(_TABLE_RECEIVED.Rows[a]["ReceivedCount"]).ToString("#,##0");
                     row[6] = (int)progress;
+                    row[7] = _TABLE_RECEIVED.Rows[a]["Sku"].ToString();
                     dt.Rows.Add(row);
                     _QTY += int.Parse(_TABLE_RECEIVED.Rows[a]["ProductCount"].ToString());
                     _RECEIVED += int.Parse(_TABLE_RECEIVED.Rows[a]["ReceivedCount"].ToString());
@@ -492,7 +507,7 @@ namespace PowerPOS
                         var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
                         DataTable dt = Util.DBQuery(string.Format("SELECT Image FROM Product WHERE product = '{0}'", Param.ProductId));
 
-                        _STREAM_IMAGE_URL = "http://src.powerdd.com/img/product/" + "88888888" + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+                        _STREAM_IMAGE_URL = Param.ImagePath + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
 
                         if (!File.Exists(filename))
                         {
@@ -538,7 +553,7 @@ namespace PowerPOS
                         var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
                         DataTable dt = Util.DBQuery(string.Format("SELECT Image FROM Product WHERE product = '{0}'", Param.ProductId));
 
-                        _STREAM_IMAGE_URL = "http://src.powerdd.com/img/product/" + "88888888" + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+                        _STREAM_IMAGE_URL = Param.ImagePath + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
 
                         if (!File.Exists(filename))
                         {

@@ -98,6 +98,7 @@ namespace PowerPOS
 
             lblListCount.Text = reportGridView.RowCount.ToString() + " รายการ";
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            
 
             dtQty = Util.DBQuery(string.Format(@"SELECT SUM(d.Quantity) QTY FROM SellHeader h
                             LEFT JOIN SellDetail d
@@ -187,69 +188,140 @@ namespace PowerPOS
 
         private void DrawImage(double sumPrice, double sumProfit, double avgPrice, double max, List<double> chart)
         {
-            pictureEdit1.Image = new Bitmap(Properties.Resources.daily);
-            using (Graphics g = Graphics.FromImage(pictureEdit1.Image))
+            if (Param.MemberType != "Shop")
             {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                pictureEdit1.Visible = true;
+                ptbShop.Visible = false;
+                pictureEdit1.Image = new Bitmap(Properties.Resources.daily);
 
-                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
-                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                g.TextRenderingHint = TextRenderingHint.AntiAlias;
-
-                Font stringFont = new Font("DilleniaUPC", 50, FontStyle.Bold);
-                SolidBrush drawBrush = new SolidBrush(ColorTranslator.FromHtml("#ffffff"));
-
-                string measureString = Param.ShopName;
-                SizeF stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 17);
-
-                stringFont = new Font("DilleniaUPC", 60, FontStyle.Bold);
-                drawBrush = new SolidBrush(ColorTranslator.FromHtml("#263e74"));
-                measureString = "วันที่ " + dtpDate.Value.ToString("dd MMMM yyyy");
-                stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 230);
-
-
-                stringFont = new Font("DilleniaUPC", 80, FontStyle.Bold);
-                drawBrush = new SolidBrush(ColorTranslator.FromHtml("#f40c43"));
-                measureString = sumPrice.ToString("#,##0");
-                stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 334);
-
-                //if (Param.ShopType != "shop")
-                //{
-                //    measureString = sumProfit.ToString("#,##0");
-                //    stringSize = g.MeasureString(measureString, stringFont);
-                //    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 428);
-                //}
-
-                drawBrush = new SolidBrush(ColorTranslator.FromHtml("#fa3711"));
-                measureString = avgPrice.ToString("#,##0");
-                stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 618);
-
-                var startX = 48;
-                var startY = 780;
-                var width = 40;
-                var gab = 5;
-                var maxHeight = 250;
-                var whiteBrush = new SolidBrush(ColorTranslator.FromHtml("#ffa1d6"));
-                for (int i = 0; i < chart.Count; i++)
+                using (Graphics g = Graphics.FromImage(pictureEdit1.Image))
                 {
-                    drawBrush = new SolidBrush(ColorTranslator.FromHtml(i != chart.Count - 1 ? "#af18b1" : ((chart[i] > avgPrice) ? "#207a2b" : "#d31a1a")));
-                    var h = (int)(chart[i] * maxHeight / max);
-                    g.FillRectangle(drawBrush, new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
-                    g.DrawRectangle(new Pen(whiteBrush), new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
-                }
-                if (avgPrice > 0)
-                {
-                    var y = (int)(avgPrice * maxHeight / max);
-                    g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight - y, 672, startY + maxHeight - y);
-                }
-                g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight, 672, startY + maxHeight);
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+                    Font stringFont = new Font("DilleniaUPC", 50, FontStyle.Bold);
+                    SolidBrush drawBrush = new SolidBrush(ColorTranslator.FromHtml("#ffffff"));
+
+                    string measureString = Param.ShopName;
+                    SizeF stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 17);
+
+                    stringFont = new Font("DilleniaUPC", 60, FontStyle.Bold);
+                    drawBrush = new SolidBrush(ColorTranslator.FromHtml("#263e74"));
+                    measureString = "วันที่ " + dtpDate.Value.ToString("dd MMMM yyyy");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 230);
+
+
+                    stringFont = new Font("DilleniaUPC", 80, FontStyle.Bold);
+                    drawBrush = new SolidBrush(ColorTranslator.FromHtml("#f40c43"));
+                    measureString = sumPrice.ToString("#,##0");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 334);
+
+                    measureString = sumProfit.ToString("#,##0");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 428);
+
+                    drawBrush = new SolidBrush(ColorTranslator.FromHtml("#fa3711"));
+                    measureString = avgPrice.ToString("#,##0");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 618);
+
+                    var startX = 48;
+                    var startY = 780;
+                    var width = 40;
+                    var gab = 5;
+                    var maxHeight = 250;
+                    var whiteBrush = new SolidBrush(ColorTranslator.FromHtml("#ffa1d6"));
+                    for (int i = 0; i < chart.Count; i++)
+                    {
+                        drawBrush = new SolidBrush(ColorTranslator.FromHtml(i != chart.Count - 1 ? "#af18b1" : ((chart[i] > avgPrice) ? "#207a2b" : "#d31a1a")));
+                        var h = (int)(chart[i] * maxHeight / max);
+                        g.FillRectangle(drawBrush, new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
+                        g.DrawRectangle(new Pen(whiteBrush), new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
+                    }
+                    if (avgPrice > 0)
+                    {
+                        var y = (int)(avgPrice * maxHeight / max);
+                        g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight - y, 672, startY + maxHeight - y);
+                    }
+                    g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight, 672, startY + maxHeight);
+
+                }
             }
+            else
+            {
+                pictureEdit1.Visible = false;
+                ptbShop.Visible = true;
+                ptbShop.Image = new Bitmap(Properties.Resources.dailyShop);
+
+                using (Graphics g = Graphics.FromImage(ptbShop.Image))
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                    g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                    g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                    g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                    g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+                    Font stringFont = new Font("DilleniaUPC", 50, FontStyle.Bold);
+                    SolidBrush drawBrush = new SolidBrush(ColorTranslator.FromHtml("#ffffff"));
+
+                    string measureString = Param.ShopName;
+                    SizeF stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 17);
+
+                    stringFont = new Font("DilleniaUPC", 60, FontStyle.Bold);
+                    drawBrush = new SolidBrush(ColorTranslator.FromHtml("#263e74"));
+                    measureString = "วันที่ " + dtpDate.Value.ToString("dd MMMM yyyy");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 230);
+
+
+                    stringFont = new Font("DilleniaUPC", 80, FontStyle.Bold);
+                    drawBrush = new SolidBrush(ColorTranslator.FromHtml("#f40c43"));
+                    measureString = sumPrice.ToString("#,##0");
+                    stringSize = g.MeasureString(measureString, stringFont);
+                    g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 334);
+
+                    //measureString = sumProfit.ToString("#,##0");
+                    //stringSize = g.MeasureString(measureString, stringFont);
+                    //g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 428);
+
+                    //drawBrush = new SolidBrush(ColorTranslator.FromHtml("#fa3711"));
+                    //measureString = avgPrice.ToString("#,##0");
+                    //stringSize = g.MeasureString(measureString, stringFont);
+                    //g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 618);
+
+                    //var startX = 48;
+                    //var startY = 780;
+                    //var width = 40;
+                    //var gab = 5;
+                    //var maxHeight = 250;
+                    //var whiteBrush = new SolidBrush(ColorTranslator.FromHtml("#ffa1d6"));
+                    //for (int i = 0; i < chart.Count; i++)
+                    //{
+                    //    drawBrush = new SolidBrush(ColorTranslator.FromHtml(i != chart.Count - 1 ? "#af18b1" : ((chart[i] > avgPrice) ? "#207a2b" : "#d31a1a")));
+                    //    var h = (int)(chart[i] * maxHeight / max);
+                    //    g.FillRectangle(drawBrush, new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
+                    //    g.DrawRectangle(new Pen(whiteBrush), new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
+                    //}
+                    //if (avgPrice > 0)
+                    //{
+                    //    var y = (int)(avgPrice * maxHeight / max);
+                    //    g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight - y, 672, startY + maxHeight - y);
+                    //}
+                    //g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight, 672, startY + maxHeight);
+
+                }
+            }
+
+          
         }
 
         private void miDetail_Click(object sender, EventArgs e)
