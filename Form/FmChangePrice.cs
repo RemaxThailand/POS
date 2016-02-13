@@ -42,16 +42,16 @@ namespace PowerPOS
 
                         //if (Convert.ToInt32(UcSale.price) >= Convert.ToInt32(dt.Rows[0]["cost"].ToString()))
                         //{
-                        dt = Util.DBQuery(string.Format(@"SELECT * FROM ChangePrice WHERE sellNo = '{0}' AND product = '{1}'", Param.CpuId, UcSale.product));
+                        dt = Util.DBQuery(string.Format(@"SELECT * FROM ChangePrice WHERE sellNo = '{0}' AND product = '{1}'", Param.DeviceID, UcSale.product));
                         if (dt.Rows.Count > 0)
                         {
-                            Util.DBExecute(string.Format(@"UPDATE ChangePrice SET price = '{0}' WHERE sellNO = '{1}' AND product = '{2}'", UcSale.price, Param.CpuId, UcSale.product));
+                            Util.DBExecute(string.Format(@"UPDATE ChangePrice SET price = '{0}' WHERE sellNO = '{1}' AND product = '{2}'", UcSale.price, Param.DeviceID, UcSale.product));
                         }
                         else
                         {
                             Util.DBExecute(string.Format(@"INSERT INTO ChangePrice (shop, sellNo, product, price, changeBy, changeDate)
                             SELECT '{0}','{1}','{2}','{3}','{4}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW')",
-                            Param.ShopId, Param.CpuId, UcSale.product, UcSale.price, Param.UserCode));
+                            Param.ShopId, Param.DeviceID, UcSale.product, UcSale.price, Param.UserCode));
                         }
 
                         this.DialogResult = DialogResult.OK;

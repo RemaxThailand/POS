@@ -40,7 +40,7 @@ namespace PowerPOS
             Param.LicenseKey = Properties.Settings.Default.LicenseKey;
             Param.ApiChecked = Properties.Settings.Default.ApiChecked;
             Param.ImagePath = Properties.Settings.Default.ImagePath;
-            Param.CpuId = GetCpuId();
+            Param.DeviceID = GetDiviceId();
             Param.ComputerName = System.Environment.MachineName;
             //Param.DatabaseName = Properties.Settings.Default.DatabaseName;
             //Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
@@ -63,9 +63,9 @@ namespace PowerPOS
             //}
         }
 
-        public static string GetCpuId()
+        public static string GetDiviceId()
         {
-            string cpuInfo = string.Empty;
+            /*string cpuInfo = string.Empty;
             ManagementClass mc = new ManagementClass("win32_processor");
             ManagementObjectCollection moc = mc.GetInstances();
 
@@ -73,6 +73,14 @@ namespace PowerPOS
             {
                 cpuInfo = mo.Properties["processorID"].Value.ToString();
                 break;
+            }*/
+
+            ManagementObjectSearcher mos = new ManagementObjectSearcher("SELECT * FROM Win32_BaseBoard");
+            ManagementObjectCollection moc = mos.Get();
+            string motherBoard = "";
+            foreach (ManagementObject mo in moc)
+            {
+                motherBoard = (string)mo["SerialNumber"];
             }
 
             //Then use this code to get the HD ID:
@@ -82,8 +90,8 @@ namespace PowerPOS
             dsk.Get();
             string volumeSerial = dsk["VolumeSerialNumber"].ToString();
 
-            string uniqueId = cpuInfo + volumeSerial;
-            Param.CpuId = uniqueId;
+            string uniqueId = motherBoard + "-" + volumeSerial;
+            Param.DeviceID = uniqueId;
             return uniqueId;
         }
 
@@ -110,7 +118,7 @@ namespace PowerPOS
               try
                 {
                     dynamic application = Util.GetApiData("/shop-application/infoPos",
-                    string.Format("licenseKey={0}&deviceId={1}",  Param.LicenseKey, Param.CpuId));
+                    string.Format("licenseKey={0}&deviceId={1}",  Param.LicenseKey, Param.DeviceID));
 
                     dynamic jsonApplication = JsonConvert.DeserializeObject(application);
                     Console.WriteLine(jsonApplication.success);

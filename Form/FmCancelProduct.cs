@@ -81,7 +81,7 @@ namespace PowerPOS
 
                     if (dt.Rows.Count == 1)
                     {
-                        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = '0',SellBy = '', Sync = 1 WHERE SellBy = '{0}' AND Barcode = '{1}'", Param.CpuId, txtBarcode.Text));
+                        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = '0',SellBy = '', Sync = 1 WHERE SellBy = '{0}' AND Barcode = '{1}'", Param.DeviceID, txtBarcode.Text));
                         Param.UcSale.LoadData();
                         txtBarcode.Text = "";
                     }

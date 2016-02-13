@@ -29,7 +29,7 @@ namespace PowerPOS
         public static string UserCode;
         public static bool ApiChecked;
         public static string LicenseKey;
-        public static string CpuId;
+        public static string DeviceID;
         public static string ComputerName;
         public static string DatabaseName;
         public static string DatabasePassword;

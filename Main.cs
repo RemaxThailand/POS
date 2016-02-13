@@ -34,7 +34,7 @@ namespace PowerPOS
             Param.UserId = "0000";
             Param.UserCode = "1234";
             Util.ConnectSQLiteDatabase();
-            Util.GetCpuId();
+            Util.GetDiviceId();
             this.Opacity = 0;
             this.ShowInTaskbar = false;
         }

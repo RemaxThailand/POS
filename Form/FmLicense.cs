@@ -36,6 +36,7 @@ namespace PowerPOS
                 btnCancel.Enabled = true;
                 txtLicenseKey.Enabled = true;
                 lblDeviceID.Visible = true;
+
             }
             else
             {
@@ -47,7 +48,8 @@ namespace PowerPOS
         private void FmLicense_Load(object sender, EventArgs e)
         {
             txtLicenseKey.Text = Properties.Settings.Default.LicenseKey;
-            lblDeviceID.Text = Param.CpuId;
+            lblDeviceID.Text = Param.DeviceID;
+            Util.GetApiData("/shop-application/license/request", string.Format("deviceId={0}&deviceName={1}", Param.DeviceID, Param.ComputerName));
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

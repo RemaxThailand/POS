@@ -91,18 +91,18 @@ namespace PowerPOS
                           FROM ChangePrice cp
                           WHERE b.product = cp.product
                           AND cp.SellNo = '{0}')
-                        AND b.SellBy = '{0}'", Param.CpuId));
+                        AND b.SellBy = '{0}'", Param.DeviceID));
             if (dt.Rows.Count > 0)
             {
                 Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}'", Param.CpuId, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}'", Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
             }
 
             dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
                     WHERE NOT EXISTS (SELECT *
                       FROM ChangePrice cp
                       WHERE st.product = cp.product
-                      AND cp.SellNo = '{0}')", Param.CpuId));
+                      AND cp.SellNo = '{0}')", Param.DeviceID));
             if (dt.Rows.Count > 0)
             {
 
@@ -126,7 +126,7 @@ namespace PowerPOS
                         AND cp.SellNo = '{0}'
                     UNION ALL
                     SELECT product, productName, price,  price priceA, amount FROM sellTemp)
-                    GROUP BY product", Param.CpuId, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                    GROUP BY product", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
             var sumPrice = 0;
 
@@ -255,8 +255,8 @@ namespace PowerPOS
                     //        Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = (SELECT st.Amount FROM SellTemp st WHERE st.Product = Product.Product ) + Quantity, Sync = 1  WHERE shop = '{0}' AND Product = '{1}'", Param.ShopId, dt.Rows[i][0].ToString()));
                     //    }
                     //}
-                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '', SellPrice = '0',Sync = 1 WHERE SellBy = '{0}'", Param.CpuId));
-                    Util.DBExecute(string.Format(@"DELETE FROM ChangePrice WHERE SellNo = '{0}'", Param.CpuId));
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '', SellPrice = '0',Sync = 1 WHERE SellBy = '{0}'", Param.DeviceID));
+                    Util.DBExecute(string.Format(@"DELETE FROM ChangePrice WHERE SellNo = '{0}'", Param.DeviceID));
                     Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
 
                     lblStatus.Text = "";
@@ -431,7 +431,7 @@ namespace PowerPOS
                         lblStatus.Text = "สินค้าชิ้นนี้ได้ขายออกจากระบบไปแล้ว";
                         lblStatus.ForeColor = Color.Red;
                     }
-                    else if (dt.Rows[0]["SellBy"].ToString() == Param.CpuId)
+                    else if (dt.Rows[0]["SellBy"].ToString() == Param.DeviceID)
                     {
                         lblStatus.Visible = true;
                         lblStatus.Text = "มีสินค้าชิ้นนี้ในรายการขายแล้ว";
@@ -453,7 +453,7 @@ namespace PowerPOS
                     {
                         //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.CpuId, txtBarcode.Text));
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p WHERE Barcode.product = p.product AND p.shop = '{2}'),
-                            SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.CpuId, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                            SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
                         txtBarcode.Focus();
                         lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
@@ -845,18 +845,18 @@ namespace PowerPOS
             if (_CHANGE)
             {
                 DataTable dt = Util.DBQuery(string.Format(@"SELECT product, cost FROM Barcode WHERE sellBy = '{0}' AND product = '{1}'
-                        UNION ALL SELECT product, cost FROM Product WHERE product = '{1}' AND cost <> 0", Param.CpuId, UcSale.product));
+                        UNION ALL SELECT product, cost FROM Product WHERE product = '{1}' AND cost <> 0", Param.DeviceID, UcSale.product));
 
                 if (Convert.ToInt32(productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString()) >= Convert.ToInt32(dt.Rows[0]["cost"].ToString()))
                 {
                     Util.DBExecute(string.Format(@"UPDATE ChangePrice SET priceChange = '{1}'WHERE Product = '{0}' AND SellNo = '{2}'",
                    productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString()
-                   , productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString(), Param.CpuId));
+                   , productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString(), Param.DeviceID));
 
                     // อัพเดต ในตาราง ChangePrice
                     //Column PriceChange โดยดูจาก SellNo และ Product
                     Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = '{3}', Sync = 1 WHERE Product = '{1}' AND SellBy = '{0}'",
-                        Param.CpuId, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString(),
+                        Param.DeviceID, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString(),
                         Param.ShopId, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString()));
 
                     price = productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString();
@@ -867,12 +867,12 @@ namespace PowerPOS
                     {
                         Util.DBExecute(string.Format(@"UPDATE ChangePrice SET priceChange = '{1}'WHERE Product = '{0}' AND SellNo = '{2}'",
                        productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString()
-                       , productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString(), Param.CpuId));
+                       , productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString(), Param.DeviceID));
 
                         // อัพเดต ในตาราง ChangePrice
                         //Column PriceChange โดยดูจาก SellNo และ Product
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = '{3}', Sync = 1 WHERE Product = '{1}' AND SellBy = '{0}'",
-                            Param.CpuId, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString(),
+                            Param.DeviceID, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString(),
                             Param.ShopId, productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString()));
 
                         price = productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Price"]).ToString();
@@ -881,7 +881,7 @@ namespace PowerPOS
                     {
                         Util.DBExecute(string.Format(@"UPDATE ChangePrice SET priceChange = '{1}'WHERE Product = '{0}' AND SellNo = '{2}'",
                             productGridView.GetRowCellDisplayText(productGridView.FocusedRowHandle, productGridView.Columns["Product"]).ToString()
-                            , price, Param.CpuId));
+                            , price, Param.DeviceID));
                     }
                 }
 
