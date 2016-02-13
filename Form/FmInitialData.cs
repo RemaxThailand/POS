@@ -1098,7 +1098,7 @@ namespace PowerPOS
 
         private void bwLoadClaim_DoWork(object sender, DoWorkEventArgs e)
         {
-            int i = 0;
+            //int i = 0;
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Claim (
                 claimNo NVARCHAR(10) NOT NULL,
                 claimType NVARCHAR(5) NOT NULL,

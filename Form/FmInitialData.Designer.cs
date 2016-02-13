@@ -174,7 +174,7 @@
             this.progressPanel1.Size = new System.Drawing.Size(506, 136);
             this.progressPanel1.TabIndex = 9;
             this.progressPanel1.Text = "progressPanel1";
-            this.progressPanel1.TextHorzOffset = 30;
+            //this.progressPanel1.TextHorzOffset = 30;
             // 
             // pictureBox1
             // 

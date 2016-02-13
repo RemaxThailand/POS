@@ -43,7 +43,7 @@ namespace PowerPOS
                     Param.amount = txtAmount.Text;
                     if (Param.status == "Received")
                     {
-                        DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM PurchaseOrder WHERE product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.OrderNo));
+                        DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM PurchaseOrder WHERE product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.orderNo));
                         if (dt.Rows.Count == 0)
                         {
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
@@ -61,14 +61,14 @@ namespace PowerPOS
                                     if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะทำการรับสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                     {
                                         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                                        dt = Util.DBQuery(string.Format(@"SELECT Quantity, ReceivedQuantity FROM PurchaseOrder WHERE Product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.OrderNo));
+                                        dt = Util.DBQuery(string.Format(@"SELECT Quantity, ReceivedQuantity FROM PurchaseOrder WHERE Product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.orderNo));
 
                                         int Received = Convert.ToInt32(dt.Rows[0]["ReceivedQuantity"].ToString()) + Convert.ToInt32(txtAmount.Text);
 
                                         if (Convert.ToInt32(dt.Rows[0]["Quantity"].ToString()) >= Received)
                                         {
                                             Util.DBExecute(string.Format(@"UPDATE PurchaseOrder SET ReceivedQuantity = '{0}', ReceivedDate = '{1}', ReceivedBy = '{2}', Sync = 1 WHERE product = '{3}' AND OrderNo = '{4}'",
-                                                Received, DateTime.Now.ToString("yyyy-MM-dd"), Param.UserId, Param.product, UcReceiveProduct.OrderNo));
+                                                Received, DateTime.Now.ToString("yyyy-MM-dd"), Param.UserId, Param.product, UcReceiveProduct.orderNo));
                                             dt = Util.DBQuery(string.Format(@"SELECT Product,IFNULL(Quantity,0) Quantity FROM Product WHERE Product = '{0}'", Param.product));
 
                                             int Amount = Convert.ToInt32(dt.Rows[0]["Quantity"].ToString()) + Convert.ToInt32(txtAmount.Text);

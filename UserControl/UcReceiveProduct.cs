@@ -27,8 +27,8 @@ namespace PowerPOS
         string _STREAM_IMAGE_URL, _SKU;
 
         public static string productNo;
-        public static string OrderNo;
-        public static string ProductName;
+        public static string orderNo;
+        public static string productName;
 
         string order;
 
@@ -337,7 +337,7 @@ namespace PowerPOS
                     WHERE b.Barcode = '{0}'", txtBarcode.Text));
 
                 lblStatus.Visible = true;
-                OrderNo = cbbOrderNo.SelectedItem.ToString();
+                orderNo = cbbOrderNo.SelectedItem.ToString();
                 if (dt.Rows.Count == 0)
                 {
                     dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
@@ -611,8 +611,8 @@ namespace PowerPOS
                 //if (row != -1)
                 {
                     productNo = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["ID"]);
-                    if (cbbOrder.SelectedIndex == 0) { OrderNo = cbbOrderNo.SelectedItem.ToString(); } else { OrderNo = cbbOrder.SelectedItem.ToString(); }
-                    ProductName = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Name"]);
+                    if (cbbOrder.SelectedIndex == 0) { orderNo = cbbOrderNo.SelectedItem.ToString(); } else { orderNo = cbbOrder.SelectedItem.ToString(); }
+                    productName = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Name"]);
                     FmOrderDetail frm = new FmOrderDetail();
                     frm.Show();
                 }
