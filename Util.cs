@@ -473,20 +473,20 @@ namespace PowerPOS
                     //dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString() + "," + 
                     //dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString() + "," + 
                     //dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString() + "," + dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
-                  
-                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString(); 
+
+                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
                     string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy", value)
                     ));
-                     if (!json.success.Value)
+                    if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
 
-                   json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                   string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
-                   ));
+                    json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
+                    ));
                     if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
@@ -605,7 +605,7 @@ namespace PowerPOS
                 //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
                 //    TableBatchOperation batchOperation = new TableBatchOperation();
 
-                for ( i = 0; i < dt.Rows.Count; i++)
+                for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/Add",
                     string.Format("shop={0}&mobile={1}&firstname={2}&lastname={3}&nickname={4}&sex={5}&birthday={6}&citizen={7}&cardno={8}&email={9}&address={10}&address2={11}&subdistrict={12}&district={13}&province={14}&zipcode={15}&shopname={16}&shopsameaddress={17}&shopaddress={18}&shopaddress2={19}&shopsubdistrict={20}&shopdistrict={21}&shopprovince={22}&shopzipcode={23}&credit={24}&sellprice={25}&customer={26}",
@@ -639,10 +639,10 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleAdd",
-                    string.Format("shop={0}&saleno={1}&profit={2}&totalPrice={3}&payType={4}&cash={5}&credit={6}&customer={7}&sex={8}&age={9}&saledate={10}&saleby={11}",
+                    string.Format("shop={0}&saleno={1}&profit={2}&totalPrice={3}&payType={4}&cash={5}&credit={6}&customer={7}&sex={8}&age={9}&comment={10}&saledate={11}&saleby={12}",
                                 Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["Profit"].ToString(), dt.Rows[i]["totalPrice"].ToString(), dt.Rows[i]["payType"].ToString(),
                                 dt.Rows[i]["cash"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["customer"].ToString(), dt.Rows[i]["customerSex"].ToString(), dt.Rows[i]["customerAge"].ToString(),
-                                dt.Rows[i]["sellDate"].ToString(), dt.Rows[i]["sellBy"].ToString())
+                                dt.Rows[i]["comment"].ToString(), dt.Rows[i]["sellDate"].ToString(), dt.Rows[i]["sellBy"].ToString())
                     ));
                     if (!json.success.Value)
                     {
@@ -695,8 +695,8 @@ namespace PowerPOS
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/return/returnAdd",
                     string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}&barcode={8}",
-                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(), 
-                                dt.Rows[i]["returnDate"].ToString(),dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()), dt.Rows[i]["barcode"].ToString())
+                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(),
+                                dt.Rows[i]["returnDate"].ToString(), dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()), dt.Rows[i]["barcode"].ToString())
                     ));
                     if (!json.success.Value)
                     {
