@@ -696,7 +696,7 @@ namespace PowerPOS
                        jsonProduct.result[i].category == null ? "" : jsonProduct.result[i].category, jsonProduct.result[i].brand == null ? "" : jsonProduct.result[i].brand, jsonProduct.result[i].barcode == null ? "" : jsonProduct.result[i].barcode, 
                        jsonProduct.result[i].quantity == null ? "" : jsonProduct.result[i].quantity));
                     d++;
-                    if (d % 30 == 0)
+                    if (d % 500 == 0)
                     {
                         d = 0;
                         Console.WriteLine(sb.ToString());
@@ -763,7 +763,7 @@ namespace PowerPOS
 
             dt = Util.DBQuery("SELECT * FROM ShopConfig");
             i = 0;
-            if (Param.ShopType == "shop")
+            if (dt.Rows.Count > 0)
             {
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
@@ -803,8 +803,8 @@ namespace PowerPOS
             else if (Param.ShopType == "event")
             {
                 //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 1 WHERE Shop = '{0}'", Param.ShopId));
-                Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE category = '1' AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 99));
-                Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE product IN ('1124','1125','1127','1128') AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 59));
+                //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE category = '1' AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 99));
+                //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE product IN ('1124','1125','1127','1128') AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 59));
 
             }
             else
@@ -1098,7 +1098,7 @@ namespace PowerPOS
 
         private void bwLoadClaim_DoWork(object sender, DoWorkEventArgs e)
         {
-            //int i = 0;
+            int i = 0;
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Claim (
                 claimNo NVARCHAR(10) NOT NULL,
                 claimType NVARCHAR(5) NOT NULL,
