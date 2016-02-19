@@ -175,7 +175,7 @@ namespace PowerPOS
             btnCancelSale.Enabled = sumPrice > 0;
             btnCancelProduct.Enabled = sumPrice > 0;
             btnConfirm.Enabled = sumPrice > 0;
-    }
+        }
 
         private void SelectCustomer(object sender, EventArgs e)
         {
@@ -358,6 +358,8 @@ namespace PowerPOS
                 if (e.KeyCode == Keys.Return)
                 {
                     barcode = txtBarcode.Text;
+
+
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, ReceivedDate, ReceivedBy, SellDate, SellBy, Comment 
                     FROM Barcode b 
                         LEFT JOIN Product p 
@@ -497,7 +499,7 @@ namespace PowerPOS
             {
                 if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะยืนยันการรับคืนสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    string Bar = Return + "-" + dt.Rows[0]["product"].ToString();
+                    string Bar = Return + "-" + Param.product;
                     Util.DBExecute(string.Format(@"INSERT INTO ReturnProduct (ReturnNo, SellNo, ReturnDate, Product, Barcode, SellPrice, Quantity, ReturnBy, Sync)
                                              SELECT '{0}', '{1}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{2}', '{3}', '{4}', '{5}', '{6}', 1 ",
                        Return, FmReturnSell.sellN, FmReturnSell.Pid, Bar, FmReturnSell.sellP, Param.amount, Param.UserId));
@@ -543,15 +545,15 @@ namespace PowerPOS
             }
             else
             {
-                dt = Util.DBQuery(string.Format(@"SELECT b.Barcode, b.SellNo, p.product, b.SellPrice
+                dt = Util.DBQuery(string.Format(@"SELECT STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW') ReturnDate, b.Barcode, b.SellNo, p.product, b.SellPrice
                                             FROM Barcode b
                                                 LEFT JOIN Product p
                                                 ON b.product = p.product
                                             WHERE p.Shop = '{0}' AND b.Barcode = '{1}'", Param.ShopId, txtBarcodeReturn.Text));
 
-                Util.DBExecute(string.Format(@"INSERT INTO ReturnProduct (ReturnNo, SellNo, ReturnDate, Product, Barcode, SellPrice, ReturnBy, Sync)
-                    SELECT '{3}','{0}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), Product, Barcode, SellPrice, '{2}', 1 FROM Barcode WHERE SellNo = '{0}'AND Barcode = '{1}' GROUP BY Product",
-                        dt.Rows[0]["SellNo"].ToString(), dt.Rows[0]["Barcode"].ToString(), Param.UserId, Return));
+                Util.DBExecute(string.Format(@"INSERT INTO ReturnProduct (ReturnNo, SellNo, ReturnDate, Product, Barcode, SellPrice, ReturnBy, Quantity, Sync)
+                    VALUES ('{3}','{0}', '{6}', '{4}', '{1}', '{5}', '{2}',1, 1 ) ",dt.Rows[0]["SellNo"].ToString(), dt.Rows[0]["Barcode"].ToString(), Param.UserId, Return, dt.Rows[0]["product"].ToString(), 
+                    dt.Rows[0]["SellPrice"].ToString(), dt.Rows[0]["ReturnDate"].ToString()));
 
                 Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '',SellNo = '',Customer = '',SellPrice = '',SellDate = null ,
                     Sync = 1 WHERE Barcode = '{0}'", txtBarcodeReturn.Text));
@@ -609,6 +611,7 @@ namespace PowerPOS
                         Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
                         if (dt.Rows.Count == 0)
                         {
+                            
                             dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU LIKE '%{0}%'", txtBarcodeReturn.Text));
                             if (dt.Rows.Count == 0)
                             {
@@ -617,13 +620,97 @@ namespace PowerPOS
                             }
                             else
                             {
+                                int qty = 0;
                                 Param.status = "Return";
                                 FmProductQty frm = new FmProductQty();
                                 Param.product = dt.Rows[0]["Product"].ToString();
                                 var result = frm.ShowDialog(this);
                                 if (result == System.Windows.Forms.DialogResult.OK)
                                 {
-                                    LoadData();
+                                    lblStatus.Visible = false;
+                                    txtBarcode.Enabled = true;
+
+                                    returnGridView.OptionsBehavior.AutoPopulateColumns = false;
+                                    returnGridControl.MainView = returnGridView;
+
+                                    dt = new DataTable();
+                                    for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
+                                    {
+                                        dt.Columns.Add(returnGridView.Columns[i].FieldName);
+                                    }
+
+                                    if (Param.amount != "")
+                                    {
+                                        for (i = 0; i < 1; i++)
+                                        {
+                                            string customer = FmReturnSell.customer;
+                                            string SellDate = FmReturnSell.sellDate;
+                                            string Pname = FmReturnSell.PName;
+                                            int Amount = int.Parse(Param.amount);
+                                            string SellP = (int.Parse(FmReturnSell.sellP) * int.Parse(Param.amount)).ToString();
+
+                                            dt = new DataTable();
+                                            for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
+                                            {
+                                                dt.Columns.Add(returnGridView.Columns[i].FieldName);
+                                            }
+
+                                            row = dt.NewRow();
+                                            row[0] = (i + 1) * 1;
+                                            row[1] = SellDate;
+                                            row[2] = customer;
+                                            row[3] = Pname;
+                                            row[4] = Amount;
+                                            row[5] = SellP;
+                                            dt.Rows.Add(row);
+                                            qty += Amount;
+                                            returnGridControl.DataSource = dt;
+
+                                        }
+                                    }
+
+                                    var remain = (DateTime.Now - Convert.ToDateTime(FmReturnSell.sellDate)).TotalDays;
+
+                                    btnReturn.Visible = remain > 0;
+
+                                    int day = Convert.ToInt32(remain);
+                                    if (day == 0)
+                                    {
+                                        lblWarranty.Text = "สินค้าชิ้นนี้ขายไปแล้วในวันนี้";
+                                    }
+                                    else
+                                    {
+                                        lblWarranty.Text = "สินค้าชิ้นนี้" + ((day > 0) ? " ขายไปแล้ว " + day.ToString("#,###") + " วัน" : " ขายไปแล้ว " + (day * -1).ToString("#,###") + " วัน");
+                                    }
+                                    lblWarranty.Visible = true;
+
+                                    lblListCount.Text = returnGridView.RowCount.ToString() + " รายการ";
+                                    lblProductCount.Text = qty.ToString() + " ชิ้น";
+
+                                    var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
+                                    dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
+
+                                    _STREAM_IMAGE_URL = Param.ImagePath + "/" + dt.Rows[0]["Sku"].ToString() + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                                    if (!File.Exists(filename))
+                                    {
+                                        if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                                        {
+                                            DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        try { ptbProduct.Image = Image.FromFile(filename); }
+                                        catch
+                                        {
+                                            if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                                            {
+                                                DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                            }
+                                        }
+                                    }
+
                                 }
                             }
                         }
@@ -691,6 +778,29 @@ namespace PowerPOS
                                 }
                                 lblWarranty.Visible = true;
 
+                                var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
+                                dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
+
+                                _STREAM_IMAGE_URL = Param.ImagePath + "/" + dt.Rows[0]["Sku"].ToString() + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                                if (!File.Exists(filename))
+                                {
+                                    if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                                    {
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                    }
+                                }
+                                else
+                                {
+                                    try { ptbProduct.Image = Image.FromFile(filename); }
+                                    catch
+                                    {
+                                        if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
+                                        {
+                                            DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                        }
+                                    }
+                                }
                             }
                         }
 

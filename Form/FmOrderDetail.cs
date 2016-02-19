@@ -35,9 +35,9 @@ namespace PowerPOS
         }
         private void LoadData()
         {
-            lblOrderNo.Text = UcReceiveProduct.orderNo;
+            lblOrderNo.Text = UcReceiveProduct.OrderNo;
             lblProduct.Text = UcReceiveProduct.productNo;
-            lblProductName.Text = UcReceiveProduct.productName;
+            lblProductName.Text = UcReceiveProduct.ProductName;
 
             _FIRST_LOAD = false;
             SearchData();
@@ -53,7 +53,7 @@ namespace PowerPOS
                     FROM Barcode 
                     WHERE OrderNo = '{0}'
                         AND Product = '{1}'
-                ", UcReceiveProduct.orderNo, UcReceiveProduct.productNo));
+                ", UcReceiveProduct.OrderNo, UcReceiveProduct.productNo));
 
                 orderGridView.OptionsBehavior.AutoPopulateColumns = false;
                 orderGridControl.MainView = orderGridView;
