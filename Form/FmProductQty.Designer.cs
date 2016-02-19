@@ -121,6 +121,7 @@
             this.Name = "FmProductQty";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "จำนวนสินค้า";
+            this.Load += new System.EventHandler(this.FmProductQty_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             this.panelControl6.ResumeLayout(false);
             this.panelControl6.PerformLayout();

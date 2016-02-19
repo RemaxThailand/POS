@@ -38,21 +38,33 @@ namespace PowerPOS
             DataRow row;
             int i, a;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            try {
+                if (Param.MemberType != "Shop" && Param.MemberType != "Event")
+                {
+                    pictureEdit1.Visible = true;
+                    ptbShop.Visible = false;
+                    pictureEdit1.Image = new Bitmap(Properties.Resources.daily);
+                }
+                else
+                {
+                    pictureEdit1.Visible = false;
+                    ptbShop.Visible = true;
+                    pictureEdit1.Image = new Bitmap(Properties.Resources.dailyShop);
+                }
+                    //_TABLE_REPORT = Util.DBQuery(string.Format(@"
+                    //     SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
+                    //     FROM SellHeader h
+                    //     LEFT JOIN Customer c
+                    //     ON h.Customer = c.Customer
+                    //    LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
+                    //     ON h.sellNo = b.sellNo
+                    //     WHERE h.SellDate LIKE '{0}%'
+                    //       AND h.Customer NOT IN ('000001','000002')
+                    //       AND b.sellPrice IS NOT NULL   
+                    //     ORDER BY h.SellDate DESC
+                    // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
-            //_TABLE_REPORT = Util.DBQuery(string.Format(@"
-            //     SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
-            //     FROM SellHeader h
-            //     LEFT JOIN Customer c
-            //     ON h.Customer = c.Customer
-            //    LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
-            //     ON h.sellNo = b.sellNo
-            //     WHERE h.SellDate LIKE '{0}%'
-            //       AND h.Customer NOT IN ('000001','000002')
-            //       AND b.sellPrice IS NOT NULL   
-            //     ORDER BY h.SellDate DESC
-            // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
-
-            _TABLE_REPORT = Util.DBQuery(string.Format(@"
+                    _TABLE_REPORT = Util.DBQuery(string.Format(@"
                  SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid
                FROM SellHeader h
                 LEFT JOIN Customer c
@@ -62,45 +74,45 @@ namespace PowerPOS
                   AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
-           
 
-            reportGridView.OptionsBehavior.AutoPopulateColumns = false;
-            reportGridControl.MainView = reportGridView;
-            var sumPrice = 0.0;
-            var sumProfit = 0.0;
-            dt = new DataTable();
-            for (i = 0; i < ((ColumnView)reportGridControl.MainView).Columns.Count; i++)
-            {
-                dt.Columns.Add(reportGridView.Columns[i].FieldName);
-            }
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
-            for (a = 0; a < _TABLE_REPORT.Rows.Count; a++)
-            {
-                var mobile = (_TABLE_REPORT.Rows[a]["Mobile"].ToString().Length == 10) ? _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(0, 3) + "-" +
-                    _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(3, 4) + "-" +
-                    _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(7, 3)
-                    : _TABLE_REPORT.Rows[a]["Mobile"].ToString();
+                reportGridView.OptionsBehavior.AutoPopulateColumns = false;
+                reportGridControl.MainView = reportGridView;
+                var sumPrice = 0.0;
+                var sumProfit = 0.0;
+                dt = new DataTable();
+                for (i = 0; i < ((ColumnView)reportGridControl.MainView).Columns.Count; i++)
+                {
+                    dt.Columns.Add(reportGridView.Columns[i].FieldName);
+                }
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
-                row = dt.NewRow();
-                row[0] = (a + 1) * 1;
-                row[1] = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
-                row[2] = _TABLE_REPORT.Rows[a]["SellNo"].ToString();
-                row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
-                row[4] = mobile == "" ? "-" : mobile;
-                row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
-                dt.Rows.Add(row);
-                sumPrice += double.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
-                sumProfit += double.Parse(_TABLE_REPORT.Rows[a]["Profit"].ToString());
-            }
+                for (a = 0; a < _TABLE_REPORT.Rows.Count; a++)
+                {
+                    var mobile = (_TABLE_REPORT.Rows[a]["Mobile"].ToString().Length == 10) ? _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(0, 3) + "-" +
+                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(3, 4) + "-" +
+                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(7, 3)
+                        : _TABLE_REPORT.Rows[a]["Mobile"].ToString();
 
-            reportGridControl.DataSource = dt;
+                    row = dt.NewRow();
+                    row[0] = (a + 1) * 1;
+                    row[1] = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                    row[2] = _TABLE_REPORT.Rows[a]["SellNo"].ToString();
+                    row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
+                    row[4] = mobile == "" ? "-" : mobile;
+                    row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
+                    dt.Rows.Add(row);
+                    sumPrice += double.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
+                    sumProfit += double.Parse(_TABLE_REPORT.Rows[a]["Profit"].ToString());
+                }
 
-            lblListCount.Text = reportGridView.RowCount.ToString() + " รายการ";
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            
+                reportGridControl.DataSource = dt;
 
-            dtQty = Util.DBQuery(string.Format(@"SELECT SUM(d.Quantity) QTY FROM SellHeader h
+                lblListCount.Text = reportGridView.RowCount.ToString() + " รายการ";
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+
+                dtQty = Util.DBQuery(string.Format(@"SELECT IFNULL(SUM(d.Quantity),0) QTY FROM SellHeader h
                             LEFT JOIN SellDetail d
                             ON h.SellNo = d.SellNo 
                             WHERE h.SellDate LIKE '{0}%'
@@ -109,20 +121,20 @@ namespace PowerPOS
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
-            lblProductCount.Text = dtQty.Rows[0]["QTY"].ToString() + " ชิ้น";
+                lblProductCount.Text = dtQty.Rows[0]["QTY"].ToString() + " ชิ้น";
 
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            try
-            {
-                dt = Util.DBQuery(string.Format(@"SELECT SUM(h.totalPrice)  Total,COUNT(DISTINCT DATE(h.SellDate)) CountDate,SUM(h.totalPrice)/COUNT(DISTINCT DATE(h.SellDate)) AVG
-                FROM SellHeader h
-                --LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{2}' GROUP BY Product,SellNo) b 
-                --ON h.sellNo = b.sellNo
-                WHERE SUBSTR(h.SellDate,1,10) BETWEEN '{0}' AND '{1}'
-            ", Convert.ToDateTime(dtpDate.Value.AddDays(-30)).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpDate.Value.AddDays(1)).ToString("yyyy-MM-dd"), Param.UserId));
-                var avg30 = double.Parse(dt.Rows[0]["AVG"].ToString());
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                try
+                {
+                    dt = Util.DBQuery(string.Format(@"SELECT SUM(h.totalPrice)  Total,COUNT(DISTINCT DATE(h.SellDate)) CountDate,SUM(h.totalPrice)/COUNT(DISTINCT DATE(h.SellDate)) AVG
+                        FROM SellHeader h
+                        --LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{2}' GROUP BY Product,SellNo) b 
+                        --ON h.sellNo = b.sellNo
+                        WHERE SUBSTR(h.SellDate,1,10) BETWEEN '{0}' AND '{1}'
+                    ", Convert.ToDateTime(dtpDate.Value.AddDays(-30)).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpDate.Value.AddDays(1)).ToString("yyyy-MM-dd"), Param.UserId));
+                            var avg30 = double.Parse(dt.Rows[0]["AVG"].ToString());
 
-                dt = Util.DBQuery(string.Format(@"
+                    dt = Util.DBQuery(string.Format(@"
                     SELECT IFNULL(SUM(b.sellPrice),0) TotalPrice FROM SellHeader h 
                           LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{14}' GROUP BY Product,SellNo) b 
                           ON h.sellNo = b.sellNo WHERE SUBSTR(h.SellDate, 1, 10) = '{0}'
@@ -166,19 +178,24 @@ namespace PowerPOS
                           LEFT JOIN (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{14}' GROUP BY Product,SellNo) b 
                           ON h.sellNo = b.sellNo WHERE SUBSTR(h.SellDate, 1, 10) = '{13}'
                 ", dtpDate.Value.AddDays(-13).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-12).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-11).ToString("yyyy-MM-dd")
-                 , dtpDate.Value.AddDays(-10).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-9).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-8).ToString("yyyy-MM-dd")
-                 , dtpDate.Value.AddDays(-7).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-6).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-5).ToString("yyyy-MM-dd")
-                 , dtpDate.Value.AddDays(-4).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-3).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-2).ToString("yyyy-MM-dd")
-                 , dtpDate.Value.AddDays(-1).ToString("yyyy-MM-dd"), dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
-                i = 0;
-                double max = 0;
-                List<double> chart = new List<double>();
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    chart.Add(double.Parse(dt.Rows[i]["TotalPrice"].ToString()));
-                    if (chart[i] > max) max = chart[i];
+                     , dtpDate.Value.AddDays(-10).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-9).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-8).ToString("yyyy-MM-dd")
+                     , dtpDate.Value.AddDays(-7).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-6).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-5).ToString("yyyy-MM-dd")
+                     , dtpDate.Value.AddDays(-4).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-3).ToString("yyyy-MM-dd"), dtpDate.Value.AddDays(-2).ToString("yyyy-MM-dd")
+                     , dtpDate.Value.AddDays(-1).ToString("yyyy-MM-dd"), dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
+                    i = 0;
+                    double max = 0;
+                    List<double> chart = new List<double>();
+                    for (i = 0; i < dt.Rows.Count; i++)
+                    {
+                        chart.Add(double.Parse(dt.Rows[i]["TotalPrice"].ToString()));
+                        if (chart[i] > max) max = chart[i];
+                    }
+                    DrawImage(sumPrice, sumProfit, avg30, max, chart);
                 }
-                DrawImage(sumPrice, sumProfit, avg30, max, chart);
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                }
             }
             catch (Exception ex)
             {
@@ -188,7 +205,7 @@ namespace PowerPOS
 
         private void DrawImage(double sumPrice, double sumProfit, double avgPrice, double max, List<double> chart)
         {
-            if (Param.MemberType != "Shop")
+            if (Param.MemberType != "Shop" && Param.MemberType != "Event")
             {
                 pictureEdit1.Visible = true;
                 ptbShop.Visible = false;
