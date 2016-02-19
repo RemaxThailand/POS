@@ -53,6 +53,7 @@
             this.productGridview = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.clNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clProduct = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clCategory = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -66,7 +67,6 @@
             this.clPrice4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clPrice5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clImage = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice1 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice2 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -96,22 +96,27 @@
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.gbOrderNo = new DevExpress.XtraEditors.GroupControl();
             this.cbbBrand = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbNoStock = new DevExpress.XtraEditors.CheckEdit();
             this.cbbCategory = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbNoPrice = new DevExpress.XtraEditors.CheckEdit();
-            this.txtSearch = new DevExpress.XtraEditors.TextEdit();
+            this.cbNoStock = new DevExpress.XtraEditors.CheckEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
+            this.txtSearch = new DevExpress.XtraEditors.TextEdit();
+            this.cbNoPrice = new DevExpress.XtraEditors.CheckEdit();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
-            this.lblTotal = new DevExpress.XtraEditors.LabelControl();
             this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl14 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl11 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            this.lblTotal = new DevExpress.XtraEditors.LabelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
-            this.gbOrderNo = new DevExpress.XtraEditors.GroupControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent2.Properties)).BeginInit();
@@ -145,18 +150,23 @@
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
+            this.gbOrderNo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             this.panelControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
-            this.gbOrderNo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl4
@@ -438,6 +448,7 @@
             this.productGridview.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNo,
             this.clProduct,
+            this.clSku,
             this.clName,
             this.clQty,
             this.clCategory,
@@ -451,7 +462,6 @@
             this.clPrice4,
             this.clPrice5,
             this.clImage,
-            this.clSku,
             this.clWebPrice,
             this.clWebPrice1,
             this.clWebPrice2,
@@ -498,9 +508,23 @@
             this.clProduct.Name = "clProduct";
             this.clProduct.OptionsColumn.AllowEdit = false;
             this.clProduct.OptionsColumn.AllowMove = false;
-            this.clProduct.Visible = true;
-            this.clProduct.VisibleIndex = 1;
             this.clProduct.Width = 70;
+            // 
+            // clSku
+            // 
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
+            this.clSku.FieldName = "Sku";
+            this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
             // 
             // clName
             // 
@@ -719,20 +743,6 @@
             this.clImage.OptionsColumn.AllowEdit = false;
             this.clImage.OptionsColumn.AllowMove = false;
             // 
-            // clSku
-            // 
-            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clSku.AppearanceCell.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clSku.AppearanceHeader.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
-            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clSku.Caption = "Sku";
-            this.clSku.FieldName = "Sku";
-            this.clSku.Name = "clSku";
-            this.clSku.OptionsColumn.AllowEdit = false;
-            this.clSku.OptionsColumn.AllowMove = false;
-            // 
             // clWebPrice
             // 
             this.clWebPrice.Caption = "WebPrice";
@@ -886,6 +896,7 @@
             0});
             this.nudPrice4.Size = new System.Drawing.Size(80, 22);
             this.nudPrice4.TabIndex = 22;
+            this.nudPrice4.ValueChanged += new System.EventHandler(this.nudPrice4_ValueChanged);
             // 
             // nudPrice3
             // 
@@ -913,6 +924,7 @@
             0});
             this.nudPrice3.Size = new System.Drawing.Size(80, 22);
             this.nudPrice3.TabIndex = 21;
+            this.nudPrice3.ValueChanged += new System.EventHandler(this.nudPrice3_ValueChanged);
             // 
             // txtPrice4
             // 
@@ -1088,164 +1100,6 @@
             this.panelControl1.Size = new System.Drawing.Size(248, 520);
             this.panelControl1.TabIndex = 0;
             // 
-            // cbbBrand
-            // 
-            this.cbbBrand.Location = new System.Drawing.Point(13, 49);
-            this.cbbBrand.Name = "cbbBrand";
-            this.cbbBrand.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbBrand.Properties.Appearance.Options.UseFont = true;
-            this.cbbBrand.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbbBrand.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbbBrand.Size = new System.Drawing.Size(210, 22);
-            this.cbbBrand.TabIndex = 2;
-            this.cbbBrand.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // cbNoStock
-            // 
-            this.cbNoStock.Location = new System.Drawing.Point(13, 121);
-            this.cbNoStock.Name = "cbNoStock";
-            this.cbNoStock.Properties.Caption = "สินค้าที่ไม่มีในคลังสินค้า";
-            this.cbNoStock.Size = new System.Drawing.Size(210, 19);
-            this.cbNoStock.TabIndex = 14;
-            this.cbNoStock.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // cbbCategory
-            // 
-            this.cbbCategory.Location = new System.Drawing.Point(13, 23);
-            this.cbbCategory.Name = "cbbCategory";
-            this.cbbCategory.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbCategory.Properties.Appearance.Options.UseFont = true;
-            this.cbbCategory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbbCategory.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbbCategory.Size = new System.Drawing.Size(210, 22);
-            this.cbbCategory.TabIndex = 1;
-            this.cbbCategory.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // cbNoPrice
-            // 
-            this.cbNoPrice.Location = new System.Drawing.Point(13, 101);
-            this.cbNoPrice.Name = "cbNoPrice";
-            this.cbNoPrice.Properties.Caption = "สินค้าที่ยังไม่กำหนดราคาขาย";
-            this.cbNoPrice.Size = new System.Drawing.Size(210, 19);
-            this.cbNoPrice.TabIndex = 13;
-            this.cbNoPrice.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(13, 75);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Properties.Appearance.Options.UseFont = true;
-            this.txtSearch.Properties.Appearance.Options.UseTextOptions = true;
-            this.txtSearch.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtSearch.Size = new System.Drawing.Size(180, 22);
-            this.txtSearch.TabIndex = 11;
-            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
-            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(198, 74);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(25, 23);
-            this.btnSearch.TabIndex = 10;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // panelControl13
-            // 
-            this.panelControl13.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl13.Location = new System.Drawing.Point(248, 0);
-            this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(10, 606);
-            this.panelControl13.TabIndex = 9;
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.groupControl1.Controls.Add(this.labelControl11);
-            this.groupControl1.Controls.Add(this.lblTotal);
-            this.groupControl1.Controls.Add(this.labelControl13);
-            this.groupControl1.Controls.Add(this.labelControl14);
-            this.groupControl1.Controls.Add(this.lblListCount);
-            this.groupControl1.Controls.Add(this.lblProductCount);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl1.Location = new System.Drawing.Point(183, 0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.ShowCaption = false;
-            this.groupControl1.Size = new System.Drawing.Size(754, 20);
-            this.groupControl1.TabIndex = 30;
-            this.groupControl1.Text = "groupControl1";
-            // 
-            // labelControl11
-            // 
-            this.labelControl11.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl11.Location = new System.Drawing.Point(537, 3);
-            this.labelControl11.Name = "labelControl11";
-            this.labelControl11.Size = new System.Drawing.Size(108, 16);
-            this.labelControl11.TabIndex = 24;
-            this.labelControl11.Text = "มูลค่าสินค้าทั้งหมด :";
-            this.labelControl11.Visible = false;
-            // 
-            // lblTotal
-            // 
-            this.lblTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(656, 3);
-            this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(34, 16);
-            this.lblTotal.TabIndex = 25;
-            this.lblTotal.Text = "0 บาท";
-            this.lblTotal.Visible = false;
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl13.Location = new System.Drawing.Point(132, 3);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(84, 16);
-            this.labelControl13.TabIndex = 19;
-            this.labelControl13.Text = "จำนวนรายการ :";
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl14.Location = new System.Drawing.Point(340, 3);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(113, 16);
-            this.labelControl14.TabIndex = 20;
-            this.labelControl14.Text = "จำนวนสินค้าทั้งหมด :";
-            // 
-            // lblListCount
-            // 
-            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListCount.Location = new System.Drawing.Point(222, 3);
-            this.lblListCount.Name = "lblListCount";
-            this.lblListCount.Size = new System.Drawing.Size(51, 16);
-            this.lblListCount.TabIndex = 22;
-            this.lblListCount.Text = "0 รายการ";
-            // 
-            // lblProductCount
-            // 
-            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductCount.Location = new System.Drawing.Point(459, 3);
-            this.lblProductCount.Name = "lblProductCount";
-            this.lblProductCount.Size = new System.Drawing.Size(27, 16);
-            this.lblProductCount.TabIndex = 23;
-            this.lblProductCount.Text = "0 ชิ้น";
-            // 
-            // panelControl6
-            // 
-            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl6.Controls.Add(this.groupControl1);
-            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl6.Location = new System.Drawing.Point(258, 586);
-            this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(937, 20);
-            this.panelControl6.TabIndex = 31;
-            // 
             // gbOrderNo
             // 
             this.gbOrderNo.Controls.Add(this.cbbBrand);
@@ -1260,6 +1114,218 @@
             this.gbOrderNo.Size = new System.Drawing.Size(242, 157);
             this.gbOrderNo.TabIndex = 19;
             this.gbOrderNo.Text = "ค้นหาข้อมูล";
+            // 
+            // cbbBrand
+            // 
+            this.cbbBrand.Location = new System.Drawing.Point(13, 49);
+            this.cbbBrand.Name = "cbbBrand";
+            this.cbbBrand.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbBrand.Properties.Appearance.Options.UseFont = true;
+            this.cbbBrand.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbBrand.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbBrand.Size = new System.Drawing.Size(210, 22);
+            this.cbbBrand.TabIndex = 2;
+            this.cbbBrand.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // cbbCategory
+            // 
+            this.cbbCategory.Location = new System.Drawing.Point(13, 23);
+            this.cbbCategory.Name = "cbbCategory";
+            this.cbbCategory.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbCategory.Properties.Appearance.Options.UseFont = true;
+            this.cbbCategory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbCategory.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbCategory.Size = new System.Drawing.Size(210, 22);
+            this.cbbCategory.TabIndex = 1;
+            this.cbbCategory.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // cbNoStock
+            // 
+            this.cbNoStock.Location = new System.Drawing.Point(13, 121);
+            this.cbNoStock.Name = "cbNoStock";
+            this.cbNoStock.Properties.Caption = "สินค้าที่ไม่มีในคลังสินค้า";
+            this.cbNoStock.Size = new System.Drawing.Size(210, 19);
+            this.cbNoStock.TabIndex = 14;
+            this.cbNoStock.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
+            this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
+            this.btnSearch.Location = new System.Drawing.Point(198, 74);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(25, 23);
+            this.btnSearch.TabIndex = 10;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(13, 75);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Properties.Appearance.Options.UseFont = true;
+            this.txtSearch.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtSearch.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtSearch.Size = new System.Drawing.Size(180, 22);
+            this.txtSearch.TabIndex = 11;
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
+            // 
+            // cbNoPrice
+            // 
+            this.cbNoPrice.Location = new System.Drawing.Point(13, 101);
+            this.cbNoPrice.Name = "cbNoPrice";
+            this.cbNoPrice.Properties.Caption = "สินค้าที่ยังไม่กำหนดราคาขาย";
+            this.cbNoPrice.Size = new System.Drawing.Size(210, 19);
+            this.cbNoPrice.TabIndex = 13;
+            this.cbNoPrice.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // panelControl13
+            // 
+            this.panelControl13.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl13.Location = new System.Drawing.Point(248, 0);
+            this.panelControl13.Name = "panelControl13";
+            this.panelControl13.Size = new System.Drawing.Size(10, 606);
+            this.panelControl13.TabIndex = 9;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl1.Controls.Add(this.labelControl13);
+            this.groupControl1.Controls.Add(this.panelControl11);
+            this.groupControl1.Controls.Add(this.lblListCount);
+            this.groupControl1.Controls.Add(this.panelControl10);
+            this.groupControl1.Controls.Add(this.labelControl14);
+            this.groupControl1.Controls.Add(this.panelControl9);
+            this.groupControl1.Controls.Add(this.lblProductCount);
+            this.groupControl1.Controls.Add(this.panelControl8);
+            this.groupControl1.Controls.Add(this.labelControl11);
+            this.groupControl1.Controls.Add(this.panelControl7);
+            this.groupControl1.Controls.Add(this.lblTotal);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupControl1.Location = new System.Drawing.Point(183, 0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.ShowCaption = false;
+            this.groupControl1.Size = new System.Drawing.Size(754, 20);
+            this.groupControl1.TabIndex = 30;
+            this.groupControl1.Text = "groupControl1";
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelControl13.Location = new System.Drawing.Point(282, 0);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(84, 16);
+            this.labelControl13.TabIndex = 19;
+            this.labelControl13.Text = "จำนวนรายการ :";
+            // 
+            // panelControl11
+            // 
+            this.panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl11.Location = new System.Drawing.Point(366, 0);
+            this.panelControl11.Name = "panelControl11";
+            this.panelControl11.Size = new System.Drawing.Size(5, 20);
+            this.panelControl11.TabIndex = 30;
+            // 
+            // lblListCount
+            // 
+            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblListCount.Location = new System.Drawing.Point(371, 0);
+            this.lblListCount.Name = "lblListCount";
+            this.lblListCount.Size = new System.Drawing.Size(51, 16);
+            this.lblListCount.TabIndex = 22;
+            this.lblListCount.Text = "0 รายการ";
+            // 
+            // panelControl10
+            // 
+            this.panelControl10.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl10.Location = new System.Drawing.Point(422, 0);
+            this.panelControl10.Name = "panelControl10";
+            this.panelControl10.Size = new System.Drawing.Size(20, 20);
+            this.panelControl10.TabIndex = 29;
+            // 
+            // labelControl14
+            // 
+            this.labelControl14.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl14.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelControl14.Location = new System.Drawing.Point(442, 0);
+            this.labelControl14.Name = "labelControl14";
+            this.labelControl14.Size = new System.Drawing.Size(113, 16);
+            this.labelControl14.TabIndex = 20;
+            this.labelControl14.Text = "จำนวนสินค้าทั้งหมด :";
+            // 
+            // panelControl9
+            // 
+            this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl9.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl9.Location = new System.Drawing.Point(555, 0);
+            this.panelControl9.Name = "panelControl9";
+            this.panelControl9.Size = new System.Drawing.Size(5, 20);
+            this.panelControl9.TabIndex = 28;
+            // 
+            // lblProductCount
+            // 
+            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblProductCount.Location = new System.Drawing.Point(560, 0);
+            this.lblProductCount.Name = "lblProductCount";
+            this.lblProductCount.Size = new System.Drawing.Size(27, 16);
+            this.lblProductCount.TabIndex = 23;
+            this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // panelControl8
+            // 
+            this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl8.Location = new System.Drawing.Point(587, 0);
+            this.panelControl8.Name = "panelControl8";
+            this.panelControl8.Size = new System.Drawing.Size(20, 20);
+            this.panelControl8.TabIndex = 27;
+            // 
+            // labelControl11
+            // 
+            this.labelControl11.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelControl11.Location = new System.Drawing.Point(607, 0);
+            this.labelControl11.Name = "labelControl11";
+            this.labelControl11.Size = new System.Drawing.Size(108, 16);
+            this.labelControl11.TabIndex = 24;
+            this.labelControl11.Text = "มูลค่าสินค้าทั้งหมด :";
+            // 
+            // panelControl7
+            // 
+            this.panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl7.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl7.Location = new System.Drawing.Point(715, 0);
+            this.panelControl7.Name = "panelControl7";
+            this.panelControl7.Size = new System.Drawing.Size(5, 20);
+            this.panelControl7.TabIndex = 26;
+            // 
+            // lblTotal
+            // 
+            this.lblTotal.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotal.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblTotal.Location = new System.Drawing.Point(720, 0);
+            this.lblTotal.Name = "lblTotal";
+            this.lblTotal.Size = new System.Drawing.Size(34, 16);
+            this.lblTotal.TabIndex = 25;
+            this.lblTotal.Text = "0 บาท";
+            // 
+            // panelControl6
+            // 
+            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl6.Controls.Add(this.groupControl1);
+            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl6.Location = new System.Drawing.Point(258, 586);
+            this.panelControl6.Name = "panelControl6";
+            this.panelControl6.Size = new System.Drawing.Size(937, 20);
+            this.panelControl6.TabIndex = 31;
             // 
             // UcProduct
             // 
@@ -1309,19 +1375,24 @@
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
+            this.gbOrderNo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             this.panelControl6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
-            this.gbOrderNo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1411,5 +1482,10 @@
         private DevExpress.XtraEditors.LabelControl lblProductCount;
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.GroupControl gbOrderNo;
+        private DevExpress.XtraEditors.PanelControl panelControl11;
+        private DevExpress.XtraEditors.PanelControl panelControl10;
+        private DevExpress.XtraEditors.PanelControl panelControl9;
+        private DevExpress.XtraEditors.PanelControl panelControl8;
+        private DevExpress.XtraEditors.PanelControl panelControl7;
     }
 }
