@@ -406,6 +406,7 @@
             this.cbbOrder.Properties.Appearance.Options.UseFont = true;
             this.cbbOrder.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbOrder.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbbOrder.Size = new System.Drawing.Size(226, 24);
             this.cbbOrder.TabIndex = 0;
             this.cbbOrder.SelectedIndexChanged += new System.EventHandler(this.cbbOrder_SelectedIndexChanged);
@@ -469,6 +470,7 @@
             this.cbbOrderNo.Properties.Appearance.Options.UseFont = true;
             this.cbbOrderNo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbOrderNo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbbOrderNo.Size = new System.Drawing.Size(226, 24);
             this.cbbOrderNo.TabIndex = 0;
             this.cbbOrderNo.SelectedIndexChanged += new System.EventHandler(this.cbbOrderNo_SelectedIndexChanged);
@@ -528,6 +530,7 @@
             this.clNo.Name = "clNo";
             this.clNo.OptionsColumn.AllowEdit = false;
             this.clNo.OptionsColumn.AllowMove = false;
+            this.clNo.OptionsColumn.AllowSize = false;
             this.clNo.OptionsColumn.FixedWidth = true;
             this.clNo.Visible = true;
             this.clNo.VisibleIndex = 0;
@@ -546,9 +549,8 @@
             this.clId.Name = "clId";
             this.clId.OptionsColumn.AllowEdit = false;
             this.clId.OptionsColumn.AllowMove = false;
+            this.clId.OptionsColumn.AllowSize = false;
             this.clId.OptionsColumn.FixedWidth = true;
-            this.clId.Visible = true;
-            this.clId.VisibleIndex = 1;
             this.clId.Width = 50;
             // 
             // clName
@@ -564,17 +566,18 @@
             this.clName.Name = "clName";
             this.clName.OptionsColumn.AllowEdit = false;
             this.clName.OptionsColumn.AllowMove = false;
+            this.clName.OptionsColumn.AllowSize = false;
             this.clName.OptionsColumn.FixedWidth = true;
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
-            this.clName.Width = 200;
+            this.clName.Width = 250;
             // 
             // clCategory
             // 
             this.clCategory.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCategory.AppearanceCell.Options.UseFont = true;
             this.clCategory.AppearanceCell.Options.UseTextOptions = true;
-            this.clCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
             this.clCategory.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCategory.AppearanceHeader.Options.UseFont = true;
             this.clCategory.AppearanceHeader.Options.UseTextOptions = true;
@@ -584,6 +587,7 @@
             this.clCategory.Name = "clCategory";
             this.clCategory.OptionsColumn.AllowEdit = false;
             this.clCategory.OptionsColumn.AllowMove = false;
+            this.clCategory.OptionsColumn.AllowSize = false;
             this.clCategory.OptionsColumn.FixedWidth = true;
             this.clCategory.Visible = true;
             this.clCategory.VisibleIndex = 3;
@@ -604,6 +608,7 @@
             this.clQty.Name = "clQty";
             this.clQty.OptionsColumn.AllowEdit = false;
             this.clQty.OptionsColumn.AllowMove = false;
+            this.clQty.OptionsColumn.AllowSize = false;
             this.clQty.OptionsColumn.FixedWidth = true;
             this.clQty.Visible = true;
             this.clQty.VisibleIndex = 4;
@@ -624,6 +629,7 @@
             this.clReceived.Name = "clReceived";
             this.clReceived.OptionsColumn.AllowEdit = false;
             this.clReceived.OptionsColumn.AllowMove = false;
+            this.clReceived.OptionsColumn.AllowSize = false;
             this.clReceived.OptionsColumn.FixedWidth = true;
             this.clReceived.Visible = true;
             this.clReceived.VisibleIndex = 5;
@@ -641,6 +647,7 @@
             this.clProgress.Name = "clProgress";
             this.clProgress.OptionsColumn.AllowEdit = false;
             this.clProgress.OptionsColumn.AllowMove = false;
+            this.clProgress.OptionsColumn.AllowSize = false;
             this.clProgress.OptionsColumn.FixedWidth = true;
             this.clProgress.Visible = true;
             this.clProgress.VisibleIndex = 6;
@@ -648,15 +655,34 @@
             // 
             // clSku
             // 
-            this.clSku.Caption = "Sku";
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceCell.Options.UseTextOptions = true;
+            this.clSku.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
             this.clSku.FieldName = "Sku";
             this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.OptionsColumn.AllowSize = false;
+            this.clSku.OptionsColumn.FixedWidth = true;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 100;
             // 
             // clImage
             // 
             this.clImage.Caption = "Image";
             this.clImage.FieldName = "Image";
             this.clImage.Name = "clImage";
+            this.clImage.OptionsColumn.AllowEdit = false;
+            this.clImage.OptionsColumn.AllowMove = false;
+            this.clImage.OptionsColumn.AllowSize = false;
+            this.clImage.OptionsColumn.FixedWidth = true;
             // 
             // panelControl16
             // 

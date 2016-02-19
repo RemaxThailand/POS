@@ -27,8 +27,8 @@ namespace PowerPOS
         string _STREAM_IMAGE_URL, _SKU;
 
         public static string productNo;
-        public static string orderNo;
-        public static string productName;
+        public static string OrderNo;
+        public static string ProductName;
 
         string order;
 
@@ -205,7 +205,7 @@ namespace PowerPOS
                         gbOrderNo.Height = 79;
                         progressBarControl1.Visible = true;
                         progressBarControl1.Properties.Maximum = _QTY;
-                        progressBarControl1.Increment(_RECEIVED);
+                        progressBarControl1.EditValue = _RECEIVED;
                     }
                 }
 
@@ -313,6 +313,21 @@ namespace PowerPOS
 
                 receivedGridControl.DataSource = dt;
 
+                if (_QTY == 0 || _RECEIVED == 0)
+                {
+                    gbOrderNo.Height = 53;
+                    progressBarControl1.Visible = false;
+                    gbCost.Visible = false;
+                }
+                else if (_RECEIVED != 0)
+                {
+                    gbCost.Visible = true;
+                    gbOrderNo.Height = 79;
+                    progressBarControl1.Visible = true;
+                    progressBarControl1.Properties.Maximum = _QTY;
+                    progressBarControl1.EditValue = _RECEIVED;
+                }
+
                 lblListCount.Text = receivedGridView.RowCount.ToString("#,##0") + " รายการ";
                 if (receivedGridView.RowCount > 0)
                 {
@@ -337,7 +352,7 @@ namespace PowerPOS
                     WHERE b.Barcode = '{0}'", txtBarcode.Text));
 
                 lblStatus.Visible = true;
-                orderNo = cbbOrderNo.SelectedItem.ToString();
+                OrderNo = cbbOrderNo.SelectedItem.ToString();
                 if (dt.Rows.Count == 0)
                 {
                     dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
@@ -611,8 +626,8 @@ namespace PowerPOS
                 //if (row != -1)
                 {
                     productNo = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["ID"]);
-                    if (cbbOrder.SelectedIndex == 0) { orderNo = cbbOrderNo.SelectedItem.ToString(); } else { orderNo = cbbOrder.SelectedItem.ToString(); }
-                    productName = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Name"]);
+                    if (cbbOrder.SelectedIndex == 0) { OrderNo = cbbOrderNo.SelectedItem.ToString(); } else { OrderNo = cbbOrder.SelectedItem.ToString(); }
+                    ProductName = receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Name"]);
                     FmOrderDetail frm = new FmOrderDetail();
                     frm.Show();
                 }
