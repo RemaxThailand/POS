@@ -39,7 +39,7 @@ namespace PowerPOS
             //        GROUP BY b.Product,b.SellNo", Param.UserId, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, UcReport.sellNo));
 
             _TABLE_SALE = Util.DBQuery(string.Format(@"
-                    SELECT p.Product , p.Name, sd.Quantity, sd.SellPrice, sh.SellNo, sh.SellDate, sh.TotalPrice, c.Firstname||' '||c.Lastname customer
+                    SELECT p.Product , p.Name, sd.Quantity, sd.SellPrice, sh.SellNo, sh.SellDate, sh.TotalPrice, c.Firstname||' '||c.Lastname customer, p.Sku
                      FROM  SellDetail sd
                         LEFT JOIN Product p 
                         ON sd.Product = p.Product 
@@ -47,7 +47,8 @@ namespace PowerPOS
                         ON sd.SellNo = sh.SellNo
                         LEFT JOIN Customer c
                         ON sh.Customer = c.Customer 
-                    WHERE sd.SellNo = '{0}'", UcReport.sellNo));
+                    WHERE sd.SellNo = '{0}'
+                        AND sd.Quantity <> 0", UcReport.sellNo));
 
             if(_TABLE_SALE.Rows.Count > 0)
             { 
@@ -78,6 +79,7 @@ namespace PowerPOS
                         row[3] = total;
                         row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Quantity"].ToString()).ToString("#,##0");
                         row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["SellPrice"].ToString()).ToString("#,##0");
+                        row[6] = _TABLE_SALE.Rows[a]["Sku"].ToString();
                         dt.Rows.Add(row);
                     }
 

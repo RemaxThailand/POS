@@ -220,6 +220,7 @@
             this.clImage.Name = "clImage";
             this.clImage.OptionsColumn.AllowEdit = false;
             this.clImage.OptionsColumn.AllowMove = false;
+            this.clImage.OptionsColumn.AllowSize = false;
             this.clImage.OptionsColumn.FixedWidth = true;
             this.clImage.Visible = true;
             this.clImage.VisibleIndex = 0;
@@ -240,6 +241,7 @@
             this.clNo.Name = "clNo";
             this.clNo.OptionsColumn.AllowEdit = false;
             this.clNo.OptionsColumn.AllowMove = false;
+            this.clNo.OptionsColumn.AllowSize = false;
             this.clNo.OptionsColumn.FixedWidth = true;
             this.clNo.Visible = true;
             this.clNo.VisibleIndex = 1;
@@ -258,6 +260,7 @@
             this.clBarcode.Name = "clBarcode";
             this.clBarcode.OptionsColumn.AllowEdit = false;
             this.clBarcode.OptionsColumn.AllowMove = false;
+            this.clBarcode.OptionsColumn.AllowSize = false;
             this.clBarcode.OptionsColumn.FixedWidth = true;
             this.clBarcode.Visible = true;
             this.clBarcode.VisibleIndex = 2;

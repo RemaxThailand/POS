@@ -69,7 +69,7 @@ namespace PowerPOS
                         Util.DBExecute(string.Format(@"INSERT INTO CreditCustomer (shop, creditNo, sellNo, sync)  SELECT '{2}','{0}', '{1}', 1", CreditNo, _SELL_NO, Param.ShopId));
                     }
                 }
-                dt = Util.DBQuery(string.Format(@"SELECT b.Barcode, b.SellNo, b.SellPrice Price FROM Barcode b WHERE b.sellBy = '{0}'", Param.DeviceID));
+                dt = Util.DBQuery(string.Format(@"SELECT b.Barcode, b.SellNo, b.SellPrice Price FROM Barcode b WHERE b.sellBy = '{0}'", Param.CpuId));
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -108,12 +108,13 @@ namespace PowerPOS
 
                     Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = '{0}', Sync = 1 WHERE Product = '{1}' AND shop = '{2}'", Amount.ToString(), dtS.Rows[i]["Product"].ToString(), Param.ShopId));
                 }
+
                 //Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer, CustomerSex, CustomerAge, SellDate, SellBy)
                 //    SELECT '{0}', (SELECT SUM(SellPrice-Cost-OperationCost) FROM Barcode WHERE SellNo = '{0}'),
                 //    (SELECT SUM(SellPrice) FROM Barcode WHERE SellNo = '{0}'), '{1}', '{2}', {3}, STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{4}'",
                 //        _SELL_NO, Param.SelectCustomerId, Param.SelectCustomerSex, Param.SelectCustomerAge, Param.UserId));
 
-                Util.DBExecute(string.Format(@"UPDATE ChangePrice SET SellNo = '{0}' WHERE SellNo = '{1}'", _SELL_NO, Param.DeviceID));
+                Util.DBExecute(string.Format(@"UPDATE ChangePrice SET SellNo = '{0}', Sync = 1 WHERE SellNo = '{1}'", _SELL_NO, Param.CpuId));
 
 
                 var cash = int.Parse(txtCash.Text);
