@@ -113,7 +113,7 @@ namespace PowerPOS
                     progressBarControl1.Properties.PercentView = true;
                     progressBarControl1.Visible = true;
                     progressBarControl1.Properties.Maximum = _QTY;
-                    progressBarControl1.Increment(_RECEIVED);
+                    progressBarControl1.EditValue = _RECEIVED;
                 }
 
                 RepositoryItemProgressBar ritem = new RepositoryItemProgressBar();
@@ -126,8 +126,8 @@ namespace PowerPOS
                 stockGridControl.DataSource = dt;
                 int val = _QTY - _RECEIVED;
                 lblListCount.Text = stockGridView.RowCount.ToString() + " รายการ";
-                lblProductCount.Text = _RECEIVED.ToString() + " ชิ้น";
-                lblReceived.Text = _QTY.ToString() + " ชิ้น";
+                lblProductCount.Text = _QTY.ToString() + " ชิ้น";
+                lblReceived.Text = _RECEIVED.ToString() + " ชิ้น";
                 lblNoReceived.Text = val.ToString();
             }
             txtBarcode.Select();
@@ -207,7 +207,7 @@ namespace PowerPOS
             {
                 if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
                 {
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.product, p.Image, IFNULL(SellDate, '') SellDate,b.inStock 
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.product, p.Image, IFNULL(SellDate, '') SellDate, b.inStock 
                     FROM Barcode b 
                         LEFT JOIN Product p 
                         ON b.product = p.product
@@ -216,12 +216,41 @@ namespace PowerPOS
 
                     lblStatus.Visible = true;
 
+
                     if (dt.Rows.Count == 0)
                     {
-                        lblStatus.ForeColor = Color.Red;
-                        //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //_SKU = "0";
+                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        if (dt.Rows.Count == 0)
+                        {
+                            dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU LIKE '%{0}%'", txtBarcode.Text));
+                            if (dt.Rows.Count == 0)
+                            {
+                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                Param.status = "Stock";
+                                FmProductQty frm = new FmProductQty();
+                                Param.product = dt.Rows[0]["Product"].ToString();
+                                var result = frm.ShowDialog(this);
+                                if (result == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    LoadData();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Param.status = "Stock";
+                            FmSelectProduct frm = new FmSelectProduct();
+                            var result = frm.ShowDialog(this);
+                            if (result == System.Windows.Forms.DialogResult.OK)
+                            {
+                                LoadData();
+                                txtBarcode.Text = "";
+                            }
+
+                        }
                     }
                     else
                     {

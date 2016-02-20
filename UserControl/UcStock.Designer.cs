@@ -58,10 +58,11 @@
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.lblNoReceived = new DevExpress.XtraEditors.LabelControl();
@@ -71,7 +72,6 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.stockGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.stockGridView)).BeginInit();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -92,13 +92,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.panelControl17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
             this.panelControl8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // stockGridControl
@@ -450,7 +450,7 @@
             this.btnNewCount.Name = "btnNewCount";
             this.btnNewCount.Size = new System.Drawing.Size(221, 31);
             this.btnNewCount.TabIndex = 16;
-            this.btnNewCount.Text = "เริ่มนับสต็อคใหม่";
+            this.btnNewCount.Text = "นับสต็อคใหม่";
             this.btnNewCount.Click += new System.EventHandler(this.btnNewCount_Click);
             // 
             // navBarControl1
@@ -490,17 +490,40 @@
             this.panelControl17.Size = new System.Drawing.Size(849, 47);
             this.panelControl17.TabIndex = 8;
             // 
+            // panelControl8
+            // 
+            this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl8.Controls.Add(this.btnPrint);
+            this.panelControl8.Controls.Add(this.panelControl18);
+            this.panelControl8.Controls.Add(this.panelControl20);
+            this.panelControl8.Controls.Add(this.panelControl19);
+            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl8.Location = new System.Drawing.Point(2, 2);
+            this.panelControl8.Name = "panelControl8";
+            this.panelControl8.Size = new System.Drawing.Size(191, 43);
+            this.panelControl8.TabIndex = 30;
+            // 
             // btnPrint
             // 
             this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Appearance.Options.UseFont = true;
             this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrint.Enabled = false;
             this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
             this.btnPrint.Location = new System.Drawing.Point(0, 4);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(163, 35);
             this.btnPrint.TabIndex = 1;
             this.btnPrint.Text = "พิมพ์รายงานสต็อค";
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl18.Location = new System.Drawing.Point(163, 4);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(28, 35);
+            this.panelControl18.TabIndex = 18;
             // 
             // panelControl20
             // 
@@ -519,15 +542,6 @@
             this.panelControl19.Name = "panelControl19";
             this.panelControl19.Size = new System.Drawing.Size(191, 4);
             this.panelControl19.TabIndex = 19;
-            // 
-            // panelControl18
-            // 
-            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl18.Location = new System.Drawing.Point(163, 4);
-            this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(28, 35);
-            this.panelControl18.TabIndex = 18;
             // 
             // groupControl1
             // 
@@ -607,8 +621,9 @@
             this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblListCount.Location = new System.Drawing.Point(575, 4);
             this.lblListCount.Name = "lblListCount";
-            this.lblListCount.Size = new System.Drawing.Size(0, 16);
+            this.lblListCount.Size = new System.Drawing.Size(51, 16);
             this.lblListCount.TabIndex = 22;
+            this.lblListCount.Text = "0 รายการ";
             // 
             // lblProductCount
             // 
@@ -618,19 +633,6 @@
             this.lblProductCount.Size = new System.Drawing.Size(27, 16);
             this.lblProductCount.TabIndex = 23;
             this.lblProductCount.Text = "0 ชิ้น";
-            // 
-            // panelControl8
-            // 
-            this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl8.Controls.Add(this.btnPrint);
-            this.panelControl8.Controls.Add(this.panelControl18);
-            this.panelControl8.Controls.Add(this.panelControl20);
-            this.panelControl8.Controls.Add(this.panelControl19);
-            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl8.Location = new System.Drawing.Point(2, 2);
-            this.panelControl8.Name = "panelControl8";
-            this.panelControl8.Size = new System.Drawing.Size(191, 43);
-            this.panelControl8.TabIndex = 30;
             // 
             // UcStock
             // 
@@ -663,14 +665,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.panelControl17.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
+            this.panelControl8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
-            this.panelControl8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

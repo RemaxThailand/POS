@@ -182,6 +182,36 @@ namespace PowerPOS
                             }
                         }
                     }
+                    else if (Param.status == "Stock")
+                    {
+                        //DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM SellDetail WHERE Product = '{0}' GROUP BY Product", Param.product));
+
+                        //if (dt.Rows[0]["Quantity"].ToString() == "0")
+                        //{
+                        //    MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
+                        //}
+                        //else
+                        //{
+                        //    if (txtAmount.Text.Trim() == "")
+                        //    {
+                        //        txtAmount.Focus();
+                        //    }
+                        //    else
+                        //    {
+                        //        if (Convert.ToInt32(dt.Rows[0]["Quantity"].ToString()) >= Convert.ToInt32(txtAmount.Text))
+                        //        {
+                        //            //Param.amount = txtAmount.Text;
+
+                        //            this.DialogResult = DialogResult.OK;
+                        //            this.Dispose();
+                        //        }
+                        //        else
+                        //        {
+                        //            MessageBox.Show("กรุณาตรวจสอบจำนวนที่คืนอีกครั้ง", "แจ้งเตือน");
+                        //        }
+                        //    }
+                        //}
+                    }
                     else if (Param.status == "Cancel")
                     {
                         DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Amount, Price FROM SellTemp WHERE product = '{0}' ", Param.product, Param.ShopId));

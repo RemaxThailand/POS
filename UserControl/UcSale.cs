@@ -487,10 +487,10 @@ namespace PowerPOS
         {
             DataTable dt;
 
-            DataTable RId = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(barcode), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(barcode), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}R'), 3)||'0001') Return
+            DataTable RId = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(returnNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(returnNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}R'), 3)||'0001') Return
                                             FROM ReturnProduct
-                                            WHERE SUBSTR(barcode, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
-                                            AND SUBSTR(barcode, 5, 1) = '{0}'", Param.DevicePrefix));
+                                            WHERE SUBSTR(returnNo, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
+                                            AND SUBSTR(returnNo, 5, 1) = '{0}'", Param.DevicePrefix));
             var Return = RId.Rows[0]["Return"].ToString();
 
             dt = Util.DBQuery(string.Format(@"SELECT b.OrderNo, p.product, p.Image, IFNULL(b.ReceivedDate, '') ReceivedDate 
@@ -558,8 +558,8 @@ namespace PowerPOS
                 Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '',SellNo = '',Customer = '',SellPrice = '',SellDate = null ,
                     Sync = 1 WHERE Barcode = '{0}'", txtBarcodeReturn.Text));
 
-                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Profit = (SELECT SUM(SellPrice-Cost-OperationCost) FROM Barcode WHERE SellNo = '{0}')
-                        , TotalPrice = (SELECT SUM(SellPrice) FROM Barcode WHERE SellNo = '{0}') ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
+                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Profit = (SELECT IFNULL(SUM(SellPrice-Cost-OperationCost),0) FROM Barcode WHERE SellNo = '{0}')
+                        , TotalPrice = (SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}') ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
 
                 Util.DBExecute(string.Format(@"UPDATE SellDetail SET SellPrice =  IFNULL((SELECT SUM(SellPrice) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0)  ,
                             Cost = IFNULL((SELECT SUM(Cost) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0), Quantity = IFNULL((SELECT COUNT(*) 

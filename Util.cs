@@ -830,7 +830,7 @@ namespace PowerPOS
 
         public static void PrintReceipt(string sellNo)
         {
-            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM Barcode WHERE SellNo = '{0}'", sellNo));
+            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
 
             var hight = 195 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
             //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);

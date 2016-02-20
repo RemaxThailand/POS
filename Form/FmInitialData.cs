@@ -329,6 +329,48 @@ namespace PowerPOS
                 priceCost FLOAT NOT NULL DEFAULT 0)");
 
 
+            //InventoryCount
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS InventoryCount (
+                shop NVARCHAR(10) NOT NULL,
+                product  NVARCHAR(20) NOT NULL,
+                quantity int NOT NULL DEFAULT 0,              
+                sync BIT DEFAULT 0)");
+
+         //   string customer = Util.GetApiData("/customer/creditInfo",
+         //string.Format("shop={0}", Param.ApiShopId));
+
+         //   dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
+         //   Console.WriteLine(jsonCustomer.success);
+
+         //   if (jsonCustomer.success.Value)
+         //   {
+         //       Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+         //       StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+         //       d = 0;
+         //       for (i = 0; i < jsonCustomer.result.Count; i++)
+         //       {
+         //           if (d != 0) sb.Append(" UNION ALL ");
+         //           sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}",
+         //               jsonCustomer.result[i].shop, jsonCustomer.result[i].creditNo, jsonCustomer.result[i].sellNo, jsonCustomer.result[i].paidPrice, jsonCustomer.result[i].paidBy,
+         //               jsonCustomer.result[i].paidDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].paidDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
+         //           d++;
+
+         //           if (d % 500 == 0)
+         //           {
+         //               d = 0;
+         //               Util.DBExecute(sb.ToString());
+         //               Console.WriteLine(sb.ToString());
+         //               sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+         //           }
+
+         //       }
+         //       Util.DBExecute(sb.ToString());
+         //   }
+         //   else
+         //   {
+         //       Console.WriteLine(jsonCustomer.errorMessage);
+         //   }
+
             //CreditCustomer
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS CreditCustomer (
                 shop   NVARCHAR(10) NOT NULL,
@@ -510,7 +552,7 @@ namespace PowerPOS
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', {3}, {4}",
-                        jsonCategory.result[i].shop, jsonCategory.result[i].category, jsonCategory.result[i].name, jsonCategory.result[i].active == true ? 1 : 0, jsonCategory.result[i].priority));
+                        jsonCategory.result[i].shop, jsonCategory.result[i].id, jsonCategory.result[i].name, jsonCategory.result[i].active == true ? 1 : 0, jsonCategory.result[i].priority));
 
                     if (d % 500 == 0)
                     {
@@ -600,7 +642,7 @@ namespace PowerPOS
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', {3}, {4}",
-                        jsonBrand.result[i].shop, jsonBrand.result[i].brand, jsonBrand.result[i].name, jsonBrand.result[i].active == true ? 1 : 0, jsonBrand.result[i].priority));
+                        jsonBrand.result[i].shop, jsonBrand.result[i].id, jsonBrand.result[i].name, jsonBrand.result[i].active == true ? 1 : 0, jsonBrand.result[i].priority));
 
                     d++;
                     if (d % 500 == 0)
@@ -688,7 +730,7 @@ namespace PowerPOS
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, '{23}', {24}",
-                       jsonProduct.result[i].shop, jsonProduct.result[i].product, jsonProduct.result[i].sku, jsonProduct.result[i].name,
+                       jsonProduct.result[i].shop, jsonProduct.result[i].id, jsonProduct.result[i].sku, jsonProduct.result[i].name,
                        jsonProduct.result[i].image == null ? "" : jsonProduct.result[i].image, jsonProduct.result[i].price, jsonProduct.result[i].price1, jsonProduct.result[i].price2, jsonProduct.result[i].price3, jsonProduct.result[i].price4, 
                        jsonProduct.result[i].webWarranty, jsonProduct.result[i].webPrice, jsonProduct.result[i].webPrice1, jsonProduct.result[i].webPrice2,
                        jsonProduct.result[i].webPrice3, jsonProduct.result[i].webPrice4, jsonProduct.result[i].webPrice5, jsonProduct.result[i].webWarranty,
