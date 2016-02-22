@@ -766,6 +766,31 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
+            ////## InventoryCount ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM InventoryCount WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/addCount",
+                    string.Format("shop={0}&product={1}&quantity={2}",Param.ApiShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["quantity"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                    Util.DBExecute(string.Format("UPDATE InventoryCount SET Sync = 0 WHERE product = '{0}'", dt.Rows[i]["product"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
             ////## Claim ##//
             //try
             //{
