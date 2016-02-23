@@ -60,7 +60,6 @@ namespace PowerPOS
                     FROM Barcode b
                         LEFT JOIN Product p
                             ON b.Product = p.Product
-                            AND p.Shop = '{0}'
                         LEFT JOIN ( 
                                 SELECT DISTINCT Product, COUNT(*) Stock
                                 FROM Barcode 
@@ -76,10 +75,19 @@ namespace PowerPOS
                         LEFT JOIN Brand bn
                             ON p.Brand = bn.Brand
                             AND p.Shop = bn.Shop
-                    WHERE (b.ReceivedDate NOT NULL OR b.ReceivedBy = '{1}') AND (SellBy  = '' OR SellBy  IS NULL)
-                    GROUP BY b.Product
-                    ORDER BY p.Category,p.Name
-                ", Param.ShopId, Param.UserId
+                    WHERE (b.ReceivedDate NOT NULL OR b.ReceivedBy = '{0}') AND (SellBy  = '' OR SellBy  IS NULL)
+                    GROUP BY b.Product                   
+                UNION ALL
+                SELECT p.sku, p.image, p.product, p.name, p.quantity ProductCount, ic.quantity stock, b.name brand, c.name category
+                FROM Product p
+                    LEFT JOIN InventoryCount ic
+                    ON p.product = ic.product
+                    LEFT JOIN Brand b
+                    ON b.brand = p.brand 
+                    LEFT JOIN Category c
+                    ON c.category = p.category
+                WHERE p.Quantity <> 0
+                ", Param.UserId
                 ));
 
                 stockGridView.OptionsBehavior.AutoPopulateColumns = false;
@@ -192,10 +200,10 @@ namespace PowerPOS
             {
                 if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่ ?", "ยืนยันการนับสต็อกสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    Util.DBExecute(string.Format(@"UPDATE Barcode SET Stock = 0 ,Sync = 1 WHERE (SellDate IS NULL OR SellDate = '') "));
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 ,Sync = 1 WHERE inStock = 1 AND (SellDate IS NULL OR SellDate = '') "));
                     SearchData();
-                    progressBarControl1.Increment(0);
-                    lblStatus.Text = "";
+                    progressBarControl1.EditValue = 0;
+                    //lblStatus.Text = "";
                 }
             }
         }
@@ -207,6 +215,8 @@ namespace PowerPOS
             {
                 if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
                 {
+                    Param.BarcodeNo = txtBarcode.Text;
+
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT p.product, p.Image, IFNULL(SellDate, '') SellDate, b.inStock 
                     FROM Barcode b 
                         LEFT JOIN Product p 
@@ -214,7 +224,7 @@ namespace PowerPOS
                     WHERE b.Barcode = '{0}'  AND p.Shop = '{1}' AND b.SellDate IS NULL", 
                      txtBarcode.Text, Param.ShopId));
 
-                    lblStatus.Visible = true;
+                    //lblStatus.Visible = true;
 
 
                     if (dt.Rows.Count == 0)

@@ -131,11 +131,11 @@
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceCell.Options.UseFont = true;
             this.clNo.AppearanceCell.Options.UseTextOptions = true;
             this.clNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -145,6 +145,7 @@
             this.clNo.Name = "clNo";
             this.clNo.OptionsColumn.AllowEdit = false;
             this.clNo.OptionsColumn.AllowMove = false;
+            this.clNo.OptionsColumn.AllowSize = false;
             this.clNo.OptionsColumn.FixedWidth = true;
             this.clNo.Visible = true;
             this.clNo.VisibleIndex = 0;
@@ -152,9 +153,9 @@
             // 
             // clProduct
             // 
-            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProduct.AppearanceCell.Options.UseFont = true;
-            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProduct.AppearanceHeader.Options.UseFont = true;
             this.clProduct.AppearanceHeader.Options.UseTextOptions = true;
             this.clProduct.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -163,16 +164,15 @@
             this.clProduct.Name = "clProduct";
             this.clProduct.OptionsColumn.AllowEdit = false;
             this.clProduct.OptionsColumn.AllowMove = false;
+            this.clProduct.OptionsColumn.AllowSize = false;
             this.clProduct.OptionsColumn.FixedWidth = true;
-            this.clProduct.Visible = true;
-            this.clProduct.VisibleIndex = 1;
             this.clProduct.Width = 100;
             // 
             // clName
             // 
-            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clName.AppearanceCell.Options.UseFont = true;
-            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clName.AppearanceHeader.Options.UseFont = true;
             this.clName.AppearanceHeader.Options.UseTextOptions = true;
             this.clName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -181,6 +181,7 @@
             this.clName.Name = "clName";
             this.clName.OptionsColumn.AllowEdit = false;
             this.clName.OptionsColumn.AllowMove = false;
+            this.clName.OptionsColumn.AllowSize = false;
             this.clName.OptionsColumn.FixedWidth = true;
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
@@ -188,9 +189,9 @@
             // 
             // clCategory
             // 
-            this.clCategory.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCategory.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCategory.AppearanceCell.Options.UseFont = true;
-            this.clCategory.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCategory.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCategory.AppearanceHeader.Options.UseFont = true;
             this.clCategory.AppearanceHeader.Options.UseTextOptions = true;
             this.clCategory.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -199,6 +200,7 @@
             this.clCategory.Name = "clCategory";
             this.clCategory.OptionsColumn.AllowEdit = false;
             this.clCategory.OptionsColumn.AllowMove = false;
+            this.clCategory.OptionsColumn.AllowSize = false;
             this.clCategory.OptionsColumn.FixedWidth = true;
             this.clCategory.Visible = true;
             this.clCategory.VisibleIndex = 3;
@@ -206,11 +208,11 @@
             // 
             // clQty
             // 
-            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clQty.AppearanceCell.Options.UseFont = true;
             this.clQty.AppearanceCell.Options.UseTextOptions = true;
             this.clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clQty.AppearanceHeader.Options.UseFont = true;
             this.clQty.AppearanceHeader.Options.UseTextOptions = true;
             this.clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -219,6 +221,7 @@
             this.clQty.Name = "clQty";
             this.clQty.OptionsColumn.AllowEdit = false;
             this.clQty.OptionsColumn.AllowMove = false;
+            this.clQty.OptionsColumn.AllowSize = false;
             this.clQty.OptionsColumn.FixedWidth = true;
             this.clQty.Visible = true;
             this.clQty.VisibleIndex = 4;
@@ -226,11 +229,11 @@
             // 
             // clCheck
             // 
-            this.clCheck.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCheck.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCheck.AppearanceCell.Options.UseFont = true;
             this.clCheck.AppearanceCell.Options.UseTextOptions = true;
             this.clCheck.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clCheck.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCheck.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCheck.AppearanceHeader.Options.UseFont = true;
             this.clCheck.AppearanceHeader.Options.UseTextOptions = true;
             this.clCheck.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -239,6 +242,7 @@
             this.clCheck.Name = "clCheck";
             this.clCheck.OptionsColumn.AllowEdit = false;
             this.clCheck.OptionsColumn.AllowMove = false;
+            this.clCheck.OptionsColumn.AllowSize = false;
             this.clCheck.OptionsColumn.FixedWidth = true;
             this.clCheck.Visible = true;
             this.clCheck.VisibleIndex = 5;
@@ -246,11 +250,11 @@
             // 
             // clProgress
             // 
-            this.clProgress.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProgress.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProgress.AppearanceCell.Options.UseFont = true;
             this.clProgress.AppearanceCell.Options.UseTextOptions = true;
             this.clProgress.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clProgress.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProgress.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProgress.AppearanceHeader.Options.UseFont = true;
             this.clProgress.AppearanceHeader.Options.UseTextOptions = true;
             this.clProgress.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -259,6 +263,7 @@
             this.clProgress.Name = "clProgress";
             this.clProgress.OptionsColumn.AllowEdit = false;
             this.clProgress.OptionsColumn.AllowMove = false;
+            this.clProgress.OptionsColumn.AllowSize = false;
             this.clProgress.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
             this.clProgress.OptionsColumn.FixedWidth = true;
             this.clProgress.OptionsFilter.AllowAutoFilter = false;
@@ -269,9 +274,22 @@
             // 
             // clSku
             // 
-            this.clSku.Caption = "Sku";
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
             this.clSku.FieldName = "Sku";
             this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.OptionsColumn.AllowSize = false;
+            this.clSku.OptionsColumn.FixedWidth = true;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 100;
             // 
             // navBarGroup1
             // 

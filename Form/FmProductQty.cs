@@ -15,8 +15,8 @@ namespace PowerPOS
 {
     public partial class FmProductQty : DevExpress.XtraEditors.XtraForm
     {
+        int _QTY, _COUNT;
 
-        
         public FmProductQty()
         {
             InitializeComponent();
@@ -164,33 +164,64 @@ namespace PowerPOS
                 }
                 else if (Param.status == "Stock")
                 {
-                    //DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM SellDetail WHERE Product = '{0}' GROUP BY Product", Param.product));
+                    _QTY = 0;
+                    _COUNT = 0;
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM Product WHERE product = '{0}' AND Quantity <> 0 ", Param.product));
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
+                    }
+                    else
+                    {
+                        if (txtAmount.Text.Trim() == "")
+                        {
+                            txtAmount.Focus();
+                        }
+                        else
+                        {
+                            _QTY = Convert.ToInt32(dt.Rows[0]["Quantity"].ToString());
+                            if (_QTY >= Convert.ToInt32(txtAmount.Text))
+                            {
+                                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                                dt = Util.DBQuery(string.Format(@"SELECT quantity FROM InventoryCount WHERE Product = '{0}'", Param.product));
 
-                    //if (dt.Rows[0]["Quantity"].ToString() == "0")
-                    //{
-                    //    MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
-                    //}
-                    //else
-                    //{
-                    //    if (txtAmount.Text.Trim() == "")
-                    //    {
-                    //        txtAmount.Focus();
-                    //    }
-                    //    else
-                    //    {
-                    //        if (Convert.ToInt32(dt.Rows[0]["Quantity"].ToString()) >= Convert.ToInt32(txtAmount.Text))
-                    //        {
-                    //            //Param.amount = txtAmount.Text;
+                                if (dt.Rows.Count > 0)
+                                {
+                                    _COUNT = Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) + Convert.ToInt32(txtAmount.Text);
+                                }
+                                else
+                                {
+                                    _COUNT = Convert.ToInt32(txtAmount.Text);
+                                }
 
-                    //            this.DialogResult = DialogResult.OK;
-                    //            this.Dispose();
-                    //        }
-                    //        else
-                    //        {
-                    //            MessageBox.Show("กรุณาตรวจสอบจำนวนที่คืนอีกครั้ง", "แจ้งเตือน");
-                    //        }
-                    //    }
-                    //}
+                                if (_QTY >= _COUNT)
+                                {
+                                    dt = Util.DBQuery(string.Format(@"SELECT product FROM InventoryCount WHERE Product = '{0}'", Param.product));
+
+                                    if (dt.Rows.Count > 0)
+                                    {
+                                        Util.DBExecute(string.Format(@"UPDATE InventoryCount SET quantity = '{1}', Sync = 1 WHERE product = '{0}'", Param.product, _COUNT));
+                                    }
+                                    else
+                                    {
+                                        Util.DBExecute(string.Format(@"INSERT INTO InventoryCount (shop, product, quantity, sync)
+                                             SELECT '{0}','{1}','{2}', 1 ", Param.ShopId, Param.product, _COUNT));
+                                    }
+
+                                    this.DialogResult = DialogResult.OK;
+                                    this.Dispose();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
+                            }
+                        }
+                    }
                 }
                 else if (Param.status == "Cancel")
                 {
