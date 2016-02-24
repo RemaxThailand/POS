@@ -132,9 +132,10 @@
             this.btnAddCustomer.Appearance.Options.UseFont = true;
             this.btnAddCustomer.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnAddCustomer.Image = ((System.Drawing.Image)(resources.GetObject("btnAddCustomer.Image")));
-            this.btnAddCustomer.Location = new System.Drawing.Point(2, 2);
+            this.btnAddCustomer.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnAddCustomer.Location = new System.Drawing.Point(0, 0);
             this.btnAddCustomer.Name = "btnAddCustomer";
-            this.btnAddCustomer.Size = new System.Drawing.Size(228, 51);
+            this.btnAddCustomer.Size = new System.Drawing.Size(232, 51);
             this.btnAddCustomer.TabIndex = 0;
             this.btnAddCustomer.Text = "เพิ่มข้อมูลลูกค้า";
             this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);

@@ -185,7 +185,9 @@
             this.btnPaid.Appearance.Options.UseFont = true;
             this.btnPaid.Appearance.Options.UseForeColor = true;
             this.btnPaid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPaid.Enabled = false;
             this.btnPaid.Image = ((System.Drawing.Image)(resources.GetObject("btnPaid.Image")));
+            this.btnPaid.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnPaid.Location = new System.Drawing.Point(35, 0);
             this.btnPaid.Name = "btnPaid";
             this.btnPaid.Size = new System.Drawing.Size(172, 47);
@@ -240,7 +242,9 @@
             this.btnPrint.Appearance.Options.UseFont = true;
             this.btnPrint.Appearance.Options.UseForeColor = true;
             this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrint.Enabled = false;
             this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnPrint.Location = new System.Drawing.Point(20, 5);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(202, 47);

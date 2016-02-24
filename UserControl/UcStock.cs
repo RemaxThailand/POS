@@ -78,7 +78,7 @@ namespace PowerPOS
                     WHERE (b.ReceivedDate NOT NULL OR b.ReceivedBy = '{0}') AND (SellBy  = '' OR SellBy  IS NULL)
                     GROUP BY b.Product                   
                 UNION ALL
-                SELECT p.sku, p.image, p.product, p.name, p.quantity ProductCount, ic.quantity stock, b.name brand, c.name category
+                SELECT p.sku, p.image, p.product, p.name, p.quantity ProductCount, IFNULL(ic.quantity,0) stock, b.name brand, c.name category
                 FROM Product p
                     LEFT JOIN InventoryCount ic
                     ON p.product = ic.product
@@ -91,10 +91,10 @@ namespace PowerPOS
                 ));
 
                 stockGridView.OptionsBehavior.AutoPopulateColumns = false;
-                stockGridControl.MainView = stockGridView;
+                ปรับปรุงสต็อคสินค้า.MainView = stockGridView;
 
                 dt = new DataTable();
-                for (i = 0; i < ((ColumnView)stockGridControl.MainView).Columns.Count; i++)
+                for (i = 0; i < ((ColumnView)ปรับปรุงสต็อคสินค้า.MainView).Columns.Count; i++)
                 {
                     dt.Columns.Add(stockGridView.Columns[i].FieldName);
                 }
@@ -128,15 +128,15 @@ namespace PowerPOS
                 ritem.Minimum = 0;
                 ritem.Maximum = 100;
                 ritem.ShowTitle = true;
-                stockGridControl.RepositoryItems.Add(ritem);
+                ปรับปรุงสต็อคสินค้า.RepositoryItems.Add(ritem);
                 stockGridView.Columns["Progress"].ColumnEdit = ritem;
 
-                stockGridControl.DataSource = dt;
+                ปรับปรุงสต็อคสินค้า.DataSource = dt;
                 int val = _QTY - _RECEIVED;
-                lblListCount.Text = stockGridView.RowCount.ToString() + " รายการ";
-                lblProductCount.Text = _QTY.ToString() + " ชิ้น";
-                lblReceived.Text = _RECEIVED.ToString() + " ชิ้น";
-                lblNoReceived.Text = val.ToString();
+                lblListCount.Text = stockGridView.RowCount.ToString("#,##0") + " รายการ";
+                lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
+                lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
+                lblNoReceived.Text = val.ToString("#,##0");
             }
             txtBarcode.Select();
         }

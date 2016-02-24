@@ -41,22 +41,7 @@
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
-            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
-            this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
-            this.ptbProduct = new System.Windows.Forms.PictureBox();
-            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
-            this.btnReturn = new DevExpress.XtraEditors.SimpleButton();
-            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.lblWarranty = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
-            this.lblStatusReturn = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
-            this.txtBarcodeReturn = new DevExpress.XtraEditors.TextEdit();
-            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl12 = new DevExpress.XtraEditors.PanelControl();
@@ -88,6 +73,21 @@
             this.lblPrice = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
+            this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
+            this.ptbProduct = new System.Windows.Forms.PictureBox();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
+            this.btnReturn = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.lblWarranty = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
+            this.lblStatusReturn = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
+            this.txtBarcodeReturn = new DevExpress.XtraEditors.TextEdit();
+            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.navBarGroupControlContainer3 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
@@ -101,7 +101,7 @@
             this.textEdit2 = new DevExpress.XtraEditors.TextEdit();
             this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
@@ -130,18 +130,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
-            this.navBarGroupControlContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
-            this.panelControl13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
@@ -158,6 +146,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             this.panelControl3.SuspendLayout();
+            this.navBarGroupControlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
+            this.panelControl13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             this.navBarGroupControlContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             this.panelControl11.SuspendLayout();
@@ -371,185 +371,17 @@
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "navBarControl1";
             // 
-            // navBarGroup2
+            // navBarGroup1
             // 
-            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.navBarGroup2.Appearance.Options.UseFont = true;
-            this.navBarGroup2.Caption = "รับสินค้าคืน";
-            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
-            this.navBarGroup2.GroupClientHeight = 80;
-            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
-            this.navBarGroup2.Name = "navBarGroup2";
-            // 
-            // navBarGroupControlContainer1
-            // 
-            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
-            this.navBarGroupControlContainer1.Controls.Add(this.panelControl13);
-            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(227, 539);
-            this.navBarGroupControlContainer1.TabIndex = 0;
-            // 
-            // panelControl13
-            // 
-            this.panelControl13.Controls.Add(this.ptbProduct);
-            this.panelControl13.Controls.Add(this.panelControl21);
-            this.panelControl13.Controls.Add(this.panelControl20);
-            this.panelControl13.Controls.Add(this.panelControl18);
-            this.panelControl13.Controls.Add(this.btnReturn);
-            this.panelControl13.Controls.Add(this.panelControl19);
-            this.panelControl13.Controls.Add(this.lblWarranty);
-            this.panelControl13.Controls.Add(this.panelControl14);
-            this.panelControl13.Controls.Add(this.lblStatusReturn);
-            this.panelControl13.Controls.Add(this.panelControl15);
-            this.panelControl13.Controls.Add(this.txtBarcodeReturn);
-            this.panelControl13.Controls.Add(this.panelControl16);
-            this.panelControl13.Controls.Add(this.labelControl3);
-            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl13.Location = new System.Drawing.Point(0, 0);
-            this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(227, 539);
-            this.panelControl13.TabIndex = 0;
-            // 
-            // ptbProduct
-            // 
-            this.ptbProduct.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ptbProduct.Location = new System.Drawing.Point(12, 159);
-            this.ptbProduct.Name = "ptbProduct";
-            this.ptbProduct.Size = new System.Drawing.Size(203, 203);
-            this.ptbProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ptbProduct.TabIndex = 26;
-            this.ptbProduct.TabStop = false;
-            // 
-            // panelControl21
-            // 
-            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(215, 159);
-            this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(10, 378);
-            this.panelControl21.TabIndex = 25;
-            // 
-            // panelControl20
-            // 
-            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl20.Location = new System.Drawing.Point(2, 159);
-            this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(10, 378);
-            this.panelControl20.TabIndex = 24;
-            // 
-            // panelControl18
-            // 
-            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl18.Location = new System.Drawing.Point(2, 149);
-            this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(223, 10);
-            this.panelControl18.TabIndex = 23;
-            // 
-            // btnReturn
-            // 
-            this.btnReturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReturn.Appearance.Options.UseFont = true;
-            this.btnReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnReturn.Location = new System.Drawing.Point(2, 114);
-            this.btnReturn.Name = "btnReturn";
-            this.btnReturn.Size = new System.Drawing.Size(223, 35);
-            this.btnReturn.TabIndex = 21;
-            this.btnReturn.Text = "รับคืนสินค้า";
-            this.btnReturn.Visible = false;
-            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
-            // 
-            // panelControl19
-            // 
-            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl19.Location = new System.Drawing.Point(2, 109);
-            this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(223, 5);
-            this.panelControl19.TabIndex = 22;
-            // 
-            // lblWarranty
-            // 
-            this.lblWarranty.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWarranty.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblWarranty.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblWarranty.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblWarranty.Location = new System.Drawing.Point(2, 83);
-            this.lblWarranty.Name = "lblWarranty";
-            this.lblWarranty.Size = new System.Drawing.Size(223, 26);
-            this.lblWarranty.TabIndex = 18;
-            this.lblWarranty.Text = "รับคืนภายใน 7 วัน (เหลืออีก 5 วัน)";
-            this.lblWarranty.Visible = false;
-            // 
-            // panelControl14
-            // 
-            this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl14.Location = new System.Drawing.Point(2, 78);
-            this.panelControl14.Name = "panelControl14";
-            this.panelControl14.Size = new System.Drawing.Size(223, 5);
-            this.panelControl14.TabIndex = 15;
-            // 
-            // lblStatusReturn
-            // 
-            this.lblStatusReturn.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.lblStatusReturn.Appearance.ForeColor = System.Drawing.Color.DarkOrange;
-            this.lblStatusReturn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.lblStatusReturn.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblStatusReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblStatusReturn.Location = new System.Drawing.Point(2, 53);
-            this.lblStatusReturn.Name = "lblStatusReturn";
-            this.lblStatusReturn.Size = new System.Drawing.Size(223, 25);
-            this.lblStatusReturn.TabIndex = 14;
-            this.lblStatusReturn.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
-            this.lblStatusReturn.Visible = false;
-            // 
-            // panelControl15
-            // 
-            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl15.Location = new System.Drawing.Point(2, 48);
-            this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(223, 5);
-            this.panelControl15.TabIndex = 13;
-            // 
-            // txtBarcodeReturn
-            // 
-            this.txtBarcodeReturn.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtBarcodeReturn.EditValue = "";
-            this.txtBarcodeReturn.Location = new System.Drawing.Point(2, 20);
-            this.txtBarcodeReturn.Name = "txtBarcodeReturn";
-            this.txtBarcodeReturn.Properties.Appearance.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
-            this.txtBarcodeReturn.Properties.Appearance.Options.UseFont = true;
-            this.txtBarcodeReturn.Properties.Appearance.Options.UseTextOptions = true;
-            this.txtBarcodeReturn.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtBarcodeReturn.Size = new System.Drawing.Size(223, 28);
-            this.txtBarcodeReturn.TabIndex = 12;
-            this.txtBarcodeReturn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeReturn_KeyDown);
-            // 
-            // panelControl16
-            // 
-            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl16.Location = new System.Drawing.Point(2, 15);
-            this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(223, 5);
-            this.panelControl16.TabIndex = 16;
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
-            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.labelControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl3.Location = new System.Drawing.Point(2, 2);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(223, 13);
-            this.labelControl3.TabIndex = 11;
-            this.labelControl3.Text = "บาร์โค้ด";
+            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.navBarGroup1.Appearance.Options.UseFont = true;
+            this.navBarGroup1.Caption = "ขายสินค้า";
+            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.GroupClientHeight = 80;
+            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
+            this.navBarGroup1.Name = "navBarGroup1";
             // 
             // navBarGroupControlContainer2
             // 
@@ -599,7 +431,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnConfirm.Appearance.Options.UseFont = true;
             this.btnConfirm.Appearance.Options.UseForeColor = true;
@@ -622,7 +454,7 @@
             // 
             // btnCancelSale
             // 
-            this.btnCancelSale.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelSale.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelSale.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnCancelSale.Appearance.Options.UseFont = true;
             this.btnCancelSale.Appearance.Options.UseForeColor = true;
@@ -645,7 +477,7 @@
             // 
             // btnCancelProduct
             // 
-            this.btnCancelProduct.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelProduct.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelProduct.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnCancelProduct.Appearance.Options.UseFont = true;
             this.btnCancelProduct.Appearance.Options.UseForeColor = true;
@@ -939,6 +771,175 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "ราคา";
             // 
+            // navBarGroupControlContainer1
+            // 
+            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
+            this.navBarGroupControlContainer1.Controls.Add(this.panelControl13);
+            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(227, 539);
+            this.navBarGroupControlContainer1.TabIndex = 0;
+            // 
+            // panelControl13
+            // 
+            this.panelControl13.Controls.Add(this.ptbProduct);
+            this.panelControl13.Controls.Add(this.panelControl21);
+            this.panelControl13.Controls.Add(this.panelControl20);
+            this.panelControl13.Controls.Add(this.panelControl18);
+            this.panelControl13.Controls.Add(this.btnReturn);
+            this.panelControl13.Controls.Add(this.panelControl19);
+            this.panelControl13.Controls.Add(this.lblWarranty);
+            this.panelControl13.Controls.Add(this.panelControl14);
+            this.panelControl13.Controls.Add(this.lblStatusReturn);
+            this.panelControl13.Controls.Add(this.panelControl15);
+            this.panelControl13.Controls.Add(this.txtBarcodeReturn);
+            this.panelControl13.Controls.Add(this.panelControl16);
+            this.panelControl13.Controls.Add(this.labelControl3);
+            this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl13.Location = new System.Drawing.Point(0, 0);
+            this.panelControl13.Name = "panelControl13";
+            this.panelControl13.Size = new System.Drawing.Size(227, 539);
+            this.panelControl13.TabIndex = 0;
+            // 
+            // ptbProduct
+            // 
+            this.ptbProduct.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ptbProduct.Location = new System.Drawing.Point(12, 159);
+            this.ptbProduct.Name = "ptbProduct";
+            this.ptbProduct.Size = new System.Drawing.Size(203, 203);
+            this.ptbProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbProduct.TabIndex = 26;
+            this.ptbProduct.TabStop = false;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl21.Location = new System.Drawing.Point(215, 159);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(10, 378);
+            this.panelControl21.TabIndex = 25;
+            // 
+            // panelControl20
+            // 
+            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl20.Location = new System.Drawing.Point(2, 159);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(10, 378);
+            this.panelControl20.TabIndex = 24;
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl18.Location = new System.Drawing.Point(2, 149);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(223, 10);
+            this.panelControl18.TabIndex = 23;
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReturn.Appearance.Options.UseFont = true;
+            this.btnReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReturn.Location = new System.Drawing.Point(2, 114);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(223, 35);
+            this.btnReturn.TabIndex = 21;
+            this.btnReturn.Text = "รับคืนสินค้า";
+            this.btnReturn.Visible = false;
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl19.Location = new System.Drawing.Point(2, 109);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(223, 5);
+            this.panelControl19.TabIndex = 22;
+            // 
+            // lblWarranty
+            // 
+            this.lblWarranty.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWarranty.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblWarranty.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblWarranty.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblWarranty.Location = new System.Drawing.Point(2, 83);
+            this.lblWarranty.Name = "lblWarranty";
+            this.lblWarranty.Size = new System.Drawing.Size(223, 26);
+            this.lblWarranty.TabIndex = 18;
+            this.lblWarranty.Text = "รับคืนภายใน 7 วัน (เหลืออีก 5 วัน)";
+            this.lblWarranty.Visible = false;
+            // 
+            // panelControl14
+            // 
+            this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl14.Location = new System.Drawing.Point(2, 78);
+            this.panelControl14.Name = "panelControl14";
+            this.panelControl14.Size = new System.Drawing.Size(223, 5);
+            this.panelControl14.TabIndex = 15;
+            // 
+            // lblStatusReturn
+            // 
+            this.lblStatusReturn.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.lblStatusReturn.Appearance.ForeColor = System.Drawing.Color.DarkOrange;
+            this.lblStatusReturn.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.lblStatusReturn.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.lblStatusReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblStatusReturn.Location = new System.Drawing.Point(2, 53);
+            this.lblStatusReturn.Name = "lblStatusReturn";
+            this.lblStatusReturn.Size = new System.Drawing.Size(223, 25);
+            this.lblStatusReturn.TabIndex = 14;
+            this.lblStatusReturn.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
+            this.lblStatusReturn.Visible = false;
+            // 
+            // panelControl15
+            // 
+            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl15.Location = new System.Drawing.Point(2, 48);
+            this.panelControl15.Name = "panelControl15";
+            this.panelControl15.Size = new System.Drawing.Size(223, 5);
+            this.panelControl15.TabIndex = 13;
+            // 
+            // txtBarcodeReturn
+            // 
+            this.txtBarcodeReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtBarcodeReturn.EditValue = "";
+            this.txtBarcodeReturn.Location = new System.Drawing.Point(2, 20);
+            this.txtBarcodeReturn.Name = "txtBarcodeReturn";
+            this.txtBarcodeReturn.Properties.Appearance.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold);
+            this.txtBarcodeReturn.Properties.Appearance.Options.UseFont = true;
+            this.txtBarcodeReturn.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtBarcodeReturn.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtBarcodeReturn.Size = new System.Drawing.Size(223, 28);
+            this.txtBarcodeReturn.TabIndex = 12;
+            this.txtBarcodeReturn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeReturn_KeyDown);
+            // 
+            // panelControl16
+            // 
+            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl16.Location = new System.Drawing.Point(2, 15);
+            this.panelControl16.Name = "panelControl16";
+            this.panelControl16.Size = new System.Drawing.Size(223, 5);
+            this.panelControl16.TabIndex = 16;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
+            this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.labelControl3.Location = new System.Drawing.Point(2, 2);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(223, 13);
+            this.labelControl3.TabIndex = 11;
+            this.labelControl3.Text = "บาร์โค้ด";
+            // 
             // navBarGroupControlContainer3
             // 
             this.navBarGroupControlContainer3.Appearance.BackColor = System.Drawing.SystemColors.Control;
@@ -1090,17 +1091,16 @@
             this.labelControl6.TabIndex = 19;
             this.labelControl6.Text = "บาร์โค้ด";
             // 
-            // navBarGroup1
+            // navBarGroup2
             // 
-            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.navBarGroup1.Appearance.Options.UseFont = true;
-            this.navBarGroup1.Caption = "ขายสินค้า";
-            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
-            this.navBarGroup1.Expanded = true;
-            this.navBarGroup1.GroupClientHeight = 80;
-            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
-            this.navBarGroup1.Name = "navBarGroup1";
+            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.navBarGroup2.Appearance.Options.UseFont = true;
+            this.navBarGroup2.Caption = "รับสินค้าคืน";
+            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.GroupClientHeight = 80;
+            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
+            this.navBarGroup2.Name = "navBarGroup2";
             // 
             // navBarGroup3
             // 
@@ -1411,18 +1411,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
-            this.navBarGroupControlContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
-            this.panelControl13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
@@ -1440,6 +1428,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             this.panelControl3.ResumeLayout(false);
             this.panelControl3.PerformLayout();
+            this.navBarGroupControlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
+            this.panelControl13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtBarcodeReturn.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             this.navBarGroupControlContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             this.panelControl11.ResumeLayout(false);
