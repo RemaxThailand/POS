@@ -100,7 +100,7 @@ namespace PowerPOS
                     row[2] = _TABLE_REPORT.Rows[a]["SellNo"].ToString();
                     row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
                     row[4] = mobile == "" ? "-" : mobile;
-                    row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
+                    row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
                     dt.Rows.Add(row);
                     sumPrice += double.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
                     sumProfit += double.Parse(_TABLE_REPORT.Rows[a]["Profit"].ToString());

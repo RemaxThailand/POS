@@ -22,36 +22,6 @@ namespace PowerPOS
             InitializeComponent();
         }
 
-        private void btnConfirm_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancelSale_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancelProduct_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAge_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnGender_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void GetPrinter()
         {
             var index = 0;
@@ -66,6 +36,11 @@ namespace PowerPOS
         }
 
         private void UcConfig_Load(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        public void LoadData()
         {
             //if (Param.SystemConfig.Bill == null)
             //{
@@ -92,11 +67,13 @@ namespace PowerPOS
             //ptbLogo.ImageLocation = File.Exists(Param.LogoPath) ? Param.LogoPath : Param.Logo;
 
             GetPrinter();
+            lblShopName.Text = Param.ShopName;
+            lblDeviceName.Text = Param.ComputerName;
             _FIRST_LOAD = false;
 
             CheckLogoUrl();
 
-            if (Param.MemberType == "Officer")
+            if (Param.MemberType == "Shop")
             {
                 groupControl2.Enabled = false;
                 groupControl3.Enabled = false;

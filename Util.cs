@@ -895,34 +895,36 @@ namespace PowerPOS
                 var width = 280;
                 var gab = 5;
 
-                //if (Param.SystemConfig.Bill.PrintLogo == "Y")
-                //{
-                //    if (!File.Exists(Param.LogoPath))
-                //    {
-                //        if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
-                //        if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
-                //        using (var client = new WebClient())
-                //        {
-                //            client.DownloadFile(new Uri(Param.LogoUrl), Param.LogoPath);
-                //            Param.SystemConfig.Bill.Logo = Param.LogoUrl;
-                //        }
-                //    }
-                //    Image image = Image.FromFile(Param.LogoPath);
-                //    Rectangle destRect = new Rectangle(0, 0, width, 64);
-                //    //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
-                //    g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
-                //}
+                if (Param.PrintLogo == "Y")
+                {
+                    if (!File.Exists(Param.LogoPath))
+                    {
+                        if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+                        if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+                        using (var client = new WebClient())
+                        {
+                            Param.LogoPath = "1234";
+                            client.DownloadFile(Param.LogoUrl, Param.LogoPath);
+                            Param.Logo = Param.LogoUrl;
+                        }
+
+                    }
+                    Image image = Image.FromFile(Param.LogoPath);
+                    Rectangle destRect = new Rectangle(0, 0, width, 64);
+                    //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
+                    g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+                }
 
 
                 SolidBrush brush = new SolidBrush(Color.Black);
                 Font stringFont = new Font("Calibri", 6);
-                //if (Param.SystemConfig.Bill.Logo == Param.LogoUrl && Param.SystemConfig.Bill.PrintLogo == "Y")
-                //{
-                //g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
-                //g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
-                //stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
-                //g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
-                //}
+                if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
+                {
+                    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                }
 
                 var pX = 0;
                 var pY = 65;
@@ -956,11 +958,11 @@ namespace PowerPOS
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 16, pY));
+                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 10, pY));
 
-                    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 230, pY + 3, 150, 10);
+                    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 3, 150, 10);
                     g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
-                        stringFont, brush, new PointF(pX + 232, pY));
+                        stringFont, brush, new PointF(pX + 222, pY));
                     measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));

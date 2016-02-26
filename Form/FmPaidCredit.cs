@@ -94,14 +94,13 @@ namespace PowerPOS
 
         private void txtCash_KeyUp(object sender, KeyEventArgs e)
         {
-            
             try
             {
-                lblChange.Text = (int.Parse(txtCash.Text) - int.Parse(lblTotal.Text)).ToString("#,##0");
+                lblChange.Text = (int.Parse(txtCash.Text) - int.Parse(lblTotal.Text.Replace(",", ""))).ToString("#,##0");
             }
             catch
             {
-                lblChange.Text = int.Parse(lblTotal.Text).ToString("#,##0");
+                lblChange.Text = Convert.ToInt32(lblTotal.Text.Replace(",", "")).ToString("#,##0");
             }
         }
     }

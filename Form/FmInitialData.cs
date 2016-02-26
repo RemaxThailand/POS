@@ -69,6 +69,17 @@ namespace PowerPOS
             }
         }
 
+        public async void DownloadLogo()
+        {
+            if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+            if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+            using (var client = new WebClient())
+            {
+                await client.DownloadFileTaskAsync(new Uri(Param.LogoUrl), Param.LogoPath);
+                Param.Logo = Param.LogoUrl;
+            }
+        }
+
         private void bwCheckLicense_DoWork(object sender, DoWorkEventArgs e)
         {
             Util.GetApiConfig();
@@ -955,12 +966,23 @@ namespace PowerPOS
 
                 Console.WriteLine("Load shop Customer = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
             }
+            var sbd = new StringBuilder();
+            if (Param.MemberType != "Shop" && Param.MemberType != "Event")
+            {
+                const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy)";
+                sbd = new StringBuilder(comm);
+                sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'", Param.ShopId));
 
-            const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy)";
-            var sbd = new StringBuilder(comm);
-            sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000' 
-                                        UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'
-                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'", Param.ShopId));
+            }
+            else
+            {
+                const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy, sellPrice)";
+                sbd = new StringBuilder(comm);
+                sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000' , '0'
+                                        UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '4'
+                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '4'", Param.ShopId));
+
+            }
             Util.DBExecute(sbd.ToString());
         }
 
@@ -1117,7 +1139,7 @@ namespace PowerPOS
                 for (i = 0; i < jsonReturn.result.Count; i++)
                 {
                     if (d != 0) sbb.Append(" UNION ALL ");
-                    sbb.Append(string.Format(@" SELECT '{0}', '{1}', {2}, '{3}', '{4}', '{5}', '{6}'",
+                    sbb.Append(string.Format(@" SELECT '{0}', '{1}', {2}, '{3}', '{4}', '{5}', '{6}', '{7}'",
                         jsonReturn.result[i].returnNo, jsonReturn.result[i].sellNo, jsonReturn.result[i].returnDate == null ? "NULL" : "'" + jsonReturn.result[i].returnDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
                         jsonReturn.result[i].product, jsonReturn.result[i].barcode, jsonReturn.result[i].quantity, jsonReturn.result[i].sellPrice, jsonReturn.result[i].returnBy));
                     d++;

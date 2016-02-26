@@ -183,6 +183,10 @@ namespace PowerPOS
             {
                 AddPanel(Param.Screen.Credit);
             }
+            else if (e.Element.Name == "navRefresh")
+            {
+                InitialCloudData();
+            }
         }
         #endregion
 
@@ -228,6 +232,7 @@ namespace PowerPOS
                 case Param.Screen.Config:
                     if (_UC_CONFIG == null) _UC_CONFIG = new UcConfig();
                     _USER_CONTROL = _UC_CONFIG;
+                    _UC_CONFIG.LoadData();
                     break;
                 case Param.Screen.Claim:
                     if (_UC_CLAIM == null) _UC_CLAIM = new UcClaim();

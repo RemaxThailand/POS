@@ -73,6 +73,12 @@
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
+            this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.lblDeviceName = new DevExpress.XtraEditors.LabelControl();
+            this.lblShopName = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
             this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -116,6 +122,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gbxControl)).BeginInit();
             this.gbxControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
@@ -166,7 +175,7 @@
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(59, 16);
             this.labelControl1.TabIndex = 1;
-            this.labelControl1.Text = "V 1.0.0.12";
+            this.labelControl1.Text = "V 1.0.0.13";
             // 
             // panelControl13
             // 
@@ -557,6 +566,8 @@
             this.gbxControl.AppearanceCaption.Options.UseFont = true;
             this.gbxControl.CaptionImage = ((System.Drawing.Image)(resources.GetObject("gbxControl.CaptionImage")));
             this.gbxControl.Controls.Add(this.ribbonControl1);
+            this.gbxControl.Controls.Add(this.panelControl6);
+            this.gbxControl.Controls.Add(this.groupControl5);
             this.gbxControl.Dock = System.Windows.Forms.DockStyle.Left;
             this.gbxControl.Location = new System.Drawing.Point(318, 0);
             this.gbxControl.Name = "gbxControl";
@@ -571,7 +582,7 @@
             this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.ribbonControl1.ExpandCollapseItem,
             this.skinRibbonGalleryBarItem1});
-            this.ribbonControl1.Location = new System.Drawing.Point(2, 39);
+            this.ribbonControl1.Location = new System.Drawing.Point(2, 108);
             this.ribbonControl1.MaxItemId = 3;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -599,6 +610,63 @@
             // 
             this.ribbonPageGroup1.ItemLinks.Add(this.skinRibbonGalleryBarItem1);
             this.ribbonPageGroup1.Name = "ribbonPageGroup1";
+            // 
+            // panelControl6
+            // 
+            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl6.Location = new System.Drawing.Point(2, 98);
+            this.panelControl6.Name = "panelControl6";
+            this.panelControl6.Size = new System.Drawing.Size(311, 10);
+            this.panelControl6.TabIndex = 18;
+            // 
+            // groupControl5
+            // 
+            this.groupControl5.Controls.Add(this.lblDeviceName);
+            this.groupControl5.Controls.Add(this.lblShopName);
+            this.groupControl5.Controls.Add(this.labelControl3);
+            this.groupControl5.Controls.Add(this.labelControl2);
+            this.groupControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl5.Location = new System.Drawing.Point(2, 39);
+            this.groupControl5.Name = "groupControl5";
+            this.groupControl5.ShowCaption = false;
+            this.groupControl5.Size = new System.Drawing.Size(311, 59);
+            this.groupControl5.TabIndex = 1;
+            this.groupControl5.Text = "groupControl5";
+            // 
+            // lblDeviceName
+            // 
+            this.lblDeviceName.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDeviceName.Location = new System.Drawing.Point(69, 32);
+            this.lblDeviceName.Name = "lblDeviceName";
+            this.lblDeviceName.Size = new System.Drawing.Size(0, 16);
+            this.lblDeviceName.TabIndex = 3;
+            // 
+            // lblShopName
+            // 
+            this.lblShopName.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblShopName.Location = new System.Drawing.Point(69, 10);
+            this.lblShopName.Name = "lblShopName";
+            this.lblShopName.Size = new System.Drawing.Size(0, 16);
+            this.lblShopName.TabIndex = 2;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl3.Location = new System.Drawing.Point(6, 32);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(57, 16);
+            this.labelControl3.TabIndex = 1;
+            this.labelControl3.Text = "ชื่อเครื่อง :";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Location = new System.Drawing.Point(18, 10);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(45, 16);
+            this.labelControl2.TabIndex = 0;
+            this.labelControl2.Text = "ชื่อร้าน :";
             // 
             // panelControl16
             // 
@@ -710,6 +778,10 @@
             this.gbxControl.ResumeLayout(false);
             this.gbxControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
+            this.groupControl5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
@@ -770,5 +842,11 @@
         private DevExpress.XtraEditors.PanelControl panelControl20;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.PanelControl panelControl6;
+        private DevExpress.XtraEditors.GroupControl groupControl5;
+        private DevExpress.XtraEditors.LabelControl lblDeviceName;
+        private DevExpress.XtraEditors.LabelControl lblShopName;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
     }
 }

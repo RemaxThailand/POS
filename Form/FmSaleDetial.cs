@@ -76,7 +76,7 @@ namespace PowerPOS
                         row[0] = (a + 1) * 1;
                         row[1] = _TABLE_SALE.Rows[a]["Product"].ToString();
                         row[2] = _TABLE_SALE.Rows[a]["Name"].ToString();
-                        row[3] = total;
+                        row[3] = total.ToString("#,##0");
                         row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Quantity"].ToString()).ToString("#,##0");
                         row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["SellPrice"].ToString()).ToString("#,##0");
                         row[6] = _TABLE_SALE.Rows[a]["Sku"].ToString();

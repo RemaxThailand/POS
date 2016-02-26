@@ -24,8 +24,6 @@ namespace PowerPOS
         public static int printType = 0;
         public static string productNo;
         string _STREAM_IMAGE_URL;
-        //public static string ProductName;
-        //private ProductEntity productEntity;
 
         public UcStock()
         {
@@ -54,6 +52,7 @@ namespace PowerPOS
             int i, a;
             if (!_FIRST_LOAD)
             {
+                progressBarControl1.EditValue = 0;
                 _QTY = 0;
                 _RECEIVED = 0;
                 _TABLE_STOCK = Util.DBQuery(string.Format(@"SELECT DISTINCT p.sku,p.Image,b.Product, p.Name, COUNT(*) ProductCount, IFNULL(r.Stock, 0) Stock, bn.Name Brand, c.Name Category
@@ -288,6 +287,11 @@ namespace PowerPOS
                 }
             }
             catch { }
+        }
+
+        private void btnImprove_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

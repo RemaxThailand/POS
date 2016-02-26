@@ -54,7 +54,7 @@ namespace PowerPOS
 
             creditGridview.OptionsBehavior.AutoPopulateColumns = false;
             creditGridControl.MainView = creditGridview;
-
+            btnPaid.Enabled = false;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
             dt = new DataTable();
@@ -75,11 +75,13 @@ namespace PowerPOS
                 _TOTAL += int.Parse(_TABLE_CREDIT.Rows[a]["totalPrice"].ToString());
 
                 dt.Rows.Add(row);
+
+                btnPaid.Enabled = true;
             }
 
             creditGridControl.DataSource = dt;
 
-            lblListCount.Text = creditGridview.RowCount.ToString() + " รายการ";
+            lblListCount.Text = creditGridview.RowCount.ToString("#,##0") + " รายการ";
             lblProductCount.Text = _TOTAL.ToString("#,##0") + " บาท";
 
         }
@@ -103,6 +105,7 @@ namespace PowerPOS
                 //sellNo = creditGridview.GetRowCellDisplayText(creditGridview.FocusedRowHandle, creditGridview.Columns["sellno"]).ToString();
                 //price = creditGridview.GetRowCellDisplayText(creditGridview.FocusedRowHandle, creditGridview.Columns["sellPrice"]).ToString();
                 FmPaidCredit dialog = new FmPaidCredit();
+
                 var result = dialog.ShowDialog(this);
                 if (result != DialogResult.OK)
                 {

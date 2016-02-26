@@ -31,14 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcStatistic));
             this.miPrintReceipt = new System.Windows.Forms.ToolStripMenuItem();
-            this.statisticGridControl = new DevExpress.XtraGrid.GridControl();
-            this.statisticGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.clNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cllDate = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clSaleNo = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clCustomer = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clMobile = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.miDetail = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,11 +48,7 @@
             this.cbbType = new DevExpress.XtraEditors.ComboBoxEdit();
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
-            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.chartReport = new DevExpress.XtraCharts.ChartControl();
-            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.statisticGridControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statisticGridView)).BeginInit();
+            this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
             this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
@@ -71,9 +59,7 @@
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spCount.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbType.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartReport)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
             this.SuspendLayout();
             // 
             // miPrintReceipt
@@ -82,138 +68,6 @@
             this.miPrintReceipt.Name = "miPrintReceipt";
             this.miPrintReceipt.Size = new System.Drawing.Size(157, 22);
             this.miPrintReceipt.Text = "พิมพ์ใบเสร็จรับเงิน";
-            // 
-            // statisticGridControl
-            // 
-            this.statisticGridControl.Dock = System.Windows.Forms.DockStyle.Top;
-            this.statisticGridControl.Location = new System.Drawing.Point(240, 0);
-            this.statisticGridControl.MainView = this.statisticGridView;
-            this.statisticGridControl.Name = "statisticGridControl";
-            this.statisticGridControl.Size = new System.Drawing.Size(659, 300);
-            this.statisticGridControl.TabIndex = 6;
-            this.statisticGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.statisticGridView});
-            // 
-            // statisticGridView
-            // 
-            this.statisticGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.clNo,
-            this.cllDate,
-            this.clSaleNo,
-            this.clCustomer,
-            this.clMobile,
-            this.clTotal});
-            this.statisticGridView.GridControl = this.statisticGridControl;
-            this.statisticGridView.Name = "statisticGridView";
-            this.statisticGridView.OptionsView.ShowGroupPanel = false;
-            // 
-            // clNo
-            // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clNo.AppearanceCell.Options.UseFont = true;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clNo.AppearanceHeader.Options.UseFont = true;
-            this.clNo.AppearanceHeader.Options.UseTextOptions = true;
-            this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clNo.Caption = "ที่";
-            this.clNo.FieldName = "No";
-            this.clNo.Name = "clNo";
-            this.clNo.OptionsColumn.AllowEdit = false;
-            this.clNo.OptionsColumn.AllowMove = false;
-            this.clNo.OptionsColumn.FixedWidth = true;
-            this.clNo.Visible = true;
-            this.clNo.VisibleIndex = 0;
-            this.clNo.Width = 30;
-            // 
-            // cllDate
-            // 
-            this.cllDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cllDate.AppearanceCell.Options.UseFont = true;
-            this.cllDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cllDate.AppearanceHeader.Options.UseFont = true;
-            this.cllDate.AppearanceHeader.Options.UseTextOptions = true;
-            this.cllDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.cllDate.Caption = "รหัสสินค้า";
-            this.cllDate.FieldName = "Product";
-            this.cllDate.Name = "cllDate";
-            this.cllDate.OptionsColumn.AllowEdit = false;
-            this.cllDate.OptionsColumn.AllowMove = false;
-            this.cllDate.OptionsColumn.FixedWidth = true;
-            this.cllDate.Visible = true;
-            this.cllDate.VisibleIndex = 1;
-            this.cllDate.Width = 100;
-            // 
-            // clSaleNo
-            // 
-            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clSaleNo.AppearanceCell.Options.UseFont = true;
-            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clSaleNo.AppearanceHeader.Options.UseFont = true;
-            this.clSaleNo.AppearanceHeader.Options.UseTextOptions = true;
-            this.clSaleNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clSaleNo.Caption = "ชื่อสินค้า";
-            this.clSaleNo.FieldName = "ProductName";
-            this.clSaleNo.Name = "clSaleNo";
-            this.clSaleNo.OptionsColumn.AllowEdit = false;
-            this.clSaleNo.OptionsColumn.AllowMove = false;
-            this.clSaleNo.OptionsColumn.FixedWidth = true;
-            this.clSaleNo.Visible = true;
-            this.clSaleNo.VisibleIndex = 2;
-            this.clSaleNo.Width = 200;
-            // 
-            // clCustomer
-            // 
-            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clCustomer.AppearanceCell.Options.UseFont = true;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clCustomer.AppearanceHeader.Options.UseFont = true;
-            this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
-            this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clCustomer.Caption = "หมวดหมู่";
-            this.clCustomer.FieldName = "Category";
-            this.clCustomer.Name = "clCustomer";
-            this.clCustomer.OptionsColumn.AllowEdit = false;
-            this.clCustomer.OptionsColumn.AllowMove = false;
-            this.clCustomer.OptionsColumn.FixedWidth = true;
-            this.clCustomer.Visible = true;
-            this.clCustomer.VisibleIndex = 3;
-            this.clCustomer.Width = 100;
-            // 
-            // clMobile
-            // 
-            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clMobile.AppearanceCell.Options.UseFont = true;
-            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clMobile.AppearanceHeader.Options.UseFont = true;
-            this.clMobile.AppearanceHeader.Options.UseTextOptions = true;
-            this.clMobile.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clMobile.Caption = "ยี่ห้อ";
-            this.clMobile.FieldName = "Brand";
-            this.clMobile.Name = "clMobile";
-            this.clMobile.OptionsColumn.AllowEdit = false;
-            this.clMobile.OptionsColumn.AllowMove = false;
-            this.clMobile.OptionsColumn.FixedWidth = true;
-            this.clMobile.Visible = true;
-            this.clMobile.VisibleIndex = 4;
-            this.clMobile.Width = 100;
-            // 
-            // clTotal
-            // 
-            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clTotal.AppearanceCell.Options.UseFont = true;
-            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clTotal.AppearanceHeader.Options.UseFont = true;
-            this.clTotal.AppearanceHeader.Options.UseTextOptions = true;
-            this.clTotal.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clTotal.Caption = "จำนวนที่ขาย";
-            this.clTotal.FieldName = "Total";
-            this.clTotal.Name = "clTotal";
-            this.clTotal.OptionsColumn.AllowEdit = false;
-            this.clTotal.OptionsColumn.AllowMove = false;
-            this.clTotal.OptionsColumn.FixedWidth = true;
-            this.clTotal.Visible = true;
-            this.clTotal.VisibleIndex = 5;
-            this.clTotal.Width = 80;
             // 
             // contextMenuStrip2
             // 
@@ -403,47 +257,24 @@
             this.dtpStartDate.Size = new System.Drawing.Size(173, 23);
             this.dtpStartDate.TabIndex = 0;
             // 
-            // panelControl1
+            // chartControl1
             // 
-            this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl1.Location = new System.Drawing.Point(899, 0);
-            this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(10, 479);
-            this.panelControl1.TabIndex = 7;
-            // 
-            // chartReport
-            // 
-            this.chartReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartReport.Location = new System.Drawing.Point(240, 310);
-            this.chartReport.Name = "chartReport";
-            this.chartReport.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartReport.Size = new System.Drawing.Size(659, 169);
-            this.chartReport.TabIndex = 8;
-            // 
-            // panelControl3
-            // 
-            this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl3.Location = new System.Drawing.Point(240, 300);
-            this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(659, 10);
-            this.panelControl3.TabIndex = 9;
+            this.chartControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl1.Location = new System.Drawing.Point(240, 0);
+            this.chartControl1.Name = "chartControl1";
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
+            this.chartControl1.Size = new System.Drawing.Size(804, 479);
+            this.chartControl1.TabIndex = 6;
             // 
             // UcStatistic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.chartReport);
-            this.Controls.Add(this.panelControl3);
-            this.Controls.Add(this.statisticGridControl);
-            this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.chartControl1);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcStatistic";
-            this.Size = new System.Drawing.Size(909, 479);
+            this.Size = new System.Drawing.Size(1044, 479);
             this.Load += new System.EventHandler(this.UcStatistic_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.statisticGridControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.statisticGridView)).EndInit();
             this.contextMenuStrip2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
@@ -455,9 +286,7 @@
             this.groupControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spCount.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbType.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartReport)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -465,14 +294,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStripMenuItem miPrintReceipt;
-        private DevExpress.XtraGrid.GridControl statisticGridControl;
-        private DevExpress.XtraGrid.Views.Grid.GridView statisticGridView;
-        private DevExpress.XtraGrid.Columns.GridColumn clNo;
-        private DevExpress.XtraGrid.Columns.GridColumn cllDate;
-        private DevExpress.XtraGrid.Columns.GridColumn clSaleNo;
-        private DevExpress.XtraGrid.Columns.GridColumn clCustomer;
-        private DevExpress.XtraGrid.Columns.GridColumn clMobile;
-        private DevExpress.XtraGrid.Columns.GridColumn clTotal;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
         private System.Windows.Forms.ToolStripMenuItem miDetail;
@@ -490,8 +311,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.SpinEdit spCount;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
-        private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraCharts.ChartControl chartReport;
-        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraCharts.ChartControl chartControl1;
     }
 }
