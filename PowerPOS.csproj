@@ -135,6 +135,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
+    <Compile Include="Form\FmWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmWait.Designer.cs">
+      <DependentUpon>FmWait.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FmReturnSell.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -330,6 +336,9 @@
       <DependentUpon>UcSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Form\FmWait.resx">
+      <DependentUpon>FmWait.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FmReturnSell.resx">
       <DependentUpon>FmReturnSell.cs</DependentUpon>
     </EmbeddedResource>
