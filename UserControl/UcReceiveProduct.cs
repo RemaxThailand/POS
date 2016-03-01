@@ -17,8 +17,8 @@ namespace PowerPOS
 {
     public partial class UcReceiveProduct : DevExpress.XtraEditors.XtraUserControl
     {
-        private int _QTY = 0;
-        private int _RECEIVED = 0;
+        private int _QTY = 0, _RECEIVED = 0, _NORECEIVED = 0;
+        private int _TOTAL = 0, _TOTALRECEIVED = 0, _NOSR = 0;
         public bool _FIRST_LOAD;
         private bool _SELECT_ORDER = false;
         DataTable _TABLE_RECEIVED, dt;
@@ -102,6 +102,10 @@ namespace PowerPOS
         {
             try
             {
+                _QTY = 0;
+                _RECEIVED = 0;
+                _TOTAL = 0;
+                _TOTALRECEIVED = 0;
                 DataRow row;
                 if (cbbOrderNo.SelectedIndex == 0)
                 {
@@ -116,11 +120,10 @@ namespace PowerPOS
                 }
                 else if (!_FIRST_LOAD)
                 {
-                    _QTY = 0;
-                    _RECEIVED = 0;
+
                     int i, a;
                     _TABLE_RECEIVED = Util.DBQuery(string.Format(@"
-                    SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, c.name Category
+                    SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, IFNULL(b.cost * co.Count,0) Price, IFNULL(b.cost * r.ReceivedCount,0) PriceReceived,  c.name Category
                     FROM Barcode b
                         LEFT JOIN Product p
                             ON b.Product = p.Product
@@ -147,7 +150,7 @@ namespace PowerPOS
                         AND b.OrderNo = '{1}'
                     GROUP BY b.Product
                     UNION ALL
-                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity , c.name category
+                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, IFNULL(po.priceCost * po.Quantity ,0) Price, IFNULL(po.priceCost * po.ReceivedQuantity,0) PriceReceived, c.name category
                     FROM PurchaseOrder po
                         LEFT JOIN Product p
                         ON po.Product = p.product
@@ -177,10 +180,13 @@ namespace PowerPOS
                         row[5] = Convert.ToInt32(_TABLE_RECEIVED.Rows[a]["ReceivedCount"]).ToString("#,##0");
                         row[6] = (int)progress;
                         row[7] = _TABLE_RECEIVED.Rows[a]["Sku"].ToString();
+                        row[8] = _TABLE_RECEIVED.Rows[a]["Price"].ToString();
+                        row[9] = _TABLE_RECEIVED.Rows[a]["PriceReceived"].ToString();
                         dt.Rows.Add(row);
                         _QTY += int.Parse(_TABLE_RECEIVED.Rows[a]["ProductCount"].ToString());
                         _RECEIVED += int.Parse(_TABLE_RECEIVED.Rows[a]["ReceivedCount"].ToString());
-
+                        _TOTAL += int.Parse(_TABLE_RECEIVED.Rows[a]["Price"].ToString());
+                        _TOTALRECEIVED += int.Parse(_TABLE_RECEIVED.Rows[a]["PriceReceived"].ToString());
                     }
 
                     RepositoryItemProgressBar ritem = new RepositoryItemProgressBar();
@@ -212,10 +218,16 @@ namespace PowerPOS
                 lblListCount.Text = receivedGridView.RowCount.ToString("#,##0") + " รายการ";
                 if (receivedGridView.RowCount > 0)
                 {
-                    int _NORECEIVED = _QTY - _RECEIVED;
+                    _NORECEIVED = _QTY - _RECEIVED;
                     lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
                     lblNoReceived.Text = _NORECEIVED.ToString("#,##0") + " ชิ้น";
                     lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
+
+                    _NOSR = _TOTAL - _TOTALRECEIVED;
+                    lblTotal.Text = _TOTAL.ToString("#,##0") + " บาท";
+                    lblSRecieved.Text = _TOTALRECEIVED.ToString("#,##0") + " บาท";
+                    lblSNoReceived.Text = _NOSR.ToString("#,##0") + " บาท";
+
                 }
                 txtBarcode.Focus();
             }

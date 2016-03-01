@@ -90,10 +90,10 @@ namespace PowerPOS
                 ));
 
                 stockGridView.OptionsBehavior.AutoPopulateColumns = false;
-                ปรับปรุงสต็อคสินค้า.MainView = stockGridView;
+                stockGridControl.MainView = stockGridView;
 
                 dt = new DataTable();
-                for (i = 0; i < ((ColumnView)ปรับปรุงสต็อคสินค้า.MainView).Columns.Count; i++)
+                for (i = 0; i < ((ColumnView)stockGridControl.MainView).Columns.Count; i++)
                 {
                     dt.Columns.Add(stockGridView.Columns[i].FieldName);
                 }
@@ -127,10 +127,10 @@ namespace PowerPOS
                 ritem.Minimum = 0;
                 ritem.Maximum = 100;
                 ritem.ShowTitle = true;
-                ปรับปรุงสต็อคสินค้า.RepositoryItems.Add(ritem);
+                stockGridControl.RepositoryItems.Add(ritem);
                 stockGridView.Columns["Progress"].ColumnEdit = ritem;
 
-                ปรับปรุงสต็อคสินค้า.DataSource = dt;
+                stockGridControl.DataSource = dt;
                 int val = _QTY - _RECEIVED;
                 lblListCount.Text = stockGridView.RowCount.ToString("#,##0") + " รายการ";
                 lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";

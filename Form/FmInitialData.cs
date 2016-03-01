@@ -347,40 +347,39 @@ namespace PowerPOS
                 quantity int NOT NULL DEFAULT 0,              
                 sync BIT DEFAULT 0)");
 
-         //   string customer = Util.GetApiData("/customer/creditInfo",
-         //string.Format("shop={0}", Param.ApiShopId));
+            string inventory = Util.GetApiData("/product/infoCount",
+            string.Format("shop={0}", Param.ApiShopId));
 
-         //   dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
-         //   Console.WriteLine(jsonCustomer.success);
+            dynamic jsonInventory = JsonConvert.DeserializeObject(inventory);
+            Console.WriteLine(jsonInventory.success);
 
-         //   if (jsonCustomer.success.Value)
-         //   {
-         //       Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-         //       StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
-         //       d = 0;
-         //       for (i = 0; i < jsonCustomer.result.Count; i++)
-         //       {
-         //           if (d != 0) sb.Append(" UNION ALL ");
-         //           sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}",
-         //               jsonCustomer.result[i].shop, jsonCustomer.result[i].creditNo, jsonCustomer.result[i].sellNo, jsonCustomer.result[i].paidPrice, jsonCustomer.result[i].paidBy,
-         //               jsonCustomer.result[i].paidDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].paidDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
-         //           d++;
+            if (jsonInventory.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
+                d = 0;
+                for (i = 0; i < jsonInventory.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}'",
+                        jsonInventory.result[i].shop, jsonInventory.result[i].creditNo, jsonInventory.result[i].sellNo));
+                    d++;
 
-         //           if (d % 500 == 0)
-         //           {
-         //               d = 0;
-         //               Util.DBExecute(sb.ToString());
-         //               Console.WriteLine(sb.ToString());
-         //               sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
-         //           }
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
+                    }
 
-         //       }
-         //       Util.DBExecute(sb.ToString());
-         //   }
-         //   else
-         //   {
-         //       Console.WriteLine(jsonCustomer.errorMessage);
-         //   }
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonInventory.errorMessage);
+            }
 
             //CreditCustomer
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS CreditCustomer (

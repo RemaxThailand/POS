@@ -65,7 +65,7 @@ namespace PowerPOS
                     // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
                     _TABLE_REPORT = Util.DBQuery(string.Format(@"
-                 SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid
+                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid
                FROM SellHeader h
                 LEFT JOIN Customer c
                 ON h.Customer = c.Customer 
@@ -74,7 +74,6 @@ namespace PowerPOS
                   AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
-
 
                 reportGridView.OptionsBehavior.AutoPopulateColumns = false;
                 reportGridControl.MainView = reportGridView;
@@ -94,9 +93,13 @@ namespace PowerPOS
                         _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(7, 3)
                         : _TABLE_REPORT.Rows[a]["Mobile"].ToString();
 
+                    //DateTime date = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString());
+                    //string datetime = date.ToString("MM/dd/yyyy");
+
+
                     row = dt.NewRow();
                     row[0] = (a + 1) * 1;
-                    row[1] = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                    row[1] = _TABLE_REPORT.Rows[a]["SellDate"].ToString();
                     row[2] = _TABLE_REPORT.Rows[a]["SellNo"].ToString();
                     row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
                     row[4] = mobile == "" ? "-" : mobile;
@@ -123,7 +126,6 @@ namespace PowerPOS
 
                 lblProductCount.Text = dtQty.Rows[0]["QTY"].ToString() + " ชิ้น";
 
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                 try
                 {
                     dt = Util.DBQuery(string.Format(@"SELECT SUM(h.totalPrice)  Total,COUNT(DISTINCT DATE(h.SellDate)) CountDate,SUM(h.totalPrice)/COUNT(DISTINCT DATE(h.SellDate)) AVG
@@ -213,7 +215,7 @@ namespace PowerPOS
 
                 using (Graphics g = Graphics.FromImage(pictureEdit1.Image))
                 {
-                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
                     g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                     g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
@@ -279,7 +281,7 @@ namespace PowerPOS
 
                 using (Graphics g = Graphics.FromImage(ptbShop.Image))
                 {
-                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
                     g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
                     g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;

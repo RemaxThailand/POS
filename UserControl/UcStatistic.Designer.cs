@@ -29,7 +29,43 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SeriesPoint seriesPoint16 = new DevExpress.XtraCharts.SeriesPoint("aaa", new object[] {
+            ((object)(2D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint17 = new DevExpress.XtraCharts.SeriesPoint("bbb", new object[] {
+            ((object)(4.5D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint18 = new DevExpress.XtraCharts.SeriesPoint("ccc", new object[] {
+            ((object)(7.7D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint19 = new DevExpress.XtraCharts.SeriesPoint("ddd", new object[] {
+            ((object)(1.6D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint20 = new DevExpress.XtraCharts.SeriesPoint("eee", new object[] {
+            ((object)(8.9D))});
+            DevExpress.XtraCharts.Series series5 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SeriesPoint seriesPoint21 = new DevExpress.XtraCharts.SeriesPoint("aaa", new object[] {
+            ((object)(8D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint22 = new DevExpress.XtraCharts.SeriesPoint("bbb", new object[] {
+            ((object)(10D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint23 = new DevExpress.XtraCharts.SeriesPoint("ccc", new object[] {
+            ((object)(7.3D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint24 = new DevExpress.XtraCharts.SeriesPoint("ddd", new object[] {
+            ((object)(3.3D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint25 = new DevExpress.XtraCharts.SeriesPoint("eee", new object[] {
+            ((object)(7.9D))});
+            DevExpress.XtraCharts.Series series6 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SeriesPoint seriesPoint26 = new DevExpress.XtraCharts.SeriesPoint("aaa", new object[] {
+            ((object)(1.2D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint27 = new DevExpress.XtraCharts.SeriesPoint("bbb", new object[] {
+            ((object)(7.5D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint28 = new DevExpress.XtraCharts.SeriesPoint("ccc", new object[] {
+            ((object)(2.5D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint29 = new DevExpress.XtraCharts.SeriesPoint("ddd", new object[] {
+            ((object)(6.9D))});
+            DevExpress.XtraCharts.SeriesPoint seriesPoint30 = new DevExpress.XtraCharts.SeriesPoint("eee", new object[] {
+            ((object)(3.7D))});
+            DevExpress.XtraCharts.ChartTitle chartTitle2 = new DevExpress.XtraCharts.ChartTitle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcStatistic));
+            this.splashScreenManager = new DevExpress.XtraSplashScreen.SplashScreenManager(this, typeof(global::PowerPOS.FmWait), true, true, typeof(System.Windows.Forms.UserControl));
             this.miPrintReceipt = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -39,16 +75,19 @@
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
-            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.spCount = new DevExpress.XtraEditors.SpinEdit();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.cbbType = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
-            this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.chartControl1 = new DevExpress.XtraCharts.ChartControl();
+            this.cbbDataType = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
+            this.lblTime = new DevExpress.XtraEditors.LabelControl();
+            this.cbbBackward = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.cbbTime = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.chkShowCurrentMonth = new DevExpress.XtraEditors.CheckEdit();
+            this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
+            this.cbbCustomerType = new DevExpress.XtraEditors.ComboBoxEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.contextMenuStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
@@ -57,10 +96,23 @@
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spCount.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbbType.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbDataType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbBackward.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbTime.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkShowCurrentMonth.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbCustomerType.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
+            this.panelControl1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // splashScreenManager
+            // 
+            this.splashScreenManager.ClosingDelay = 500;
             // 
             // miPrintReceipt
             // 
@@ -95,10 +147,10 @@
             this.navBarGroup1});
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
-            this.navBarControl1.OptionsNavPane.ExpandedWidth = 240;
+            this.navBarControl1.OptionsNavPane.ExpandedWidth = 263;
             this.navBarControl1.OptionsNavPane.ShowOverflowPanel = false;
             this.navBarControl1.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-            this.navBarControl1.Size = new System.Drawing.Size(240, 479);
+            this.navBarControl1.Size = new System.Drawing.Size(263, 479);
             this.navBarControl1.TabIndex = 5;
             this.navBarControl1.Text = "navBarControl1";
             // 
@@ -106,7 +158,7 @@
             // 
             this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.navBarGroup1.Appearance.Options.UseFont = true;
-            this.navBarGroup1.Caption = "สถิติขายสินค้า";
+            this.navBarGroup1.Caption = "รายงานสถิติ";
             this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
             this.navBarGroup1.Expanded = true;
             this.navBarGroup1.GroupClientHeight = 80;
@@ -120,7 +172,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl2);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(240, 393);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(263, 393);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl2
@@ -133,147 +185,241 @@
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl2.Size = new System.Drawing.Size(240, 393);
+            this.panelControl2.Size = new System.Drawing.Size(263, 393);
             this.panelControl2.TabIndex = 0;
             // 
             // groupControl1
             // 
-            this.groupControl1.Controls.Add(this.btnSearch);
-            this.groupControl1.Controls.Add(this.labelControl4);
+            this.groupControl1.Controls.Add(this.cbbCustomerType);
             this.groupControl1.Controls.Add(this.labelControl3);
-            this.groupControl1.Controls.Add(this.spCount);
+            this.groupControl1.Controls.Add(this.btnSearch);
+            this.groupControl1.Controls.Add(this.chkShowCurrentMonth);
+            this.groupControl1.Controls.Add(this.lblTime);
+            this.groupControl1.Controls.Add(this.cbbBackward);
             this.groupControl1.Controls.Add(this.labelControl2);
+            this.groupControl1.Controls.Add(this.cbbTime);
             this.groupControl1.Controls.Add(this.labelControl1);
-            this.groupControl1.Controls.Add(this.cbbType);
-            this.groupControl1.Controls.Add(this.dtpEndDate);
-            this.groupControl1.Controls.Add(this.dtpStartDate);
+            this.groupControl1.Controls.Add(this.cbbDataType);
+            this.groupControl1.Controls.Add(this.labelControl4);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(3, 3);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(234, 171);
+            this.groupControl1.Size = new System.Drawing.Size(257, 161);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "ค้นหาข้อมูล";
+            // 
+            // chartControl1
+            // 
+            xyDiagram2.AxisX.AutoScaleBreaks.Enabled = true;
+            xyDiagram2.AxisX.CrosshairAxisLabelOptions.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            xyDiagram2.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram2.AxisY.Label.TextPattern = "{V:#,#}";
+            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
+            this.chartControl1.Diagram = xyDiagram2;
+            this.chartControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartControl1.Location = new System.Drawing.Point(2, 2);
+            this.chartControl1.Name = "chartControl1";
+            series4.Name = "มกรา";
+            series4.Points.AddRange(new DevExpress.XtraCharts.SeriesPoint[] {
+            seriesPoint16,
+            seriesPoint17,
+            seriesPoint18,
+            seriesPoint19,
+            seriesPoint20});
+            series5.Name = "กุมภา";
+            series5.Points.AddRange(new DevExpress.XtraCharts.SeriesPoint[] {
+            seriesPoint21,
+            seriesPoint22,
+            seriesPoint23,
+            seriesPoint24,
+            seriesPoint25});
+            series6.Name = "มีนา";
+            series6.Points.AddRange(new DevExpress.XtraCharts.SeriesPoint[] {
+            seriesPoint26,
+            seriesPoint27,
+            seriesPoint28,
+            seriesPoint29,
+            seriesPoint30});
+            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series4,
+        series5,
+        series6};
+            this.chartControl1.Size = new System.Drawing.Size(833, 475);
+            this.chartControl1.TabIndex = 6;
+            chartTitle2.Font = new System.Drawing.Font("DilleniaUPC", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            chartTitle2.Text = "กราฟแสดง";
+            this.chartControl1.Titles.AddRange(new DevExpress.XtraCharts.ChartTitle[] {
+            chartTitle2});
+            this.chartControl1.Visible = false;
+            // 
+            // cbbDataType
+            // 
+            this.cbbDataType.EditValue = "ยอดขาย";
+            this.cbbDataType.Location = new System.Drawing.Point(63, 50);
+            this.cbbDataType.Name = "cbbDataType";
+            this.cbbDataType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.cbbDataType.Properties.Appearance.Options.UseFont = true;
+            this.cbbDataType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbDataType.Properties.Items.AddRange(new object[] {
+            "ยอดขาย",
+            "จำนวนชิ้น",
+            "กำไร",
+            "ต้นทุนเฉลี่ยต่อชิ้น",
+            "ราคาขายเฉลี่ยต่อชิ้น",
+            "กำไรเฉลี่ยต่อชิ้น"});
+            this.cbbDataType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbDataType.Size = new System.Drawing.Size(164, 22);
+            this.cbbDataType.TabIndex = 14;
+            // 
+            // labelControl4
+            // 
+            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.labelControl4.Location = new System.Drawing.Point(27, 53);
+            this.labelControl4.Name = "labelControl4";
+            this.labelControl4.Size = new System.Drawing.Size(32, 16);
+            this.labelControl4.TabIndex = 13;
+            this.labelControl4.Text = "ข้อมูล";
+            // 
+            // lblTime
+            // 
+            this.lblTime.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.lblTime.Location = new System.Drawing.Point(141, 107);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(28, 16);
+            this.lblTime.TabIndex = 19;
+            this.lblTime.Text = "เดือน";
+            // 
+            // cbbBackward
+            // 
+            this.cbbBackward.EditValue = "3";
+            this.cbbBackward.Location = new System.Drawing.Point(63, 104);
+            this.cbbBackward.Name = "cbbBackward";
+            this.cbbBackward.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.cbbBackward.Properties.Appearance.Options.UseFont = true;
+            this.cbbBackward.Properties.Appearance.Options.UseTextOptions = true;
+            this.cbbBackward.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.cbbBackward.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbBackward.Properties.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12"});
+            this.cbbBackward.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbBackward.Size = new System.Drawing.Size(72, 22);
+            this.cbbBackward.TabIndex = 18;
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.labelControl2.Location = new System.Drawing.Point(13, 107);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(46, 16);
+            this.labelControl2.TabIndex = 17;
+            this.labelControl2.Text = "ย้อนหลัง";
+            // 
+            // cbbTime
+            // 
+            this.cbbTime.EditValue = "รายเดือน";
+            this.cbbTime.Enabled = false;
+            this.cbbTime.Location = new System.Drawing.Point(63, 76);
+            this.cbbTime.Name = "cbbTime";
+            this.cbbTime.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.cbbTime.Properties.Appearance.Options.UseFont = true;
+            this.cbbTime.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbTime.Properties.Items.AddRange(new object[] {
+            "รายวัน",
+            "รายสัปดาห์",
+            "รายเดือน"});
+            this.cbbTime.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbTime.Size = new System.Drawing.Size(164, 22);
+            this.cbbTime.TabIndex = 16;
+            // 
+            // labelControl1
+            // 
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.labelControl1.Location = new System.Drawing.Point(15, 79);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(44, 16);
+            this.labelControl1.TabIndex = 15;
+            this.labelControl1.Text = "ช่วงเวลา";
+            // 
+            // chkShowCurrentMonth
+            // 
+            this.chkShowCurrentMonth.EditValue = true;
+            this.chkShowCurrentMonth.Location = new System.Drawing.Point(63, 129);
+            this.chkShowCurrentMonth.Name = "chkShowCurrentMonth";
+            this.chkShowCurrentMonth.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.chkShowCurrentMonth.Properties.Appearance.Options.UseFont = true;
+            this.chkShowCurrentMonth.Properties.Caption = "แสดงเดือนปัจจุบัน";
+            this.chkShowCurrentMonth.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.chkShowCurrentMonth.Size = new System.Drawing.Size(138, 20);
+            this.chkShowCurrentMonth.TabIndex = 20;
+            this.chkShowCurrentMonth.CheckedChanged += new System.EventHandler(this.chkShowCurrentMonth_CheckedChanged);
             // 
             // btnSearch
             // 
             this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
-            this.btnSearch.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Appearance.Options.UseFont = true;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            this.btnSearch.Location = new System.Drawing.Point(154, 139);
+            this.btnSearch.Location = new System.Drawing.Point(202, 104);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(68, 27);
-            this.btnSearch.TabIndex = 11;
-            this.btnSearch.Text = "ค้นหา";
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.btnSearch.Size = new System.Drawing.Size(25, 23);
+            this.btnSearch.TabIndex = 21;
             // 
-            // labelControl4
+            // cbbCustomerType
             // 
-            this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Location = new System.Drawing.Point(110, 57);
-            this.labelControl4.Name = "labelControl4";
-            this.labelControl4.Size = new System.Drawing.Size(32, 16);
-            this.labelControl4.TabIndex = 7;
-            this.labelControl4.Text = "อันดับ";
+            this.cbbCustomerType.EditValue = "ทั้งหมด";
+            this.cbbCustomerType.Location = new System.Drawing.Point(63, 25);
+            this.cbbCustomerType.Name = "cbbCustomerType";
+            this.cbbCustomerType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.cbbCustomerType.Properties.Appearance.Options.UseFont = true;
+            this.cbbCustomerType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbbCustomerType.Properties.Items.AddRange(new object[] {
+            "ทั้งหมด",
+            "องค์กร"});
+            this.cbbCustomerType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbbCustomerType.Size = new System.Drawing.Size(164, 22);
+            this.cbbCustomerType.TabIndex = 23;
             // 
             // labelControl3
             // 
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Location = new System.Drawing.Point(11, 57);
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.labelControl3.Location = new System.Drawing.Point(29, 28);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(35, 16);
-            this.labelControl3.TabIndex = 6;
-            this.labelControl3.Text = "จำนวน";
+            this.labelControl3.Size = new System.Drawing.Size(30, 16);
+            this.labelControl3.TabIndex = 22;
+            this.labelControl3.Text = "ลูกค้า";
             // 
-            // spCount
+            // panelControl1
             // 
-            this.spCount.EditValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.spCount.Location = new System.Drawing.Point(49, 56);
-            this.spCount.Name = "spCount";
-            this.spCount.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.spCount.Properties.Appearance.Options.UseFont = true;
-            this.spCount.Properties.Appearance.Options.UseTextOptions = true;
-            this.spCount.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.spCount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.spCount.Properties.DisplayFormat.FormatString = "0";
-            this.spCount.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.spCount.Size = new System.Drawing.Size(55, 22);
-            this.spCount.TabIndex = 5;
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Location = new System.Drawing.Point(27, 113);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(14, 16);
-            this.labelControl2.TabIndex = 4;
-            this.labelControl2.Text = "ถึง";
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Location = new System.Drawing.Point(12, 84);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(30, 16);
-            this.labelControl1.TabIndex = 3;
-            this.labelControl1.Text = "ตั้งแต่";
-            // 
-            // cbbType
-            // 
-            this.cbbType.Location = new System.Drawing.Point(12, 30);
-            this.cbbType.Name = "cbbType";
-            this.cbbType.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbType.Properties.Appearance.Options.UseFont = true;
-            this.cbbType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.cbbType.Properties.Items.AddRange(new object[] {
-            "สินค้าขายดี",
-            "สินค้าขายไม่ดี",
-            "สินค้าที่ทำกำไรสูงสุด",
-            "สินค้าที่ทำกำไรต่ำสุด"});
-            this.cbbType.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbbType.Size = new System.Drawing.Size(210, 22);
-            this.cbbType.TabIndex = 2;
-            // 
-            // dtpEndDate
-            // 
-            this.dtpEndDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpEndDate.Location = new System.Drawing.Point(49, 110);
-            this.dtpEndDate.Name = "dtpEndDate";
-            this.dtpEndDate.Size = new System.Drawing.Size(173, 23);
-            this.dtpEndDate.TabIndex = 1;
-            // 
-            // dtpStartDate
-            // 
-            this.dtpStartDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpStartDate.Location = new System.Drawing.Point(49, 81);
-            this.dtpStartDate.Name = "dtpStartDate";
-            this.dtpStartDate.Size = new System.Drawing.Size(173, 23);
-            this.dtpStartDate.TabIndex = 0;
-            // 
-            // chartControl1
-            // 
-            this.chartControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chartControl1.Location = new System.Drawing.Point(240, 0);
-            this.chartControl1.Name = "chartControl1";
-            this.chartControl1.SeriesSerializable = new DevExpress.XtraCharts.Series[0];
-            this.chartControl1.Size = new System.Drawing.Size(804, 479);
-            this.chartControl1.TabIndex = 6;
+            this.panelControl1.Controls.Add(this.chartControl1);
+            this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl1.Location = new System.Drawing.Point(263, 0);
+            this.panelControl1.Name = "panelControl1";
+            this.panelControl1.Size = new System.Drawing.Size(837, 479);
+            this.panelControl1.TabIndex = 7;
             // 
             // UcStatistic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.chartControl1);
+            this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcStatistic";
-            this.Size = new System.Drawing.Size(1044, 479);
+            this.Size = new System.Drawing.Size(1100, 479);
             this.Load += new System.EventHandler(this.UcStatistic_Load);
             this.contextMenuStrip2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
@@ -284,9 +430,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.spCount.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbbType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbDataType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbBackward.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbTime.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chkShowCurrentMonth.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbbCustomerType.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
+            this.panelControl1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -302,15 +457,19 @@
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer2;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private System.Windows.Forms.DateTimePicker dtpEndDate;
-        private System.Windows.Forms.DateTimePicker dtpStartDate;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.ComboBoxEdit cbbType;
-        private DevExpress.XtraEditors.LabelControl labelControl4;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.SpinEdit spCount;
-        private DevExpress.XtraEditors.SimpleButton btnSearch;
+        private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager;
         private DevExpress.XtraCharts.ChartControl chartControl1;
+        private DevExpress.XtraEditors.CheckEdit chkShowCurrentMonth;
+        private DevExpress.XtraEditors.LabelControl lblTime;
+        private DevExpress.XtraEditors.ComboBoxEdit cbbBackward;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.ComboBoxEdit cbbTime;
+        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.ComboBoxEdit cbbDataType;
+        private DevExpress.XtraEditors.LabelControl labelControl4;
+        private DevExpress.XtraEditors.SimpleButton btnSearch;
+        private DevExpress.XtraEditors.ComboBoxEdit cbbCustomerType;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
+        private DevExpress.XtraEditors.PanelControl panelControl1;
     }
 }

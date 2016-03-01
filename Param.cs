@@ -20,6 +20,7 @@ namespace PowerPOS
         //public static string ApiKey = "27AD365F-FBFF-4994-BB9C-97ABAF80EFBB";
 
         public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit };
+        public static string[] thaiMonth = { "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" };
 
         public static string ApiShopId; //= "5BB7C6B3-F6D0-4926-B14F-C580DD148612";
         public static string ShopId;// = "00000002";

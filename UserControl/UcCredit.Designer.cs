@@ -69,8 +69,8 @@
             this.panelControl28 = new DevExpress.XtraEditors.PanelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl30 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -106,8 +106,8 @@
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).BeginInit();
             this.panelControl28.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -423,7 +423,7 @@
             this.clName.AppearanceHeader.Options.UseFont = true;
             this.clName.AppearanceHeader.Options.UseTextOptions = true;
             this.clName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clName.Caption = "ชื่อลูกหนี้";
+            this.clName.Caption = "ชื่อลูกค้า";
             this.clName.FieldName = "name";
             this.clName.Name = "clName";
             this.clName.OptionsColumn.AllowEdit = false;
@@ -592,15 +592,6 @@
             this.labelControl10.TabIndex = 20;
             this.labelControl10.Text = "ยอดรวมทั้งหมด :";
             // 
-            // panelControl11
-            // 
-            this.panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl11.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl11.Location = new System.Drawing.Point(1020, 0);
-            this.panelControl11.Name = "panelControl11";
-            this.panelControl11.Size = new System.Drawing.Size(10, 581);
-            this.panelControl11.TabIndex = 21;
-            // 
             // panelControl30
             // 
             this.panelControl30.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -609,6 +600,15 @@
             this.panelControl30.Name = "panelControl30";
             this.panelControl30.Size = new System.Drawing.Size(71, 21);
             this.panelControl30.TabIndex = 31;
+            // 
+            // panelControl11
+            // 
+            this.panelControl11.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl11.Location = new System.Drawing.Point(1020, 0);
+            this.panelControl11.Name = "panelControl11";
+            this.panelControl11.Size = new System.Drawing.Size(10, 581);
+            this.panelControl11.TabIndex = 21;
             // 
             // UcCredit
             // 
@@ -659,8 +659,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).EndInit();
             this.panelControl28.ResumeLayout(false);
             this.panelControl28.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             this.ResumeLayout(false);
 
         }
