@@ -48,6 +48,7 @@
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -86,9 +87,9 @@
             // 
             // clProductName
             // 
-            this.clProductName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProductName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProductName.AppearanceCell.Options.UseFont = true;
-            this.clProductName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProductName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProductName.AppearanceHeader.Options.UseFont = true;
             this.clProductName.AppearanceHeader.Options.UseTextOptions = true;
             this.clProductName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -105,9 +106,9 @@
             // 
             // clProduct
             // 
-            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProduct.AppearanceCell.Options.UseFont = true;
-            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clProduct.AppearanceHeader.Options.UseFont = true;
             this.clProduct.AppearanceHeader.Options.UseTextOptions = true;
             this.clProduct.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -118,15 +119,13 @@
             this.clProduct.OptionsColumn.AllowMove = false;
             this.clProduct.OptionsColumn.AllowSize = false;
             this.clProduct.OptionsColumn.FixedWidth = true;
-            this.clProduct.Visible = true;
-            this.clProduct.VisibleIndex = 1;
             this.clProduct.Width = 80;
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceCell.Options.UseFont = true;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -146,7 +145,8 @@
             this.productGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNo,
             this.clProduct,
-            this.clProductName});
+            this.clProductName,
+            this.clSku});
             this.productGridView.GridControl = this.productGridControl;
             this.productGridView.Name = "productGridView";
             this.productGridView.OptionsView.ShowGroupPanel = false;
@@ -297,6 +297,25 @@
             this.panelControl1.Size = new System.Drawing.Size(715, 70);
             this.panelControl1.TabIndex = 3;
             // 
+            // clSku
+            // 
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
+            this.clSku.FieldName = "Sku";
+            this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.OptionsColumn.AllowSize = false;
+            this.clSku.OptionsColumn.FixedWidth = true;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 80;
+            // 
             // FmSelectProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -350,5 +369,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private System.Windows.Forms.Label label2;
+        private DevExpress.XtraGrid.Columns.GridColumn clSku;
     }
 }

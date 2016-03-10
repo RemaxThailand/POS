@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Drawing.Text;
 using System.Drawing.Imaging;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 
 namespace PowerPOS
 {
@@ -65,7 +66,7 @@ namespace PowerPOS
                     // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
                     _TABLE_REPORT = Util.DBQuery(string.Format(@"
-                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid
+                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType
                FROM SellHeader h
                 LEFT JOIN Customer c
                 ON h.Customer = c.Customer 
@@ -104,6 +105,14 @@ namespace PowerPOS
                     row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
                     row[4] = mobile == "" ? "-" : mobile;
                     row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
+                    if (_TABLE_REPORT.Rows[a]["payType"].ToString() == "1")
+                    {
+                        row[6] = "ชำระเงินแล้ว";
+                    }
+                    else
+                    {
+                        row[6] = "ยังไม่ชำระเงิน";
+                    }
                     dt.Rows.Add(row);
                     sumPrice += double.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
                     sumProfit += double.Parse(_TABLE_REPORT.Rows[a]["Profit"].ToString());
@@ -336,18 +345,15 @@ namespace PowerPOS
                     //    g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight - y, 672, startY + maxHeight - y);
                     //}
                     //g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight, 672, startY + maxHeight);
-
                 }
             }
-
-          
         }
 
         private void miDetail_Click(object sender, EventArgs e)
         {
             if (reportGridView.RowCount > 0)
             {
-                sellNo = reportGridView.GetRowCellDisplayText(reportGridView.FocusedRowHandle, reportGridView.Columns["SaleNo"]);
+                Param.SellNo = reportGridView.GetRowCellDisplayText(reportGridView.FocusedRowHandle, reportGridView.Columns["SaleNo"]);
                 FmSaleDetial frm = new FmSaleDetial();
                 frm.Show();
             }
@@ -398,6 +404,25 @@ namespace PowerPOS
         private void btnPrint_Click(object sender, EventArgs e)
         {
             miPrintReceipt_Click(sender, (e));
+        }
+
+        private void reportGridView_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            GridView View = sender as GridView;
+            if (e.RowHandle >= 0)
+            {
+                string status = View.GetRowCellDisplayText(e.RowHandle, View.Columns["Status"]);
+                if (status == "ยังไม่ชำระเงิน")
+                {
+                    e.Appearance.BackColor = Color.Salmon;
+                    //e.Appearance.BackColor2 = Color.SeaShell;
+                }
+                //else
+                //{
+                //    e.Appearance.BackColor = Color.DeepSkyBlue;
+                //    e.Appearance.BackColor2 = Color.LightCyan;
+                //}
+            }
         }
     }
 }

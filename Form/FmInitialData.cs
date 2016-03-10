@@ -202,6 +202,8 @@ namespace PowerPOS
             var i = 0;
             var d = 0;
 
+            Util.DBExecute(string.Format(@"DELETE FROM Barcode"));
+
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS  Barcode (
                 shop NVARCHAR(10) NOT NULL,
                 barcode NVARCHAR(16) NOT NULL,
@@ -272,6 +274,7 @@ namespace PowerPOS
             LoadCategory(Param.ShopId);
             LoadBrand(Param.ShopId);
 
+            Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder"));
 
             //PurchaseOrder
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS PurchaseOrder (
@@ -345,7 +348,8 @@ namespace PowerPOS
                 shop NVARCHAR(10) NOT NULL,
                 product  NVARCHAR(20) NOT NULL,
                 quantity int NOT NULL DEFAULT 0,              
-                sync BIT DEFAULT 0)");
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, product))");
 
             string inventory = Util.GetApiData("/product/infoCount",
             string.Format("shop={0}", Param.ApiShopId));
@@ -362,7 +366,7 @@ namespace PowerPOS
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}'",
-                        jsonInventory.result[i].shop, jsonInventory.result[i].creditNo, jsonInventory.result[i].sellNo));
+                        jsonInventory.result[i].shop, jsonInventory.result[i].product, jsonInventory.result[i].quantity));
                     d++;
 
                     if (d % 500 == 0)
@@ -968,18 +972,18 @@ namespace PowerPOS
             var sbd = new StringBuilder();
             if (Param.MemberType != "Shop" && Param.MemberType != "Event")
             {
-                const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy)";
+                const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy, sellPrice)";
                 sbd = new StringBuilder(comm);
-                sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000'", Param.ShopId));
-
+                sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000' , '0'
+                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '{1}'", Param.ShopId, Param.ShopCost));
             }
             else
             {
                 const string comm = @"INSERT OR REPLACE INTO Customer (shop, customer, Firstname, Lastname, AddDate, AddBy, sellPrice)";
                 sbd = new StringBuilder(comm);
                 sbd.Append(string.Format(@"SELECT '{0}', '000000', 'ลูกค้า', 'ทั่วไป', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000' , '0'
-                                        UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '4'
-                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '4'", Param.ShopId));
+                                        UNION ALL SELECT '{0}', '000001', 'สำนักงานใหญ่', '', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '{1}'
+                                        UNION ALL SELECT '{0}', '000002', 'ลูกค้า', 'เคลม', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '0000', '{1}'", Param.ShopId,  Param.ShopCost));
 
             }
             Util.DBExecute(sbd.ToString());

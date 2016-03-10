@@ -216,8 +216,8 @@ namespace PowerPOS
                 }
 
                 lblListCount.Text = receivedGridView.RowCount.ToString("#,##0") + " รายการ";
-                if (receivedGridView.RowCount > 0)
-                {
+                //if (receivedGridView.RowCount > 0)
+                //{
                     _NORECEIVED = _QTY - _RECEIVED;
                     lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
                     lblNoReceived.Text = _NORECEIVED.ToString("#,##0") + " ชิ้น";
@@ -228,7 +228,7 @@ namespace PowerPOS
                     lblSRecieved.Text = _TOTALRECEIVED.ToString("#,##0") + " บาท";
                     lblSNoReceived.Text = _NOSR.ToString("#,##0") + " บาท";
 
-                }
+                //}
                 txtBarcode.Focus();
             }
             catch (Exception ex)
@@ -241,22 +241,27 @@ namespace PowerPOS
         private void SearchDataOrder()
         {
             DataRow row;
+            _QTY = 0;
+            _RECEIVED = 0;
+            _TOTAL = 0;
+            _TOTALRECEIVED = 0;
             if (cbbOrder.SelectedIndex == 0)
             {
+                receivedGridControl.DataSource = null;
                 gbOrder.Height = 69;
                 //progressBar1.Visible = false;
                 gbCost.Visible = false;
             }
             else if (!_FIRST_LOAD)
             {
-                _QTY = 0;
-                _RECEIVED = 0;
+                //_QTY = 0;
+                //_RECEIVED = 0;
                 int i, a;
                 _TABLE_RECEIVED = Util.DBQuery(string.Format(@"
-                    SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, c.name Category
+                    SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, IFNULL(b.cost * co.Count,0) Price, IFNULL(b.cost * r.ReceivedCount,0) PriceReceived,  c.name Category
                     FROM Barcode b
                         LEFT JOIN Product p
-                            ON b.Product = p.Product 
+                            ON b.Product = p.Product
                             AND p.Shop = '{0}'
                         LEFT JOIN ( 
                                 SELECT DISTINCT Product, COUNT(*) ReceivedCount 
@@ -269,18 +274,18 @@ namespace PowerPOS
                             ON b.Product = r.Product
                         LEFT JOIN Category c
                             ON p.category = c.category
-                         LEFT JOIN ( 
+                        LEFT JOIN ( 
                                 SELECT DISTINCT bb.Product, COUNT(*) Count 
                                 FROM Barcode bb
                                 WHERE bb.OrderNo =  '{1}' 
                                 GROUP BY bb.Product
                         ) co
-                            ON p.product = co.product
+                        ON p.product = co.product
                     WHERE (b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
                         AND b.OrderNo = '{1}'
                     GROUP BY b.Product
-                       UNION ALL
-                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity , c.name category
+                    UNION ALL
+                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, IFNULL(po.priceCost * po.Quantity ,0) Price, IFNULL(po.priceCost * po.ReceivedQuantity,0) PriceReceived, c.name category
                     FROM PurchaseOrder po
                         LEFT JOIN Product p
                         ON po.Product = p.product
@@ -310,10 +315,13 @@ namespace PowerPOS
                     row[5] = Convert.ToInt32(_TABLE_RECEIVED.Rows[a]["ReceivedCount"]).ToString("#,##0");
                     row[6] = (int)progress;
                     row[7] = _TABLE_RECEIVED.Rows[a]["Sku"].ToString();
+                    row[8] = _TABLE_RECEIVED.Rows[a]["Price"].ToString();
+                    row[9] = _TABLE_RECEIVED.Rows[a]["PriceReceived"].ToString();
                     dt.Rows.Add(row);
                     _QTY += int.Parse(_TABLE_RECEIVED.Rows[a]["ProductCount"].ToString());
                     _RECEIVED += int.Parse(_TABLE_RECEIVED.Rows[a]["ReceivedCount"].ToString());
-
+                    _TOTAL += int.Parse(_TABLE_RECEIVED.Rows[a]["Price"].ToString());
+                    _TOTALRECEIVED += int.Parse(_TABLE_RECEIVED.Rows[a]["PriceReceived"].ToString());
                 }
 
                 RepositoryItemProgressBar ritem = new RepositoryItemProgressBar();
@@ -341,15 +349,31 @@ namespace PowerPOS
                 }
 
                 lblListCount.Text = receivedGridView.RowCount.ToString("#,##0") + " รายการ";
-                if (receivedGridView.RowCount > 0)
-                {
-                    int _NORECEIVED = _QTY - _RECEIVED;
-                    lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
-                    lblNoReceived.Text = _NORECEIVED.ToString("#,##0") + " ชิ้น";
-                    lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
-                }
+                //if (receivedGridView.RowCount > 0)
+                //{
+                //    _NORECEIVED = _QTY - _RECEIVED;
+                //    lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
+                //    lblNoReceived.Text = _NORECEIVED.ToString("#,##0") + " ชิ้น";
+                //    lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
 
+                //    _NOSR = _TOTAL - _TOTALRECEIVED;
+                //    lblTotal.Text = _TOTAL.ToString("#,##0") + " บาท";
+                //    lblSRecieved.Text = _TOTALRECEIVED.ToString("#,##0") + " บาท";
+                //    lblSNoReceived.Text = _NOSR.ToString("#,##0") + " บาท";
+                //}
             }
+            //if (receivedGridView.RowCount > 0)
+            //{
+                _NORECEIVED = _QTY - _RECEIVED;
+                lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
+                lblNoReceived.Text = _NORECEIVED.ToString("#,##0") + " ชิ้น";
+                lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
+
+                _NOSR = _TOTAL - _TOTALRECEIVED;
+                lblTotal.Text = _TOTAL.ToString("#,##0") + " บาท";
+                lblSRecieved.Text = _TOTALRECEIVED.ToString("#,##0") + " บาท";
+                lblSNoReceived.Text = _NOSR.ToString("#,##0") + " บาท";
+            //}
             txtBarcode.Focus();
         }
 
@@ -367,12 +391,14 @@ namespace PowerPOS
                 OrderNo = cbbOrderNo.SelectedItem.ToString();
                 if (dt.Rows.Count == 0)
                 {
-                    dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                    dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
                     Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
 
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU LIKE '%{0}%'", txtBarcode.Text));
+
+                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+
                         if (dt.Rows.Count == 0)
                         {
                             lblStatus.ForeColor = Color.Red;
@@ -381,8 +407,8 @@ namespace PowerPOS
                         else
                         {
                             Param.status = "Received";
-                            FmProductQty frm = new FmProductQty();
-                            Param.product = dt.Rows[0]["Product"].ToString();
+                            //OrderNo = cbbOrderNo.SelectedItem.ToString();
+                            FmSelectProduct frm = new FmSelectProduct();
                             var result = frm.ShowDialog(this);
                             if (result == System.Windows.Forms.DialogResult.OK)
                             {
@@ -393,8 +419,8 @@ namespace PowerPOS
                     else
                     {
                         Param.status = "Received";
-                        //OrderNo = cbbOrderNo.SelectedItem.ToString();
-                        FmSelectProduct frm = new FmSelectProduct();
+                        FmProductQty frm = new FmProductQty();
+                        Param.product = dt.Rows[0]["Product"].ToString();
                         var result = frm.ShowDialog(this);
                         if (result == System.Windows.Forms.DialogResult.OK)
                         {

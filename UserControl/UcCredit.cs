@@ -47,6 +47,8 @@ namespace PowerPOS
                 ON c.customer = sh.customer
                 WHERE (sh.sellNo LIKE '%{3}%' OR c.firstname LIKE '%{3}%' OR c.lastname LIKE '%{3}%')
                 AND SUBSTR(sh.SellDate,1,10) BETWEEN '{1}' AND '{2}' 
+                AND sh.Customer NOT IN ('000001','000002')
+                AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
                 AND {0}", (cbPaid.Checked) ? "sh.payType = 1 AND cc.paidPrice IS NOT NULL" : "sh.payType = 0 AND (cc.paidPrice IS NULL OR cc.paidPrice = 0)",
                 Convert.ToDateTime(dtpStartDate.Value).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpEndDate.Value).ToString("yyyy-MM-dd"),
                 txtSearch.Text.Trim()
@@ -116,9 +118,28 @@ namespace PowerPOS
             }
         }
 
+        private void creditGridControl_DoubleClick(object sender, EventArgs e)
+        {
+            miDetail_Click((sender), e);
+        }
+
         private void btnPrint_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void miDetail_Click(object sender, EventArgs e)
+        {
+            if (creditGridview.RowCount > 0)
+            {
+                Param.SellNo = creditGridview.GetRowCellDisplayText(creditGridview.FocusedRowHandle, creditGridview.Columns["sellno"]);
+                FmSaleDetial frm = new FmSaleDetial();
+                frm.Show();
+            }
+            else
+            {
+                MessageBox.Show("กรุณาเลือกรายการที่ต้องการดูรายละเอียดการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

@@ -50,12 +50,14 @@ namespace PowerPOS
         public static string HeaderName;
         public static string FooterText;
         public static string Logo;
+        public static string ShopCost;
 
         public static bool jsonObject;
         public static string error;
         public static string errorMessage;
 
         public static string BarcodeNo;
+        public static string SellNo;
         public static string status;
 
         public static string SelectCustomerId;
@@ -66,6 +68,7 @@ namespace PowerPOS
 
         public static string amount;
         public static string product;
+        
 
         public static string LogoPath;
         public const string LogoUrl = "https://lh3.googleusercontent.com/of2iTh9rSFHDQreN0Pu1CIV1_-K9BwqTyfFqNMkDtRA=w2655-no";

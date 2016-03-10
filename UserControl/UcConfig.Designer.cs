@@ -175,7 +175,7 @@
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(59, 16);
             this.labelControl1.TabIndex = 1;
-            this.labelControl1.Text = "V 1.0.0.13";
+            this.labelControl1.Text = "V 1.0.0.18";
             // 
             // panelControl13
             // 

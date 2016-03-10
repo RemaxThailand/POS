@@ -326,8 +326,15 @@ namespace PowerPOS
 
             txtAmount.Text = "1";
 
-            _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT Product, Name FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'ORDER BY Name ", Param.BarcodeNo));
+            if (Param.status != "Received")
+            {
+                _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT Product, sku, Name FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%' AND quantity <> 0 ORDER BY Name ", Param.BarcodeNo));
+            }
+            else
+            {
+                _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT Product, sku, Name FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'  ORDER BY Name ", Param.BarcodeNo));
 
+            }
             productGridView.OptionsBehavior.AutoPopulateColumns = false;
             productGridControl.MainView = productGridView;
             dt = new DataTable();
@@ -342,6 +349,7 @@ namespace PowerPOS
                 row[0] = (a + 1) * 1;
                 row[1] = _TABLE_PRODUCT.Rows[a]["Product"].ToString();
                 row[2] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
+                row[3] = _TABLE_PRODUCT.Rows[a]["sku"].ToString();
                 dt.Rows.Add(row);
             }
 

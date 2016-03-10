@@ -141,6 +141,8 @@ namespace PowerPOS
                         Param.ShopParent = jsonApplication.result[0].shopParent;
                         Param.ShopCustomer = jsonApplication.result[0].shopCustomer;
                         Param.ShopType = jsonApplication.result[0].shopType;
+                        Param.ShopType = jsonApplication.result[0].shopType;
+                        Param.ShopCost = jsonApplication.result[0].shopCost;
                         Param.PrintCount = jsonApplication.result[0].printcount;
                         Param.PrintType = jsonApplication.result[0].printType;
                         Param.PrintLogo = jsonApplication.result[0].printLogo;
@@ -182,12 +184,21 @@ namespace PowerPOS
 
         public static string GetApiData(string method, string parameter)
         {
+
             using (WebClient wc = new WebClient())
             {
-                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                wc.Encoding = System.Text.Encoding.UTF8;
-                return wc.UploadString(new Uri(Param.ApiUrl + method), parameter + "&apiKey=" + Param.ApiKey);
+                //try
+                //{
+                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                    wc.Encoding = System.Text.Encoding.UTF8;
+                    return wc.UploadString(new Uri(Param.ApiUrl + method), parameter + "&apiKey=" + Param.ApiKey);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("เกิดข้อผิดพลาดที่การเชื่อมต่อ\nกรุณาตรวจสอบการเชื่อมต่ออินเตอร์เน็ตอีกครั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
             }
+            
         }
 
         public static DataTable DBQuery(string sql)
@@ -468,32 +479,38 @@ namespace PowerPOS
                     string customer = dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString();
                     string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
                     string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
-                    string value = sellDate + "," + inStock + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy;
+                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
+
+                    string value = sellDate + "," + inStock + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy + "," + values;
                     //dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() == "false" ? "0" : "1" + "," + 
                     //dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString() + "," + 
                     //dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString() + "," + 
                     //dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString() + "," + dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
 
-                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
+                   
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy", value)
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy,receivedDate,inStock,operationCost,cost,receivedBy", value)
                     ));
                     if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
-                    ));
-                    if (!json.success.Value)
+                    else
                     {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                        Util.DBExecute(string.Format("UPDATE Barcode SET Sync = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
                     }
 
 
-                    Util.DBExecute(string.Format("UPDATE Barcode SET Sync = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                    //json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    //string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
+                    //));
+                    //if (!json.success.Value)
+                    //{
+                    //    Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    //}
+
+
                 }
 
             }
@@ -520,8 +537,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+                    }
                 }
             }
             catch (Exception ex)
@@ -548,8 +567,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+                    }
 
                 }
             }
@@ -620,8 +641,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE Customer SET Sync = 0 WHERE customer = '{0}'", dt.Rows[i]["customer"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Customer SET Sync = 0 WHERE customer = '{0}'", dt.Rows[i]["customer"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -648,8 +671,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE SellHeader SET Sync = 0 WHERE sellNo = '{0}' ", dt.Rows[i]["sellNo"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE SellHeader SET Sync = 0 WHERE sellNo = '{0}' ", dt.Rows[i]["sellNo"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -675,8 +700,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE SellDetail SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE SellDetail SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -702,8 +729,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE ReturnProduct SET Sync = 0 WHERE SellNo = '{0}' AND Barcode = '{1}'", dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE ReturnProduct SET Sync = 0 WHERE SellNo = '{0}' AND Barcode = '{1}'", dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -729,8 +758,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE ChangePrice SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE ChangePrice SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -756,8 +787,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE CreditCustomer SET Sync = 0 WHERE creditNo = '{0}'", dt.Rows[i]["creditNo"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE CreditCustomer SET Sync = 0 WHERE creditNo = '{0}'", dt.Rows[i]["creditNo"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -781,8 +814,10 @@ namespace PowerPOS
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
-
-                    Util.DBExecute(string.Format("UPDATE InventoryCount SET Sync = 0 WHERE product = '{0}'", dt.Rows[i]["product"].ToString()));
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE InventoryCount SET Sync = 0 WHERE product = '{0}'", dt.Rows[i]["product"].ToString()));
+                    }
                 }
             }
             catch (Exception ex)
@@ -958,7 +993,7 @@ namespace PowerPOS
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 10, pY));
+                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 15, pY));
 
                     g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 3, 150, 10);
                     g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),

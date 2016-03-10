@@ -131,7 +131,7 @@ namespace PowerPOS
                     //}
                     //else
                     //{
-                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT product, name, category, brand, image, sku,warranty,IFNULL((SUM(cost)+SUM(OperationCost))/SUM(qty),0) cost, price, price1, price2, price3, price4, price5, webprice, webprice1, webprice2, webprice3, webprice4, webprice5, SUM(qty) qty FROM (
+                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT product, name, category, brand, image, sku,warranty,IFNULL((SUM(cost)+SUM(OperationCost))/SUM(qty),0) cost, price, price1, price2, price3, price4, price5, webprice, webprice1, webprice2, webprice3, webprice4, webprice5, qty FROM (
                     SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  IFNULL(cnt.OperationCost,0) OperationCost, 
                                         IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
                                         IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount,0) Qty
@@ -143,7 +143,7 @@ namespace PowerPOS
                                             LEFT JOIN Brand bb
                                                 ON p.brand = bb.brand
                                             LEFT JOIN (
-                                                SELECT Product, SUM(Cost) Cost, SUM(OperationCost) OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND (SellNo = '' OR SellNo IS NULL) GROUP BY Product
+                                                SELECT Product, SUM(Cost) Cost, SUM(OperationCost) OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND  sellPrice = 0 GROUP BY Product
                                             ) cnt
 		                                ON p.product = cnt.Product
                     UNION ALL

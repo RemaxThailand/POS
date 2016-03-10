@@ -60,6 +60,8 @@ namespace PowerPOS
             }
             cbbProvince.SelectedIndex = 0;
             cbbProvinceS.SelectedIndex = 0;
+
+            rdbMan.Checked = true;
         }
 
         public void LoadCustomerData(object sender, EventArgs e, string dataType, string keyword)

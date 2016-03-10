@@ -66,7 +66,10 @@ namespace PowerPOS
 
             //ptbLogo.ImageLocation = File.Exists(Param.LogoPath) ? Param.LogoPath : Param.Logo;
 
-            GetPrinter();
+            if (cbxPrinter.Text == "")
+            {
+                GetPrinter();
+            }
             lblShopName.Text = Param.ShopName;
             lblDeviceName.Text = Param.ComputerName;
             _FIRST_LOAD = false;
@@ -78,7 +81,7 @@ namespace PowerPOS
                 groupControl2.Enabled = false;
                 groupControl3.Enabled = false;
             }
-            GetPrinter();
+            //GetPrinter();
         }
 
         private void btnSave_Click(object sender, EventArgs e)

@@ -48,7 +48,7 @@ namespace PowerPOS
                         LEFT JOIN Customer c
                         ON sh.Customer = c.Customer 
                     WHERE sd.SellNo = '{0}'
-                        AND sd.Quantity <> 0", UcReport.sellNo));
+                        AND sd.Quantity <> 0", Param.SellNo));
 
             if(_TABLE_SALE.Rows.Count > 0)
             { 
@@ -85,26 +85,6 @@ namespace PowerPOS
 
                     saleGridControl.DataSource = dt;
                 }
-                //table1.BeginUpdate();
-                //tableModel1.Rows.Clear();
-                //tableModel1.RowHeight = 22;
-                //for (int i = 0; i < dt.Rows.Count; i++)
-                //{
-                //    if (dt.Rows[i]["ID"].ToString() != "")
-                //    {
-                //        var total = int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString());
-                //        tableModel1.Rows.Add(new Row(
-                //            new Cell[] {
-                //            new Cell("" + (i + 1)),
-                //            new Cell(dt.Rows[i]["ID"].ToString()),
-                //            new Cell(dt.Rows[i]["Name"].ToString()),
-                //            new Cell(total),
-                //            new Cell(int.Parse(dt.Rows[i]["ProductCount"].ToString())),
-                //            new Cell(int.Parse(dt.Rows[i]["SellPrice"].ToString()))}));
-                //        sumPrice += total;
-                //    }
-                //}
-                //table1.EndUpdate();
             }
         }
 

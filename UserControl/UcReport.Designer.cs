@@ -69,6 +69,7 @@
             this.clCustomer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clMobile = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -497,16 +498,18 @@
             this.clSaleNo,
             this.clCustomer,
             this.clMobile,
-            this.clTotal});
+            this.clTotal,
+            this.clStatus});
             this.reportGridView.GridControl = this.reportGridControl;
             this.reportGridView.Name = "reportGridView";
             this.reportGridView.OptionsView.ShowGroupPanel = false;
+            this.reportGridView.RowStyle += new DevExpress.XtraGrid.Views.Grid.RowStyleEventHandler(this.reportGridView_RowStyle);
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceCell.Options.UseFont = true;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -515,6 +518,7 @@
             this.clNo.Name = "clNo";
             this.clNo.OptionsColumn.AllowEdit = false;
             this.clNo.OptionsColumn.AllowMove = false;
+            this.clNo.OptionsColumn.AllowSize = false;
             this.clNo.OptionsColumn.FixedWidth = true;
             this.clNo.Visible = true;
             this.clNo.VisibleIndex = 0;
@@ -522,9 +526,9 @@
             // 
             // cllDate
             // 
-            this.cllDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cllDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.cllDate.AppearanceCell.Options.UseFont = true;
-            this.cllDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cllDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.cllDate.AppearanceHeader.Options.UseFont = true;
             this.cllDate.AppearanceHeader.Options.UseTextOptions = true;
             this.cllDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -533,6 +537,7 @@
             this.cllDate.Name = "cllDate";
             this.cllDate.OptionsColumn.AllowEdit = false;
             this.cllDate.OptionsColumn.AllowMove = false;
+            this.cllDate.OptionsColumn.AllowSize = false;
             this.cllDate.OptionsColumn.FixedWidth = true;
             this.cllDate.Visible = true;
             this.cllDate.VisibleIndex = 1;
@@ -540,9 +545,9 @@
             // 
             // clSaleNo
             // 
-            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clSaleNo.AppearanceCell.Options.UseFont = true;
-            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clSaleNo.AppearanceHeader.Options.UseFont = true;
             this.clSaleNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -551,6 +556,7 @@
             this.clSaleNo.Name = "clSaleNo";
             this.clSaleNo.OptionsColumn.AllowEdit = false;
             this.clSaleNo.OptionsColumn.AllowMove = false;
+            this.clSaleNo.OptionsColumn.AllowSize = false;
             this.clSaleNo.OptionsColumn.FixedWidth = true;
             this.clSaleNo.Visible = true;
             this.clSaleNo.VisibleIndex = 2;
@@ -558,9 +564,9 @@
             // 
             // clCustomer
             // 
-            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCustomer.AppearanceCell.Options.UseFont = true;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clCustomer.AppearanceHeader.Options.UseFont = true;
             this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
             this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -569,6 +575,7 @@
             this.clCustomer.Name = "clCustomer";
             this.clCustomer.OptionsColumn.AllowEdit = false;
             this.clCustomer.OptionsColumn.AllowMove = false;
+            this.clCustomer.OptionsColumn.AllowSize = false;
             this.clCustomer.OptionsColumn.FixedWidth = true;
             this.clCustomer.Visible = true;
             this.clCustomer.VisibleIndex = 3;
@@ -576,11 +583,11 @@
             // 
             // clMobile
             // 
-            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clMobile.AppearanceCell.Options.UseFont = true;
             this.clMobile.AppearanceCell.Options.UseTextOptions = true;
             this.clMobile.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clMobile.AppearanceHeader.Options.UseFont = true;
             this.clMobile.AppearanceHeader.Options.UseTextOptions = true;
             this.clMobile.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -589,6 +596,7 @@
             this.clMobile.Name = "clMobile";
             this.clMobile.OptionsColumn.AllowEdit = false;
             this.clMobile.OptionsColumn.AllowMove = false;
+            this.clMobile.OptionsColumn.AllowSize = false;
             this.clMobile.OptionsColumn.FixedWidth = true;
             this.clMobile.Visible = true;
             this.clMobile.VisibleIndex = 4;
@@ -596,11 +604,11 @@
             // 
             // clTotal
             // 
-            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clTotal.AppearanceCell.Options.UseFont = true;
             this.clTotal.AppearanceCell.Options.UseTextOptions = true;
             this.clTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clTotal.AppearanceHeader.Options.UseFont = true;
             this.clTotal.AppearanceHeader.Options.UseTextOptions = true;
             this.clTotal.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -609,10 +617,31 @@
             this.clTotal.Name = "clTotal";
             this.clTotal.OptionsColumn.AllowEdit = false;
             this.clTotal.OptionsColumn.AllowMove = false;
+            this.clTotal.OptionsColumn.AllowSize = false;
             this.clTotal.OptionsColumn.FixedWidth = true;
             this.clTotal.Visible = true;
             this.clTotal.VisibleIndex = 5;
             this.clTotal.Width = 80;
+            // 
+            // clStatus
+            // 
+            this.clStatus.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clStatus.AppearanceCell.Options.UseFont = true;
+            this.clStatus.AppearanceCell.Options.UseTextOptions = true;
+            this.clStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clStatus.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clStatus.AppearanceHeader.Options.UseFont = true;
+            this.clStatus.AppearanceHeader.Options.UseTextOptions = true;
+            this.clStatus.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clStatus.Caption = "สถานะ";
+            this.clStatus.FieldName = "Status";
+            this.clStatus.Name = "clStatus";
+            this.clStatus.OptionsColumn.AllowEdit = false;
+            this.clStatus.OptionsColumn.AllowMove = false;
+            this.clStatus.OptionsColumn.AllowSize = false;
+            this.clStatus.OptionsColumn.FixedWidth = true;
+            this.clStatus.Visible = true;
+            this.clStatus.VisibleIndex = 6;
             // 
             // panelControl10
             // 
@@ -868,5 +897,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
+        private DevExpress.XtraGrid.Columns.GridColumn clStatus;
     }
 }

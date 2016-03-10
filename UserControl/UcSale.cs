@@ -92,10 +92,15 @@ namespace PowerPOS
                           WHERE b.product = cp.product
                           AND cp.SellNo = '{0}')
                         AND b.SellBy = '{0}'", Param.DeviceID));
+
             if (dt.Rows.Count > 0)
             {
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}'", Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                int b = 0;
+                for (b = 0; b < dt.Rows.Count; b++)
+                {
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}' AND barcode = '{4}'", Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, dt.Rows[b]["barcode"].ToString()));
+                }
             }
 
             dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
@@ -105,15 +110,19 @@ namespace PowerPOS
                       AND cp.SellNo = '{0}')", Param.DeviceID));
             if (dt.Rows.Count > 0)
             {
-
-                Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
+                int b = 0;
+                for (b = 0; b < dt.Rows.Count; b++)
+                {
+                    Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
                     Price = (SELECT p.Price{0} FROM Product p
                     WHERE sellTemp.product = p.product),
                     TotalPrice =  (SELECT p.Price{0} FROM Product p
                     WHERE sellTemp.product = p.product) * sellTemp.Amount,
                     PriceCost = (SELECT p.Cost FROM Product p
-                    WHERE sellTemp.product = p.Product) * sellTemp.Amount",
-                    Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price));
+                    WHERE sellTemp.product = p.Product) * sellTemp.Amount
+                    WHERE sellTemp.product = '{2}'",
+                    Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price, dt.Rows[b]["product"].ToString()));
+                }
             }
 
             _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice FROM 
@@ -259,7 +268,14 @@ namespace PowerPOS
                     Util.DBExecute(string.Format(@"DELETE FROM ChangePrice WHERE SellNo = '{0}'", Param.DeviceID));
                     Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
 
+                    Param.SelectCustomerId = "000000";
+                    Param.SelectCustomerName = "ลูกค้าทั่วไป";
+                    Param.SelectCustomerSex = "";
+                    Param.SelectCustomerAge = 0;
+                    Param.SelectCustomerSellPrice = 0;
                     lblStatus.Text = "";
+
+                    lblCustomerName.Text = "ลูกค้าทั่วไป";
                     LoadData();
                 }
             }
@@ -297,17 +313,30 @@ namespace PowerPOS
                     dialog._TOTAL = int.Parse(lblPrice.Text.Replace(",", ""));
                     dialog._SELL_NO = SellNo;
                     var result = dialog.ShowDialog(this);
-                    if (result != DialogResult.OK)
+                    if (result == DialogResult.OK)
                     {
+                        Param.SelectCustomerId = "000000";
+                        Param.SelectCustomerName = "ลูกค้าทั่วไป";
+                        Param.SelectCustomerSex = "";
+                        Param.SelectCustomerAge = 0;
+                        Param.SelectCustomerSellPrice = 0;
+                        lblStatus.Text = "";
+
+                        lblCustomerName.Text = "ลูกค้าทั่วไป";
+                        Param.SelectCustomerSex = "";
+                        Param.SelectCustomerAge = 0;
+                        Param.SelectCustomerSellPrice = 0;
+                        //SelectCustomer(sender, (e));
+                        LoadData();
                         //Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, Sync = 1 WHERE SellNo = '{0}'", SellNo));
                     }
 
-                    Param.SelectCustomerId = "000000";
-                    Param.SelectCustomerName = "ลูกค้าทั่วไป";
-                    Param.SelectCustomerSex = "";
-                    Param.SelectCustomerAge = 0;
-                    Param.SelectCustomerSellPrice = 0;
-                    lblStatus.Text = "";
+                    //Param.SelectCustomerId = "000000";
+                    //Param.SelectCustomerName = "ลูกค้าทั่วไป";
+                    //Param.SelectCustomerSex = "";
+                    //Param.SelectCustomerAge = 0;
+                    //Param.SelectCustomerSellPrice = 0;
+                    //lblStatus.Text = "";
 
                     //if (Param.PrintType == "Y")
                     //{
@@ -321,12 +350,12 @@ namespace PowerPOS
                     //        Util.PrintReceipt(SellNo);
                     //}
 
-                    lblCustomerName.Text = "ลูกค้าทั่วไป";
-                    Param.SelectCustomerSex = "";
-                    Param.SelectCustomerAge = 0;
-                    Param.SelectCustomerSellPrice = 0;
-                    //SelectCustomer(sender, (e));
-                    LoadData();
+                    //lblCustomerName.Text = "ลูกค้าทั่วไป";
+                    //Param.SelectCustomerSex = "";
+                    //Param.SelectCustomerAge = 0;
+                    //Param.SelectCustomerSellPrice = 0;
+                    ////SelectCustomer(sender, (e));
+                    //LoadData();
                 }
             }
         }
@@ -369,22 +398,23 @@ namespace PowerPOS
 
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
                         Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
                         if (dt.Rows.Count == 0)
                         {
-                            dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU LIKE '%{0}%'", txtBarcode.Text));
+                            dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
                             if (dt.Rows.Count == 0)
                             {
-                                lblStatus.Visible = true;
-                                lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                                lblStatus.ForeColor = Color.Red;
+                                //lblStatus.Visible = true;
+                                //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                                //lblStatus.ForeColor = Color.Red;
+                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                             
                             }
                             else
                             {
                                 Param.status = "Sell";
-                                FmProductQty frm = new FmProductQty();
-                                Param.product = dt.Rows[0]["Product"].ToString();
+                                FmSelectProduct frm = new FmSelectProduct();
                                 var result = frm.ShowDialog(this);
                                 if (result == System.Windows.Forms.DialogResult.OK)
                                 {
@@ -395,7 +425,8 @@ namespace PowerPOS
                         else
                         {
                             Param.status = "Sell";
-                            FmSelectProduct frm = new FmSelectProduct();
+                            FmProductQty frm = new FmProductQty();
+                            Param.product = dt.Rows[0]["Product"].ToString();
                             var result = frm.ShowDialog(this);
                             if (result == System.Windows.Forms.DialogResult.OK)
                             {
@@ -405,9 +436,9 @@ namespace PowerPOS
                     }
                     else if (dt.Rows[0]["ReceivedDate"].ToString() == "")
                     {
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้รับเข้าระบบ";
-                        lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Visible = true;
+                        //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้รับเข้าระบบ";
+                        //lblStatus.ForeColor = Color.Red;
                         var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้รับเข้าระบบ\nคุณต้องการไปที่หน้าจอรับสินค้าเข้าระบบหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
                         if (confirm)
                         {
@@ -417,9 +448,9 @@ namespace PowerPOS
                     }
                     else if (dt.Rows[0]["ReceivedBy"].ToString() == "")
                     {
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดต้นทุน";
-                        lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Visible = true;
+                        //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดต้นทุน";
+                        //lblStatus.ForeColor = Color.Red;
                         var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้กำหนดต้นทุน\nคุณต้องการไปที่หน้าจอรับสินค้าเข้าระบบหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
                         if (confirm)
                         {
@@ -429,21 +460,23 @@ namespace PowerPOS
                     }
                     else if (dt.Rows[0]["SellDate"].ToString() != "")
                     {
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "สินค้าชิ้นนี้ได้ขายออกจากระบบไปแล้ว";
-                        lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Visible = true;
+                        MessageBox.Show("สินค้าชิ้นนี้ได้ขายออกจากระบบไปแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //lblStatus.ForeColor = Color.Red;
                     }
                     else if (dt.Rows[0]["SellBy"].ToString() == Param.DeviceID)
                     {
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "มีสินค้าชิ้นนี้ในรายการขายแล้ว";
-                        lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Visible = true;
+                        //lblStatus.Text = "มีสินค้าชิ้นนี้ในรายการขายแล้ว";
+                        //lblStatus.ForeColor = Color.Red;
+                        MessageBox.Show("มีสินค้าชิ้นนี้ในรายการขายแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
                     }
                     else if (int.Parse(dt.Rows[0]["Price"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price1"].ToString()) == 0)
                     {
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย";
-                        lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Visible = true;
+                        //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย";
+                        //lblStatus.ForeColor = Color.Red;
                         var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย\nคุณต้องการไปที่หน้าจอข้อมูลสินค้าหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
                         if (confirm)
                         {
@@ -458,6 +491,7 @@ namespace PowerPOS
                             SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
                         txtBarcode.Focus();
+                        lblStatus.Visible = true;
                         lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
                         lblStatus.ForeColor = Color.Green;
                     }
@@ -540,7 +574,7 @@ namespace PowerPOS
 
                     int qty = Convert.ToInt32(QTY.Rows[0]["Quantity"].ToString()) + Convert.ToInt32(Param.amount);
 
-                    Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = '{0}',Sync = 1 WHERE id = '{1}' AND shop = '{2}'", qty, FmReturnSell.Pid, Param.ShopId));
+                    Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = '{0}',Sync = 1 WHERE product = '{1}' AND shop = '{2}'", qty, FmReturnSell.Pid, Param.ShopId));
                 }
             }
             else
@@ -555,14 +589,14 @@ namespace PowerPOS
                     VALUES ('{3}','{0}', '{6}', '{4}', '{1}', '{5}', '{2}',1, 1 ) ",dt.Rows[0]["SellNo"].ToString(), dt.Rows[0]["Barcode"].ToString(), Param.UserId, Return, dt.Rows[0]["product"].ToString(), 
                     dt.Rows[0]["SellPrice"].ToString(), dt.Rows[0]["ReturnDate"].ToString()));
 
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '',SellNo = '',Customer = '',SellPrice = '',SellDate = null ,
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '',SellNo = '',Customer = '',SellPrice = '0',SellDate = null ,
                     Sync = 1 WHERE Barcode = '{0}'", txtBarcodeReturn.Text));
 
                 Util.DBExecute(string.Format(@"UPDATE SellHeader SET Profit = (SELECT IFNULL(SUM(SellPrice-Cost-OperationCost),0) FROM Barcode WHERE SellNo = '{0}')
                         , TotalPrice = (SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}') ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
 
-                Util.DBExecute(string.Format(@"UPDATE SellDetail SET SellPrice =  IFNULL((SELECT SUM(SellPrice) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0)  ,
-                            Cost = IFNULL((SELECT SUM(Cost) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0), Quantity = IFNULL((SELECT COUNT(*) 
+                Util.DBExecute(string.Format(@"UPDATE SellDetail SET SellPrice =  IFNULL((SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0)  ,
+                            Cost = IFNULL((SELECT IFNULL(SUM(Cost),0) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0), Quantity = IFNULL((SELECT COUNT(*) 
                             FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0),
                             Sync = 1 WHERE SellNo = '{0}' AND Product = '{1}'", dt.Rows[0]["SellNo"].ToString(), dt.Rows[0]["product"].ToString()));
 
@@ -607,12 +641,12 @@ namespace PowerPOS
                     FROM Barcode b LEFT JOIN Product p ON b.product = p.Product WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%'", txtBarcodeReturn.Text));
+                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcodeReturn.Text));
                         Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
                         if (dt.Rows.Count == 0)
                         {
-                            
-                            dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU LIKE '%{0}%'", txtBarcodeReturn.Text));
+                            dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%'", txtBarcodeReturn.Text));
+
                             if (dt.Rows.Count == 0)
                             {
                                 lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
@@ -620,10 +654,8 @@ namespace PowerPOS
                             }
                             else
                             {
-                                int qty = 0;
                                 Param.status = "Return";
-                                FmProductQty frm = new FmProductQty();
-                                Param.product = dt.Rows[0]["Product"].ToString();
+                                FmSelectProduct frm = new FmSelectProduct();
                                 var result = frm.ShowDialog(this);
                                 if (result == System.Windows.Forms.DialogResult.OK)
                                 {
@@ -663,7 +695,7 @@ namespace PowerPOS
                                             row[4] = Amount;
                                             row[5] = SellP;
                                             dt.Rows.Add(row);
-                                            qty += Amount;
+
                                             returnGridControl.DataSource = dt;
 
                                         }
@@ -683,9 +715,6 @@ namespace PowerPOS
                                         lblWarranty.Text = "สินค้าชิ้นนี้" + ((day > 0) ? " ขายไปแล้ว " + day.ToString("#,###") + " วัน" : " ขายไปแล้ว " + (day * -1).ToString("#,###") + " วัน");
                                     }
                                     lblWarranty.Visible = true;
-
-                                    lblListCount.Text = returnGridView.RowCount.ToString() + " รายการ";
-                                    lblProductCount.Text = qty.ToString() + " ชิ้น";
 
                                     var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
                                     dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
@@ -710,14 +739,15 @@ namespace PowerPOS
                                             }
                                         }
                                     }
-
                                 }
                             }
                         }
                         else
                         {
+                            int qty = 0;
                             Param.status = "Return";
-                            FmSelectProduct frm = new FmSelectProduct();
+                            FmProductQty frm = new FmProductQty();
+                            Param.product = dt.Rows[0]["Product"].ToString();
                             var result = frm.ShowDialog(this);
                             if (result == System.Windows.Forms.DialogResult.OK)
                             {
@@ -757,7 +787,7 @@ namespace PowerPOS
                                         row[4] = Amount;
                                         row[5] = SellP;
                                         dt.Rows.Add(row);
-
+                                        qty += Amount;
                                         returnGridControl.DataSource = dt;
 
                                     }
@@ -777,6 +807,9 @@ namespace PowerPOS
                                     lblWarranty.Text = "สินค้าชิ้นนี้" + ((day > 0) ? " ขายไปแล้ว " + day.ToString("#,###") + " วัน" : " ขายไปแล้ว " + (day * -1).ToString("#,###") + " วัน");
                                 }
                                 lblWarranty.Visible = true;
+
+                                lblListCount.Text = returnGridView.RowCount.ToString() + " รายการ";
+                                lblProductCount.Text = qty.ToString() + " ชิ้น";
 
                                 var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
                                 dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
@@ -801,11 +834,12 @@ namespace PowerPOS
                                         }
                                     }
                                 }
+
                             }
+
                         }
 
-
-                        //lblStatus.ForeColor = Color.Pink;
+                       //lblStatus.ForeColor = Color.Pink;
                         //lblStatus.Text = "พบข้อมูลสินค้าชิ้นนี้ในระบบ";
                         //_SKU = "0";
                     }

@@ -381,6 +381,7 @@
             this.creditGridControl.TabIndex = 11;
             this.creditGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.creditGridview});
+            this.creditGridControl.DoubleClick += new System.EventHandler(this.creditGridControl_DoubleClick);
             // 
             // creditGridview
             // 
