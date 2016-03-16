@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using System.Threading;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraNavBar;
 
 namespace PowerPOS
 {
@@ -125,7 +126,7 @@ namespace PowerPOS
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-
+            miPrintReceipt_Click((sender), e);
         }
 
         private void miDetail_Click(object sender, EventArgs e)
@@ -141,5 +142,38 @@ namespace PowerPOS
                 MessageBox.Show("กรุณาเลือกรายการที่ต้องการดูรายละเอียดการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void navBarControl1_MouseDown(object sender, MouseEventArgs e)
+        {
+            NavBarHitInfo hInfo = ((NavBarControl)sender).CalcHitInfo(e.Location);
+            if (hInfo.InGroupCaption && !hInfo.InGroupButton)
+                hInfo.Group.Expanded = !hInfo.Group.Expanded;
+        }
+
+        private void miPrintReceipt_Click(object sender, EventArgs e)
+        {
+            if (creditGridview.RowCount > 0)
+            {
+                sellNo = creditGridview.GetRowCellDisplayText(creditGridview.FocusedRowHandle, creditGridview.Columns["sellno"]);
+                if (Param.PrintType == "Y")
+                {
+                    var cnt = int.Parse(Param.PrintCount.ToString());
+                    for (int i = 1; i <= cnt; i++)
+                        Util.PrintReceipt(sellNo);
+                }
+                else if (Param.PrintType == "A")
+                {
+                    if (MessageBox.Show("คุณต้องการพิมพ์ใบเสร็จรับเงินหรือไม่ ?", "การพิมพ์", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        Util.PrintReceipt(sellNo);
+                }
+            }
+            else
+            {
+                MessageBox.Show("กรุณาเลือกรายการที่ต้องการพิมพ์ใบเสร็จรับเงิน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
+
     }
 }

@@ -263,6 +263,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UcReportProduct.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcReportProduct.Designer.cs">
+      <DependentUpon>UcReportProduct.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UcCredit.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -397,6 +403,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcReportProduct.resx">
+      <DependentUpon>UcReportProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcCredit.resx">
       <DependentUpon>UcCredit.cs</DependentUpon>
@@ -998,6 +1007,7 @@
     <None Include="Resources\table-money.png" />
     <None Include="Resources\person.png" />
     <None Include="Resources\dailyShop.png" />
+    <None Include="Resources\Claim.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

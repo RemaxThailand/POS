@@ -130,6 +130,9 @@
   <data name="boscheduler_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\boscheduler_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="dailyShop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dailyShop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="accept" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\accept.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -163,7 +166,7 @@
   <data name="daily" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\daily.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="dailyShop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\dailyShop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Claim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Claim.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

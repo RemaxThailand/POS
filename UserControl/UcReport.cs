@@ -316,35 +316,6 @@ namespace PowerPOS
                     measureString = sumPrice.ToString("#,##0");
                     stringSize = g.MeasureString(measureString, stringFont);
                     g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 334);
-
-                    //measureString = sumProfit.ToString("#,##0");
-                    //stringSize = g.MeasureString(measureString, stringFont);
-                    //g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width - 50), 428);
-
-                    //drawBrush = new SolidBrush(ColorTranslator.FromHtml("#fa3711"));
-                    //measureString = avgPrice.ToString("#,##0");
-                    //stringSize = g.MeasureString(measureString, stringFont);
-                    //g.DrawString(measureString, stringFont, drawBrush, (pictureEdit1.Image.Width - stringSize.Width) / 2, 618);
-
-                    //var startX = 48;
-                    //var startY = 780;
-                    //var width = 40;
-                    //var gab = 5;
-                    //var maxHeight = 250;
-                    //var whiteBrush = new SolidBrush(ColorTranslator.FromHtml("#ffa1d6"));
-                    //for (int i = 0; i < chart.Count; i++)
-                    //{
-                    //    drawBrush = new SolidBrush(ColorTranslator.FromHtml(i != chart.Count - 1 ? "#af18b1" : ((chart[i] > avgPrice) ? "#207a2b" : "#d31a1a")));
-                    //    var h = (int)(chart[i] * maxHeight / max);
-                    //    g.FillRectangle(drawBrush, new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
-                    //    g.DrawRectangle(new Pen(whiteBrush), new Rectangle(startX + ((width + gab) * i), startY + maxHeight - h, width, h));
-                    //}
-                    //if (avgPrice > 0)
-                    //{
-                    //    var y = (int)(avgPrice * maxHeight / max);
-                    //    g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight - y, 672, startY + maxHeight - y);
-                    //}
-                    //g.DrawLine(new Pen(new SolidBrush(ColorTranslator.FromHtml("#ffffff")), 1.0f), startX, startY + maxHeight, 672, startY + maxHeight);
                 }
             }
         }
@@ -417,12 +388,8 @@ namespace PowerPOS
                     e.Appearance.BackColor = Color.Salmon;
                     //e.Appearance.BackColor2 = Color.SeaShell;
                 }
-                //else
-                //{
-                //    e.Appearance.BackColor = Color.DeepSkyBlue;
-                //    e.Appearance.BackColor2 = Color.LightCyan;
-                //}
             }
         }
+
     }
 }

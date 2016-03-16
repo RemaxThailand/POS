@@ -30,7 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcCredit));
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
+            this.ptbShop = new DevExpress.XtraEditors.PictureEdit();
+            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
@@ -39,7 +46,7 @@
             this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
-            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.btnPrintReport = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
@@ -51,6 +58,7 @@
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.creditGridControl = new DevExpress.XtraGrid.GridControl();
             this.creditGridview = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -60,19 +68,33 @@
             this.clSellDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSellPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.panelControl29 = new DevExpress.XtraEditors.PanelControl();
-            this.lblListCount = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl32 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.panelControl28 = new DevExpress.XtraEditors.PanelControl();
-            this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl12 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
-            this.panelControl30 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
+            this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.lblListCount = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl32 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
+            this.navBarGroupControlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
+            this.panelControl21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
+            this.panelControl22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -97,16 +119,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.creditGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
             this.panelControl27.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl29)).BeginInit();
-            this.panelControl29.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).BeginInit();
+            this.panelControl12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
+            this.panelControl14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl32)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).BeginInit();
-            this.panelControl28.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
+            this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             this.SuspendLayout();
             // 
@@ -116,9 +141,11 @@
             this.navBarControl1.Appearance.NavigationPaneHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.navBarControl1.Appearance.NavigationPaneHeader.Options.UseFont = true;
             this.navBarControl1.Controls.Add(this.navBarGroupControlContainer2);
+            this.navBarControl1.Controls.Add(this.navBarGroupControlContainer1);
             this.navBarControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.navBarControl1.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.navBarGroup1});
+            this.navBarGroup1,
+            this.navBarGroup2});
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 248;
@@ -127,18 +154,85 @@
             this.navBarControl1.Size = new System.Drawing.Size(248, 581);
             this.navBarControl1.TabIndex = 9;
             this.navBarControl1.Text = "navBarControl1";
+            this.navBarControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.navBarControl1_MouseDown);
             // 
-            // navBarGroup1
+            // navBarGroup2
             // 
-            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.navBarGroup1.Appearance.Options.UseFont = true;
-            this.navBarGroup1.Caption = "ข้อมูลลูกหนี้";
-            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
-            this.navBarGroup1.Expanded = true;
-            this.navBarGroup1.GroupClientHeight = 80;
-            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
-            this.navBarGroup1.Name = "navBarGroup1";
+            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.navBarGroup2.Appearance.Options.UseFont = true;
+            this.navBarGroup2.Caption = "ข้อมูลชำระลูกหนี้";
+            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.GroupClientHeight = 449;
+            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
+            this.navBarGroup2.Name = "navBarGroup2";
+            // 
+            // navBarGroupControlContainer1
+            // 
+            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
+            this.navBarGroupControlContainer1.Controls.Add(this.panelControl21);
+            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(248, 449);
+            this.navBarGroupControlContainer1.TabIndex = 2;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.Controls.Add(this.panelControl22);
+            this.panelControl21.Controls.Add(this.panelControl23);
+            this.panelControl21.Controls.Add(this.groupControl1);
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl21.Location = new System.Drawing.Point(0, 0);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(248, 449);
+            this.panelControl21.TabIndex = 0;
+            // 
+            // panelControl22
+            // 
+            this.panelControl22.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl22.Controls.Add(this.ptbShop);
+            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl22.Location = new System.Drawing.Point(2, 77);
+            this.panelControl22.Name = "panelControl22";
+            this.panelControl22.Size = new System.Drawing.Size(244, 162);
+            this.panelControl22.TabIndex = 8;
+            // 
+            // ptbShop
+            // 
+            this.ptbShop.EditValue = global::PowerPOS.Properties.Resources.dailyShop;
+            this.ptbShop.Location = new System.Drawing.Point(2, 2);
+            this.ptbShop.Name = "ptbShop";
+            this.ptbShop.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.ptbShop.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.ptbShop.Size = new System.Drawing.Size(241, 157);
+            this.ptbShop.TabIndex = 4;
+            // 
+            // panelControl23
+            // 
+            this.panelControl23.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl23.Location = new System.Drawing.Point(2, 65);
+            this.panelControl23.Name = "panelControl23";
+            this.panelControl23.Size = new System.Drawing.Size(244, 12);
+            this.panelControl23.TabIndex = 7;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.dtpDate);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl1.Location = new System.Drawing.Point(2, 2);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(244, 63);
+            this.groupControl1.TabIndex = 6;
+            this.groupControl1.Text = "ค้นหาข้อมูล";
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Location = new System.Drawing.Point(31, 31);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(173, 23);
+            this.dtpDate.TabIndex = 0;
             // 
             // navBarGroupControlContainer2
             // 
@@ -146,7 +240,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl1);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(248, 495);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(248, 449);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl1
@@ -162,7 +256,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl1.Size = new System.Drawing.Size(248, 495);
+            this.panelControl1.Size = new System.Drawing.Size(248, 449);
             this.panelControl1.TabIndex = 0;
             // 
             // panelControl6
@@ -225,32 +319,31 @@
             // panelControl2
             // 
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl2.Controls.Add(this.btnPrint);
+            this.panelControl2.Controls.Add(this.btnPrintReport);
             this.panelControl2.Controls.Add(this.panelControl5);
             this.panelControl2.Controls.Add(this.panelControl4);
             this.panelControl2.Controls.Add(this.panelControl3);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(3, 440);
+            this.panelControl2.Location = new System.Drawing.Point(3, 394);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Size = new System.Drawing.Size(242, 52);
             this.panelControl2.TabIndex = 25;
             // 
-            // btnPrint
+            // btnPrintReport
             // 
-            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrint.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
-            this.btnPrint.Appearance.Options.UseFont = true;
-            this.btnPrint.Appearance.Options.UseForeColor = true;
-            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPrint.Enabled = false;
-            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
-            this.btnPrint.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            this.btnPrint.Location = new System.Drawing.Point(20, 5);
-            this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(202, 47);
-            this.btnPrint.TabIndex = 19;
-            this.btnPrint.Text = "พิมพ์รายงานลูกหนี้";
-            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            this.btnPrintReport.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintReport.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
+            this.btnPrintReport.Appearance.Options.UseFont = true;
+            this.btnPrintReport.Appearance.Options.UseForeColor = true;
+            this.btnPrintReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrintReport.Enabled = false;
+            this.btnPrintReport.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintReport.Image")));
+            this.btnPrintReport.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrintReport.Location = new System.Drawing.Point(20, 5);
+            this.btnPrintReport.Name = "btnPrintReport";
+            this.btnPrintReport.Size = new System.Drawing.Size(202, 47);
+            this.btnPrintReport.TabIndex = 19;
+            this.btnPrintReport.Text = "พิมพ์รายงานลูกหนี้";
             // 
             // panelControl5
             // 
@@ -362,6 +455,18 @@
             this.btnSearch.TabIndex = 10;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // navBarGroup1
+            // 
+            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.navBarGroup1.Appearance.Options.UseFont = true;
+            this.navBarGroup1.Caption = "ข้อมูลลูกหนี้";
+            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.GroupClientHeight = 80;
+            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
+            this.navBarGroup1.Name = "navBarGroup1";
+            // 
             // panelControl13
             // 
             this.panelControl13.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -377,7 +482,7 @@
             this.creditGridControl.Location = new System.Drawing.Point(258, 0);
             this.creditGridControl.MainView = this.creditGridview;
             this.creditGridControl.Name = "creditGridControl";
-            this.creditGridControl.Size = new System.Drawing.Size(762, 556);
+            this.creditGridControl.Size = new System.Drawing.Size(762, 528);
             this.creditGridControl.TabIndex = 11;
             this.creditGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.creditGridview});
@@ -431,7 +536,7 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.OptionsColumn.FixedWidth = true;
             this.clName.Visible = true;
-            this.clName.VisibleIndex = 1;
+            this.clName.VisibleIndex = 2;
             this.clName.Width = 200;
             // 
             // clSellNo
@@ -449,7 +554,7 @@
             this.clSellNo.OptionsColumn.AllowMove = false;
             this.clSellNo.OptionsColumn.FixedWidth = true;
             this.clSellNo.Visible = true;
-            this.clSellNo.VisibleIndex = 2;
+            this.clSellNo.VisibleIndex = 3;
             this.clSellNo.Width = 150;
             // 
             // clSellDate
@@ -467,7 +572,7 @@
             this.clSellDate.OptionsColumn.AllowMove = false;
             this.clSellDate.OptionsColumn.FixedWidth = true;
             this.clSellDate.Visible = true;
-            this.clSellDate.VisibleIndex = 3;
+            this.clSellDate.VisibleIndex = 1;
             this.clSellDate.Width = 150;
             // 
             // clSellPrice
@@ -492,115 +597,172 @@
             // 
             // panelControl27
             // 
-            this.panelControl27.Controls.Add(this.groupControl2);
-            this.panelControl27.Controls.Add(this.groupControl3);
+            this.panelControl27.Controls.Add(this.panelControl12);
+            this.panelControl27.Controls.Add(this.groupControl4);
             this.panelControl27.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl27.Location = new System.Drawing.Point(258, 556);
+            this.panelControl27.Location = new System.Drawing.Point(258, 528);
             this.panelControl27.Name = "panelControl27";
-            this.panelControl27.Size = new System.Drawing.Size(762, 25);
+            this.panelControl27.Size = new System.Drawing.Size(762, 53);
             this.panelControl27.TabIndex = 20;
             // 
-            // groupControl2
+            // panelControl12
             // 
-            this.groupControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.groupControl2.Controls.Add(this.panelControl29);
-            this.groupControl2.Controls.Add(this.panelControl32);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupControl2.Location = new System.Drawing.Point(2, 2);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.ShowCaption = false;
-            this.groupControl2.Size = new System.Drawing.Size(271, 21);
-            this.groupControl2.TabIndex = 30;
-            this.groupControl2.Text = "groupControl2";
-            // 
-            // panelControl29
-            // 
-            this.panelControl29.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl29.Controls.Add(this.lblListCount);
-            this.panelControl29.Controls.Add(this.labelControl13);
-            this.panelControl29.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl29.Location = new System.Drawing.Point(0, 0);
-            this.panelControl29.Name = "panelControl29";
-            this.panelControl29.Size = new System.Drawing.Size(178, 21);
-            this.panelControl29.TabIndex = 31;
-            // 
-            // lblListCount
-            // 
-            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListCount.Location = new System.Drawing.Point(94, 3);
-            this.lblListCount.Name = "lblListCount";
-            this.lblListCount.Size = new System.Drawing.Size(51, 16);
-            this.lblListCount.TabIndex = 25;
-            this.lblListCount.Text = "0 รายการ";
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl13.Location = new System.Drawing.Point(4, 3);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(84, 16);
-            this.labelControl13.TabIndex = 24;
-            this.labelControl13.Text = "จำนวนรายการ :";
-            // 
-            // panelControl32
-            // 
-            this.panelControl32.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl32.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl32.Location = new System.Drawing.Point(178, 0);
-            this.panelControl32.Name = "panelControl32";
-            this.panelControl32.Size = new System.Drawing.Size(93, 21);
-            this.panelControl32.TabIndex = 24;
-            // 
-            // groupControl3
-            // 
-            this.groupControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.groupControl3.Controls.Add(this.panelControl28);
-            this.groupControl3.Controls.Add(this.panelControl30);
-            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl3.Location = new System.Drawing.Point(493, 2);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.ShowCaption = false;
-            this.groupControl3.Size = new System.Drawing.Size(267, 21);
-            this.groupControl3.TabIndex = 29;
-            this.groupControl3.Text = "groupControl3";
-            // 
-            // panelControl28
-            // 
-            this.panelControl28.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl28.Controls.Add(this.lblProductCount);
-            this.panelControl28.Controls.Add(this.labelControl10);
-            this.panelControl28.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl28.Location = new System.Drawing.Point(76, 0);
-            this.panelControl28.Name = "panelControl28";
-            this.panelControl28.Size = new System.Drawing.Size(191, 21);
-            this.panelControl28.TabIndex = 30;
-            // 
-            // lblProductCount
-            // 
-            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductCount.Location = new System.Drawing.Point(99, 3);
-            this.lblProductCount.Name = "lblProductCount";
-            this.lblProductCount.Size = new System.Drawing.Size(34, 16);
-            this.lblProductCount.TabIndex = 23;
-            this.lblProductCount.Text = "0 บาท";
+            this.panelControl12.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl12.Controls.Add(this.labelControl10);
+            this.panelControl12.Controls.Add(this.panelControl16);
+            this.panelControl12.Controls.Add(this.lblProductCount);
+            this.panelControl12.Controls.Add(this.panelControl15);
+            this.panelControl12.Controls.Add(this.panelControl14);
+            this.panelControl12.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl12.Location = new System.Drawing.Point(244, 2);
+            this.panelControl12.Name = "panelControl12";
+            this.panelControl12.Size = new System.Drawing.Size(516, 49);
+            this.panelControl12.TabIndex = 32;
             // 
             // labelControl10
             // 
             this.labelControl10.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl10.Location = new System.Drawing.Point(1, 3);
+            this.labelControl10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelControl10.Location = new System.Drawing.Point(375, 25);
             this.labelControl10.Name = "labelControl10";
             this.labelControl10.Size = new System.Drawing.Size(92, 16);
             this.labelControl10.TabIndex = 20;
             this.labelControl10.Text = "ยอดรวมทั้งหมด :";
             // 
-            // panelControl30
+            // panelControl16
             // 
-            this.panelControl30.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl30.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl30.Location = new System.Drawing.Point(0, 0);
-            this.panelControl30.Name = "panelControl30";
-            this.panelControl30.Size = new System.Drawing.Size(71, 21);
-            this.panelControl30.TabIndex = 31;
+            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl16.Location = new System.Drawing.Point(467, 25);
+            this.panelControl16.Name = "panelControl16";
+            this.panelControl16.Size = new System.Drawing.Size(5, 24);
+            this.panelControl16.TabIndex = 35;
+            // 
+            // lblProductCount
+            // 
+            this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProductCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblProductCount.Location = new System.Drawing.Point(472, 25);
+            this.lblProductCount.Name = "lblProductCount";
+            this.lblProductCount.Size = new System.Drawing.Size(34, 16);
+            this.lblProductCount.TabIndex = 23;
+            this.lblProductCount.Text = "0 บาท";
+            // 
+            // panelControl15
+            // 
+            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl15.Location = new System.Drawing.Point(506, 25);
+            this.panelControl15.Name = "panelControl15";
+            this.panelControl15.Size = new System.Drawing.Size(10, 24);
+            this.panelControl15.TabIndex = 34;
+            // 
+            // panelControl14
+            // 
+            this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl14.Controls.Add(this.labelControl13);
+            this.panelControl14.Controls.Add(this.panelControl17);
+            this.panelControl14.Controls.Add(this.lblListCount);
+            this.panelControl14.Controls.Add(this.panelControl32);
+            this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl14.Location = new System.Drawing.Point(0, 0);
+            this.panelControl14.Name = "panelControl14";
+            this.panelControl14.Size = new System.Drawing.Size(516, 25);
+            this.panelControl14.TabIndex = 33;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Dock = System.Windows.Forms.DockStyle.Right;
+            this.labelControl13.Location = new System.Drawing.Point(366, 0);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(84, 16);
+            this.labelControl13.TabIndex = 24;
+            this.labelControl13.Text = "จำนวนรายการ :";
+            // 
+            // panelControl17
+            // 
+            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl17.Location = new System.Drawing.Point(450, 0);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(5, 25);
+            this.panelControl17.TabIndex = 36;
+            // 
+            // lblListCount
+            // 
+            this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblListCount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblListCount.Location = new System.Drawing.Point(455, 0);
+            this.lblListCount.Name = "lblListCount";
+            this.lblListCount.Size = new System.Drawing.Size(51, 16);
+            this.lblListCount.TabIndex = 25;
+            this.lblListCount.Text = "0 รายการ";
+            // 
+            // panelControl32
+            // 
+            this.panelControl32.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl32.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl32.Location = new System.Drawing.Point(506, 0);
+            this.panelControl32.Name = "panelControl32";
+            this.panelControl32.Size = new System.Drawing.Size(10, 25);
+            this.panelControl32.TabIndex = 31;
+            // 
+            // groupControl4
+            // 
+            this.groupControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl4.Controls.Add(this.btnPrint);
+            this.groupControl4.Controls.Add(this.panelControl20);
+            this.groupControl4.Controls.Add(this.panelControl19);
+            this.groupControl4.Controls.Add(this.panelControl18);
+            this.groupControl4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl4.Location = new System.Drawing.Point(2, 2);
+            this.groupControl4.Name = "groupControl4";
+            this.groupControl4.ShowCaption = false;
+            this.groupControl4.Size = new System.Drawing.Size(222, 49);
+            this.groupControl4.TabIndex = 31;
+            this.groupControl4.Text = "groupControl4";
+            // 
+            // btnPrint
+            // 
+            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Appearance.Options.UseFont = true;
+            this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
+            this.btnPrint.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrint.Location = new System.Drawing.Point(0, 4);
+            this.btnPrint.Name = "btnPrint";
+            this.btnPrint.Size = new System.Drawing.Size(178, 41);
+            this.btnPrint.TabIndex = 0;
+            this.btnPrint.Text = "พิมพ์ใบเสร็จรับเงิน";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // panelControl20
+            // 
+            this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl20.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl20.Location = new System.Drawing.Point(0, 45);
+            this.panelControl20.Name = "panelControl20";
+            this.panelControl20.Size = new System.Drawing.Size(178, 4);
+            this.panelControl20.TabIndex = 20;
+            // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl19.Location = new System.Drawing.Point(0, 0);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(178, 4);
+            this.panelControl19.TabIndex = 19;
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl18.Location = new System.Drawing.Point(178, 0);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(44, 49);
+            this.panelControl18.TabIndex = 18;
             // 
             // panelControl11
             // 
@@ -625,6 +787,15 @@
             this.Load += new System.EventHandler(this.UcCredit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
+            this.navBarGroupControlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
+            this.panelControl21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
+            this.panelControl22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
@@ -649,18 +820,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.creditGridview)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
             this.panelControl27.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl29)).EndInit();
-            this.panelControl29.ResumeLayout(false);
-            this.panelControl29.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).EndInit();
+            this.panelControl12.ResumeLayout(false);
+            this.panelControl12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
+            this.panelControl14.ResumeLayout(false);
+            this.panelControl14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl32)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).EndInit();
-            this.panelControl28.ResumeLayout(false);
-            this.panelControl28.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
+            this.groupControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             this.ResumeLayout(false);
 
@@ -683,13 +857,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn clName;
         private DevExpress.XtraGrid.Columns.GridColumn clSellNo;
         private DevExpress.XtraEditors.PanelControl panelControl27;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
-        private DevExpress.XtraEditors.PanelControl panelControl29;
-        private DevExpress.XtraEditors.LabelControl lblListCount;
-        private DevExpress.XtraEditors.LabelControl labelControl13;
-        private DevExpress.XtraEditors.PanelControl panelControl32;
-        private DevExpress.XtraEditors.GroupControl groupControl3;
-        private DevExpress.XtraEditors.PanelControl panelControl28;
         private DevExpress.XtraEditors.LabelControl lblProductCount;
         private DevExpress.XtraEditors.LabelControl labelControl10;
         private System.Windows.Forms.DateTimePicker dtpEndDate;
@@ -697,7 +864,7 @@
         private DevExpress.XtraEditors.CheckEdit cbPaid;
         private DevExpress.XtraGrid.Columns.GridColumn clSellDate;
         private DevExpress.XtraGrid.Columns.GridColumn clSellPrice;
-        private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraEditors.SimpleButton btnPrintReport;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl4;
@@ -709,6 +876,26 @@
         private DevExpress.XtraEditors.PanelControl panelControl9;
         private DevExpress.XtraEditors.PanelControl panelControl10;
         private DevExpress.XtraEditors.PanelControl panelControl11;
-        private DevExpress.XtraEditors.PanelControl panelControl30;
+        private DevExpress.XtraEditors.PanelControl panelControl12;
+        private DevExpress.XtraEditors.PanelControl panelControl16;
+        private DevExpress.XtraEditors.PanelControl panelControl15;
+        private DevExpress.XtraEditors.PanelControl panelControl14;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.PanelControl panelControl17;
+        private DevExpress.XtraEditors.LabelControl lblListCount;
+        private DevExpress.XtraEditors.PanelControl panelControl32;
+        private DevExpress.XtraEditors.GroupControl groupControl4;
+        private DevExpress.XtraEditors.SimpleButton btnPrint;
+        private DevExpress.XtraEditors.PanelControl panelControl20;
+        private DevExpress.XtraEditors.PanelControl panelControl19;
+        private DevExpress.XtraEditors.PanelControl panelControl18;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroup2;
+        private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
+        private DevExpress.XtraEditors.PanelControl panelControl21;
+        private DevExpress.XtraEditors.PanelControl panelControl22;
+        private DevExpress.XtraEditors.PictureEdit ptbShop;
+        private DevExpress.XtraEditors.PanelControl panelControl23;
+        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private System.Windows.Forms.DateTimePicker dtpDate;
     }
 }

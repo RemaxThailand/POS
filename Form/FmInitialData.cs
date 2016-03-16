@@ -202,7 +202,7 @@ namespace PowerPOS
             var i = 0;
             var d = 0;
 
-            Util.DBExecute(string.Format(@"DELETE FROM Barcode"));
+            Util.DBExecute(string.Format(@"DELETE FROM Barcode WHERE sync = 0"));
 
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS  Barcode (
                 shop NVARCHAR(10) NOT NULL,
@@ -274,7 +274,7 @@ namespace PowerPOS
             LoadCategory(Param.ShopId);
             LoadBrand(Param.ShopId);
 
-            Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder"));
+            Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder WHERE sync = 0"));
 
             //PurchaseOrder
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS PurchaseOrder (

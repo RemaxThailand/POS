@@ -26,6 +26,7 @@ namespace PowerPOS
         UcClaim _UC_CLAIM;
         UcStatistic _UC_STATISTIC;
         UcCredit _UC_CREDIT;
+        UcReportProduct _UC_REPORT_PORDUCT;
         #endregion
 
         public Main()
@@ -138,7 +139,10 @@ namespace PowerPOS
         #region Menu Click Event
         private void navExit_ElementClick(object sender, DevExpress.XtraBars.Navigation.NavElementEventArgs e)
         {
-            this.Dispose();
+            if (MessageBox.Show("คุณต้องการ ออกจากระบบใช่หรือไม่", "ยืนยันการออกจากระบบ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.Dispose();
+            }
         }
 
         private void tileNavPane1_TileClick(object sender, DevExpress.XtraBars.Navigation.NavElementEventArgs e)
@@ -187,6 +191,11 @@ namespace PowerPOS
             {
                 InitialCloudData();
             }
+            else if (e.Element.Name == "navReportProduct")
+            {
+                AddPanel(Param.Screen.ReportProduct);
+            }
+            
         }
         #endregion
 
@@ -246,6 +255,11 @@ namespace PowerPOS
                     if (_UC_CREDIT == null) _UC_CREDIT = new UcCredit();
                     _USER_CONTROL = _UC_CREDIT;
                     _UC_CREDIT.LoadData();
+                    break;
+                case Param.Screen.ReportProduct:
+                    if (_UC_REPORT_PORDUCT == null) _UC_REPORT_PORDUCT = new UcReportProduct();
+                    _USER_CONTROL = _UC_REPORT_PORDUCT;
+                    _UC_REPORT_PORDUCT.LoadData();
                     break;
             }
             if (!pnlMain.Contains(_USER_CONTROL))

@@ -19,7 +19,7 @@ namespace PowerPOS
         //public static string ApiUrl = "http://api.powerdd.com";
         //public static string ApiKey = "27AD365F-FBFF-4994-BB9C-97ABAF80EFBB";
 
-        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit };
+        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit, ReportProduct };
         public static string[] thaiMonth = { "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" };
 
         public static string ApiShopId; //= "5BB7C6B3-F6D0-4926-B14F-C580DD148612";
@@ -59,6 +59,7 @@ namespace PowerPOS
         public static string BarcodeNo;
         public static string SellNo;
         public static string status;
+        public static string SelectProduct;
 
         public static string SelectCustomerId;
         public static string SelectCustomerName;
