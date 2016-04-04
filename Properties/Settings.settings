@@ -39,7 +39,7 @@
       <Value Profile="(Default)">1300D462-2B4E-4235-B617-02537B4127D1</Value>
     </Setting>
     <Setting Name="LogoPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">https://src.remaxthailand.co.th/img/web/logo/remax.png</Value>
     </Setting>
     <Setting Name="MemberType" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

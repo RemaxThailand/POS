@@ -370,6 +370,7 @@
             this.navBarControl1.Size = new System.Drawing.Size(227, 717);
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "navBarControl1";
+            this.navBarControl1.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl1_ActiveGroupChanged);
             // 
             // navBarGroup1
             // 

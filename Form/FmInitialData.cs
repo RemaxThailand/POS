@@ -202,7 +202,7 @@ namespace PowerPOS
             var i = 0;
             var d = 0;
 
-            Util.DBExecute(string.Format(@"DELETE FROM Barcode WHERE sync = 0"));
+            //Util.DBExecute(string.Format(@"DELETE FROM Barcode WHERE sync = 0"));
 
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS  Barcode (
                 shop NVARCHAR(10) NOT NULL,

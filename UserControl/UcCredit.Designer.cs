@@ -84,6 +84,14 @@
             this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
+            this.paidGridControl = new DevExpress.XtraGrid.GridControl();
+            this.paidGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.clPNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPName = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPSellNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPSellDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPSellPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPaidPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer1.SuspendLayout();
@@ -133,11 +141,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paidGridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paidGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
             // 
-            this.navBarControl1.ActiveGroup = this.navBarGroup1;
+            this.navBarControl1.ActiveGroup = this.navBarGroup2;
             this.navBarControl1.Appearance.NavigationPaneHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.navBarControl1.Appearance.NavigationPaneHeader.Options.UseFont = true;
             this.navBarControl1.Controls.Add(this.navBarGroupControlContainer2);
@@ -154,6 +164,7 @@
             this.navBarControl1.Size = new System.Drawing.Size(248, 581);
             this.navBarControl1.TabIndex = 9;
             this.navBarControl1.Text = "navBarControl1";
+            this.navBarControl1.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl1_ActiveGroupChanged);
             this.navBarControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.navBarControl1_MouseDown);
             // 
             // navBarGroup2
@@ -162,6 +173,7 @@
             this.navBarGroup2.Appearance.Options.UseFont = true;
             this.navBarGroup2.Caption = "ข้อมูลชำระลูกหนี้";
             this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.Expanded = true;
             this.navBarGroup2.GroupClientHeight = 449;
             this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
             this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
@@ -194,17 +206,17 @@
             this.panelControl22.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl22.Location = new System.Drawing.Point(2, 77);
             this.panelControl22.Name = "panelControl22";
-            this.panelControl22.Size = new System.Drawing.Size(244, 162);
+            this.panelControl22.Size = new System.Drawing.Size(244, 180);
             this.panelControl22.TabIndex = 8;
             // 
             // ptbShop
             // 
-            this.ptbShop.EditValue = global::PowerPOS.Properties.Resources.dailyShop;
+            this.ptbShop.EditValue = global::PowerPOS.Properties.Resources.Credit;
             this.ptbShop.Location = new System.Drawing.Point(2, 2);
             this.ptbShop.Name = "ptbShop";
             this.ptbShop.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
             this.ptbShop.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.ptbShop.Size = new System.Drawing.Size(241, 157);
+            this.ptbShop.Size = new System.Drawing.Size(241, 175);
             this.ptbShop.TabIndex = 4;
             // 
             // panelControl23
@@ -233,6 +245,7 @@
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(173, 23);
             this.dtpDate.TabIndex = 0;
+            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
             // navBarGroupControlContainer2
             // 
@@ -461,7 +474,6 @@
             this.navBarGroup1.Appearance.Options.UseFont = true;
             this.navBarGroup1.Caption = "ข้อมูลลูกหนี้";
             this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
-            this.navBarGroup1.Expanded = true;
             this.navBarGroup1.GroupClientHeight = 80;
             this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
             this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
@@ -536,7 +548,7 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.OptionsColumn.FixedWidth = true;
             this.clName.Visible = true;
-            this.clName.VisibleIndex = 2;
+            this.clName.VisibleIndex = 3;
             this.clName.Width = 200;
             // 
             // clSellNo
@@ -554,7 +566,7 @@
             this.clSellNo.OptionsColumn.AllowMove = false;
             this.clSellNo.OptionsColumn.FixedWidth = true;
             this.clSellNo.Visible = true;
-            this.clSellNo.VisibleIndex = 3;
+            this.clSellNo.VisibleIndex = 1;
             this.clSellNo.Width = 150;
             // 
             // clSellDate
@@ -572,7 +584,7 @@
             this.clSellDate.OptionsColumn.AllowMove = false;
             this.clSellDate.OptionsColumn.FixedWidth = true;
             this.clSellDate.Visible = true;
-            this.clSellDate.VisibleIndex = 1;
+            this.clSellDate.VisibleIndex = 2;
             this.clSellDate.Width = 150;
             // 
             // clSellPrice
@@ -773,10 +785,155 @@
             this.panelControl11.Size = new System.Drawing.Size(10, 581);
             this.panelControl11.TabIndex = 21;
             // 
+            // paidGridControl
+            // 
+            this.paidGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paidGridControl.Location = new System.Drawing.Point(258, 0);
+            this.paidGridControl.MainView = this.paidGridView;
+            this.paidGridControl.Name = "paidGridControl";
+            this.paidGridControl.Size = new System.Drawing.Size(762, 528);
+            this.paidGridControl.TabIndex = 22;
+            this.paidGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.paidGridView});
+            this.paidGridControl.Visible = false;
+            // 
+            // paidGridView
+            // 
+            this.paidGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.clPNo,
+            this.clPName,
+            this.clPSellNo,
+            this.clPSellDate,
+            this.clPSellPrice,
+            this.clPaidPrice});
+            this.paidGridView.GridControl = this.paidGridControl;
+            this.paidGridView.Name = "paidGridView";
+            this.paidGridView.OptionsView.ShowGroupPanel = false;
+            // 
+            // clPNo
+            // 
+            this.clPNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPNo.AppearanceCell.Options.UseFont = true;
+            this.clPNo.AppearanceCell.Options.UseTextOptions = true;
+            this.clPNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPNo.AppearanceHeader.Options.UseFont = true;
+            this.clPNo.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPNo.Caption = "ที่";
+            this.clPNo.FieldName = "No";
+            this.clPNo.Name = "clPNo";
+            this.clPNo.OptionsColumn.AllowEdit = false;
+            this.clPNo.OptionsColumn.AllowMove = false;
+            this.clPNo.OptionsColumn.AllowSize = false;
+            this.clPNo.OptionsColumn.FixedWidth = true;
+            this.clPNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.clPNo.Visible = true;
+            this.clPNo.VisibleIndex = 0;
+            this.clPNo.Width = 40;
+            // 
+            // clPName
+            // 
+            this.clPName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPName.AppearanceCell.Options.UseFont = true;
+            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPName.AppearanceHeader.Options.UseFont = true;
+            this.clPName.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPName.Caption = "ชื่อลูกค้า";
+            this.clPName.FieldName = "name";
+            this.clPName.Name = "clPName";
+            this.clPName.OptionsColumn.AllowEdit = false;
+            this.clPName.OptionsColumn.AllowMove = false;
+            this.clPName.OptionsColumn.AllowSize = false;
+            this.clPName.OptionsColumn.FixedWidth = true;
+            this.clPName.Visible = true;
+            this.clPName.VisibleIndex = 3;
+            this.clPName.Width = 180;
+            // 
+            // clPSellNo
+            // 
+            this.clPSellNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellNo.AppearanceCell.Options.UseFont = true;
+            this.clPSellNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellNo.AppearanceHeader.Options.UseFont = true;
+            this.clPSellNo.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPSellNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPSellNo.Caption = "เลขที่บิล";
+            this.clPSellNo.FieldName = "sellno";
+            this.clPSellNo.Name = "clPSellNo";
+            this.clPSellNo.OptionsColumn.AllowEdit = false;
+            this.clPSellNo.OptionsColumn.AllowMove = false;
+            this.clPSellNo.OptionsColumn.AllowSize = false;
+            this.clPSellNo.OptionsColumn.FixedWidth = true;
+            this.clPSellNo.Visible = true;
+            this.clPSellNo.VisibleIndex = 1;
+            this.clPSellNo.Width = 150;
+            // 
+            // clPSellDate
+            // 
+            this.clPSellDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellDate.AppearanceCell.Options.UseFont = true;
+            this.clPSellDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellDate.AppearanceHeader.Options.UseFont = true;
+            this.clPSellDate.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPSellDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPSellDate.Caption = "วันที่ขาย";
+            this.clPSellDate.FieldName = "selldate";
+            this.clPSellDate.Name = "clPSellDate";
+            this.clPSellDate.OptionsColumn.AllowEdit = false;
+            this.clPSellDate.OptionsColumn.AllowMove = false;
+            this.clPSellDate.OptionsColumn.AllowSize = false;
+            this.clPSellDate.OptionsColumn.FixedWidth = true;
+            this.clPSellDate.Visible = true;
+            this.clPSellDate.VisibleIndex = 2;
+            this.clPSellDate.Width = 150;
+            // 
+            // clPSellPrice
+            // 
+            this.clPSellPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellPrice.AppearanceCell.Options.UseFont = true;
+            this.clPSellPrice.AppearanceCell.Options.UseTextOptions = true;
+            this.clPSellPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.clPSellPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPSellPrice.AppearanceHeader.Options.UseFont = true;
+            this.clPSellPrice.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPSellPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPSellPrice.Caption = "จำนวนเงิน";
+            this.clPSellPrice.FieldName = "sellPrice";
+            this.clPSellPrice.Name = "clPSellPrice";
+            this.clPSellPrice.OptionsColumn.AllowEdit = false;
+            this.clPSellPrice.OptionsColumn.AllowMove = false;
+            this.clPSellPrice.OptionsColumn.AllowSize = false;
+            this.clPSellPrice.OptionsColumn.FixedWidth = true;
+            this.clPSellPrice.Visible = true;
+            this.clPSellPrice.VisibleIndex = 4;
+            this.clPSellPrice.Width = 150;
+            // 
+            // clPaidPrice
+            // 
+            this.clPaidPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPaidPrice.AppearanceCell.Options.UseFont = true;
+            this.clPaidPrice.AppearanceCell.Options.UseTextOptions = true;
+            this.clPaidPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.clPaidPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPaidPrice.AppearanceHeader.Options.UseFont = true;
+            this.clPaidPrice.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPaidPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clPaidPrice.Caption = "จำนวนเงินชำระ";
+            this.clPaidPrice.FieldName = "paidPrice";
+            this.clPaidPrice.Name = "clPaidPrice";
+            this.clPaidPrice.OptionsColumn.AllowEdit = false;
+            this.clPaidPrice.OptionsColumn.AllowMove = false;
+            this.clPaidPrice.OptionsColumn.AllowSize = false;
+            this.clPaidPrice.OptionsColumn.FixedWidth = true;
+            this.clPaidPrice.Width = 150;
+            // 
             // UcCredit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.paidGridControl);
             this.Controls.Add(this.creditGridControl);
             this.Controls.Add(this.panelControl27);
             this.Controls.Add(this.panelControl11);
@@ -836,6 +993,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paidGridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paidGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -897,5 +1056,13 @@
         private DevExpress.XtraEditors.PanelControl panelControl23;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private System.Windows.Forms.DateTimePicker dtpDate;
+        private DevExpress.XtraGrid.GridControl paidGridControl;
+        private DevExpress.XtraGrid.Views.Grid.GridView paidGridView;
+        private DevExpress.XtraGrid.Columns.GridColumn clPNo;
+        private DevExpress.XtraGrid.Columns.GridColumn clPName;
+        private DevExpress.XtraGrid.Columns.GridColumn clPSellNo;
+        private DevExpress.XtraGrid.Columns.GridColumn clPSellDate;
+        private DevExpress.XtraGrid.Columns.GridColumn clPSellPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn clPaidPrice;
     }
 }

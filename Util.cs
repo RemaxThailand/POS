@@ -143,7 +143,7 @@ namespace PowerPOS
                         Param.ShopType = jsonApplication.result[0].shopType;
                         Param.ShopType = jsonApplication.result[0].shopType;
                         Param.ShopCost = jsonApplication.result[0].shopCost;
-                        Param.PrintCount = jsonApplication.result[0].printcount;
+                        Param.PrintCount = jsonApplication.result[0].printCount;
                         Param.PrintType = jsonApplication.result[0].printType;
                         Param.PrintLogo = jsonApplication.result[0].printLogo;
                         Param.HeaderName = jsonApplication.result[0].headerName;
@@ -892,7 +892,7 @@ namespace PowerPOS
         {
             DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
 
-            var hight = 195 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
+            var hight = 225 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
             //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
             //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
             PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
@@ -945,7 +945,7 @@ namespace PowerPOS
 
                     }
                     Image image = Image.FromFile(Param.LogoPath);
-                    Rectangle destRect = new Rectangle(0, 0, width, 64);
+                    Rectangle destRect = new Rectangle(0, 0, width, 100);
                     //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
                     g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
                 }
@@ -953,16 +953,16 @@ namespace PowerPOS
 
                 SolidBrush brush = new SolidBrush(Color.Black);
                 Font stringFont = new Font("Calibri", 6);
-                if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
-                {
-                    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
-                    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
-                    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
-                    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
-                }
+                //if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
+                //{
+                //    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                //    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                //    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                //    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                //}
 
                 var pX = 0;
-                var pY = 65;
+                var pY = 90;
                 stringFont = new Font("Calibri", 7);
                 g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 

@@ -39,7 +39,8 @@ namespace PowerPOS
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try
             {
-                ptbShop.Image = new Bitmap(PowerPOS.Properties.Resources.Claim);
+                ptbShop.Image = new Bitmap(Properties.Resources.Claim);
+
 
                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
                  SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, h.TotalPrice
@@ -103,7 +104,7 @@ namespace PowerPOS
         private void DrawImage(double sumPrice, double sumProfit)
         {
             ptbShop.Visible = true;
-            ptbShop.Image = new Bitmap(Properties.Resources.dailyShop);
+            ptbShop.Image = new Bitmap(Properties.Resources.Claim);
 
             using (Graphics g = Graphics.FromImage(ptbShop.Image))
             {
@@ -125,14 +126,14 @@ namespace PowerPOS
                 drawBrush = new SolidBrush(ColorTranslator.FromHtml("#263e74"));
                 measureString = "วันที่ " + dtpDate.Value.ToString("dd MMMM yyyy");
                 stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (ptbShop.Image.Width - stringSize.Width) / 2, 230);
+                g.DrawString(measureString, stringFont, drawBrush, (ptbShop.Image.Width - stringSize.Width) / 2, 200);
 
 
                 stringFont = new Font("DilleniaUPC", 80, FontStyle.Bold);
                 drawBrush = new SolidBrush(ColorTranslator.FromHtml("#f40c43"));
                 measureString = sumPrice.ToString("#,##0");
                 stringSize = g.MeasureString(measureString, stringFont);
-                g.DrawString(measureString, stringFont, drawBrush, (ptbShop.Image.Width - stringSize.Width - 50), 334);
+                g.DrawString(measureString, stringFont, drawBrush, (ptbShop.Image.Width - stringSize.Width - 50), 300);
 
             }
         }

@@ -133,6 +133,16 @@ namespace PowerPOS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Credit {
+            get {
+                object obj = ResourceManager.GetObject("Credit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap daily {
             get {
                 object obj = ResourceManager.GetObject("daily", resourceCulture);

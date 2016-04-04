@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcConfig));
             this.gbxBill = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
+            this.lblVersion = new DevExpress.XtraEditors.LabelControl();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.btnSaveBill = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
@@ -148,7 +148,7 @@
             // panelControl1
             // 
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.labelControl1);
+            this.panelControl1.Controls.Add(this.lblVersion);
             this.panelControl1.Controls.Add(this.panelControl13);
             this.panelControl1.Controls.Add(this.panelControl14);
             this.panelControl1.Controls.Add(this.groupControl4);
@@ -167,15 +167,16 @@
             this.panelControl1.Size = new System.Drawing.Size(304, 588);
             this.panelControl1.TabIndex = 0;
             // 
-            // labelControl1
+            // lblVersion
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelControl1.Location = new System.Drawing.Point(10, 572);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(59, 16);
-            this.labelControl1.TabIndex = 1;
-            this.labelControl1.Text = "V 1.0.0.18";
+            this.lblVersion.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblVersion.Location = new System.Drawing.Point(10, 572);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(59, 16);
+            this.lblVersion.TabIndex = 1;
+            this.lblVersion.Text = "V 1.0.0.20";
+            this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
             // panelControl13
             // 
@@ -841,7 +842,7 @@
         private System.Windows.Forms.RadioButton rdbNotPrint;
         private DevExpress.XtraEditors.PanelControl panelControl20;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
+        private DevExpress.XtraEditors.LabelControl lblVersion;
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraEditors.LabelControl lblDeviceName;

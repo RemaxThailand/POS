@@ -120,7 +120,7 @@ namespace PowerPOS
 
                 reportGridControl.DataSource = dt;
 
-                lblListCount.Text = reportGridView.RowCount.ToString() + " รายการ";
+                lblListCount.Text = reportGridView.RowCount.ToString("#,##0") + " รายการ";
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
 
@@ -132,8 +132,7 @@ namespace PowerPOS
                               AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
-
-                lblProductCount.Text = dtQty.Rows[0]["QTY"].ToString() + " ชิ้น";
+                lblProductCount.Text = int.Parse(dtQty.Rows[0]["QTY"].ToString()).ToString("#,##0") + " ชิ้น";
 
                 try
                 {

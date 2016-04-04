@@ -134,7 +134,7 @@ namespace PowerPOS
                 }
                 else if (Param.status == "Return")
                 {
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM SellDetail WHERE Product = '{0}' GROUP BY Product", Param.product));
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, SUM(Quantity) Quantity FROM SellDetail WHERE Product = '{0}' GROUP BY Product", Param.product));
 
                     if (dt.Rows[0]["Quantity"].ToString() == "0")
                     {

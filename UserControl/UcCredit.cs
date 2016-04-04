@@ -89,6 +89,62 @@ namespace PowerPOS
 
         }
 
+        public void LoadDataPaid()
+        {
+
+            DataTable dt;
+            DataRow row;
+            int i, a;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            sellNo = "";
+            _TOTAL = 0;
+            _TABLE_CREDIT = Util.DBQuery(string.Format(@"SELECT c.firstname||' '||c.lastname name, sh.sellNo, sh.sellDate, sh.totalPrice
+                    FROM CreditCustomer cc
+                LEFT JOIN SellHeader sh
+                ON cc.sellNo = sh.sellNo
+                LEFT JOIN Customer c
+                ON c.customer = sh.customer
+                WHERE (sh.sellNo LIKE '%{1}%' OR c.firstname LIKE '%{1}%' OR c.lastname LIKE '%{1}%')
+                AND SUBSTR(sh.SellDate,1,10) LIKE '%{0}%' 
+                AND sh.Customer NOT IN ('000001','000002')
+                AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
+                AND payType = 1", Convert.ToDateTime(dtpDate.Value).ToString("yyyy-MM-dd"),  txtSearch.Text.Trim()
+            ));
+
+            paidGridView.OptionsBehavior.AutoPopulateColumns = false;
+            paidGridControl.MainView = paidGridView;
+            btnPaid.Enabled = false;
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
+
+            dt = new DataTable();
+            for (i = 0; i < ((ColumnView)paidGridControl.MainView).Columns.Count; i++)
+            {
+                dt.Columns.Add(paidGridView.Columns[i].FieldName);
+            }
+
+            for (a = 0; a < _TABLE_CREDIT.Rows.Count; a++)
+            {
+                //int warranty = int.Parse(_TABLE_CREDIT.Rows[a]["Warranty"].ToString());
+                row = dt.NewRow();
+                row[0] = (a + 1) * 1;
+                row[1] = _TABLE_CREDIT.Rows[a]["name"].ToString();
+                row[2] = _TABLE_CREDIT.Rows[a]["sellNo"].ToString();
+                row[3] = Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                row[4] = Convert.ToInt32(_TABLE_CREDIT.Rows[a]["totalPrice"]).ToString("#,##0");
+                _TOTAL += int.Parse(_TABLE_CREDIT.Rows[a]["totalPrice"].ToString());
+
+                dt.Rows.Add(row);
+
+                btnPaid.Enabled = true;
+            }
+
+            paidGridControl.DataSource = dt;
+
+            lblListCount.Text = paidGridView.RowCount.ToString("#,##0") + " รายการ";
+            lblProductCount.Text = _TOTAL.ToString("#,##0") + " บาท";
+
+        }
+
         private void cbPaid_CheckedChanged(object sender, EventArgs e)
         {
             LoadData();
@@ -150,6 +206,27 @@ namespace PowerPOS
                 hInfo.Group.Expanded = !hInfo.Group.Expanded;
         }
 
+        private void dtpDate_ValueChanged(object sender, EventArgs e)
+        {
+            LoadDataPaid();
+        }
+
+        private void navBarControl1_ActiveGroupChanged(object sender, NavBarGroupEventArgs e)
+        {
+            if (navBarControl1.ActiveGroup.Caption == "ข้อมูลลูกหนี้")
+            {
+                LoadData();
+                creditGridControl.Visible = true;
+                paidGridControl.Visible = false;
+            }
+            else
+            {
+                LoadDataPaid();
+                creditGridControl.Visible = false;
+                paidGridControl.Visible = true;
+            }
+        }
+
         private void miPrintReceipt_Click(object sender, EventArgs e)
         {
             if (creditGridview.RowCount > 0)
@@ -172,8 +249,5 @@ namespace PowerPOS
                 MessageBox.Show("กรุณาเลือกรายการที่ต้องการพิมพ์ใบเสร็จรับเงิน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-
-
     }
 }

@@ -250,5 +250,11 @@ namespace PowerPOS
                 btnSaveBill.Enabled = true;
             }
         }
+
+        private void lblVersion_MouseClick(object sender, MouseEventArgs e)
+        {
+            FmPosDetail frm = new FmPosDetail();
+            var result = frm.ShowDialog(this);
+        }
     }
 }

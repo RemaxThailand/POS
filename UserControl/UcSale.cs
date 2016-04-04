@@ -95,12 +95,25 @@ namespace PowerPOS
 
             if (dt.Rows.Count > 0)
             {
-                int b = 0;
-                for (b = 0; b < dt.Rows.Count; b++)
-                {
+                //int b = 0;
+                //for (b = 0; b < dt.Rows.Count; b++)
+                //{
                     Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE Barcode.product = p.product AND p.shop = '{2}'), Sync = 1 WHERE SellBy = '{0}' AND barcode = '{4}'", Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, dt.Rows[b]["barcode"].ToString()));
-                }
+                            WHERE NOT EXISTS (SELECT *
+                          FROM ChangePrice cp
+                          WHERE Barcode.product = cp.product
+                          AND cp.SellNo = '{0}')
+                        AND Barcode.SellBy = '{0}' 
+                        AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
+                        Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
+                          FROM ChangePrice cp
+                          WHERE Barcode.product = cp.product
+                          AND cp.SellNo = '{0}'
+                        AND Barcode.SellBy = '{0}' ) WHERE SellBy = '{0}' AND sellPrice IS NULL",
+                       Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                //}
             }
 
             dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
@@ -982,6 +995,20 @@ namespace PowerPOS
                 Console.WriteLine(ex.ToString());
             }
 
+        }
+
+        private void navBarControl1_ActiveGroupChanged(object sender, DevExpress.XtraNavBar.NavBarGroupEventArgs e)
+        {
+            if (navBarControl1.ActiveGroup.Caption == "ขายสินค้า")
+            {
+                productGridControl.Visible = true;
+                returnGridControl.Visible = false;
+            }
+            else               
+            {
+                productGridControl.Visible = false;
+                returnGridControl.Visible = true;
+            }
         }
 
         private void productGridView_CellValueChanged(object sender, CellValueChangedEventArgs e)

@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -12,6 +12,7 @@ using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraEditors.Repository;
 using System.IO;
 using System.Threading;
+using System.Media;
 
 namespace PowerPOS
 {
@@ -401,8 +402,12 @@ namespace PowerPOS
 
                         if (dt.Rows.Count == 0)
                         {
-                            lblStatus.ForeColor = Color.Red;
-                            lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                            simpleSound.Play();
+
+                            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //lblStatus.ForeColor = Color.Red;
+                            //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
                         }
                         else
                         {
@@ -439,12 +444,19 @@ namespace PowerPOS
 
                     if (dt.Rows[0]["ReceivedDate"].ToString() != "")
                     {
-                        lblStatus.ForeColor = Color.Red;
-                        lblStatus.Text = "เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว";
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
+                        MessageBox.Show("เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //lblStatus.ForeColor = Color.Red;
+                        //lblStatus.Text = "เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว";
                         SearchData();
                     }
                     else
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                        simpleSound.Play();
+
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
                             WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
                         SearchData();

@@ -72,7 +72,8 @@ namespace PowerPOS
         
 
         public static string LogoPath;
-        public const string LogoUrl = "https://lh3.googleusercontent.com/of2iTh9rSFHDQreN0Pu1CIV1_-K9BwqTyfFqNMkDtRA=w2655-no";
+        //public const string LogoUrl = "https://lh3.googleusercontent.com/of2iTh9rSFHDQreN0Pu1CIV1_-K9BwqTyfFqNMkDtRA=w2655-no";
+        public const string LogoUrl = "https://src.remaxthailand.co.th/img/web/logo/logoPos.jpg";
         public const string LoadingImageLocal = @"Resource/Images/Loading.gif";
         public const string LoadingImageUrl = "http://a.lnwpic.com/et1xpc.gif";
         public const string SQLiteFileName = "System.dll";
