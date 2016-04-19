@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using System.Threading;
 using System.Globalization;
+using System.Media;
 
 namespace PowerPOS
 {
@@ -32,6 +33,9 @@ namespace PowerPOS
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM PurchaseOrder WHERE product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.OrderNo));
                     if (dt.Rows.Count == 0)
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
                         MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                     }
                     else
@@ -68,12 +72,18 @@ namespace PowerPOS
                                     }
                                     else
                                     {
+                                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                        simpleSound.Play();
+
                                         MessageBox.Show("กรุณาตรวจสอบจำนวนที่ต้องการรับอีกครั้ง", "แจ้งเตือน");
                                     }
                                 }
                             }
                             else
                             {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                simpleSound.Play();
+
                                 MessageBox.Show("กรุณาตรวจสอบจำนวนที่รับอีกครั้ง", "แจ้งเตือน");
                             }
                         }
@@ -85,6 +95,9 @@ namespace PowerPOS
 
                     if (dt.Rows[0]["Quantity"].ToString() == "0")
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
                         MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                     }
                     else
@@ -99,6 +112,9 @@ namespace PowerPOS
                             {
                                 if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะยืนยันการขายนี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                                    simpleSound.Play();
+
                                     dt = Util.DBQuery(string.Format(@"SELECT Product, Name, Quantity, Price{2}, Cost FROM Product WHERE Product = '{0}' AND shop = '{1}'", Param.product, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
                                     Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -127,6 +143,9 @@ namespace PowerPOS
                             }
                             else
                             {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                simpleSound.Play();
+
                                 MessageBox.Show("กรุณาตรวจสอบจำนวนที่ขายอีกครั้ง", "แจ้งเตือน");
                             }
                         }
@@ -138,6 +157,9 @@ namespace PowerPOS
 
                     if (dt.Rows[0]["Quantity"].ToString() == "0")
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
                         MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                     }
                     else
@@ -157,6 +179,9 @@ namespace PowerPOS
                             }
                             else
                             {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                simpleSound.Play();
+
                                 MessageBox.Show("กรุณาตรวจสอบจำนวนที่คืนอีกครั้ง", "แจ้งเตือน");
                             }
                         }
@@ -169,6 +194,9 @@ namespace PowerPOS
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM Product WHERE product = '{0}' AND Quantity <> 0 ", Param.product));
                     if (dt.Rows.Count == 0)
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
                         MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                     }
                     else
@@ -213,11 +241,17 @@ namespace PowerPOS
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
                             else
                             {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                simpleSound.Play();
+
                                 MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
                             }
                         }
@@ -229,6 +263,9 @@ namespace PowerPOS
 
                     if (dt.Rows[0]["Amount"].ToString() == "0")
                     {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                        simpleSound.Play();
+
                         MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในรายการขาย", "แจ้งเตือน");
                     }
                     else
@@ -258,6 +295,9 @@ namespace PowerPOS
                             }
                             else
                             {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                simpleSound.Play();
+
                                 MessageBox.Show("กรุณาตรวจสอบจำนวนที่ยกเลิกอีกครั้ง", "แจ้งเตือน");
                             }
                         }

@@ -71,11 +71,11 @@
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl25 = new DevExpress.XtraEditors.PanelControl();
-            this.lblReceived = new DevExpress.XtraEditors.LabelControl();
+            this.lblCheck = new DevExpress.XtraEditors.LabelControl();
             this.panelControl24 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
-            this.lblNoReceived = new DevExpress.XtraEditors.LabelControl();
+            this.lblNoCheck = new DevExpress.XtraEditors.LabelControl();
             this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
@@ -650,11 +650,11 @@
             this.panelControl14.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl14.Controls.Add(this.labelControl6);
             this.panelControl14.Controls.Add(this.panelControl25);
-            this.panelControl14.Controls.Add(this.lblReceived);
+            this.panelControl14.Controls.Add(this.lblCheck);
             this.panelControl14.Controls.Add(this.panelControl24);
             this.panelControl14.Controls.Add(this.labelControl8);
             this.panelControl14.Controls.Add(this.panelControl23);
-            this.panelControl14.Controls.Add(this.lblNoReceived);
+            this.panelControl14.Controls.Add(this.lblNoCheck);
             this.panelControl14.Controls.Add(this.panelControl22);
             this.panelControl14.Controls.Add(this.labelControl1);
             this.panelControl14.Controls.Add(this.panelControl21);
@@ -685,15 +685,15 @@
             this.panelControl25.Size = new System.Drawing.Size(5, 18);
             this.panelControl25.TabIndex = 35;
             // 
-            // lblReceived
+            // lblCheck
             // 
-            this.lblReceived.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblReceived.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblReceived.Location = new System.Drawing.Point(320, 0);
-            this.lblReceived.Name = "lblReceived";
-            this.lblReceived.Size = new System.Drawing.Size(27, 16);
-            this.lblReceived.TabIndex = 26;
-            this.lblReceived.Text = "0 ชิ้น";
+            this.lblCheck.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCheck.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblCheck.Location = new System.Drawing.Point(320, 0);
+            this.lblCheck.Name = "lblCheck";
+            this.lblCheck.Size = new System.Drawing.Size(27, 16);
+            this.lblCheck.TabIndex = 26;
+            this.lblCheck.Text = "0 ชิ้น";
             // 
             // panelControl24
             // 
@@ -723,15 +723,15 @@
             this.panelControl23.Size = new System.Drawing.Size(5, 18);
             this.panelControl23.TabIndex = 33;
             // 
-            // lblNoReceived
+            // lblNoCheck
             // 
-            this.lblNoReceived.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoReceived.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblNoReceived.Location = new System.Drawing.Point(495, 0);
-            this.lblNoReceived.Name = "lblNoReceived";
-            this.lblNoReceived.Size = new System.Drawing.Size(27, 16);
-            this.lblNoReceived.TabIndex = 28;
-            this.lblNoReceived.Text = "0 ชิ้น";
+            this.lblNoCheck.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoCheck.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblNoCheck.Location = new System.Drawing.Point(495, 0);
+            this.lblNoCheck.Name = "lblNoCheck";
+            this.lblNoCheck.Size = new System.Drawing.Size(27, 16);
+            this.lblNoCheck.TabIndex = 28;
+            this.lblNoCheck.Text = "0 ชิ้น";
             // 
             // panelControl22
             // 
@@ -926,11 +926,11 @@
         private DevExpress.XtraEditors.PanelControl panelControl20;
         private DevExpress.XtraEditors.PanelControl panelControl19;
         private DevExpress.XtraEditors.PanelControl panelControl18;
-        private DevExpress.XtraEditors.LabelControl lblNoReceived;
+        private DevExpress.XtraEditors.LabelControl lblNoCheck;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl8;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl lblReceived;
+        private DevExpress.XtraEditors.LabelControl lblCheck;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl lblListCount;
         private DevExpress.XtraEditors.LabelControl lblProductCount;

@@ -30,14 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcCredit));
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
-            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
-            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
-            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
-            this.ptbShop = new DevExpress.XtraEditors.PictureEdit();
-            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
@@ -58,7 +51,14 @@
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
-            this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
+            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
+            this.ptbPaid = new DevExpress.XtraEditors.PictureEdit();
+            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.creditGridControl = new DevExpress.XtraGrid.GridControl();
             this.creditGridview = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -94,15 +94,6 @@
             this.clPaidPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
-            this.navBarGroupControlContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
-            this.panelControl21.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
-            this.panelControl22.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
@@ -122,6 +113,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbPaid.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
+            this.navBarGroupControlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
+            this.panelControl21.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
+            this.panelControl22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbPaid.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
+            this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.creditGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.creditGridview)).BeginInit();
@@ -147,7 +147,7 @@
             // 
             // navBarControl1
             // 
-            this.navBarControl1.ActiveGroup = this.navBarGroup2;
+            this.navBarControl1.ActiveGroup = this.navBarGroup1;
             this.navBarControl1.Appearance.NavigationPaneHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.navBarControl1.Appearance.NavigationPaneHeader.Options.UseFont = true;
             this.navBarControl1.Controls.Add(this.navBarGroupControlContainer2);
@@ -167,85 +167,17 @@
             this.navBarControl1.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl1_ActiveGroupChanged);
             this.navBarControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.navBarControl1_MouseDown);
             // 
-            // navBarGroup2
+            // navBarGroup1
             // 
-            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
-            this.navBarGroup2.Appearance.Options.UseFont = true;
-            this.navBarGroup2.Caption = "ข้อมูลชำระลูกหนี้";
-            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
-            this.navBarGroup2.Expanded = true;
-            this.navBarGroup2.GroupClientHeight = 449;
-            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
-            this.navBarGroup2.Name = "navBarGroup2";
-            // 
-            // navBarGroupControlContainer1
-            // 
-            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
-            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
-            this.navBarGroupControlContainer1.Controls.Add(this.panelControl21);
-            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(248, 449);
-            this.navBarGroupControlContainer1.TabIndex = 2;
-            // 
-            // panelControl21
-            // 
-            this.panelControl21.Controls.Add(this.panelControl22);
-            this.panelControl21.Controls.Add(this.panelControl23);
-            this.panelControl21.Controls.Add(this.groupControl1);
-            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl21.Location = new System.Drawing.Point(0, 0);
-            this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(248, 449);
-            this.panelControl21.TabIndex = 0;
-            // 
-            // panelControl22
-            // 
-            this.panelControl22.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl22.Controls.Add(this.ptbShop);
-            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl22.Location = new System.Drawing.Point(2, 77);
-            this.panelControl22.Name = "panelControl22";
-            this.panelControl22.Size = new System.Drawing.Size(244, 180);
-            this.panelControl22.TabIndex = 8;
-            // 
-            // ptbShop
-            // 
-            this.ptbShop.EditValue = global::PowerPOS.Properties.Resources.Credit;
-            this.ptbShop.Location = new System.Drawing.Point(2, 2);
-            this.ptbShop.Name = "ptbShop";
-            this.ptbShop.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.ptbShop.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
-            this.ptbShop.Size = new System.Drawing.Size(241, 175);
-            this.ptbShop.TabIndex = 4;
-            // 
-            // panelControl23
-            // 
-            this.panelControl23.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl23.Location = new System.Drawing.Point(2, 65);
-            this.panelControl23.Name = "panelControl23";
-            this.panelControl23.Size = new System.Drawing.Size(244, 12);
-            this.panelControl23.TabIndex = 7;
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.Controls.Add(this.dtpDate);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl1.Location = new System.Drawing.Point(2, 2);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(244, 63);
-            this.groupControl1.TabIndex = 6;
-            this.groupControl1.Text = "ค้นหาข้อมูล";
-            // 
-            // dtpDate
-            // 
-            this.dtpDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpDate.Location = new System.Drawing.Point(31, 31);
-            this.dtpDate.Name = "dtpDate";
-            this.dtpDate.Size = new System.Drawing.Size(173, 23);
-            this.dtpDate.TabIndex = 0;
-            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
+            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.navBarGroup1.Appearance.Options.UseFont = true;
+            this.navBarGroup1.Caption = "ข้อมูลลูกหนี้";
+            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
+            this.navBarGroup1.Expanded = true;
+            this.navBarGroup1.GroupClientHeight = 80;
+            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
+            this.navBarGroup1.Name = "navBarGroup1";
             // 
             // navBarGroupControlContainer2
             // 
@@ -468,16 +400,84 @@
             this.btnSearch.TabIndex = 10;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // navBarGroup1
+            // navBarGroupControlContainer1
             // 
-            this.navBarGroup1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
-            this.navBarGroup1.Appearance.Options.UseFont = true;
-            this.navBarGroup1.Caption = "ข้อมูลลูกหนี้";
-            this.navBarGroup1.ControlContainer = this.navBarGroupControlContainer2;
-            this.navBarGroup1.GroupClientHeight = 80;
-            this.navBarGroup1.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-            this.navBarGroup1.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup1.LargeImage")));
-            this.navBarGroup1.Name = "navBarGroup1";
+            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
+            this.navBarGroupControlContainer1.Controls.Add(this.panelControl21);
+            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(248, 449);
+            this.navBarGroupControlContainer1.TabIndex = 2;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.Controls.Add(this.panelControl22);
+            this.panelControl21.Controls.Add(this.panelControl23);
+            this.panelControl21.Controls.Add(this.groupControl1);
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl21.Location = new System.Drawing.Point(0, 0);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(248, 449);
+            this.panelControl21.TabIndex = 0;
+            // 
+            // panelControl22
+            // 
+            this.panelControl22.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl22.Controls.Add(this.ptbPaid);
+            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl22.Location = new System.Drawing.Point(2, 77);
+            this.panelControl22.Name = "panelControl22";
+            this.panelControl22.Size = new System.Drawing.Size(244, 180);
+            this.panelControl22.TabIndex = 8;
+            // 
+            // ptbPaid
+            // 
+            this.ptbPaid.EditValue = global::PowerPOS.Properties.Resources.Credit;
+            this.ptbPaid.Location = new System.Drawing.Point(2, 2);
+            this.ptbPaid.Name = "ptbPaid";
+            this.ptbPaid.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.ptbPaid.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.ptbPaid.Size = new System.Drawing.Size(241, 175);
+            this.ptbPaid.TabIndex = 4;
+            // 
+            // panelControl23
+            // 
+            this.panelControl23.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl23.Location = new System.Drawing.Point(2, 65);
+            this.panelControl23.Name = "panelControl23";
+            this.panelControl23.Size = new System.Drawing.Size(244, 12);
+            this.panelControl23.TabIndex = 7;
+            // 
+            // groupControl1
+            // 
+            this.groupControl1.Controls.Add(this.dtpDate);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl1.Location = new System.Drawing.Point(2, 2);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(244, 63);
+            this.groupControl1.TabIndex = 6;
+            this.groupControl1.Text = "ค้นหาข้อมูล";
+            // 
+            // dtpDate
+            // 
+            this.dtpDate.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpDate.Location = new System.Drawing.Point(31, 31);
+            this.dtpDate.Name = "dtpDate";
+            this.dtpDate.Size = new System.Drawing.Size(173, 23);
+            this.dtpDate.TabIndex = 0;
+            this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
+            // 
+            // navBarGroup2
+            // 
+            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.navBarGroup2.Appearance.Options.UseFont = true;
+            this.navBarGroup2.Caption = "ข้อมูลชำระลูกหนี้";
+            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.GroupClientHeight = 449;
+            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
+            this.navBarGroup2.Name = "navBarGroup2";
             // 
             // panelControl13
             // 
@@ -944,15 +944,6 @@
             this.Load += new System.EventHandler(this.UcCredit_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
-            this.navBarGroupControlContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
-            this.panelControl21.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
-            this.panelControl22.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ptbShop.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
             this.navBarGroupControlContainer2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
@@ -972,6 +963,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbPaid.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
+            this.navBarGroupControlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
+            this.panelControl21.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
+            this.panelControl22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbPaid.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
+            this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.creditGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.creditGridview)).EndInit();
@@ -1052,7 +1052,7 @@
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
         private DevExpress.XtraEditors.PanelControl panelControl21;
         private DevExpress.XtraEditors.PanelControl panelControl22;
-        private DevExpress.XtraEditors.PictureEdit ptbShop;
+        private DevExpress.XtraEditors.PictureEdit ptbPaid;
         private DevExpress.XtraEditors.PanelControl panelControl23;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private System.Windows.Forms.DateTimePicker dtpDate;

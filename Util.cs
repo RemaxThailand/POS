@@ -148,6 +148,7 @@ namespace PowerPOS
                         Param.PrintLogo = jsonApplication.result[0].printLogo;
                         Param.HeaderName = jsonApplication.result[0].headerName;
                         Param.FooterText = jsonApplication.result[0].footerText;
+                        Param.PaperSize = jsonApplication.result[0].paperSize;
                         Param.ApiChecked = true;
                         Console.WriteLine(Param.LicenseKey);
                         Properties.Settings.Default.ApiShopId = Param.ApiShopId;
@@ -693,9 +694,9 @@ namespace PowerPOS
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleDetailAdd",
                     string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&quantity={5}&comment={6}",
-                            Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
-                           dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString())
-                    ));
+                        Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
+                        dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString() 
+                        )));
                     if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
@@ -927,119 +928,257 @@ namespace PowerPOS
                     WHERE h.SellNo = '{0}'"
                     , sellNo));
 
-                var width = 280;
-                var gab = 5;
-
-                if (Param.PrintLogo == "Y")
+                if (Param.PaperSize == "80")
                 {
-                    if (!File.Exists(Param.LogoPath))
+                    var width = 280;
+                    var gab = 5;
+
+                    if (Param.PrintLogo == "Y")
                     {
-                        if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
-                        if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
-                        using (var client = new WebClient())
+                        if (!File.Exists(Param.LogoPath))
                         {
-                            Param.LogoPath = "1234";
-                            client.DownloadFile(Param.LogoUrl, Param.LogoPath);
-                            Param.Logo = Param.LogoUrl;
+                            if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+                            if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+                            using (var client = new WebClient())
+                            {
+                                Param.LogoPath = "1234";
+                                client.DownloadFile(Param.LogoUrl, Param.LogoPath);
+                                Param.Logo = Param.LogoUrl;
+                            }
+
                         }
-
+                        Image image = Image.FromFile(Param.LogoPath);
+                        Rectangle destRect = new Rectangle(0, 0, width, 100);
+                        //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
+                        g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
                     }
-                    Image image = Image.FromFile(Param.LogoPath);
-                    Rectangle destRect = new Rectangle(0, 0, width, 100);
-                    //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
-                    g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
-                }
 
 
-                SolidBrush brush = new SolidBrush(Color.Black);
-                Font stringFont = new Font("Calibri", 6);
-                //if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
-                //{
-                //    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
-                //    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
-                //    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
-                //    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
-                //}
+                    SolidBrush brush = new SolidBrush(Color.Black);
+                    Font stringFont = new Font("Calibri", 6);
+                    //if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
+                    //{
+                    //    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                    //    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                    //    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                    //    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                    //}
 
-                var pX = 0;
-                var pY = 90;
-                stringFont = new Font("Calibri", 7);
-                g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
+                    var pX = 0;
+                    var pY = 0;
+                    if (Param.PrintLogo == "Y")
+                    {
+                        pX = 0;
+                        pY = 90;
+                    }
+                    else
+                    {
+                        pX = 0;
+                        pY = 5;
+                    }
+                    stringFont = new Font("Calibri", 7);
+                    g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 
-                stringFont = new Font("DilleniaUPC", 13);
-                g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 188, pY));
+                    stringFont = new Font("DilleniaUPC", 13);
+                    g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 188, pY));
 
-                stringFont = new Font("Calibri", 10, FontStyle.Bold);
-                string measureString = sellNo;
-                SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
-                pY += 20;
+                    stringFont = new Font("Calibri", 10, FontStyle.Bold);
+                    string measureString = sellNo;
+                    SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
+                    pY += 20;
 
-                stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
-                measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
-                pY += 30;
+                    stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
+                    measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+                    pY += 30;
 
-                stringFont = new Font("Cordia New", 10);
-                DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                    stringFont = new Font("Cordia New", 10);
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
                             FROM  SellDetail sd
                                 LEFT JOIN Product p 
                                 ON sd.Product = p.Product 
                        WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
 
-                var sumQty = 0;
-                var sumPrice = 0;
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 15, pY));
+                    var sumQty = 0;
+                    var sumPrice = 0;
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 15, pY));
 
-                    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 3, 150, 10);
-                    g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
-                        stringFont, brush, new PointF(pX + 222, pY));
-                    measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                        g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 3, 150, 10);
+                        g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                            stringFont, brush, new PointF(pX + 222, pY));
+                        measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                        sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                        pY += 13;
+                    }
+
+                    pY += 4;
+                    stringFont = new Font("Cordia New", 12, FontStyle.Bold);
+                    g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+                    measureString = "" + sumPrice.ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-                    sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
-                    sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
-                    pY += 13;
+                    pY += 17;
+                    stringFont = new Font("Cordia New", 11);
+                    g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 23;
+
+                    g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+                    pY += 5;
+
+                    stringFont = new Font("DilleniaUPC", 10);
+                    g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
+                        ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+                        " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                        : "")
+                        , stringFont, brush, new PointF(pX, pY));
+
+                    /*stringFont = new Font("DilleniaUPC", 11);
+                    measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
+                    pY += 17;
+
+                    stringFont = new Font("DilleniaUPC", 12, FontStyle.Bold);
+                    measureString = Param.FooterText;
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
                 }
+                else if (Param.PaperSize == "76")
+                {
+                    var width = 240;
+                    var gab = 5;
 
-                pY += 4;
-                stringFont = new Font("Cordia New", 12, FontStyle.Bold);
-                g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
-                measureString = "" + sumPrice.ToString("#,##0");
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-                pY += 17;
-                stringFont = new Font("Cordia New", 11);
-                g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-                pY += 23;
+                    if (Param.PrintLogo == "Y")
+                    {
+                        if (!File.Exists(Param.LogoPath))
+                        {
+                            if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+                            if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+                            using (var client = new WebClient())
+                            {
+                                Param.LogoPath = "1234";
+                                client.DownloadFile(Param.LogoUrl, Param.LogoPath);
+                                Param.Logo = Param.LogoUrl;
+                            }
 
-                g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
-                pY += 5;
+                        }
+                        Image image = Image.FromFile(Param.LogoPath);
+                        Rectangle destRect = new Rectangle(0, 0, width, 90);
+                        //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
+                        g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+                    }
 
-                stringFont = new Font("DilleniaUPC", 10);
-                g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
-                    ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
-                    " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
-                    : "")
-                    , stringFont, brush, new PointF(pX, pY));
 
-                /*stringFont = new Font("DilleniaUPC", 11);
-                measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
-                pY += 17;
+                    SolidBrush brush = new SolidBrush(Color.Black);
+                    Font stringFont = new Font("Calibri", 6);
+                    //if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
+                    //{
+                    //    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                    //    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                    //    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                    //    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                    //}
+                    var pX = 0;
+                    var pY = 0;
+                    if (Param.PrintLogo == "Y")
+                    {
+                        pX = 0;
+                        pY = 90;
+                    }
+                    else
+                    {
+                        pX = 0;
+                        pY = 5;
+                    }
+                    stringFont = new Font("Calibri", 7);
+                    g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 
-                stringFont = new Font("Calibri", 8, FontStyle.Bold);
-                measureString = Param.FooterText;
-                stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+                    stringFont = new Font("DilleniaUPC", 11);
+                    g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 165, pY));
+
+                    stringFont = new Font("Calibri", 8, FontStyle.Bold);
+                    string measureString = sellNo;
+                    SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
+                    pY += 18;
+
+                    stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                    measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+                    pY += 30;
+
+                    stringFont = new Font("Cordia New", 8);
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                            FROM  SellDetail sd
+                                LEFT JOIN Product p 
+                                ON sd.Product = p.Product 
+                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
+
+                    var sumQty = 0;
+                    var sumPrice = 0;
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 13, pY));
+
+                        g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 190, pY + 3, 150, 10);
+                        g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                            stringFont, brush, new PointF(pX + 190, pY));
+                        measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                        sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                        pY += 13;
+                    }
+
+                    pY += 4;
+                    stringFont = new Font("Cordia New", 10, FontStyle.Bold);
+                    g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+                    measureString = "" + sumPrice.ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 17;
+                    stringFont = new Font("Cordia New", 9);
+                    g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 23;
+
+                    g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+                    pY += 5;
+
+                    stringFont = new Font("DilleniaUPC", 8);
+                    g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
+                        ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+                        " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                        : "")
+                        , stringFont, brush, new PointF(pX, pY));
+
+                    /*stringFont = new Font("DilleniaUPC", 11);
+                    measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
+                    pY += 17;
+
+                    stringFont = new Font("DilleniaUPC", 10, FontStyle.Bold);
+                    measureString = Param.FooterText;
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+                }
             }
             catch (Exception ex)
             {

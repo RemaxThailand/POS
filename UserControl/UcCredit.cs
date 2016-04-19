@@ -12,6 +12,7 @@ using System.Threading;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraNavBar;
+using System.Drawing.Text;
 
 namespace PowerPOS
 {
@@ -40,7 +41,7 @@ namespace PowerPOS
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             sellNo = "";
             _TOTAL = 0;
-            _TABLE_CREDIT = Util.DBQuery(string.Format(@"SELECT c.firstname||' '||c.lastname name, sh.sellNo, sh.sellDate, sh.totalPrice
+            _TABLE_CREDIT = Util.DBQuery(string.Format(@"SELECT c.firstname||' '||c.lastname name, sh.sellNo, strftime('%d-%m-%Y %H:%M:%S', sh.SellDate) sellDate, sh.totalPrice
                     FROM CreditCustomer cc
                 LEFT JOIN SellHeader sh
                 ON cc.sellNo = sh.sellNo
@@ -73,7 +74,8 @@ namespace PowerPOS
                 row[0] = (a + 1) * 1;
                 row[1] = _TABLE_CREDIT.Rows[a]["name"].ToString();
                 row[2] = _TABLE_CREDIT.Rows[a]["sellNo"].ToString();
-                row[3] = Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                row[3] = _TABLE_CREDIT.Rows[a]["SellDate"].ToString();
+                //Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
                 row[4] = Convert.ToInt32(_TABLE_CREDIT.Rows[a]["totalPrice"]).ToString("#,##0");
                 _TOTAL += int.Parse(_TABLE_CREDIT.Rows[a]["totalPrice"].ToString());
 
@@ -129,7 +131,8 @@ namespace PowerPOS
                 row[0] = (a + 1) * 1;
                 row[1] = _TABLE_CREDIT.Rows[a]["name"].ToString();
                 row[2] = _TABLE_CREDIT.Rows[a]["sellNo"].ToString();
-                row[3] = Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                row[3] = _TABLE_CREDIT.Rows[a]["sellDate"].ToString();
+                    //Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
                 row[4] = Convert.ToInt32(_TABLE_CREDIT.Rows[a]["totalPrice"]).ToString("#,##0");
                 _TOTAL += int.Parse(_TABLE_CREDIT.Rows[a]["totalPrice"].ToString());
 
@@ -140,9 +143,47 @@ namespace PowerPOS
 
             paidGridControl.DataSource = dt;
 
+            DrawImage(_TOTAL);
+
             lblListCount.Text = paidGridView.RowCount.ToString("#,##0") + " รายการ";
             lblProductCount.Text = _TOTAL.ToString("#,##0") + " บาท";
 
+        }
+
+        private void DrawImage(double sumPrice)
+        {
+            ptbPaid.Visible = true;
+            ptbPaid.Image = new Bitmap(Properties.Resources.Credit);
+
+            using (Graphics g = Graphics.FromImage(ptbPaid.Image))
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
+
+                g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+                g.TextRenderingHint = TextRenderingHint.AntiAlias;
+
+                Font stringFont = new Font("DilleniaUPC", 50, FontStyle.Bold);
+                SolidBrush drawBrush = new SolidBrush(ColorTranslator.FromHtml("#ffffff"));
+
+                string measureString = Param.ShopName;
+                SizeF stringSize = g.MeasureString(measureString, stringFont);
+                g.DrawString(measureString, stringFont, drawBrush, (ptbPaid.Image.Width - stringSize.Width) / 2, 12);
+
+                stringFont = new Font("DilleniaUPC", 60, FontStyle.Bold);
+                drawBrush = new SolidBrush(ColorTranslator.FromHtml("#263e74"));
+                measureString = "วันที่ " + dtpDate.Value.ToString("dd MMMM yyyy");
+                stringSize = g.MeasureString(measureString, stringFont);
+                g.DrawString(measureString, stringFont, drawBrush, (ptbPaid.Image.Width - stringSize.Width) / 2, 190);
+
+
+                stringFont = new Font("DilleniaUPC", 80, FontStyle.Bold);
+                drawBrush = new SolidBrush(ColorTranslator.FromHtml("#f40c43"));
+                measureString = sumPrice.ToString("#,##0");
+                stringSize = g.MeasureString(measureString, stringFont);
+                g.DrawString(measureString, stringFont, drawBrush, (ptbPaid.Image.Width - stringSize.Width - 50), 300);
+            }
         }
 
         private void cbPaid_CheckedChanged(object sender, EventArgs e)

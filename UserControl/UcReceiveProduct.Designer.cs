@@ -111,6 +111,9 @@
             this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl39 = new DevExpress.XtraEditors.PanelControl();
+            this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer1.SuspendLayout();
@@ -174,6 +177,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl39)).BeginInit();
+            this.panelControl39.SuspendLayout();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -532,10 +537,10 @@
             // receivedGridControl
             // 
             this.receivedGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.receivedGridControl.Location = new System.Drawing.Point(234, 0);
+            this.receivedGridControl.Location = new System.Drawing.Point(234, 39);
             this.receivedGridControl.MainView = this.receivedGridView;
             this.receivedGridControl.Name = "receivedGridControl";
-            this.receivedGridControl.Size = new System.Drawing.Size(975, 601);
+            this.receivedGridControl.Size = new System.Drawing.Size(975, 562);
             this.receivedGridControl.TabIndex = 1;
             this.receivedGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.receivedGridView});
@@ -1152,11 +1157,39 @@
             this.panelControl18.Size = new System.Drawing.Size(44, 43);
             this.panelControl18.TabIndex = 18;
             // 
+            // panelControl39
+            // 
+            this.panelControl39.Controls.Add(this.labelControl9);
+            this.panelControl39.Controls.Add(this.labelControl5);
+            this.panelControl39.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl39.Location = new System.Drawing.Point(234, 0);
+            this.panelControl39.Name = "panelControl39";
+            this.panelControl39.Size = new System.Drawing.Size(975, 39);
+            this.panelControl39.TabIndex = 4;
+            // 
+            // labelControl5
+            // 
+            this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl5.Location = new System.Drawing.Point(8, 10);
+            this.labelControl5.Name = "labelControl5";
+            this.labelControl5.Size = new System.Drawing.Size(69, 19);
+            this.labelControl5.TabIndex = 0;
+            this.labelControl5.Text = "ชื่อสินค้า :";
+            // 
+            // labelControl9
+            // 
+            this.labelControl9.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl9.Location = new System.Drawing.Point(83, 10);
+            this.labelControl9.Name = "labelControl9";
+            this.labelControl9.Size = new System.Drawing.Size(0, 19);
+            this.labelControl9.TabIndex = 1;
+            // 
             // UcReceiveProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.receivedGridControl);
+            this.Controls.Add(this.panelControl39);
             this.Controls.Add(this.panelControl17);
             this.Controls.Add(this.panelControl16);
             this.Controls.Add(this.navBarControl1);
@@ -1228,6 +1261,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl39)).EndInit();
+            this.panelControl39.ResumeLayout(false);
+            this.panelControl39.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1316,5 +1352,8 @@
         private DevExpress.XtraEditors.PanelControl panelControl32;
         private DevExpress.XtraGrid.Columns.GridColumn clPrice;
         private DevExpress.XtraGrid.Columns.GridColumn clPriceRe;
+        private DevExpress.XtraEditors.PanelControl panelControl39;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.LabelControl labelControl5;
     }
 }

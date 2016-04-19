@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
 using System.Threading;
 using System.Globalization;
+using System.Media;
 
 namespace PowerPOS
 {
@@ -33,9 +34,11 @@ namespace PowerPOS
         {
             try
             {
-
                 if (lblProductName.Text == "กรุณาเลือกสินค้าที่ต้องการ")
                 {
+                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                    simpleSound.Play();
+
                     MessageBox.Show("กรุณาเลือกสินค้าที่ต้องการ", "แจ้งเตือน");
                 }
                 else
@@ -46,6 +49,9 @@ namespace PowerPOS
                         DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM PurchaseOrder WHERE product = '{0}' AND OrderNo = '{1}'", Param.product, UcReceiveProduct.OrderNo));
                         if (dt.Rows.Count == 0)
                         {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                         }
                         else
@@ -82,12 +88,18 @@ namespace PowerPOS
                                         }
                                         else
                                         {
+                                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                            simpleSound.Play();
+
                                             MessageBox.Show("กรุณาตรวจสอบจำนวนที่ต้องการรับอีกครั้ง", "แจ้งเตือน");
                                         }
                                     }
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่รับอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
@@ -99,6 +111,9 @@ namespace PowerPOS
 
                         if (dt.Rows[0]["Quantity"].ToString() == "0")
                         {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                         }
                         else
@@ -114,6 +129,9 @@ namespace PowerPOS
                                 {
                                     if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะยืนยันการขายนี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                                     {
+                                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                                        simpleSound.Play();
+
                                         dt = Util.DBQuery(string.Format(@"SELECT Product, Name, Quantity, Price{2}, Cost FROM Product WHERE Product = '{0}' AND shop = '{1}'", Param.product, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
                                         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -140,13 +158,15 @@ namespace PowerPOS
                                             AND p.shop = '{1}') * sellTemp.Amount", Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, Param.ShopId));
                                         }
 
-
                                         this.DialogResult = DialogResult.OK;
                                         this.Dispose();
                                     }
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่ขายอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
@@ -158,6 +178,9 @@ namespace PowerPOS
 
                         if (dt.Rows[0]["Quantity"].ToString() == "0")
                         {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                         }
                         else
@@ -168,6 +191,8 @@ namespace PowerPOS
                             }
                             else
                             {
+                                dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM SellDetail WHERE Product = '{0}' AND sellNo = '{1}' GROUP BY Product", Param.product, FmReturnSell.sellN ));
+
                                 if (Convert.ToInt32(dt.Rows[0]["Quantity"].ToString()) >= Convert.ToInt32(txtAmount.Text))
                                 {
                                     //Param.amount = txtAmount.Text;
@@ -177,6 +202,9 @@ namespace PowerPOS
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่คืนอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
@@ -189,6 +217,9 @@ namespace PowerPOS
                         DataTable dt = Util.DBQuery(string.Format(@"SELECT Product, Quantity FROM Product WHERE product = '{0}' AND Quantity <> 0 ", Param.product));
                         if (dt.Rows.Count == 0)
                         {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน");
                         }
                         else
@@ -234,11 +265,17 @@ namespace PowerPOS
                                     }
                                     else
                                     {
+                                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                        simpleSound.Play();
+
                                         MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
                                     }
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่นับสินค้าอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
@@ -279,6 +316,9 @@ namespace PowerPOS
                                 }
                                 else
                                 {
+                                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                                    simpleSound.Play();
+
                                     MessageBox.Show("กรุณาตรวจสอบจำนวนที่ยกเลิกอีกครั้ง", "แจ้งเตือน");
                                 }
                             }
@@ -326,7 +366,7 @@ namespace PowerPOS
 
             txtAmount.Text = "1";
 
-            if (Param.status != "Received")
+            if (Param.status == "Sell")
             {
                 _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT Product, sku, Name FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%' AND quantity <> 0 ORDER BY Name ", Param.BarcodeNo));
             }

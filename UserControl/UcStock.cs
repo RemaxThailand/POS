@@ -13,6 +13,7 @@ using DevExpress.XtraGrid.Views.Base;
 using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
+using System.Media;
 
 namespace PowerPOS
 {
@@ -135,8 +136,8 @@ namespace PowerPOS
                 int val = _QTY - _RECEIVED;
                 lblListCount.Text = stockGridView.RowCount.ToString("#,##0") + " รายการ";
                 lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
-                lblReceived.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
-                lblNoReceived.Text = val.ToString("#,##0");
+                lblCheck.Text = _RECEIVED.ToString("#,##0") + " ชิ้น";
+                lblNoCheck.Text = val.ToString("#,##0");
             }
             txtBarcode.Select();
         }
@@ -243,7 +244,10 @@ namespace PowerPOS
                             dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
                             if (dt.Rows.Count == 0)
                             {
-                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                                simpleSound.Play();
+
+                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK,           MessageBoxIcon.Warning);
                             }
                             else
                             {
@@ -278,11 +282,17 @@ namespace PowerPOS
                         {
                             lblStatus.ForeColor = Color.Red;
                             //lblStatus.Text = "เคยตรวจสอบสินค้าชิ้นนี้แล้ว";
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
                             MessageBox.Show("เคยตรวจสอบสินค้าชิ้นนี้แล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             SearchData();
                         }
                         else
                         {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                            simpleSound.Play(); 
+
                             Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 1, Sync = 1 WHERE Barcode = '{0}'", txtBarcode.Text));
                             SearchData();
 
@@ -290,6 +300,12 @@ namespace PowerPOS
                             lblStatus.Text = "ตรวจสอบสินค้าเรียบร้อยแล้ว";
                         }
 
+                    }
+
+                    if (lblNoCheck.Text == "0 ชิ้น")
+                    {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/yahoo.wav");
+                        simpleSound.Play();
                     }
                     txtBarcode.Text = "";
                     txtBarcode.Focus();

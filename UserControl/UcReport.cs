@@ -65,7 +65,7 @@ namespace PowerPOS
                     //     ORDER BY h.SellDate DESC
                     // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
-                    _TABLE_REPORT = Util.DBQuery(string.Format(@"
+                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
                  SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType
                FROM SellHeader h
                 LEFT JOIN Customer c
@@ -96,8 +96,6 @@ namespace PowerPOS
 
                     //DateTime date = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString());
                     //string datetime = date.ToString("MM/dd/yyyy");
-
-
                     row = dt.NewRow();
                     row[0] = (a + 1) * 1;
                     row[1] = _TABLE_REPORT.Rows[a]["SellDate"].ToString();

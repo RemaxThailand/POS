@@ -61,6 +61,8 @@ namespace PowerPOS
             rdbAlert.Checked = "" + Param.PrintType == "A";
             rdbLogoPrint.Checked = "" + Param.PrintLogo == "Y";
             rdbLogoNotPrint.Checked = "" + Param.PrintLogo == "N";
+            rdbSize76.Checked = "" + Param.PaperSize == "76";
+            rdbSize80.Checked = "" + Param.PaperSize == "80";
             txtBillHeader.Text = "" + Param.HeaderName;
             txtBillFooter.Text = "" + Param.FooterText;
 
@@ -103,9 +105,9 @@ namespace PowerPOS
 
         private void bwUpdateConfig_DoWork(object sender, DoWorkEventArgs e)
         {
-            string values = Param.DevicePrinter + "," + Param.PrintType +"," + Param.PrintLogo + "," + Param.Logo + "," + Param.HeaderName + "," + Param.FooterText +  "," + Param.PrintCount;
+            string values = Param.DevicePrinter + "," + Param.PrintType +"," + Param.PrintLogo + "," + Param.Logo + "," + Param.HeaderName + "," + Param.FooterText +  "," + Param.PrintCount + "," + Param.PaperSize;
             string app = Util.GetApiData("/shop-application/updatePos",
-               string.Format("shop={0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey, "devicePrinter,printType,printLogo,logo,headerName,footerText,printCount", values));
+               string.Format("shop={0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey, "devicePrinter,printType,printLogo,logo,headerName,footerText,printCount,paperSize", values));
 
             dynamic jsonApp = JsonConvert.DeserializeObject(app);
             Console.WriteLine(jsonApp.success);
@@ -255,6 +257,30 @@ namespace PowerPOS
         {
             FmPosDetail frm = new FmPosDetail();
             var result = frm.ShowDialog(this);
+        }
+
+        private void lblVersion_Click(object sender, EventArgs e)
+        {
+            FmPosDetail frm = new FmPosDetail();
+            var result = frm.ShowDialog(this);
+        }
+
+        private void rdbSize76_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbSize76.Checked && !_FIRST_LOAD)
+            {
+                Param.PaperSize = "76";
+                btnSaveBill.Enabled = true;
+            }
+        }
+
+        private void rdbSize80_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbSize80.Checked && !_FIRST_LOAD)
+            {
+                Param.PaperSize = "80";
+                btnSaveBill.Enabled = true;
+            }
         }
     }
 }

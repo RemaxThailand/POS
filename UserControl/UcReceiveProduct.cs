@@ -380,40 +380,54 @@ namespace PowerPOS
 
         private void txtBarcode_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+            try
             {
-                Param.BarcodeNo = txtBarcode.Text;
+                if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
+                {
+                    Param.BarcodeNo = txtBarcode.Text;
 
-                DataTable dt = Util.DBQuery(string.Format(@"SELECT OrderNo, p.product, IFNULL(ReceivedDate, '') ReceivedDate , p.Image
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT OrderNo, p.product, IFNULL(ReceivedDate, '') ReceivedDate , p.Image
                     FROM Barcode b LEFT JOIN Product p ON b.product = p.product
                     WHERE b.Barcode = '{0}'", txtBarcode.Text));
 
-                lblStatus.Visible = true;
-                OrderNo = cbbOrderNo.SelectedItem.ToString();
-                if (dt.Rows.Count == 0)
-                {
-                    dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
-                    Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
-
+                    lblStatus.Visible = true;
+                    OrderNo = cbbOrderNo.SelectedItem.ToString();
                     if (dt.Rows.Count == 0)
                     {
-
-                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
+                        Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
 
                         if (dt.Rows.Count == 0)
                         {
-                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
-                            simpleSound.Play();
 
-                            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            //lblStatus.ForeColor = Color.Red;
-                            //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                            dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+
+                            if (dt.Rows.Count == 0)
+                            {
+                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                                simpleSound.Play();
+
+                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                //lblStatus.ForeColor = Color.Red;
+                                //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                            }
+                            else
+                            {
+                                Param.status = "Received";
+                                //OrderNo = cbbOrderNo.SelectedItem.ToString();
+                                FmSelectProduct frm = new FmSelectProduct();
+                                var result = frm.ShowDialog(this);
+                                if (result == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    SearchData();
+                                }
+                            }
                         }
                         else
                         {
                             Param.status = "Received";
-                            //OrderNo = cbbOrderNo.SelectedItem.ToString();
-                            FmSelectProduct frm = new FmSelectProduct();
+                            FmProductQty frm = new FmProductQty();
+                            Param.product = dt.Rows[0]["Product"].ToString();
                             var result = frm.ShowDialog(this);
                             if (result == System.Windows.Forms.DialogResult.OK)
                             {
@@ -423,77 +437,74 @@ namespace PowerPOS
                     }
                     else
                     {
-                        Param.status = "Received";
-                        FmProductQty frm = new FmProductQty();
-                        Param.product = dt.Rows[0]["Product"].ToString();
-                        var result = frm.ShowDialog(this);
-                        if (result == System.Windows.Forms.DialogResult.OK)
+                        Param.ProductId = dt.Rows[0]["product"].ToString();
+
+                        if (cbbOrderNo.SelectedItem.ToString() != dt.Rows[0]["OrderNo"].ToString())
                         {
-                            SearchData();
+                            cbbOrderNo.EditValue = dt.Rows[0]["OrderNo"].ToString();
                         }
-                    }
-                }
-                else
-                {
-                    Param.ProductId = dt.Rows[0]["product"].ToString();
 
-                    if (cbbOrderNo.SelectedItem.ToString() != dt.Rows[0]["OrderNo"].ToString())
-                    {
-                        cbbOrderNo.EditValue = dt.Rows[0]["OrderNo"].ToString();
-                    }
-
-                    if (dt.Rows[0]["ReceivedDate"].ToString() != "")
-                    {
-                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
-                        simpleSound.Play();
-
-                        MessageBox.Show("เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        //lblStatus.ForeColor = Color.Red;
-                        //lblStatus.Text = "เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว";
-                        SearchData();
-                    }
-                    else
-                    {
-                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
-                        simpleSound.Play();
-
-                        Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
-                            WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
-                        SearchData();
-
-                        lblStatus.ForeColor = Color.Green;
-                        lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";
-
-                        ptbProduct.Visible = true;
-                        ptbProduct.Image = null;
-
-                        var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
-                        _STREAM_IMAGE_URL = Param.ImagePath + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
-
-                        if (!File.Exists(filename))
+                        if (dt.Rows[0]["ReceivedDate"].ToString() != "")
                         {
-                            if (dt.Rows[0]["Image"].ToString() != "")
-                            {
-                                DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
-                            }
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+                            simpleSound.Play();
+
+                            MessageBox.Show("เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //lblStatus.ForeColor = Color.Red;
+                            //lblStatus.Text = "เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว";
+                            SearchData();
                         }
                         else
                         {
-                            try { ptbProduct.Image = Image.FromFile(filename); }
-                            catch
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                            simpleSound.Play();
+
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
+                            WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
+                            SearchData();
+
+                            lblStatus.ForeColor = Color.Green;
+                            lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";
+
+                            ptbProduct.Visible = true;
+                            ptbProduct.Image = null;
+
+                            var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
+                            _STREAM_IMAGE_URL = Param.ImagePath + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                            if (!File.Exists(filename))
                             {
                                 if (dt.Rows[0]["Image"].ToString() != "")
                                 {
                                     DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
                                 }
                             }
+                            else
+                            {
+                                try { ptbProduct.Image = Image.FromFile(filename); }
+                                catch
+                                {
+                                    if (dt.Rows[0]["Image"].ToString() != "")
+                                    {
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                    }
+                                }
+                            }
                         }
-
                     }
 
+                    if (lblNoReceived.Text == "0 ชิ้น")
+                    {
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/yahoo.wav");
+                        simpleSound.Play();
+                    }
+                    txtBarcode.Text = "";
+                    txtBarcode.Focus();
                 }
-                txtBarcode.Text = "";
-                txtBarcode.Focus();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
         }
 

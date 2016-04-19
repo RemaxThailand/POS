@@ -51,6 +51,8 @@ namespace PowerPOS
         public static string FooterText;
         public static string Logo;
         public static string ShopCost;
+        public static string PaperSize;
+
 
         public static bool jsonObject;
         public static string error;
