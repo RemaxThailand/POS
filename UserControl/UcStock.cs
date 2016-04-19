@@ -25,7 +25,7 @@ namespace PowerPOS
         DataTable _TABLE_STOCK;
         public static int printType = 0;
         public static string productNo;
-        string _STREAM_IMAGE_URL;
+        string _STREAM_IMAGE_URL, _PRODUCT;
 
         public UcStock()
         {
@@ -247,7 +247,7 @@ namespace PowerPOS
                                 SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
                                 simpleSound.Play();
 
-                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK,           MessageBoxIcon.Warning);
+                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
                             else
                             {
@@ -277,7 +277,7 @@ namespace PowerPOS
                     else
                     {
                         Param.ProductId = dt.Rows[0]["product"].ToString();
-
+                        _PRODUCT = Param.ProductId;
                         if (dt.Rows[0]["inStock"].ToString() != "False")
                         {
                             lblStatus.ForeColor = Color.Red;
@@ -287,6 +287,32 @@ namespace PowerPOS
 
                             MessageBox.Show("เคยตรวจสอบสินค้าชิ้นนี้แล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             SearchData();
+
+                            int rowHandle = stockGridView.LocateByValue("Product", _PRODUCT);
+                            if (rowHandle != DevExpress.XtraGrid.GridControl.InvalidRowHandle)
+                                stockGridView.FocusedRowHandle = rowHandle;
+
+                            var filename = @"Resource/Images/Product/" + _PRODUCT + ".jpg";
+                            _STREAM_IMAGE_URL = Param.ImagePath + "/" + stockGridView.GetRowCellDisplayText(stockGridView.FocusedRowHandle, stockGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                            if (!File.Exists(filename))
+                            {
+                                if (dt.Rows[0]["Image"].ToString() != "")
+                                {
+                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                }
+                            }
+                            else
+                            {
+                                try { ptbProduct.Image = Image.FromFile(filename); }
+                                catch
+                                {
+                                    if (dt.Rows[0]["Image"].ToString() != "")
+                                    {
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                    }
+                                }
+                            }
                         }
                         else
                         {
@@ -298,6 +324,32 @@ namespace PowerPOS
 
                             lblStatus.ForeColor = Color.Green;
                             lblStatus.Text = "ตรวจสอบสินค้าเรียบร้อยแล้ว";
+
+                            int rowHandle = stockGridView.LocateByValue("Product", _PRODUCT);
+                            if (rowHandle != DevExpress.XtraGrid.GridControl.InvalidRowHandle)
+                                stockGridView.FocusedRowHandle = rowHandle;
+
+                            var filename = @"Resource/Images/Product/" + _PRODUCT + ".jpg";
+                            _STREAM_IMAGE_URL = Param.ImagePath + "/" + stockGridView.GetRowCellDisplayText(stockGridView.FocusedRowHandle, stockGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                            if (!File.Exists(filename))
+                            {
+                                if (dt.Rows[0]["Image"].ToString() != "")
+                                {
+                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                }
+                            }
+                            else
+                            {
+                                try { ptbProduct.Image = Image.FromFile(filename); }
+                                catch
+                                {
+                                    if (dt.Rows[0]["Image"].ToString() != "")
+                                    {
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                    }
+                                }
+                            }
                         }
 
                     }

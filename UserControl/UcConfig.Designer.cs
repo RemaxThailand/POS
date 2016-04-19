@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcConfig));
             this.gbxBill = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.lblVersion = new DevExpress.XtraEditors.LabelControl();
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.btnSaveBill = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
@@ -40,6 +38,13 @@
             this.panelControl12 = new DevExpress.XtraEditors.PanelControl();
             this.cbxPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.rdbSize80 = new System.Windows.Forms.RadioButton();
+            this.rdbSize76 = new System.Windows.Forms.RadioButton();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
+            this.lblVersion = new DevExpress.XtraEditors.LabelControl();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.txtBillFooter = new DevExpress.XtraEditors.TextEdit();
@@ -80,18 +85,12 @@
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
+            this.barManager1 = new DevExpress.XtraBars.BarManager();
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.panelControl20 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
-            this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
-            this.rdbSize80 = new System.Windows.Forms.RadioButton();
-            this.rdbSize76 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.gbxBill)).BeginInit();
             this.gbxBill.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -104,6 +103,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPrinter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
@@ -134,11 +138,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
-            this.groupControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.SuspendLayout();
             // 
             // gbxBill
@@ -179,18 +178,6 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(304, 645);
             this.panelControl1.TabIndex = 0;
-            // 
-            // lblVersion
-            // 
-            this.lblVersion.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblVersion.Location = new System.Drawing.Point(10, 629);
-            this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(59, 16);
-            this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.22";
-            this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
-            this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
             // panelControl13
             // 
@@ -269,6 +256,86 @@
             this.panelControl11.Name = "panelControl11";
             this.panelControl11.Size = new System.Drawing.Size(280, 5);
             this.panelControl11.TabIndex = 24;
+            // 
+            // panelControl19
+            // 
+            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl19.Location = new System.Drawing.Point(10, 483);
+            this.panelControl19.Name = "panelControl19";
+            this.panelControl19.Size = new System.Drawing.Size(284, 10);
+            this.panelControl19.TabIndex = 32;
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl6.AppearanceCaption.Options.UseFont = true;
+            this.groupControl6.Controls.Add(this.rdbSize80);
+            this.groupControl6.Controls.Add(this.rdbSize76);
+            this.groupControl6.Controls.Add(this.panelControl17);
+            this.groupControl6.Controls.Add(this.panelControl18);
+            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl6.Location = new System.Drawing.Point(10, 422);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(284, 61);
+            this.groupControl6.TabIndex = 31;
+            this.groupControl6.Text = "ขนาดกระดาษ";
+            // 
+            // rdbSize80
+            // 
+            this.rdbSize80.AutoSize = true;
+            this.rdbSize80.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbSize80.Location = new System.Drawing.Point(102, 31);
+            this.rdbSize80.Name = "rdbSize80";
+            this.rdbSize80.Size = new System.Drawing.Size(64, 20);
+            this.rdbSize80.TabIndex = 27;
+            this.rdbSize80.TabStop = true;
+            this.rdbSize80.Text = "80 มม.";
+            this.rdbSize80.UseVisualStyleBackColor = true;
+            this.rdbSize80.CheckedChanged += new System.EventHandler(this.rdbSize80_CheckedChanged);
+            // 
+            // rdbSize76
+            // 
+            this.rdbSize76.AutoSize = true;
+            this.rdbSize76.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbSize76.Location = new System.Drawing.Point(7, 31);
+            this.rdbSize76.Name = "rdbSize76";
+            this.rdbSize76.Size = new System.Drawing.Size(64, 20);
+            this.rdbSize76.TabIndex = 26;
+            this.rdbSize76.TabStop = true;
+            this.rdbSize76.Text = "76 มม.";
+            this.rdbSize76.UseVisualStyleBackColor = true;
+            this.rdbSize76.CheckedChanged += new System.EventHandler(this.rdbSize76_CheckedChanged);
+            // 
+            // panelControl17
+            // 
+            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl17.Location = new System.Drawing.Point(2, 54);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(280, 5);
+            this.panelControl17.TabIndex = 25;
+            // 
+            // panelControl18
+            // 
+            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl18.Location = new System.Drawing.Point(2, 23);
+            this.panelControl18.Name = "panelControl18";
+            this.panelControl18.Size = new System.Drawing.Size(280, 5);
+            this.panelControl18.TabIndex = 24;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblVersion.Location = new System.Drawing.Point(10, 629);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(59, 16);
+            this.lblVersion.TabIndex = 1;
+            this.lblVersion.Text = "V 1.0.0.22";
+            this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
+            this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
             // panelControl10
             // 
@@ -738,74 +805,6 @@
             this.panelControl20.Size = new System.Drawing.Size(10, 686);
             this.panelControl20.TabIndex = 21;
             // 
-            // groupControl6
-            // 
-            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl6.AppearanceCaption.Options.UseFont = true;
-            this.groupControl6.Controls.Add(this.rdbSize80);
-            this.groupControl6.Controls.Add(this.rdbSize76);
-            this.groupControl6.Controls.Add(this.panelControl17);
-            this.groupControl6.Controls.Add(this.panelControl18);
-            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl6.Location = new System.Drawing.Point(10, 422);
-            this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(284, 61);
-            this.groupControl6.TabIndex = 31;
-            this.groupControl6.Text = "ขนาดกระดาษ";
-            // 
-            // panelControl18
-            // 
-            this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl18.Location = new System.Drawing.Point(2, 23);
-            this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(280, 5);
-            this.panelControl18.TabIndex = 24;
-            // 
-            // panelControl19
-            // 
-            this.panelControl19.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl19.Location = new System.Drawing.Point(10, 483);
-            this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(284, 10);
-            this.panelControl19.TabIndex = 32;
-            // 
-            // panelControl17
-            // 
-            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl17.Location = new System.Drawing.Point(2, 54);
-            this.panelControl17.Name = "panelControl17";
-            this.panelControl17.Size = new System.Drawing.Size(280, 5);
-            this.panelControl17.TabIndex = 25;
-            // 
-            // rdbSize80
-            // 
-            this.rdbSize80.AutoSize = true;
-            this.rdbSize80.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbSize80.Location = new System.Drawing.Point(102, 31);
-            this.rdbSize80.Name = "rdbSize80";
-            this.rdbSize80.Size = new System.Drawing.Size(64, 20);
-            this.rdbSize80.TabIndex = 27;
-            this.rdbSize80.TabStop = true;
-            this.rdbSize80.Text = "80 มม.";
-            this.rdbSize80.UseVisualStyleBackColor = true;
-            this.rdbSize80.CheckedChanged += new System.EventHandler(this.rdbSize80_CheckedChanged);
-            // 
-            // rdbSize76
-            // 
-            this.rdbSize76.AutoSize = true;
-            this.rdbSize76.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbSize76.Location = new System.Drawing.Point(7, 31);
-            this.rdbSize76.Name = "rdbSize76";
-            this.rdbSize76.Size = new System.Drawing.Size(64, 20);
-            this.rdbSize76.TabIndex = 26;
-            this.rdbSize76.TabStop = true;
-            this.rdbSize76.Text = "76 มม.";
-            this.rdbSize76.UseVisualStyleBackColor = true;
-            this.rdbSize76.CheckedChanged += new System.EventHandler(this.rdbSize76_CheckedChanged);
-            // 
             // UcConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -834,6 +833,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPrinter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
+            this.groupControl6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
@@ -868,12 +873,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.barManager1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl20)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
-            this.groupControl6.ResumeLayout(false);
-            this.groupControl6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

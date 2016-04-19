@@ -25,7 +25,7 @@ namespace PowerPOS
         DataTable _TABLE_RECEIVED, dt;
         private int _ROW_INDEX = -1;
         int row = -1;
-        string _STREAM_IMAGE_URL, _SKU;
+        string _STREAM_IMAGE_URL, _SKU, _PRODUCT;
 
         public static string productNo;
         public static string OrderNo;
@@ -438,7 +438,7 @@ namespace PowerPOS
                     else
                     {
                         Param.ProductId = dt.Rows[0]["product"].ToString();
-
+                        _PRODUCT = Param.ProductId;
                         if (cbbOrderNo.SelectedItem.ToString() != dt.Rows[0]["OrderNo"].ToString())
                         {
                             cbbOrderNo.EditValue = dt.Rows[0]["OrderNo"].ToString();
@@ -453,30 +453,22 @@ namespace PowerPOS
                             //lblStatus.ForeColor = Color.Red;
                             //lblStatus.Text = "เคยรับสินค้าชิ้นนี้เข้าระบบแล้ว";
                             SearchData();
-                        }
-                        else
-                        {
-                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
-                            simpleSound.Play();
-
-                            Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
-                            WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
-                            SearchData();
-
-                            lblStatus.ForeColor = Color.Green;
-                            lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";
 
                             ptbProduct.Visible = true;
                             ptbProduct.Image = null;
 
-                            var filename = @"Resource/Images/Product/" + Param.ProductId + ".jpg";
+                            int rowHandle = receivedGridView.LocateByValue("ID", _PRODUCT);
+                            if (rowHandle != DevExpress.XtraGrid.GridControl.InvalidRowHandle)
+                                receivedGridView.FocusedRowHandle = rowHandle;
+
+                            var filename = @"Resource/Images/Product/" + _PRODUCT + ".jpg";
                             _STREAM_IMAGE_URL = Param.ImagePath + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
 
                             if (!File.Exists(filename))
                             {
                                 if (dt.Rows[0]["Image"].ToString() != "")
                                 {
-                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
                                 }
                             }
                             else
@@ -486,7 +478,49 @@ namespace PowerPOS
                                 {
                                     if (dt.Rows[0]["Image"].ToString() != "")
                                     {
-                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+                            simpleSound.Play();
+
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
+                            WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
+                            _PRODUCT = Param.ProductId;
+                            SearchData();
+
+                            lblStatus.ForeColor = Color.Green;
+                            lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";
+
+                            ptbProduct.Visible = true;
+                            ptbProduct.Image = null;
+
+                            int rowHandle = receivedGridView.LocateByValue("ID", _PRODUCT);
+                            if (rowHandle != DevExpress.XtraGrid.GridControl.InvalidRowHandle)
+                                receivedGridView.FocusedRowHandle = rowHandle;
+
+                            var filename = @"Resource/Images/Product/" + _PRODUCT + ".jpg";
+                            _STREAM_IMAGE_URL = Param.ImagePath + "/" + receivedGridView.GetRowCellDisplayText(receivedGridView.FocusedRowHandle, receivedGridView.Columns["Sku"]) + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
+
+                            if (!File.Exists(filename))
+                            {
+                                if (dt.Rows[0]["Image"].ToString() != "")
+                                {
+                                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
+                                }
+                            }
+                            else
+                            {
+                                try { ptbProduct.Image = Image.FromFile(filename); }
+                                catch
+                                {
+                                    if (dt.Rows[0]["Image"].ToString() != "")
+                                    {
+                                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", _PRODUCT + ".jpg");
                                     }
                                 }
                             }
