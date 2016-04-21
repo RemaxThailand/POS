@@ -523,7 +523,7 @@ namespace PowerPOS
                         simpleSound.Play();
 
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p WHERE Barcode.product = p.product AND p.shop = '{2}'),
-                            SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                            SellBy = '{0}' WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
                         txtBarcode.Focus();
                         lblStatus.Visible = true;

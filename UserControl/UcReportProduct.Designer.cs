@@ -38,6 +38,14 @@
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
+            this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrint = new DevExpress.XtraEditors.SimpleButton();
@@ -68,6 +76,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            this.navBarGroupControlContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
+            this.panelControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
+            this.panelControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
+            this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.panelControl17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
@@ -88,9 +105,11 @@
             this.navBarControl1.Appearance.NavigationPaneHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.navBarControl1.Appearance.NavigationPaneHeader.Options.UseFont = true;
             this.navBarControl1.Controls.Add(this.navBarGroupControlContainer2);
+            this.navBarControl1.Controls.Add(this.navBarGroupControlContainer1);
             this.navBarControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.navBarControl1.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.navBarGroup1});
+            this.navBarGroup1,
+            this.navBarGroup2});
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 250;
@@ -99,6 +118,7 @@
             this.navBarControl1.Size = new System.Drawing.Size(250, 614);
             this.navBarControl1.TabIndex = 9;
             this.navBarControl1.Text = "navBarControl1";
+            this.navBarControl1.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl1_ActiveGroupChanged);
             // 
             // navBarGroup1
             // 
@@ -118,7 +138,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl1);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(250, 528);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(250, 482);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl1
@@ -133,7 +153,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl1.Size = new System.Drawing.Size(250, 528);
+            this.panelControl1.Size = new System.Drawing.Size(250, 482);
             this.panelControl1.TabIndex = 0;
             // 
             // panelControl3
@@ -184,6 +204,89 @@
             this.dtpDate.TabIndex = 0;
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
             // 
+            // navBarGroupControlContainer1
+            // 
+            this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
+            this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
+            this.navBarGroupControlContainer1.Controls.Add(this.panelControl4);
+            this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(250, 482);
+            this.navBarGroupControlContainer1.TabIndex = 2;
+            // 
+            // panelControl4
+            // 
+            this.panelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.5F);
+            this.panelControl4.Appearance.Options.UseFont = true;
+            this.panelControl4.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl4.Controls.Add(this.panelControl5);
+            this.panelControl4.Controls.Add(this.panelControl6);
+            this.panelControl4.Controls.Add(this.groupControl2);
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl4.Location = new System.Drawing.Point(0, 0);
+            this.panelControl4.Name = "panelControl4";
+            this.panelControl4.Padding = new System.Windows.Forms.Padding(3);
+            this.panelControl4.Size = new System.Drawing.Size(250, 482);
+            this.panelControl4.TabIndex = 1;
+            // 
+            // panelControl5
+            // 
+            this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl5.Controls.Add(this.pictureEdit1);
+            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl5.Location = new System.Drawing.Point(3, 78);
+            this.panelControl5.Name = "panelControl5";
+            this.panelControl5.Size = new System.Drawing.Size(244, 174);
+            this.panelControl5.TabIndex = 5;
+            // 
+            // pictureEdit1
+            // 
+            this.pictureEdit1.EditValue = global::PowerPOS.Properties.Resources.Office;
+            this.pictureEdit1.Location = new System.Drawing.Point(2, 2);
+            this.pictureEdit1.Name = "pictureEdit1";
+            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
+            this.pictureEdit1.Size = new System.Drawing.Size(239, 171);
+            this.pictureEdit1.TabIndex = 4;
+            // 
+            // panelControl6
+            // 
+            this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl6.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl6.Location = new System.Drawing.Point(3, 66);
+            this.panelControl6.Name = "panelControl6";
+            this.panelControl6.Size = new System.Drawing.Size(244, 12);
+            this.panelControl6.TabIndex = 4;
+            // 
+            // groupControl2
+            // 
+            this.groupControl2.Controls.Add(this.dateTimePicker1);
+            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl2.Location = new System.Drawing.Point(3, 3);
+            this.groupControl2.Name = "groupControl2";
+            this.groupControl2.Size = new System.Drawing.Size(244, 63);
+            this.groupControl2.TabIndex = 3;
+            this.groupControl2.Text = "ค้นหาข้อมูล";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Location = new System.Drawing.Point(31, 31);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(173, 23);
+            this.dateTimePicker1.TabIndex = 0;
+            // 
+            // navBarGroup2
+            // 
+            this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
+            this.navBarGroup2.Appearance.Options.UseFont = true;
+            this.navBarGroup2.Caption = "ข้อมูลส่งคืนรายวัน";
+            this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
+            this.navBarGroup2.GroupClientHeight = 80;
+            this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+            this.navBarGroup2.LargeImage = ((System.Drawing.Image)(resources.GetObject("navBarGroup2.LargeImage")));
+            this.navBarGroup2.Name = "navBarGroup2";
+            this.navBarGroup2.Visible = false;
+            // 
             // panelControl17
             // 
             this.panelControl17.Controls.Add(this.groupControl4);
@@ -220,7 +323,7 @@
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(178, 35);
             this.btnPrint.TabIndex = 0;
-            this.btnPrint.Text = "พิมพ์รายการเคลม";
+            this.btnPrint.Text = "พิมพ์รายการ";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // panelControl20
@@ -454,6 +557,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.navBarGroupControlContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
+            this.panelControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
+            this.panelControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
+            this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.panelControl17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
@@ -501,5 +613,13 @@
         private DevExpress.XtraGrid.Columns.GridColumn clCustomer;
         private DevExpress.XtraGrid.Columns.GridColumn clTotal;
         private DevExpress.XtraEditors.PanelControl panelControl10;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroup2;
+        private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
+        private DevExpress.XtraEditors.PanelControl panelControl5;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
+        private DevExpress.XtraEditors.PanelControl panelControl6;
+        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

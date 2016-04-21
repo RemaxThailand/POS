@@ -34,6 +34,8 @@
             this.labelControl5 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl8 = new DevExpress.XtraEditors.LabelControl();
             this.SuspendLayout();
             // 
             // labelControl1
@@ -43,7 +45,7 @@
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(170, 25);
             this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Version 1.0.0.22";
+            this.labelControl1.Text = "Version 1.0.0.23";
             // 
             // labelControl2
             // 
@@ -75,7 +77,7 @@
             // labelControl4
             // 
             this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Location = new System.Drawing.Point(27, 116);
+            this.labelControl4.Location = new System.Drawing.Point(27, 144);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(45, 18);
             this.labelControl4.TabIndex = 6;
@@ -84,17 +86,37 @@
             // labelControl6
             // 
             this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl6.Location = new System.Drawing.Point(51, 140);
+            this.labelControl6.Location = new System.Drawing.Point(51, 168);
             this.labelControl6.Name = "labelControl6";
-            this.labelControl6.Size = new System.Drawing.Size(77, 18);
+            this.labelControl6.Size = new System.Drawing.Size(225, 18);
             this.labelControl6.TabIndex = 5;
-            this.labelControl6.Text = "- รับคืนสินค้า";
+            this.labelControl6.Text = "- เปิดโปรแกรมที่มีข้อมูลการขายขึ้นมา";
+            // 
+            // labelControl7
+            // 
+            this.labelControl7.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl7.Location = new System.Drawing.Point(51, 116);
+            this.labelControl7.Name = "labelControl7";
+            this.labelControl7.Size = new System.Drawing.Size(125, 18);
+            this.labelControl7.TabIndex = 7;
+            this.labelControl7.Text = "- เสียงหน้าขายสินค้า";
+            // 
+            // labelControl8
+            // 
+            this.labelControl8.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl8.Location = new System.Drawing.Point(51, 192);
+            this.labelControl8.Name = "labelControl8";
+            this.labelControl8.Size = new System.Drawing.Size(358, 18);
+            this.labelControl8.TabIndex = 8;
+            this.labelControl8.Text = "- การ Focus ของรายการสินค้า ในหน้ารับเข้าและหน้าสต็อค ";
             // 
             // FmPosDetail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 174);
+            this.ClientSize = new System.Drawing.Size(412, 222);
+            this.Controls.Add(this.labelControl8);
+            this.Controls.Add(this.labelControl7);
             this.Controls.Add(this.labelControl4);
             this.Controls.Add(this.labelControl6);
             this.Controls.Add(this.labelControl5);
@@ -118,5 +140,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl5;
         private DevExpress.XtraEditors.LabelControl labelControl4;
         private DevExpress.XtraEditors.LabelControl labelControl6;
+        private DevExpress.XtraEditors.LabelControl labelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl8;
     }
 }

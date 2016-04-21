@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcConfig));
             this.gbxBill = new DevExpress.XtraEditors.GroupControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
@@ -85,7 +86,7 @@
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
-            this.barManager1 = new DevExpress.XtraBars.BarManager();
+            this.barManager1 = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -333,7 +334,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(59, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.22";
+            this.lblVersion.Text = "V 1.0.0.23";
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 

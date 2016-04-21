@@ -2234,6 +2234,7 @@
     <None Include="Resources\Claim.png" />
     <None Include="Resources\Credit.png" />
     <Content Include="Resources\Images\Loading.gif" />
+    <None Include="Resources\Office.png" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
