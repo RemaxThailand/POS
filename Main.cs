@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -42,10 +43,30 @@ namespace PowerPOS
 
         private void Main_Load(object sender, EventArgs e)
         {
-
-            Param.InitialFinished = false;
-            InitialCloudData();
-            Param.Main = this;
+            string[] args = Environment.GetCommandLineArgs();
+            try
+            {
+                if(args[1].ToString() == "RemaxThailand")
+                {
+                    Param.InitialFinished = false;
+                    InitialCloudData();
+                    Param.Main = this;
+                }
+                else
+                {
+                    Process process = new Process();
+                    process.StartInfo.FileName = "Updater.exe";
+                    process.Start();
+                    this.Dispose();
+                }
+            }
+            catch
+            {
+                Process process = new Process();
+                process.StartInfo.FileName = "Updater.exe";
+                process.Start();
+                this.Dispose();
+            }
 
             //DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style";
 
