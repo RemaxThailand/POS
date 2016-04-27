@@ -83,7 +83,6 @@ namespace PowerPOS
 
                         //Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, Barcode, SellPrice, Cost, Sync)
                         //SELECT '{0}', Product, Barcode, SellPrice, Cost, 1 FROM Barcode WHERE SellNo = '{0}' AND Barcode = '{1}'", _SELL_NO, dt.Rows[i]["Barcode"].ToString()));
-
                     }
 
                     DataTable dtF = Util.DBQuery(string.Format(@"SELECT SUM(SellPrice) SellPrice, SUM(Cost) Cost, SUM(OperationCost) OP, (SUM(SellPrice) - SUM(Cost) ) Profit FROM (
