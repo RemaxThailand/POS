@@ -90,7 +90,7 @@ namespace PowerPOS
             dsk.Get();
             string volumeSerial = dsk["VolumeSerialNumber"].ToString();
 
-            string uniqueId = motherBoard + "-" + volumeSerial;
+            string uniqueId = (motherBoard.Trim() + "-" + volumeSerial.Trim()).Trim();
             Param.DeviceID = uniqueId;
             return uniqueId;
         }
