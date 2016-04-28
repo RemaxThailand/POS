@@ -43,7 +43,7 @@ namespace PowerPOS
             Param.DeviceID = GetDiviceId();
             Param.ComputerName = System.Environment.MachineName;
             //Param.DatabaseName = Properties.Settings.Default.DatabaseName;
-            //Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
+            Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
             Param.ShopId = Properties.Settings.Default.ShopId;
             Param.ShopName = Properties.Settings.Default.ShopName;
             Param.ShopParent = Properties.Settings.Default.ShopParent;

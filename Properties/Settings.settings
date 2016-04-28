@@ -11,10 +11,10 @@
     <Setting Name="ApiChecked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="DatabaseName" Type="System.String" Scope="User">
+    <Setting Name="DatabaseName" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="DatabasePassword" Type="System.String" Scope="User">
+    <Setting Name="DatabasePassword" Type="System.String" Scope="Application">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="ShopId" Type="System.String" Scope="User">

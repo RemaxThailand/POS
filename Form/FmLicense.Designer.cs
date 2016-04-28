@@ -35,9 +35,12 @@
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.txtLicenseKey = new DevExpress.XtraEditors.TextEdit();
+            this.txtPassword = new DevExpress.XtraEditors.TextEdit();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtLicenseKey.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -52,6 +55,8 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.label1);
+            this.panelControl1.Controls.Add(this.txtPassword);
             this.panelControl1.Controls.Add(this.lblDeviceID);
             this.panelControl1.Controls.Add(this.btnCancel);
             this.panelControl1.Controls.Add(this.btnSave);
@@ -60,7 +65,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(374, 91);
+            this.panelControl1.Size = new System.Drawing.Size(374, 108);
             this.panelControl1.TabIndex = 12;
             // 
             // lblDeviceID
@@ -68,7 +73,7 @@
             this.lblDeviceID.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDeviceID.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.lblDeviceID.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.lblDeviceID.Location = new System.Drawing.Point(6, 48);
+            this.lblDeviceID.Location = new System.Drawing.Point(6, 73);
             this.lblDeviceID.Name = "lblDeviceID";
             this.lblDeviceID.Size = new System.Drawing.Size(215, 23);
             this.lblDeviceID.TabIndex = 15;
@@ -78,7 +83,7 @@
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(298, 43);
+            this.btnCancel.Location = new System.Drawing.Point(295, 68);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 31);
             this.btnCancel.TabIndex = 14;
@@ -90,7 +95,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(221, 43);
+            this.btnSave.Location = new System.Drawing.Point(221, 68);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(71, 31);
             this.btnSave.TabIndex = 13;
@@ -106,11 +111,31 @@
             this.txtLicenseKey.Size = new System.Drawing.Size(277, 22);
             this.txtLicenseKey.TabIndex = 12;
             // 
+            // txtPassword
+            // 
+            this.txtPassword.Location = new System.Drawing.Point(89, 38);
+            this.txtPassword.Name = "txtPassword";
+            this.txtPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Properties.Appearance.Options.UseFont = true;
+            this.txtPassword.Properties.PasswordChar = '*';
+            this.txtPassword.Size = new System.Drawing.Size(277, 22);
+            this.txtPassword.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(16, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 16);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Password";
+            // 
             // FmLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(374, 91);
+            this.ClientSize = new System.Drawing.Size(374, 108);
             this.Controls.Add(this.panelControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FmLicense";
@@ -121,6 +146,7 @@
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtLicenseKey.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -132,5 +158,7 @@
         private DevExpress.XtraEditors.SimpleButton btnSave;
         private DevExpress.XtraEditors.TextEdit txtLicenseKey;
         private DevExpress.XtraEditors.LabelControl lblDeviceID;
+        private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.TextEdit txtPassword;
     }
 }

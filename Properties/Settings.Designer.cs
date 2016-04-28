@@ -56,27 +56,21 @@ namespace PowerPOS.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DatabaseName {
             get {
                 return ((string)(this["DatabaseName"]));
             }
-            set {
-                this["DatabaseName"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string DatabasePassword {
             get {
                 return ((string)(this["DatabasePassword"]));
-            }
-            set {
-                this["DatabasePassword"] = value;
             }
         }
         
