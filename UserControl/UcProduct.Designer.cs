@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraGrid.Columns.GridColumn clQty;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcProduct));
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
@@ -55,7 +56,6 @@
             this.clProduct = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clName = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.clQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clBrand = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWarranty = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -117,6 +117,7 @@
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
             this.lblTotal = new DevExpress.XtraEditors.LabelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            clQty = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent2.Properties)).BeginInit();
@@ -450,7 +451,7 @@
             this.clProduct,
             this.clSku,
             this.clName,
-            this.clQty,
+            clQty,
             this.clCategory,
             this.clBrand,
             this.clWarranty,
@@ -545,25 +546,25 @@
             // 
             // clQty
             // 
-            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clQty.AppearanceCell.Options.UseFont = true;
-            this.clQty.AppearanceCell.Options.UseTextOptions = true;
-            this.clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clQty.AppearanceHeader.Options.UseFont = true;
-            this.clQty.AppearanceHeader.Options.UseTextOptions = true;
-            this.clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clQty.Caption = "จำนวน";
-            this.clQty.DisplayFormat.FormatString = "{0:#;;\'-\'}";
-            this.clQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.clQty.FieldName = "qty";
-            this.clQty.Name = "clQty";
-            this.clQty.OptionsColumn.AllowEdit = false;
-            this.clQty.OptionsColumn.AllowMove = false;
-            this.clQty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
-            this.clQty.Visible = true;
-            this.clQty.VisibleIndex = 3;
-            this.clQty.Width = 50;
+            clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceCell.Options.UseFont = true;
+            clQty.AppearanceCell.Options.UseTextOptions = true;
+            clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceHeader.Options.UseFont = true;
+            clQty.AppearanceHeader.Options.UseTextOptions = true;
+            clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            clQty.Caption = "จำนวน";
+            clQty.DisplayFormat.FormatString = "{0:#;;\'-\'}";
+            clQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            clQty.FieldName = "qty";
+            clQty.Name = "clQty";
+            clQty.OptionsColumn.AllowEdit = false;
+            clQty.OptionsColumn.AllowMove = false;
+            clQty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            clQty.Visible = true;
+            clQty.VisibleIndex = 3;
+            clQty.Width = 50;
             // 
             // clCategory
             // 
@@ -1431,7 +1432,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn clNo;
         private DevExpress.XtraGrid.Columns.GridColumn clProduct;
         private DevExpress.XtraGrid.Columns.GridColumn clName;
-        private DevExpress.XtraGrid.Columns.GridColumn clQty;
         private DevExpress.XtraGrid.Columns.GridColumn clCategory;
         private DevExpress.XtraGrid.Columns.GridColumn clBrand;
         private DevExpress.XtraGrid.Columns.GridColumn clWarranty;

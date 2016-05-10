@@ -40,7 +40,7 @@ namespace PowerPOS
             int i, a;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try {
-                if (Param.MemberType != "Shop" && Param.MemberType != "Event")
+                if (Param.MemberType != "Shop" && Param.MemberType != "Event" && Param.MemberType != "Agent")
                 {
                     pictureEdit1.Visible = true;
                     ptbShop.Visible = false;
@@ -213,7 +213,7 @@ namespace PowerPOS
 
         private void DrawImage(double sumPrice, double sumProfit, double avgPrice, double max, List<double> chart)
         {
-            if (Param.MemberType != "Shop" && Param.MemberType != "Event")
+            if (Param.MemberType != "Shop" && Param.MemberType != "Event" && Param.MemberType != "Agent")
             {
                 pictureEdit1.Visible = true;
                 ptbShop.Visible = false;

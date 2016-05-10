@@ -185,7 +185,6 @@ namespace PowerPOS
 
         public static string GetApiData(string method, string parameter)
         {
-
             using (WebClient wc = new WebClient())
             {
                 //try
@@ -893,7 +892,7 @@ namespace PowerPOS
         {
             DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
 
-            var hight = 225 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
+            var hight = 250 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
             //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
             //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
             PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
@@ -976,6 +975,14 @@ namespace PowerPOS
                         pX = 0;
                         pY = 5;
                     }
+
+                    if (Param.MemberType == "Shop")
+                    {
+                        stringFont = new Font("DilleniaUPC", 12, FontStyle.Bold);
+                        g.Graphics.DrawString(Param.ShopName, stringFont, brush, new PointF(pX, pY + 6));
+                        pY += 20;
+                    }
+
                     stringFont = new Font("Calibri", 7);
                     g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 
@@ -1043,6 +1050,7 @@ namespace PowerPOS
                         : "")
                         , stringFont, brush, new PointF(pX, pY));
 
+
                     /*stringFont = new Font("DilleniaUPC", 11);
                     measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
@@ -1101,6 +1109,14 @@ namespace PowerPOS
                         pX = 0;
                         pY = 5;
                     }
+
+                    if (Param.MemberType == "Shop")
+                    {
+                        stringFont = new Font("DilleniaUPC", 10, FontStyle.Bold);
+                        g.Graphics.DrawString(Param.ShopName, stringFont, brush, new PointF(pX, pY + 6));
+                        pY += 20;
+                    }
+
                     stringFont = new Font("Calibri", 7);
                     g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 

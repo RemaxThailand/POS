@@ -131,11 +131,54 @@ namespace PowerPOS
                     //}
                     //else
                     //{
-                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT product, name, category, brand, image, sku,warranty,IFNULL((SUM(cost)+SUM(OperationCost))/SUM(qty),0) cost, price, price1, price2, price3, price4, price5, webprice, webprice1, webprice2, webprice3, webprice4, webprice5, qty FROM (
-                    SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  IFNULL(cnt.OperationCost,0) OperationCost, 
+
+                    //      _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT product, name, category, brand, image, sku,warranty,IFNULL((SUM(cost)+SUM(OperationCost))/SUM(qty),0) cost, price, price1, price2, price3, price4, price5, webprice, webprice1, webprice2, webprice3, webprice4, webprice5, qty FROM (
+                    //      SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost,0) Cost,  IFNULL(cnt.OperationCost,0) OperationCost, 
+                    //                          IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
+                    //                          IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount,0) Qty
+                    //                          FROM Barcode b
+                    //                              LEFT JOIN Product p
+                    //                                  ON b.Product = p.Product
+                    //                              LEFT JOIN Category c
+                    //                                  ON p.Category = c.Category
+                    //                              LEFT JOIN Brand bb
+                    //                                  ON p.brand = bb.brand
+                    //                              LEFT JOIN (
+                    //                                  SELECT Product, SUM(Cost) Cost, SUM(OperationCost) OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND  sellPrice = 0 GROUP BY Product
+                    //                              ) cnt
+                    //                    ON p.product = cnt.Product
+                    //      UNION ALL
+                    //      SELECT DISTINCT p.product, p.Name, c.Name Category, b.Name Brand,p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty,   IFNULL(b.PriceCost * cntP.Quantity ,0) Cost, 0 OperationCost,
+                    //                          IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0)  Price3,IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
+                    //                          IFNULL(p.WebPrice,0) WebPrice, IFNULL(p.WebPrice1,0) WebPrice1, IFNULL(p.WebPrice2,0) WebPrice2, IFNULL(p.WebPrice3,0) WebPrice3, IFNULL(p.WebPrice4,0) WebPrice4, IFNULL(p.WebPrice5,0) WebPrice5, IFNULL(cntP.Quantity,0) ProductCount                    
+                    //                          FROM PurchaseOrder b
+                    //                              LEFT JOIN Product  p
+                    //                                  ON b.Product = p.product
+                    //                              LEFT JOIN Category c
+                    //                                  ON p.Category = c.Category 
+                    //                              LEFT JOIN Brand b
+                    //                                  ON p.Brand = b.Brand 
+                    //                              LEFT JOIN 
+                    //                              (
+                    //                                  SELECT Product, Quantity, Name, Cost FROM Product
+                    //                              ) cntP
+                    //                              ON cntP.Product = p.product
+                    //      )
+
+                    //WHERE (product LIKE '%{1}%' OR Name LIKE '%{1}%') {2} {3} {4} {5}
+                    //      GROUP BY product 
+                    //      ORDER BY Category, Name", Param.ShopId, txtSearch.Text.Trim(),
+                    //         (cbbCategory.SelectedIndex != 0) ? "AND category = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
+                    //         (cbbBrand.SelectedIndex != 0) ? "AND brand = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
+                    //         (cbNoPrice.Checked) ? "AND (Price = 0 OR Price = '' OR Price = null)" : "",
+                    //         (cbNoStock.Checked) ? "AND IFNULL(Qty, 0) = 0" : ""
+                    //     ));
+
+
+                    _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost, 0) Cost,  IFNULL(cnt.OperationCost, 0) OperationCost, 
                                         IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
-                                        IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount,0) Qty
-                                        FROM Barcode b
+                                        IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount, 0) Qty
+                                         FROM Barcode b
                                             LEFT JOIN Product p
                                                 ON b.Product = p.Product
                                             LEFT JOIN Category c
@@ -143,35 +186,17 @@ namespace PowerPOS
                                             LEFT JOIN Brand bb
                                                 ON p.brand = bb.brand
                                             LEFT JOIN (
-                                                SELECT Product, SUM(Cost) Cost, SUM(OperationCost) OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND  sellPrice = 0 GROUP BY Product
+                                                SELECT Product, Cost, OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND  sellNo = '' GROUP BY Product
                                             ) cnt
-		                                ON p.product = cnt.Product
-                    UNION ALL
-                    SELECT DISTINCT p.product, p.Name, c.Name Category, b.Name Brand,p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty,   IFNULL(b.PriceCost * cntP.Quantity ,0) Cost, 0 OperationCost,
-                                        IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0)  Price3,IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
-                                        IFNULL(p.WebPrice,0) WebPrice, IFNULL(p.WebPrice1,0) WebPrice1, IFNULL(p.WebPrice2,0) WebPrice2, IFNULL(p.WebPrice3,0) WebPrice3, IFNULL(p.WebPrice4,0) WebPrice4, IFNULL(p.WebPrice5,0) WebPrice5, IFNULL(cntP.Quantity,0) ProductCount                    
-                                        FROM PurchaseOrder b
-                                            LEFT JOIN Product  p
-                                                ON b.Product = p.product
-                                            LEFT JOIN Category c
-                                                ON p.Category = c.Category 
-                                            LEFT JOIN Brand b
-                                                ON p.Brand = b.Brand 
-                                            LEFT JOIN 
-                                            (
-                                                SELECT Product, Quantity, Name, Cost FROM Product
-                                            ) cntP
-                                            ON cntP.Product = p.product
-                    )
-                    
-		            WHERE (product LIKE '%{1}%' OR Name LIKE '%{1}%') {2} {3} {4} {5}
-                    GROUP BY product 
-                    ORDER BY Category, Name", Param.ShopId, txtSearch.Text.Trim(),
-                       (cbbCategory.SelectedIndex != 0) ? "AND category = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
-                       (cbbBrand.SelectedIndex != 0) ? "AND brand = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
-                       (cbNoPrice.Checked) ? "AND (Price = 0 OR Price = '' OR Price = null)" : "",
-                       (cbNoStock.Checked) ? "AND IFNULL(Qty, 0) = 0" : ""
-                   ));
+                                        ON p.product = cnt.Product
+                    WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5}
+                          GROUP BY p.product 
+                          ORDER BY p.Category, p.Name", Param.ShopId, txtSearch.Text.Trim(),
+                             (cbbCategory.SelectedIndex != 0) ? "AND c.Name  = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
+                             (cbbBrand.SelectedIndex != 0) ? "AND b.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
+                             (cbNoPrice.Checked) ? "AND (p.Price = 0 OR p.Price = '' OR p.Price = null)" : "",
+                             (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : ""
+                    ));
                     //}
                     productGridview.OptionsBehavior.AutoPopulateColumns = false;
                     productGridControl.MainView = productGridview;

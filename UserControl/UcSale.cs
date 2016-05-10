@@ -99,7 +99,7 @@ namespace PowerPOS
                 //int b = 0;
                 //for (b = 0; b < dt.Rows.Count; b++)
                 //{
-                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
                             WHERE NOT EXISTS (SELECT *
                           FROM ChangePrice cp
                           WHERE Barcode.product = cp.product
@@ -198,6 +198,7 @@ namespace PowerPOS
             btnCancelSale.Enabled = sumPrice > 0;
             btnCancelProduct.Enabled = sumPrice > 0;
             btnConfirm.Enabled = sumPrice > 0;
+            
         }
 
         private void SelectCustomer(object sender, EventArgs e)
@@ -526,9 +527,9 @@ namespace PowerPOS
                             SellBy = '{0}' WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
                         txtBarcode.Focus();
-                        lblStatus.Visible = true;
-                        lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
-                        lblStatus.ForeColor = Color.Green;
+                        //lblStatus.Visible = true;
+                        //lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
+                        //lblStatus.ForeColor = Color.Green;
                     }
                     lblStatus.Visible = false;
                     txtBarcode.Text = "";

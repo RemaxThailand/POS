@@ -233,7 +233,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.ForeColor = System.Drawing.Color.LightGray;
             this.label2.Location = new System.Drawing.Point(5, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 19);
@@ -245,9 +245,9 @@
             this.txtDiscount.EditValue = "0";
             this.txtDiscount.Location = new System.Drawing.Point(71, 12);
             this.txtDiscount.Name = "txtDiscount";
-            this.txtDiscount.Properties.Appearance.BackColor = System.Drawing.Color.White;
+            this.txtDiscount.Properties.Appearance.BackColor = System.Drawing.Color.Gainsboro;
             this.txtDiscount.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiscount.Properties.Appearance.ForeColor = System.Drawing.Color.OrangeRed;
+            this.txtDiscount.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.txtDiscount.Properties.Appearance.Options.UseBackColor = true;
             this.txtDiscount.Properties.Appearance.Options.UseFont = true;
             this.txtDiscount.Properties.Appearance.Options.UseForeColor = true;
@@ -260,9 +260,11 @@
             // 
             // panelControl5
             // 
+            this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl5.Controls.Add(this.txtDiscount);
             this.panelControl5.Controls.Add(this.label2);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl5.Enabled = false;
             this.panelControl5.Location = new System.Drawing.Point(0, 124);
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(243, 63);
