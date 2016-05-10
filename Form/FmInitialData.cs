@@ -83,6 +83,9 @@ namespace PowerPOS
         private void bwCheckLicense_DoWork(object sender, DoWorkEventArgs e)
         {
             Util.GetApiConfig();
+            Param.ApiChecked = true;
+            /*
+            Util.GetApiConfig();
             if (Param.ApiChecked)
             {
                 if (Util.CanConnectInternet())
@@ -106,6 +109,7 @@ namespace PowerPOS
                     break;
                 }
             }
+            */
         }
 
         private void bwCheckLicense_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

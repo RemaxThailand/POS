@@ -22,8 +22,8 @@ namespace PowerPOS
         {
             Param.LicenseKey = txtLicenseKey.Text.Trim();
             Param.DatabasePassword = txtPassword.Text.Trim();
-            Properties.Settings.Default.DatabasePassword = Param.DatabasePassword;
-            Properties.Settings.Default.LicenseKey = Param.LicenseKey;
+            //Properties.Settings.Default.DatabasePassword = Param.DatabasePassword;
+            //Properties.Settings.Default.LicenseKey = Param.LicenseKey;
             Properties.Settings.Default.Save();
             Properties.Settings.Default.Upgrade();
 

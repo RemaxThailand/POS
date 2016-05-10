@@ -48,6 +48,8 @@ namespace PowerPOS
             {
                 if(args[1].ToString() == "RemaxThailand")
                 {
+                    Param.ShopId = args[2].ToString();
+                    Param.Token = args[3].ToString();
                     Param.InitialFinished = false;
                     InitialCloudData();
                     Param.Main = this;

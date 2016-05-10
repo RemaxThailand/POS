@@ -26,6 +26,7 @@ namespace PowerPOS
         public static string ShopId;// = "00000002";
         public static string ApiUrl;//= "http://api-test.powerdd.com/";
         public static string ApiKey;// = "TEST-0001";
+        public static string Token;
         public static string UserId;
         public static string UserCode;
         public static bool ApiChecked;
