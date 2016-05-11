@@ -53,6 +53,17 @@ namespace PowerPOS
         {
             Util.GetApiConfig();
             Param.ApiChecked = true;
+            if (Util.CanConnectInternet())
+            {
+                try
+                {
+                    dynamic jsonObject = Util.LoadAppConfig();
+                }
+                catch
+                {
+
+                }
+            }
             /*
             Util.GetApiConfig();
             if (Param.ApiChecked)

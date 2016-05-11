@@ -128,7 +128,8 @@ namespace PowerPOS
                     if (jsonApplication.success.Value)
                     {
                         dynamic app = Util.GetApiData("/shop-application/updatePos",
-                        string.Format("shop{0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey, "deviceName", Param.ComputerName));
+                        string.Format("shop{0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey,
+                        "deviceName,applicationPath", Param.ComputerName + "," + Directory.GetCurrentDirectory()));
 
                         dynamic jsonApp = JsonConvert.DeserializeObject(app);
                         Console.WriteLine(jsonApp.success);
