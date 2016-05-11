@@ -66,8 +66,9 @@ namespace PowerPOS
                     this.Dispose();
                 }
             }
-            catch
+            catch(Exception ex)
             {
+                Util.WriteErrorLog(ex.Message);
                 Process process = new Process();
                 process.StartInfo.FileName = "Updater.exe";
                 process.Start();
