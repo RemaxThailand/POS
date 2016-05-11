@@ -135,7 +135,6 @@ namespace PowerPOS
                             "applicationPath", Directory.GetCurrentDirectory()));
 
                         dynamic jsonApp = JsonConvert.DeserializeObject(app);
-                        Console.WriteLine(jsonApp.success);
 
                         Param.ShopId = jsonApplication.result[0].shop;
                         Param.DevicePrefix = jsonApplication.result[0].devicePrefix;
