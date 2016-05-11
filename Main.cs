@@ -52,6 +52,8 @@ namespace PowerPOS
                     Param.Token = args[3].ToString();
                     Param.DatabaseName = args[4].ToString();
                     Param.DatabasePassword = args[5].ToString();
+                    Param.LicenseKey = args[6].ToString();
+                    Param.ApiShopId = args[7].ToString();
                     Param.InitialFinished = false;
                     InitialCloudData();
                     Param.Main = this;

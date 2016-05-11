@@ -32,44 +32,13 @@ namespace PowerPOS
         private void FmInitialData_Load(object sender, EventArgs e)
         {
             //DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style";
-
-
             pgbStatus.Value = 0;
-            //_PROGRESS_STEP = 0;
-
-            if (!File.Exists(Param.LoadingImageLocal))
-            {
-                pictureBox1.ImageLocation = Param.LoadingImageUrl;
-                DownloadLoadingImage();
-            }
-            else
-            {
-                try
-                {
-                    pictureBox1.Image = Image.FromFile(Param.LoadingImageLocal);
-                }
-                catch
-                {
-                    pictureBox1.ImageLocation = Param.LoadingImageUrl;
-                    DownloadLoadingImage();
-                }
-            }
-
+            pictureBox1.Image = Image.FromFile(Param.LoadingImageLocal);
             progressPanel1.Description = "กำลังตรวจสอบสิทธิ์การใช้งานระบบ";
             bwCheckLicense.RunWorkerAsync();
         }
 
-        private async void DownloadLoadingImage()
-        {
-            if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
-            if (File.Exists(Param.LoadingImageLocal)) File.Delete(Param.LoadingImageLocal);
-            using (var client = new WebClient())
-            {
-                await client.DownloadFileTaskAsync(new Uri(Param.LoadingImageUrl), Param.LoadingImageLocal);
-            }
-        }
-
-        public async void DownloadLogo()
+        /*public async void DownloadLogo()
         {
             if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
             if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
@@ -78,7 +47,7 @@ namespace PowerPOS
                 await client.DownloadFileTaskAsync(new Uri(Param.LogoUrl), Param.LogoPath);
                 Param.Logo = Param.LogoUrl;
             }
-        }
+        }*/
 
         private void bwCheckLicense_DoWork(object sender, DoWorkEventArgs e)
         {

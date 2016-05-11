@@ -37,10 +37,10 @@ namespace PowerPOS
         {
             Param.ApiUrl = Properties.Settings.Default.ApiUrl;
             Param.ApiKey = Properties.Settings.Default.ApiKey;
-            Param.LicenseKey = Properties.Settings.Default.LicenseKey;
+            //Param.LicenseKey = Properties.Settings.Default.LicenseKey;
             Param.ApiChecked = Properties.Settings.Default.ApiChecked;
             Param.ImagePath = Properties.Settings.Default.ImagePath;
-            //Param.DeviceID = GetDiviceId();
+            Param.DeviceID = GetDiviceId();
             Param.ComputerName = System.Environment.MachineName;
             //Param.DatabaseName = Properties.Settings.Default.DatabaseName;
             //Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
@@ -49,7 +49,8 @@ namespace PowerPOS
             Param.ShopParent = Properties.Settings.Default.ShopParent;
             Param.ShopCustomer = Properties.Settings.Default.ShopCustomer;
             Param.ShopType = Properties.Settings.Default.ShopType;
-            Param.ApiShopId = Properties.Settings.Default.ApiShopId;
+            //Param.ApiShopId = Properties.Settings.Default.ApiShopId;
+
             //Param.LogoPath = Properties.Settings.Default.LogoPath;
             //if (Param.LogoPath.ToString() == "")
             //{
