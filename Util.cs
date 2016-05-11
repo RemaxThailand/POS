@@ -18,6 +18,8 @@ using DevExpress.XtraEditors;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 using System.Drawing;
+using System.Data.SqlServerCe;
+using System.Collections;
 
 namespace PowerPOS
 {
@@ -35,6 +37,7 @@ namespace PowerPOS
 
         public static void GetApiConfig()
         {
+            GetConfigFromSqlCe(Param.DatabaseName, Param.DatabasePassword);
             Param.ApiUrl = Properties.Settings.Default.ApiUrl;
             Param.ApiKey = Properties.Settings.Default.ApiKey;
             //Param.LicenseKey = Properties.Settings.Default.LicenseKey;
@@ -128,7 +131,8 @@ namespace PowerPOS
                     if (jsonApplication.success.Value)
                     {
                         dynamic app = Util.GetApiData("/shop-application/updatePos",
-                        string.Format("shop{0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey, "deviceName", Param.ComputerName));
+                        string.Format("shop={0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey,
+                            "applicationPath", Directory.GetCurrentDirectory()));
 
                         dynamic jsonApp = JsonConvert.DeserializeObject(app);
                         Console.WriteLine(jsonApp.success);
@@ -1394,6 +1398,42 @@ namespace PowerPOS
             //measureString = Param.FooterText;
             //stringSize = g.Graphics.MeasureString(measureString, stringFont);
             //g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+
+        }
+
+
+        public static bool GetConfigFromSqlCe(string filename, string password)
+        {
+            try
+            {
+                string strDataSource = @"Data Source=" + filename + ";Encrypt Database=True;Password=" + password + ";" +
+                    @"File Mode=shared read;Persist Security Info = False;";
+                SqlCeConnection conn = new SqlCeConnection();
+                conn.ConnectionString = strDataSource;
+
+                SqlCeCommand selectCmd = conn.CreateCommand();
+                selectCmd.CommandText = "SELECT * FROM Config";
+
+                SqlCeDataAdapter adp = new SqlCeDataAdapter(selectCmd);
+
+                DataTable dt = new DataTable();
+                adp.Fill(dt);
+                adp.Dispose();
+                conn.Close();
+
+                Param.SqlCeConfig = new Hashtable();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    Param.SqlCeConfig.Add(dt.Rows[i][0].ToString(), dt.Rows[i][1].ToString());
+                }
+
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
         }
     }

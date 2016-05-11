@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraEditors;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
+using System.Collections;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Windows.Forms;
@@ -27,6 +28,7 @@ namespace PowerPOS
         public static string ApiUrl;//= "http://api-test.powerdd.com/";
         public static string ApiKey;// = "TEST-0001";
         public static string Token;
+        public static Hashtable SqlCeConfig;
         public static string UserId;
         public static string UserCode;
         public static bool ApiChecked;
