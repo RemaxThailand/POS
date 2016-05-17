@@ -486,57 +486,45 @@ namespace PowerPOS
 
         private static void CreateDatabaseProvision(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
         {
-            try
-            {
-                DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
-                DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
-                scopeDesc.Tables.Add(tableDesc);
-                SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
-                if (!serverProvision.ScopeExists(scopeName))
-                {
-                    serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
-                    serverProvision.Apply();
-                }
+            DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
+            DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
+            scopeDesc.Tables.Add(tableDesc);
 
-                SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
-                if (!clientProvision.ScopeExists(scopeName))
-                {
-                    clientProvision.Apply();
-                }
-            }
-            catch (Exception ex)
+            SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+            if (!serverProvision.ScopeExists(scopeName))
             {
-                WriteErrorLog(string.Format("Scope {0} Error : {1}", scopeName, ex.Message));
+                serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
+                serverProvision.Apply();
+            }
+
+            SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
+            if (!clientProvision.ScopeExists(scopeName))
+            {
+                clientProvision.Apply();
             }
         }
 
         private static void CreateDatabaseProvisionFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
         {
-            try
+            DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName + "-" + filterName + filterValue);
+            DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
+            scopeDesc.Tables.Add(tableDesc);
+
+            SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+
+            if (!serverProvision.ScopeExists(scopeName + "-" + filterName + filterValue))
             {
-                DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
-                DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
-                scopeDesc.Tables.Add(tableDesc);
-                SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
-                if (!serverProvision.ScopeExists(scopeName))
-                {
-                    serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
-                    serverProvision.Tables[scopeName.Replace("Scope", "")].AddFilterColumn(filterName);
-                    serverProvision.Tables[scopeName.Replace("Scope", "")].FilterClause = "[side].["+ filterName + "] = '"+ filterValue + "'";
-                    serverProvision.Apply();
-                }
-
-                scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(scopeName, serverConn);
-                SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
-                if (!clientProvision.ScopeExists(scopeName))
-                {
-                    clientProvision.Apply();
-                }
-
+                serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
+                serverProvision.Tables[scopeName.Replace("Scope", "")].AddFilterColumn(filterName);
+                serverProvision.Tables[scopeName.Replace("Scope", "")].FilterClause = "[side].[" + filterName + "] = '" + filterValue + "'";
+                serverProvision.Apply();
             }
-            catch (Exception ex)
+
+            scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(scopeName + "-" + filterName + filterValue, serverConn);
+            SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
+            if (!clientProvision.ScopeExists(scopeName + "-" + filterName + filterValue))
             {
-                WriteErrorLog(string.Format("Scope {0} Error : {1}", scopeName, ex.Message));
+                clientProvision.Apply();
             }
         }
 
@@ -551,13 +539,27 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            /*
             Console.WriteLine("---------- Scope {0} ----------", scopeName);
-            Console.WriteLine("Start Time: " + syncStats.SyncStartTime);
             Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
             Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
-            Console.WriteLine("Complete Time: " + syncStats.SyncEndTime);
-            */
+            Console.WriteLine("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds);
+        }
+
+        public static void SyncDatabaseFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
+        {
+            SyncOrchestrator syncOrchestrator = new SyncOrchestrator();
+            syncOrchestrator.LocalProvider = new SqlCeSyncProvider(scopeName + "-" + filterName + filterValue, clientConn);
+            syncOrchestrator.RemoteProvider = new SqlSyncProvider(scopeName + "-" + filterName + filterValue, serverConn);
+            syncOrchestrator.Direction = SyncDirectionOrder.UploadAndDownload;
+
+            ((SqlCeSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += new EventHandler<DbApplyChangeFailedEventArgs>(Program_ApplyChangeFailed);
+            SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
+
+            // print statistics
+            Console.WriteLine("---------- Scope {0} ----------", scopeName + "-" + filterName + filterValue);
+            Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
+            Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
+            Console.WriteLine("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds);
         }
 
         public static void SyncFile()
@@ -682,10 +684,19 @@ namespace PowerPOS
             scopeName = "DistrictScope";
             CreateDatabaseProvision(serverConn, clientConn, scopeName);
             SyncDatabase(serverConn, clientConn, scopeName);
+            scopeName = "CustomerScope";
+            CreateDatabaseProvision(serverConn, clientConn, scopeName);
+            SyncDatabase(serverConn, clientConn, scopeName);
 
             scopeName = "ProductScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
-            SyncDatabase(serverConn, clientConn, scopeName);
+            SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+            scopeName = "EmployeeScope";
+            CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+            SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+            scopeName = "BarcodeScope";
+            CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+            SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
 
             serverConn.Close();
             clientConn.Close();
