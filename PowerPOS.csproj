@@ -66,7 +66,8 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>64.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -2241,8 +2242,6 @@
     <None Include="Resources\apply_32x32.png" />
     <None Include="Resources\boscheduler_16x16.png" />
     <None Include="Resources\apply_16x16.png" />
-    <Content Include="64.ico" />
-    <Content Include="favicon.ico" />
     <Content Include="Resources\boscheduler_32x321.png" />
     <None Include="Resources\cancel_16x16.png" />
     <None Include="Resources\boscheduler_32x322.png" />

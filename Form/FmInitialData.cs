@@ -136,7 +136,7 @@ namespace PowerPOS
                string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonConfig = JsonConvert.DeserializeObject(config);
-            Console.WriteLine(jsonConfig.success);
+            //Console.WriteLine(jsonConfig.success);
 
             if (jsonConfig.success.Value)
             {
@@ -175,7 +175,7 @@ namespace PowerPOS
                string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonConfig = JsonConvert.DeserializeObject(config);
-            Console.WriteLine(jsonConfig.success);
+            //Console.WriteLine(jsonConfig.success);
 
           
         }
@@ -211,7 +211,7 @@ namespace PowerPOS
               string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonBarcode = JsonConvert.DeserializeObject(barcode);
-            Console.WriteLine(jsonBarcode.success);
+            //Console.WriteLine(jsonBarcode.success);
 
             if (jsonBarcode.success.Value)
             {
@@ -279,7 +279,7 @@ namespace PowerPOS
                     string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonPurchase = JsonConvert.DeserializeObject(purchase);
-            Console.WriteLine(jsonPurchase.success);
+            //Console.WriteLine(jsonPurchase.success);
 
             if (jsonPurchase.success.Value)
             {
@@ -301,7 +301,7 @@ namespace PowerPOS
                     {
                         d = 0;
                         Util.DBExecute(sb.ToString());
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
                         priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
                     }
@@ -339,7 +339,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonInventory = JsonConvert.DeserializeObject(inventory);
-            Console.WriteLine(jsonInventory.success);
+            //Console.WriteLine(jsonInventory.success);
 
             if (jsonInventory.success.Value)
             {
@@ -357,7 +357,7 @@ namespace PowerPOS
                     {
                         d = 0;
                         Util.DBExecute(sb.ToString());
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
                     }
 
@@ -384,7 +384,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
-            Console.WriteLine(jsonCustomer.success);
+            //Console.WriteLine(jsonCustomer.success);
 
             if (jsonCustomer.success.Value)
             {
@@ -403,7 +403,7 @@ namespace PowerPOS
                     {
                         d = 0;
                         Util.DBExecute(sb.ToString());
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
                     }
 
@@ -431,7 +431,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonChange = JsonConvert.DeserializeObject(change);
-            Console.WriteLine(jsonChange.success);
+            //Console.WriteLine(jsonChange.success);
 
             if (jsonChange.success.Value)
             {
@@ -450,7 +450,7 @@ namespace PowerPOS
                     {
                         d = 0;
                         Util.DBExecute(sb.ToString());
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         sb = new StringBuilder(@"INSERT OR REPLACE INTO ChangePrice (shop, sellNo, product, price, priceChange, changeBy, changeDate) ");
                     }
 
@@ -482,7 +482,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonEmployee = JsonConvert.DeserializeObject(employee);
-            Console.WriteLine(jsonEmployee.success);
+            //Console.WriteLine(jsonEmployee.success);
 
             if (jsonEmployee.success.Value)
             {
@@ -504,7 +504,7 @@ namespace PowerPOS
                     {
                         d = 0;
                         Util.DBExecute(sb.ToString());
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
                         code, username, password, addDate, updateDate, status) ");
                     }
@@ -539,7 +539,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonCategory = JsonConvert.DeserializeObject(category);
-            Console.WriteLine(jsonCategory.success);
+            //Console.WriteLine(jsonCategory.success);
 
             if (jsonCategory.success.Value)
             {
@@ -582,7 +582,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonCategoryProfit = JsonConvert.DeserializeObject(categoryProfit);
-            Console.WriteLine(jsonCategoryProfit.success);
+            //Console.WriteLine(jsonCategoryProfit.success);
 
             if (jsonCategoryProfit.success.Value)
             {
@@ -628,7 +628,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonBrand = JsonConvert.DeserializeObject(brand);
-            Console.WriteLine(jsonBrand.success);
+            //Console.WriteLine(jsonBrand.success);
             if (jsonBrand.success.Value)
             {
                 const string command = @"INSERT OR REPLACE INTO Brand (shop, brand, name, active, priority) ";
@@ -708,14 +708,14 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonInProduct = JsonConvert.DeserializeObject(inProduct);
-            Console.WriteLine(jsonInProduct.success);
+            //Console.WriteLine(jsonInProduct.success);
 
             string product = Util.GetApiData("/product/pos",
             string.Format("shop={0}", Param.ApiShopId));
 
 
             dynamic jsonProduct = JsonConvert.DeserializeObject(product);
-            Console.WriteLine(jsonProduct.success);
+            //Console.WriteLine(jsonProduct.success);
 
             if (jsonProduct.success.Value)
             {
@@ -739,7 +739,7 @@ namespace PowerPOS
                     if (d % 500 == 0)
                     {
                         d = 0;
-                        Console.WriteLine(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
                         Util.DBExecute(sb.ToString());
                         sb = new StringBuilder(command);
                     }
@@ -917,7 +917,7 @@ namespace PowerPOS
               string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonCustomer = JsonConvert.DeserializeObject(customer);
-            Console.WriteLine(jsonCustomer.success);
+            //Console.WriteLine(jsonCustomer.success);
 
             if (jsonCustomer.success.Value)
             {
@@ -1010,7 +1010,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonSellHeader = JsonConvert.DeserializeObject(SellHeader);
-            Console.WriteLine(jsonSellHeader.success);
+            //Console.WriteLine(jsonSellHeader.success);
 
             if (jsonSellHeader.success.Value)
             {
@@ -1059,7 +1059,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonSellDetail = JsonConvert.DeserializeObject(SellDetail);
-            Console.WriteLine(jsonSellDetail.success);
+            //Console.WriteLine(jsonSellDetail.success);
 
             if (jsonSellDetail.success.Value)
             {
@@ -1114,7 +1114,7 @@ namespace PowerPOS
             string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonReturn = JsonConvert.DeserializeObject(Return);
-            Console.WriteLine(jsonReturn.success);
+            //Console.WriteLine(jsonReturn.success);
 
             if (jsonReturn.success.Value)
             {
@@ -1223,7 +1223,7 @@ namespace PowerPOS
                 string.Format("language=Th"));
 
                 dynamic jsonProvince = JsonConvert.DeserializeObject(province);
-                Console.WriteLine(jsonProvince.success);
+                //Console.WriteLine(jsonProvince.success);
 
                 command = @"INSERT OR REPLACE INTO Province (id, name) ";
                 sb = new StringBuilder(command);
@@ -1254,7 +1254,7 @@ namespace PowerPOS
             string.Format("language=Th"));
 
             dynamic jsonDistrict = JsonConvert.DeserializeObject(district);
-            Console.WriteLine(jsonDistrict.success);
+            //Console.WriteLine(jsonDistrict.success);
 
             command = @"INSERT OR REPLACE  INTO District (province, id, name, zipcode) ";
             sb = new StringBuilder(command);
