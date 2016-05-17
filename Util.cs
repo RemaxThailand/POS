@@ -20,6 +20,11 @@ using System.Drawing.Printing;
 using System.Drawing;
 using System.Data.SqlServerCe;
 using System.Collections;
+using Microsoft.Synchronization;
+using Microsoft.Synchronization.Data.SqlServerCe;
+using Microsoft.Synchronization.Data.SqlServer;
+using Microsoft.Synchronization.Data;
+using WinSCP;
 
 namespace PowerPOS
 {
@@ -240,7 +245,15 @@ namespace PowerPOS
 
         public static void WriteErrorLog(string message)
         {
-            string filename = "error-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+            if (!Directory.Exists("log"))
+                Directory.CreateDirectory("log");
+            if (!Directory.Exists(@"log\" + Param.ShopId))
+                Directory.CreateDirectory(@"log\" + Param.ShopId);
+            if (!Directory.Exists(@"log\" + Param.ShopId + @"\" + System.Environment.MachineName))
+                Directory.CreateDirectory(@"log\" + Param.ShopId + @"\" + System.Environment.MachineName);
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            string filename = @"log\" + Param.ShopId + @"\" + System.Environment.MachineName + @"\error-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
             StreamWriter sw = new StreamWriter(filename, true);
             sw.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "\t" + message);
             sw.Close();
@@ -465,8 +478,221 @@ namespace PowerPOS
             }
         }
 
+        public static void Program_ApplyChangeFailed(object sender, DbApplyChangeFailedEventArgs e)
+        {
+            WriteErrorLog(string.Format("SCP Conflict.Type Error : {0}", e.Conflict.Type));
+            WriteErrorLog(string.Format("SCP Error : {0}", e.Error));
+        }
+
+        private static void CreateDatabaseProvision(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
+        {
+            try
+            {
+                DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
+                DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
+                scopeDesc.Tables.Add(tableDesc);
+                SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+                if (!serverProvision.ScopeExists(scopeName))
+                {
+                    serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
+                    serverProvision.Apply();
+                }
+
+                SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
+                if (!clientProvision.ScopeExists(scopeName))
+                {
+                    clientProvision.Apply();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(string.Format("Scope {0} Error : {1}", scopeName, ex.Message));
+            }
+        }
+
+        private static void CreateDatabaseProvisionFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
+        {
+            try
+            {
+                DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
+                DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
+                scopeDesc.Tables.Add(tableDesc);
+                SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+                if (!serverProvision.ScopeExists(scopeName))
+                {
+                    serverProvision.SetCreateTableDefault(DbSyncCreationOption.Skip);
+                    serverProvision.Tables[scopeName.Replace("Scope", "")].AddFilterColumn(filterName);
+                    serverProvision.Tables[scopeName.Replace("Scope", "")].FilterClause = "[side].["+ filterName + "] = '"+ filterValue + "'";
+                    serverProvision.Apply();
+                }
+
+                scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(scopeName, serverConn);
+                SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
+                if (!clientProvision.ScopeExists(scopeName))
+                {
+                    clientProvision.Apply();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(string.Format("Scope {0} Error : {1}", scopeName, ex.Message));
+            }
+        }
+
+        public static void SyncDatabase(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
+        {
+            SyncOrchestrator syncOrchestrator = new SyncOrchestrator();
+            syncOrchestrator.LocalProvider = new SqlCeSyncProvider(scopeName, clientConn);
+            syncOrchestrator.RemoteProvider = new SqlSyncProvider(scopeName, serverConn);
+            syncOrchestrator.Direction = SyncDirectionOrder.UploadAndDownload;
+
+            ((SqlCeSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += new EventHandler<DbApplyChangeFailedEventArgs>(Program_ApplyChangeFailed);
+            SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
+
+            // print statistics
+            /*
+            Console.WriteLine("---------- Scope {0} ----------", scopeName);
+            Console.WriteLine("Start Time: " + syncStats.SyncStartTime);
+            Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
+            Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
+            Console.WriteLine("Complete Time: " + syncStats.SyncEndTime);
+            */
+        }
+
+        public static void SyncFile()
+        {
+            SessionOptions sessionOptions = new SessionOptions
+            {
+                Protocol = Protocol.Sftp,
+                HostName = Param.SqlCeConfig["sshServer"].ToString(),
+                UserName = Param.SqlCeConfig["sshUsername"].ToString(),
+                SshPrivateKeyPath = Param.SqlCeConfig["sshKeyPath"].ToString(),
+                PortNumber = int.Parse(Param.SqlCeConfig["sshPort"].ToString()),
+                SshHostKeyFingerprint = Param.SqlCeConfig["sshHostKey"].ToString()
+            };
+
+            if (CanConnectInternet())
+            {
+                using (Session session = new Session())
+                {
+                    session.Open(sessionOptions);
+
+                    try
+                    {
+                        TransferOptions transferOptions = new TransferOptions();
+                        transferOptions.TransferMode = TransferMode.Automatic;
+                        TransferOperationResult transferResult;
+                        transferResult = session.GetFiles(Param.ScpSoftwarePath + "/Updater.exe", "Updater.exe", false, transferOptions);
+                        transferResult.Check();
+                        foreach (TransferEventArgs transfer in transferResult.Transfers)
+                        {
+                            Console.WriteLine("Download of {0} : {1} succeeded", transfer.FileName, transfer.Destination);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorLog(string.Format("SCP Download Error : {0}", ex.Message));
+                    }
+
+                    //session.FileTransferred += FileTransferred;
+                    try
+                    {
+                        SynchronizationResult synchronizationResult;
+                        synchronizationResult = session.SynchronizeDirectories(SynchronizationMode.Remote, Directory.GetCurrentDirectory() + @"\log", Param.ScpUploadPath + "/log", false);
+                        synchronizationResult.Check();
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteErrorLog(string.Format("SCP SynchronizeDirectories Error : {0}", ex.Message));
+                    }
+
+                    session.Close();
+                }
+            }
+
+        }
+
+        private static void FileTransferred(object sender, TransferEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                Console.WriteLine("Upload of {0} succeeded", e.FileName);
+            }
+            else
+            {
+                Console.WriteLine("Upload of {0} failed: {1}", e.FileName, e.Error);
+            }
+
+            if (e.Chmod != null)
+            {
+                if (e.Chmod.Error == null)
+                {
+                    Console.WriteLine("Permisions of {0} set to {1}", e.Chmod.FileName, e.Chmod.FilePermissions);
+                }
+                else
+                {
+                    Console.WriteLine("Setting permissions of {0} failed: {1}", e.Chmod.FileName, e.Chmod.Error);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Permissions of {0} kept with their defaults", e.Destination);
+            }
+
+            if (e.Touch != null)
+            {
+                if (e.Touch.Error == null)
+                {
+                    Console.WriteLine("Timestamp of {0} set to {1}", e.Touch.FileName, e.Touch.LastWriteTime);
+                }
+                else
+                {
+                    Console.WriteLine("Setting timestamp of {0} failed: {1}", e.Touch.FileName, e.Touch.Error);
+                }
+            }
+            else
+            {
+                // This should never happen during "local to remote" synchronization
+                Console.WriteLine("Timestamp of {0} kept with its default (current time)", e.Destination);
+            }
+        }
+
         public static void SyncData()
         {
+            SyncFile();
+            
+            string connStr = "Data Source=" + Param.SqlCeFile + ";Password=" + Param.DatabasePassword;
+            if (!File.Exists(Param.SqlCeFile))
+            {
+                SqlCeEngine engine = new SqlCeEngine(connStr);
+                engine.CreateDatabase();
+                engine.Dispose();
+            }
+
+            SqlCeConnection clientConn = new SqlCeConnection(connStr);
+            SqlConnection serverConn = new SqlConnection(@"Data Source=" + Param.SqlCeConfig["msSqlServer"].ToString() +
+                ";Initial Catalog=" + Param.SqlCeConfig["msSqlDatabase"].ToString() +
+                ";User ID=" + Param.SqlCeConfig["msSqlUsername"].ToString() +
+                ";Password=" + Param.SqlCeConfig["msSqlPassword"].ToString());
+
+            var scopeName = "ProvinceScope";
+            CreateDatabaseProvision(serverConn, clientConn, scopeName);
+            SyncDatabase(serverConn, clientConn, scopeName);
+            scopeName = "DistrictScope";
+            CreateDatabaseProvision(serverConn, clientConn, scopeName);
+            SyncDatabase(serverConn, clientConn, scopeName);
+
+            scopeName = "ProductScope";
+            CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+            SyncDatabase(serverConn, clientConn, scopeName);
+
+            serverConn.Close();
+            clientConn.Close();
+
+
+
+
             DataTable dt;
             int i = 0;
             //## Barcode ##//

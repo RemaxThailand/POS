@@ -29,6 +29,9 @@ namespace PowerPOS
         public static string ApiKey;// = "TEST-0001";
         public static string Token;
         public static Hashtable SqlCeConfig;
+        public const string SqlCeFile = "System.sdf";
+        public const string ScpSoftwarePath = "/var/www/resources/app/POS";
+        public const string ScpUploadPath = "/var/www/upload";
         public static string UserId;
         public static string UserCode;
         public static bool ApiChecked;
