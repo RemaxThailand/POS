@@ -137,7 +137,7 @@ namespace PowerPOS
                     {
                         dynamic app = Util.GetApiData("/shop-application/updatePos",
                         string.Format("shop={0}&licenseKey={1}&column={2}&value={3}", Param.ApiShopId, Param.LicenseKey,
-                            "applicationPath", Directory.GetCurrentDirectory()));
+                            "applicationPath", Param.ApplicationDataPath));
 
                         dynamic jsonApp = JsonConvert.DeserializeObject(app);
 
@@ -245,15 +245,23 @@ namespace PowerPOS
 
         public static void WriteErrorLog(string message)
         {
-            if (!Directory.Exists("log"))
-                Directory.CreateDirectory("log");
-            if (!Directory.Exists(@"log\" + Param.ShopId))
-                Directory.CreateDirectory(@"log\" + Param.ShopId);
-            if (!Directory.Exists(@"log\" + Param.ShopId + @"\" + System.Environment.MachineName))
-                Directory.CreateDirectory(@"log\" + Param.ShopId + @"\" + System.Environment.MachineName);
+            if (!Directory.Exists(Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName)))
+                Directory.CreateDirectory(Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName));
 
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-            string filename = @"log\" + Param.ShopId + @"\" + System.Environment.MachineName + @"\error-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+            string filename = Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName) + @"\error-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+            StreamWriter sw = new StreamWriter(filename, true);
+            sw.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "\t" + message);
+            sw.Close();
+        }
+
+        public static void WriteLog(string message)
+        {
+            if (!Directory.Exists(Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName)))
+                Directory.CreateDirectory(Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName));
+
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            string filename = Path.Combine(Param.ApplicationDataPath, "log", Param.ShopId, System.Environment.MachineName) + @"\" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
             StreamWriter sw = new StreamWriter(filename, true);
             sw.WriteLine(DateTime.Now.ToString("HH:mm:ss") + "\t" + message);
             sw.Close();
@@ -484,7 +492,7 @@ namespace PowerPOS
             WriteErrorLog(string.Format("SCP Error : {0}", e.Error));
         }
 
-        private static void CreateDatabaseProvision(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
+        public static void CreateDatabaseProvision(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
         {
             DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName);
             DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
@@ -504,7 +512,7 @@ namespace PowerPOS
             }
         }
 
-        private static void CreateDatabaseProvisionFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
+        public static void CreateDatabaseProvisionFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
         {
             DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(scopeName + "-" + filterName + filterValue);
             DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), serverConn);
@@ -539,10 +547,10 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            Console.WriteLine("---------- Scope {0} ----------", scopeName);
-            Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
-            Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
-            Console.WriteLine("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds);
+            WriteLog(string.Format("---------- Scope {0} ----------", scopeName));
+            WriteLog(string.Format("Total Changes Uploaded: " + syncStats.UploadChangesTotal));
+            WriteLog(string.Format("Total Changes Downloaded: " + syncStats.DownloadChangesTotal));
+            WriteLog(string.Format("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds));
         }
 
         public static void SyncDatabaseFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
@@ -556,10 +564,10 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            Console.WriteLine("---------- Scope {0} ----------", scopeName + "-" + filterName + filterValue);
-            Console.WriteLine("Total Changes Uploaded: " + syncStats.UploadChangesTotal);
-            Console.WriteLine("Total Changes Downloaded: " + syncStats.DownloadChangesTotal);
-            Console.WriteLine("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds);
+            WriteLog(string.Format("---------- Scope {0} ----------", scopeName + "-" + filterName + filterValue));
+            WriteLog(string.Format("Total Changes Uploaded: " + syncStats.UploadChangesTotal));
+            WriteLog(string.Format("Total Changes Downloaded: " + syncStats.DownloadChangesTotal));
+            WriteLog(string.Format("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds));
         }
 
         public static void SyncFile()
@@ -580,28 +588,37 @@ namespace PowerPOS
                 {
                     session.Open(sessionOptions);
 
-                    try
+                    RemoteFileInfo fileInfo = session.GetFileInfo(Param.ScpSoftwarePath + "/Updater.exe");
+                    FileInfo fi = new FileInfo("Updater.exe");
+                    if (DateTimeToUnixTimestamp(fi.LastWriteTime) != DateTimeToUnixTimestamp(fileInfo.LastWriteTime))
                     {
-                        TransferOptions transferOptions = new TransferOptions();
-                        transferOptions.TransferMode = TransferMode.Automatic;
-                        TransferOperationResult transferResult;
-                        transferResult = session.GetFiles(Param.ScpSoftwarePath + "/Updater.exe", "Updater.exe", false, transferOptions);
-                        transferResult.Check();
-                        foreach (TransferEventArgs transfer in transferResult.Transfers)
+                        try
                         {
-                            Console.WriteLine("Download of {0} : {1} succeeded", transfer.FileName, transfer.Destination);
+                            TransferOptions transferOptions = new TransferOptions();
+                            transferOptions.TransferMode = TransferMode.Automatic;
+                            TransferOperationResult transferResult;
+                            transferResult = session.GetFiles(Param.ScpSoftwarePath + "/Updater.exe", "Updater.exe", false, transferOptions);
+                            transferResult.Check();
+                            foreach (TransferEventArgs transfer in transferResult.Transfers)
+                            {
+                                WriteLog(string.Format("Download of {0} : {1} succeeded", transfer.FileName, transfer.Destination));
+                            }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorLog(string.Format("SCP Download Error : {0}", ex.Message));
+                        catch (Exception ex)
+                        {
+                            WriteErrorLog(string.Format("SCP Download Error : {0}", ex.Message));
+                        }
                     }
 
                     //session.FileTransferred += FileTransferred;
                     try
                     {
+                        TransferOptions transferOptions = new TransferOptions();
+                        transferOptions.TransferMode = TransferMode.Automatic;
+
                         SynchronizationResult synchronizationResult;
-                        synchronizationResult = session.SynchronizeDirectories(SynchronizationMode.Remote, Directory.GetCurrentDirectory() + @"\log", Param.ScpUploadPath + "/log", false);
+                        synchronizationResult = session.SynchronizeDirectories(SynchronizationMode.Remote,
+                            Param.ApplicationDataPath + @"\log", Param.ScpLogPath, false, false, SynchronizationCriteria.Time, transferOptions);
                         synchronizationResult.Check();
                     }
                     catch (Exception ex)
@@ -679,8 +696,15 @@ namespace PowerPOS
                 ";Password=" + Param.SqlCeConfig["msSqlPassword"].ToString());
 
             var scopeName = "ProvinceScope";
-            CreateDatabaseProvision(serverConn, clientConn, scopeName);
-            SyncDatabase(serverConn, clientConn, scopeName);
+            try {
+                CreateDatabaseProvision(serverConn, clientConn, scopeName);
+                SyncDatabase(serverConn, clientConn, scopeName);
+            }
+            catch(Exception ex)
+            {
+                WriteLog(string.Format("Sync Error : {0}\n{1}", ex.Message, ex.StackTrace));
+            }
+
             scopeName = "DistrictScope";
             CreateDatabaseProvision(serverConn, clientConn, scopeName);
             SyncDatabase(serverConn, clientConn, scopeName);
@@ -1665,12 +1689,20 @@ namespace PowerPOS
 
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง\n" + ex.Message, "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
         }
+
+        public static string DateTimeToUnixTimestamp(DateTime dateTime)
+        {
+            string time = ((TimeZoneInfo.ConvertTimeToUtc(dateTime) - new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds).ToString();
+            string[] sp = time.Split('.');
+            return sp[0];
+        }
+
     }
 }

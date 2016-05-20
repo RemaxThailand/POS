@@ -68,6 +68,7 @@ namespace PowerPOS
             }
             catch(Exception ex)
             {
+                Param.ShopId = "00000000";
                 Util.WriteErrorLog(ex.Message);
                 Process process = new Process();
                 process.StartInfo.FileName = "Updater.exe";
