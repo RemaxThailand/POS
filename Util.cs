@@ -547,10 +547,11 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            WriteLog(string.Format("---------- Scope {0} ----------", scopeName));
-            WriteLog(string.Format("Total Changes Uploaded: " + syncStats.UploadChangesTotal));
-            WriteLog(string.Format("Total Changes Downloaded: " + syncStats.DownloadChangesTotal));
-            WriteLog(string.Format("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds));
+            /*
+            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", ""), 
+                syncStats.UploadChangesTotal, syncStats.DownloadChangesTotal,
+                ((syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds / 1000).ToString("#.00")));
+            */
         }
 
         public static void SyncDatabaseFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue)
@@ -564,10 +565,11 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            WriteLog(string.Format("---------- Scope {0} ----------", scopeName + "-" + filterName + filterValue));
-            WriteLog(string.Format("Total Changes Uploaded: " + syncStats.UploadChangesTotal));
-            WriteLog(string.Format("Total Changes Downloaded: " + syncStats.DownloadChangesTotal));
-            WriteLog(string.Format("Time: {0} Milliseconds", (syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds));
+            /*
+            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", "") + "-" + filterName + '-' + filterValue, 
+                syncStats.UploadChangesTotal, syncStats.DownloadChangesTotal, 
+                ((syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds/1000).ToString("#.00")) );
+            */
         }
 
         public static void SyncFile()
@@ -611,19 +613,22 @@ namespace PowerPOS
                     }
 
                     //session.FileTransferred += FileTransferred;
-                    try
+                    if (Directory.Exists(Param.ApplicationDataPath + @"\log"))
                     {
-                        TransferOptions transferOptions = new TransferOptions();
-                        transferOptions.TransferMode = TransferMode.Automatic;
+                        try
+                        {
+                            TransferOptions transferOptions = new TransferOptions();
+                            transferOptions.TransferMode = TransferMode.Automatic;
 
-                        SynchronizationResult synchronizationResult;
-                        synchronizationResult = session.SynchronizeDirectories(SynchronizationMode.Remote,
-                            Param.ApplicationDataPath + @"\log", Param.ScpLogPath, false, false, SynchronizationCriteria.Time, transferOptions);
-                        synchronizationResult.Check();
-                    }
-                    catch (Exception ex)
-                    {
-                        WriteErrorLog(string.Format("SCP SynchronizeDirectories Error : {0}", ex.Message));
+                            SynchronizationResult synchronizationResult;
+                            synchronizationResult = session.SynchronizeDirectories(SynchronizationMode.Remote,
+                                Param.ApplicationDataPath + @"\log", Param.ScpLogPath, false, false, SynchronizationCriteria.Time, transferOptions);
+                            synchronizationResult.Check();
+                        }
+                        catch (Exception ex)
+                        {
+                            WriteErrorLog(string.Format("SCP SynchronizeDirectories Error : {0}", ex.Message));
+                        }
                     }
 
                     session.Close();
@@ -680,8 +685,8 @@ namespace PowerPOS
         public static void SyncData()
         {
             SyncFile();
-            
-            string connStr = "Data Source=" + Param.SqlCeFile + ";Password=" + Param.DatabasePassword;
+
+            string connStr = "Data Source=" + Param.SqlCeFile; // + "; password=" + Param.DatabasePassword;
             if (!File.Exists(Param.SqlCeFile))
             {
                 SqlCeEngine engine = new SqlCeEngine(connStr);
@@ -696,18 +701,20 @@ namespace PowerPOS
                 ";Password=" + Param.SqlCeConfig["msSqlPassword"].ToString());
 
             var scopeName = "ProvinceScope";
-            try {
+            try
+            {
                 CreateDatabaseProvision(serverConn, clientConn, scopeName);
                 SyncDatabase(serverConn, clientConn, scopeName);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                WriteLog(string.Format("Sync Error : {0}\n{1}", ex.Message, ex.StackTrace));
+                WriteErrorLog(string.Format("Sync Error : {0}\n{1}", ex.Message, ex.StackTrace));
             }
 
             scopeName = "DistrictScope";
             CreateDatabaseProvision(serverConn, clientConn, scopeName);
             SyncDatabase(serverConn, clientConn, scopeName);
+
             scopeName = "CustomerScope";
             CreateDatabaseProvision(serverConn, clientConn, scopeName);
             SyncDatabase(serverConn, clientConn, scopeName);
@@ -715,9 +722,11 @@ namespace PowerPOS
             scopeName = "ProductScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+
             scopeName = "EmployeeScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+
             scopeName = "BarcodeScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
@@ -752,7 +761,7 @@ namespace PowerPOS
                     //dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString() + "," + 
                     //dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString() + "," + dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
 
-                   
+
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
                     string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy,receivedDate,inStock,operationCost,cost,receivedBy", value)
@@ -959,7 +968,7 @@ namespace PowerPOS
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleDetailAdd",
                     string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&quantity={5}&comment={6}",
                         Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
-                        dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString() 
+                        dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString()
                         )));
                     if (!json.success.Value)
                     {
@@ -1073,7 +1082,7 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/addCount",
-                    string.Format("shop={0}&product={1}&quantity={2}",Param.ApiShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["quantity"].ToString())
+                    string.Format("shop={0}&product={1}&quantity={2}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["quantity"].ToString())
                     ));
                     if (!json.success.Value)
                     {
