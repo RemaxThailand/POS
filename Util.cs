@@ -25,6 +25,7 @@ using Microsoft.Synchronization.Data.SqlServerCe;
 using Microsoft.Synchronization.Data.SqlServer;
 using Microsoft.Synchronization.Data;
 using WinSCP;
+using System.Collections.ObjectModel;
 
 namespace PowerPOS
 {
@@ -553,6 +554,47 @@ namespace PowerPOS
             }
         }
 
+        public static void CreateDatabaseProvisionFilter(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName, string filterName, string filterValue, Collection<string> columnsToInclude)
+        {
+            string filterTemplate = scopeName + "_filter_template";
+
+            DbSyncScopeDescription scopeDesc = new DbSyncScopeDescription(filterTemplate);
+            DbSyncTableDescription tableDesc = SqlSyncDescriptionBuilder.GetDescriptionForTable(scopeName.Replace("Scope", ""), columnsToInclude, serverConn);
+            scopeDesc.Tables.Add(tableDesc);
+
+            SqlSyncScopeProvisioning serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc, SqlSyncScopeProvisioningType.Template);
+            serverProvision.Tables[scopeName.Replace("Scope", "")].AddFilterColumn(filterName);
+            serverProvision.Tables[scopeName.Replace("Scope", "")].FilterClause = "[side].[" + filterName + "] = @" + filterName;
+            SqlParameter parameter = new SqlParameter("@" + filterName, SqlDbType.NVarChar, 8);
+            serverProvision.Tables[scopeName.Replace("Scope", "")].FilterParameters.Add(parameter);
+            if (!serverProvision.TemplateExists(filterTemplate))
+            {
+                serverProvision.Apply();
+            }
+
+            serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
+            serverProvision.PopulateFromTemplate(scopeName + "-" + filterName + filterValue, filterTemplate);
+            serverProvision.Tables[scopeName.Replace("Scope", "")].FilterParameters["@" + filterName].Value = filterValue;
+            if (!serverProvision.ScopeExists(scopeName + "-" + filterName + filterValue))
+            {
+                serverProvision.Apply();
+            }
+
+            scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope(scopeName + "-" + filterName + filterValue, serverConn);
+            SqlCeSyncScopeProvisioning clientProvision = new SqlCeSyncScopeProvisioning(clientConn, scopeDesc);
+            if (!clientProvision.ScopeExists(scopeName + "-" + filterName + filterValue))
+            {
+                try
+                {
+                    clientProvision.Apply();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error {0}", ex.Message);
+                }
+            }
+        }
+
         public static void SyncDatabase(SqlConnection serverConn, SqlCeConnection clientConn, string scopeName)
         {
             SyncOrchestrator syncOrchestrator = new SyncOrchestrator();
@@ -715,22 +757,26 @@ namespace PowerPOS
             }
             else
             {
-                SqlCeCommand selectCmd = clientConn.CreateCommand();
-                selectCmd.CommandText = "SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'";
-                SqlCeDataAdapter adp = new SqlCeDataAdapter(selectCmd);
-                var dataTable = new DataTable();
-                adp.Fill(dataTable);
-                adp.Dispose();
-
-                if (dataTable.Rows[0]["cnt"].ToString() != "0")
+                try
                 {
-                    clientConn.Close();
-                    File.Delete(Param.SqlCeFile);
-                    SqlCeEngine engine = new SqlCeEngine(connStr);
-                    engine.CreateDatabase();
-                    engine.Dispose();
-                    clientConn = new SqlCeConnection(connStr);
+                    SqlCeCommand selectCmd = clientConn.CreateCommand();
+                    selectCmd.CommandText = "SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'";
+                    SqlCeDataAdapter adp = new SqlCeDataAdapter(selectCmd);
+                    var dataTable = new DataTable();
+                    adp.Fill(dataTable);
+                    adp.Dispose();
+
+                    if (dataTable.Rows[0]["cnt"].ToString() != "0")
+                    {
+                        clientConn.Close();
+                        File.Delete(Param.SqlCeFile);
+                        SqlCeEngine engine = new SqlCeEngine(connStr);
+                        engine.CreateDatabase();
+                        engine.Dispose();
+                        clientConn = new SqlCeConnection(connStr);
+                    }
                 }
+                catch { }
             }
 
             var scopeName = "ProvinceScope";
@@ -756,6 +802,17 @@ namespace PowerPOS
             scopeName = "BarcodeScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
+
+            Collection<string> columnsToInclude = new Collection<string>();
+            columnsToInclude.Add("system");
+            columnsToInclude.Add("id");
+            columnsToInclude.Add("name");
+            columnsToInclude.Add("parent");
+            columnsToInclude.Add("orderLevel");
+
+            scopeName = "SystemScreenScope";
+            CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "system", "POS", columnsToInclude);
+            SyncDatabaseFilter(serverConn, clientConn, scopeName, "system", "POS");
 
             serverConn.Close();
             clientConn.Close();
