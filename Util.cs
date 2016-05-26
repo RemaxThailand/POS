@@ -803,14 +803,13 @@ namespace PowerPOS
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "shop", Param.ShopId);
 
+            scopeName = "SystemScreenScope";
             Collection<string> columnsToInclude = new Collection<string>();
             columnsToInclude.Add("system");
             columnsToInclude.Add("id");
             columnsToInclude.Add("name");
             columnsToInclude.Add("parent");
             columnsToInclude.Add("orderLevel");
-
-            scopeName = "SystemScreenScope";
             CreateDatabaseProvisionFilter(serverConn, clientConn, scopeName, "system", "POS", columnsToInclude);
             SyncDatabaseFilter(serverConn, clientConn, scopeName, "system", "POS");
 
