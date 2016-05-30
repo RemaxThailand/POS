@@ -282,5 +282,14 @@ namespace PowerPOS
                 btnSaveBill.Enabled = true;
             }
         }
+
+        private void btnEmployeeManage_Click(object sender, EventArgs e)
+        {
+            FmEmployee fm = new FmEmployee();
+            if(fm.ShowDialog(this) == DialogResult.OK)
+            {
+
+            }
+        }
     }
 }

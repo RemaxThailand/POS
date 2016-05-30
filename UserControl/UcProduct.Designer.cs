@@ -170,6 +170,28 @@
             this.panelControl6.SuspendLayout();
             this.SuspendLayout();
             // 
+            // clQty
+            // 
+            clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceCell.Options.UseFont = true;
+            clQty.AppearanceCell.Options.UseTextOptions = true;
+            clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceHeader.Options.UseFont = true;
+            clQty.AppearanceHeader.Options.UseTextOptions = true;
+            clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            clQty.Caption = "จำนวน";
+            clQty.DisplayFormat.FormatString = "{0:#;;\'-\'}";
+            clQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            clQty.FieldName = "qty";
+            clQty.Name = "clQty";
+            clQty.OptionsColumn.AllowEdit = false;
+            clQty.OptionsColumn.AllowMove = false;
+            clQty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            clQty.Visible = true;
+            clQty.VisibleIndex = 3;
+            clQty.Width = 50;
+            // 
             // panelControl4
             // 
             this.panelControl4.Controls.Add(this.labelControl9);
@@ -543,28 +565,6 @@
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
             this.clName.Width = 151;
-            // 
-            // clQty
-            // 
-            clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            clQty.AppearanceCell.Options.UseFont = true;
-            clQty.AppearanceCell.Options.UseTextOptions = true;
-            clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            clQty.AppearanceHeader.Options.UseFont = true;
-            clQty.AppearanceHeader.Options.UseTextOptions = true;
-            clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            clQty.Caption = "จำนวน";
-            clQty.DisplayFormat.FormatString = "{0:#;;\'-\'}";
-            clQty.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            clQty.FieldName = "qty";
-            clQty.Name = "clQty";
-            clQty.OptionsColumn.AllowEdit = false;
-            clQty.OptionsColumn.AllowMove = false;
-            clQty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
-            clQty.Visible = true;
-            clQty.VisibleIndex = 3;
-            clQty.Width = 50;
             // 
             // clCategory
             // 

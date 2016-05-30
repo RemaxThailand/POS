@@ -226,7 +226,7 @@ namespace PowerPOS
                         row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
                         row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
                         row[14] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
-                        row[15] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();                        
+                        row[15] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
                         row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
                         row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
                         row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");

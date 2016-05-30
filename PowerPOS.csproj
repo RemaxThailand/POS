@@ -160,6 +160,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
+    <Compile Include="Form\FmEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmEmployee.Designer.cs">
+      <DependentUpon>FmEmployee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FmWait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -373,6 +379,9 @@
       <DependentUpon>UcSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="Form\FmEmployee.resx">
+      <DependentUpon>FmEmployee.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FmWait.resx">
       <DependentUpon>FmWait.cs</DependentUpon>
     </EmbeddedResource>
@@ -488,7 +497,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

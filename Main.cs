@@ -55,8 +55,8 @@ namespace PowerPOS
                     Param.LicenseKey = args[6].ToString();
                     Param.ApiShopId = args[7].ToString();
                     Param.InitialFinished = false;
-                    InitialCloudData();
                     Param.Main = this;
+                    InitialCloudData();
                 }
                 else
                 {
@@ -68,6 +68,7 @@ namespace PowerPOS
             }
             catch(Exception ex)
             {
+                MessageBox.Show(ex.Message + "\n" + ex.StackTrace, "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Param.ShopId = "00000000";
                 Util.WriteErrorLog(ex.Message);
                 Process process = new Process();

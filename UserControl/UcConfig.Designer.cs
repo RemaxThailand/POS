@@ -75,6 +75,9 @@
             this.bwUpdateConfig = new System.ComponentModel.BackgroundWorker();
             this.bwDownloadLogo = new System.ComponentModel.BackgroundWorker();
             this.gbxControl = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
+            this.btnEmployeeManage = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
             this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
@@ -132,6 +135,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gbxControl)).BeginInit();
             this.gbxControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
+            this.panelControl22.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
@@ -648,6 +654,8 @@
             this.gbxControl.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxControl.AppearanceCaption.Options.UseFont = true;
             this.gbxControl.CaptionImage = ((System.Drawing.Image)(resources.GetObject("gbxControl.CaptionImage")));
+            this.gbxControl.Controls.Add(this.panelControl22);
+            this.gbxControl.Controls.Add(this.panelControl21);
             this.gbxControl.Controls.Add(this.ribbonControl1);
             this.gbxControl.Controls.Add(this.panelControl6);
             this.gbxControl.Controls.Add(this.groupControl5);
@@ -657,6 +665,38 @@
             this.gbxControl.Size = new System.Drawing.Size(315, 686);
             this.gbxControl.TabIndex = 1;
             this.gbxControl.Text = "ตั้งค่าโปรแกรม";
+            // 
+            // panelControl22
+            // 
+            this.panelControl22.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl22.Controls.Add(this.btnEmployeeManage);
+            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl22.Location = new System.Drawing.Point(2, 260);
+            this.panelControl22.Name = "panelControl22";
+            this.panelControl22.Size = new System.Drawing.Size(311, 36);
+            this.panelControl22.TabIndex = 29;
+            // 
+            // btnEmployeeManage
+            // 
+            this.btnEmployeeManage.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmployeeManage.Appearance.Options.UseFont = true;
+            this.btnEmployeeManage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnEmployeeManage.Image = ((System.Drawing.Image)(resources.GetObject("btnEmployeeManage.Image")));
+            this.btnEmployeeManage.Location = new System.Drawing.Point(0, 0);
+            this.btnEmployeeManage.Name = "btnEmployeeManage";
+            this.btnEmployeeManage.Size = new System.Drawing.Size(311, 36);
+            this.btnEmployeeManage.TabIndex = 27;
+            this.btnEmployeeManage.Text = "จัดการข้อมูลผู้ใช้งานในระบบ";
+            this.btnEmployeeManage.Click += new System.EventHandler(this.btnEmployeeManage_Click);
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl21.Location = new System.Drawing.Point(2, 250);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(311, 10);
+            this.panelControl21.TabIndex = 19;
             // 
             // ribbonControl1
             // 
@@ -866,6 +906,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gbxControl)).EndInit();
             this.gbxControl.ResumeLayout(false);
             this.gbxControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
+            this.panelControl22.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
@@ -943,5 +986,8 @@
         private System.Windows.Forms.RadioButton rdbSize80;
         private System.Windows.Forms.RadioButton rdbSize76;
         private DevExpress.XtraEditors.PanelControl panelControl17;
+        private DevExpress.XtraEditors.PanelControl panelControl22;
+        private DevExpress.XtraEditors.SimpleButton btnEmployeeManage;
+        private DevExpress.XtraEditors.PanelControl panelControl21;
     }
 }

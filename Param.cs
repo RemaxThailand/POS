@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Data.SqlClient;
 using System.Data.SQLite;
+using System.Data.SqlServerCe;
 using System.IO;
 using System.Windows.Forms;
 
@@ -15,6 +16,7 @@ namespace PowerPOS
         public enum StatusIcon { None, Loading, Success, Info };
 
         public static SQLiteConnection SQLiteConnection;
+        public static SqlCeConnection SqlCeConnection;
         //public static SqlConnection SqlLocalDB;
         public static UcSale UcSale;
         public static Main Main;
