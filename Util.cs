@@ -874,6 +874,10 @@ namespace PowerPOS
             CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
             SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
+            scopeName = "SystemScreenPermissionScope";
+            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+
             scopeName = "ProductScope";
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
@@ -890,6 +894,9 @@ namespace PowerPOS
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
+            scopeName = "EmployeeScreenMappingScope";
+            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
             scopeName = "SystemScreenScope";
             Collection<string> columnsToInclude = new Collection<string>();

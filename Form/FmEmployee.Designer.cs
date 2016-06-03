@@ -54,6 +54,7 @@
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
+            this.btnScreen = new DevExpress.XtraEditors.SimpleButton();
             this.btnDelete = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
             this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
@@ -400,6 +401,7 @@
             // panelControl5
             // 
             this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl5.Controls.Add(this.btnScreen);
             this.panelControl5.Controls.Add(this.btnDelete);
             this.panelControl5.Controls.Add(this.panelControl6);
             this.panelControl5.Controls.Add(this.btnAdd);
@@ -408,6 +410,19 @@
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(799, 30);
             this.panelControl5.TabIndex = 22;
+            // 
+            // btnScreen
+            // 
+            this.btnScreen.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnScreen.Appearance.Options.UseFont = true;
+            this.btnScreen.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnScreen.Image = ((System.Drawing.Image)(resources.GetObject("btnScreen.Image")));
+            this.btnScreen.Location = new System.Drawing.Point(0, 0);
+            this.btnScreen.Name = "btnScreen";
+            this.btnScreen.Size = new System.Drawing.Size(188, 30);
+            this.btnScreen.TabIndex = 22;
+            this.btnScreen.Text = "กำหนดสิทธิ์การใช้งานหน้าจอ";
+            this.btnScreen.Click += new System.EventHandler(this.btnScreen_Click);
             // 
             // btnDelete
             // 
@@ -508,5 +523,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraEditors.SimpleButton btnScreen;
     }
 }

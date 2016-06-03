@@ -69,16 +69,16 @@ namespace PowerPOS
             var data = e.Value;
             var name = e.Column.FieldName;
             bool pass = true;
-            if (e.Column.FieldName == "status")
+            if (name == "status")
             {
                 data = (bool)e.Value == true ? 1 : 0;
             }
-            else if (e.Column.FieldName == "passtmp")
+            else if (name == "passtmp")
             {
                 data = Util.MD5String(e.Value.ToString());
                 name = "password";
             }
-            else if (e.Column.FieldName == "username")
+            else if (name == "username")
             {
                 DataTable dt = Util.SqlCeQuery("SELECT COUNT(*) cnt FROM Employee WHERE username = '" + e.Value.ToString() + "'");
                 pass = dt.Rows[0]["cnt"].ToString() == "0";
@@ -129,6 +129,12 @@ namespace PowerPOS
                 Util.SqlCeExecute("DELETE FROM Employee WHERE employeeId = '" + dr["employeeId"] + "'");
                 employeeGridView.DeleteSelectedRows();
             }
+        }
+
+        private void btnScreen_Click(object sender, EventArgs e)
+        {
+            FmScreenMapping fm = new FmScreenMapping();
+            fm.ShowDialog(this);
         }
     }
 }

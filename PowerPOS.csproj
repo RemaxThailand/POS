@@ -166,6 +166,12 @@
     <Compile Include="Form\FmEmployee.Designer.cs">
       <DependentUpon>FmEmployee.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form\FmScreenMapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmScreenMapping.Designer.cs">
+      <DependentUpon>FmScreenMapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FmWait.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -381,6 +387,9 @@
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="Form\FmEmployee.resx">
       <DependentUpon>FmEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmScreenMapping.resx">
+      <DependentUpon>FmScreenMapping.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FmWait.resx">
       <DependentUpon>FmWait.cs</DependentUpon>
