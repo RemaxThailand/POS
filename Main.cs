@@ -37,8 +37,8 @@ namespace PowerPOS
             Param.UserId = "0000";
             Param.UserCode = "1234";
 
-            Param.EmployeeId = "0";
-            Param.EmployeeType = "1";
+            Param.EmployeeId = null;
+            Param.EmployeeType = null;
 
             Util.ConnectSQLiteDatabase();
             Util.GetDiviceId();
@@ -63,6 +63,7 @@ namespace PowerPOS
                     Param.Main = this;
                     InitialCloudData();
                     InitialEmployeeScreen();
+
 
                 }
                 else
@@ -208,17 +209,43 @@ namespace PowerPOS
             this.ShowInTaskbar = false;
             Param.MainPanel = pnlMain;
 
+            bool exit = false;
+
             FmInitialData fm = new FmInitialData();
             var result = fm.ShowDialog(this);
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                this.Text = string.Format("Power POS - ร้าน {0} ({1})", Param.ShopName, Param.ComputerName);
-                this.Opacity = 100;
-                this.ShowInTaskbar = true;
-                Param.InitialFinished = true;
+                if (Param.EmployeeId == null)
+                {
+                    FmLogin fmLogin = new FmLogin();
+                    bool success = false;
+                    while (!success && !exit)
+                    {
+                        if (fmLogin.ShowDialog(this) == DialogResult.OK)
+                        {
+                            success = true;
+                        }
+                        else
+                        {
+                            exit = true;
+                        }
+                    }
+                }
 
-                AddPanel(Param.Screen.Sale);
-                Param.SelectedScreen = (int)Screen.Sale;
+                if (!exit)
+                {
+                    this.Text = string.Format("Power POS - ร้าน {0} ({1})", Param.ShopName, Param.ComputerName);
+                    this.Opacity = 100;
+                    this.ShowInTaskbar = true;
+                    Param.InitialFinished = true;
+
+                    AddPanel(Param.Screen.Sale);
+                    Param.SelectedScreen = (int)Screen.Sale;
+                }
+                else
+                {
+                    this.Dispose();
+                }
             }
             else
             {
@@ -231,7 +258,36 @@ namespace PowerPOS
         {
             if (MessageBox.Show("คุณต้องการ ออกจากระบบใช่หรือไม่", "ยืนยันการออกจากระบบ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                this.Dispose();
+                this.Opacity = 0;
+                this.ShowInTaskbar = false;
+
+                bool exit = false;
+                FmLogin fmLogin = new FmLogin();
+                bool success = false;
+                while (!success && !exit)
+                {
+                    if (fmLogin.ShowDialog(this) == DialogResult.OK)
+                    {
+                        success = true;
+                    }
+                    else
+                    {
+                        exit = true;
+                    }
+                }
+
+                if (!exit)
+                {
+                    this.Opacity = 100;
+                    this.ShowInTaskbar = true;
+                    AddPanel(Param.Screen.Sale);
+                    Param.SelectedScreen = (int)Screen.Sale;
+                }
+                else
+                {
+                    this.Dispose();
+                }
+                //this.Dispose();
             }
         }
 

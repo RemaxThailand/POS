@@ -814,7 +814,7 @@ namespace PowerPOS
 
         public static void SyncData()
         {
-            //SyncFile();
+            SyncFile();
 
             string connStr = "Data Source=" + Param.SqlCeFile; // + "; password=" + Param.DatabasePassword;
             Param.SqlCeConnection = new SqlCeConnection(connStr);
