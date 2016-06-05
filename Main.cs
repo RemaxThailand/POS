@@ -61,11 +61,8 @@ namespace PowerPOS
                     Param.ApiShopId = args[7].ToString();
                     Param.InitialFinished = false;
                     Param.Main = this;
-                    InitialEmployeeScreen();
                     InitialCloudData();
-
-                    //FmScreenMapping fm = new FmScreenMapping();
-                    //fm.ShowDialog(this);
+                    InitialEmployeeScreen();
 
                 }
                 else
@@ -240,6 +237,8 @@ namespace PowerPOS
 
         private void tileNavPane1_TileClick(object sender, DevExpress.XtraBars.Navigation.NavElementEventArgs e)
         {
+            Util.LoadScreenPermissionDetail(e.Element.Name);
+
             if (e.Element.Name == "navSale")
             {
                 AddPanel(Param.Screen.Sale);

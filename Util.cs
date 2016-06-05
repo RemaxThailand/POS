@@ -125,10 +125,10 @@ namespace PowerPOS
         {
             using (WebClient wc = new WebClient())
             {
-              try
+                try
                 {
                     dynamic application = Util.GetApiData("/shop-application/infoPos",
-                    string.Format("licenseKey={0}&deviceId={1}",  Param.LicenseKey, Param.DeviceID));
+                    string.Format("licenseKey={0}&deviceId={1}", Param.LicenseKey, Param.DeviceID));
 
                     dynamic jsonApplication = JsonConvert.DeserializeObject(application);
                     Console.WriteLine(jsonApplication.success);
@@ -199,16 +199,16 @@ namespace PowerPOS
             {
                 //try
                 //{
-                    wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
-                    wc.Encoding = System.Text.Encoding.UTF8;
-                    return wc.UploadString(new Uri(Param.ApiUrl + method), parameter + "&apiKey=" + Param.ApiKey);
+                wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
+                wc.Encoding = System.Text.Encoding.UTF8;
+                return wc.UploadString(new Uri(Param.ApiUrl + method), parameter + "&apiKey=" + Param.ApiKey);
                 //}
                 //catch (Exception ex)
                 //{
                 //    MessageBox.Show("เกิดข้อผิดพลาดที่การเชื่อมต่อ\nกรุณาตรวจสอบการเชื่อมต่ออินเตอร์เน็ตอีกครั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 //}
             }
-            
+
         }
 
         public static DataTable DBQuery(string sql)
@@ -589,18 +589,19 @@ namespace PowerPOS
             serverProvision.Tables[scopeName.Replace("Scope", "")].FilterParameters.Add(parameter);
             if (!serverProvision.TemplateExists(filterTemplate))
             {
-                try {
+                try
+                {
                     serverProvision.Apply();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }
-            
+
             serverProvision = new SqlSyncScopeProvisioning(serverConn, scopeDesc);
             serverProvision.PopulateFromTemplate(scopeName + "-" + filterName + filterValue, filterTemplate);
-            serverProvision.Tables[scopeName.Replace("Scope", "")].FilterParameters["@"+ filterName].Value = filterValue;
+            serverProvision.Tables[scopeName.Replace("Scope", "")].FilterParameters["@" + filterName].Value = filterValue;
             if (!serverProvision.ScopeExists(scopeName + "-" + filterName + filterValue))
             {
                 try
@@ -680,7 +681,7 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", ""), 
+            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", ""),
                 syncStats.UploadChangesTotal, syncStats.DownloadChangesTotal,
                 ((syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds / 1000).ToString("#.00")));
         }
@@ -696,9 +697,9 @@ namespace PowerPOS
             SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
             // print statistics
-            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", "") + "-" + filterName + '-' + filterValue, 
-                syncStats.UploadChangesTotal, syncStats.DownloadChangesTotal, 
-                ((syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds/1000).ToString("#.00")) );
+            WriteLog(string.Format("Sync Scope {0}\t\tUploaded : {1} / Download : {2}\tTime : {3} Seconds", scopeName.Replace("Scope", "") + "-" + filterName + '-' + filterValue,
+                syncStats.UploadChangesTotal, syncStats.DownloadChangesTotal,
+                ((syncStats.SyncEndTime - syncStats.SyncStartTime).TotalMilliseconds / 1000).ToString("#.00")));
         }
 
         public static void SyncFile()
@@ -1505,7 +1506,7 @@ namespace PowerPOS
                     measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
-            pY += 17;
+                    pY += 17;
 
                     stringFont = new Font("DilleniaUPC", 12, FontStyle.Bold);
                     measureString = Param.FooterText;
@@ -1761,7 +1762,7 @@ namespace PowerPOS
             //pY += 20;
 
             stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
-            string measureString = "รายงานรับเข้าสินค้า"; 
+            string measureString = "รายงานรับเข้าสินค้า";
             SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
             g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
             pY += 30;
@@ -1770,7 +1771,7 @@ namespace PowerPOS
             g.Graphics.DrawString("วันที่ ", stringFont, brush, new PointF(pX, pY));
 
             stringFont = new Font("Calibri", 10);
-            measureString = DateTime.Now.ToString("dd/MM/yyyy  HH:MM:ss") ;
+            measureString = DateTime.Now.ToString("dd/MM/yyyy  HH:MM:ss");
             stringSize = g.Graphics.MeasureString(measureString, stringFont);
             g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 30, pY + 3));
             pY += 20;
@@ -1902,6 +1903,30 @@ namespace PowerPOS
                 }
                 return sb.ToString();
             }
+        }
+
+        public static void LoadScreenPermissionDetail(string screen)
+        {
+            StringBuilder sb = new StringBuilder("|");
+            var dt = Util.SqlCeQuery(string.Format(@"
+                SELECT permission 
+                FROM EmployeeScreenMapping 
+                WHERE system = 'POS' 
+                    AND screen = '{0}' 
+                    AND employeeType = '{1}'
+            ", screen, Param.EmployeeType));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                sb.Append(dt.Rows[i]["permission"].ToString() + "|");
+            }
+
+            Param.ScreenPermissionDetail = sb.ToString();
+        }
+
+        public static bool CanAccessScreenDetail(string permission)
+        {
+            return Param.ScreenPermissionDetail.IndexOf("|" + permission + "|") != -1;
         }
 
     }

@@ -14,7 +14,7 @@ namespace PowerPOS
     public partial class FmScreenMapping : DevExpress.XtraEditors.XtraForm
     {
         public string employeeTypeName = "";
-        public string employeeType = "1";
+        public string employeeType = "2";
 
         public FmScreenMapping()
         {
@@ -24,6 +24,9 @@ namespace PowerPOS
         private void FmScreenMapping_Load(object sender, EventArgs e)
         {
             this.Text = "กำหนดสิทธิ์การใช้งานหน้าจอในระบบ - " + employeeTypeName;
+            clMainScreen.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E30");
+            clSubScreen.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E30");
+            clPermission.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E30");
             loadData();
         }
 
@@ -71,6 +74,18 @@ namespace PowerPOS
                 mainScreenGridview.GetDataRow(mainScreenGridview.GetSelectedRows()[0]) :
                 subScreenGridView.GetDataRow(subScreenGridView.GetSelectedRows()[0]);
             var dt = Util.SqlCeQuery(string.Format(@"
+                SELECT p.screen, p.id, p.description, 0 orderLevel, CONVERT(BIT, CASE WHEN m.permission IS NULL THEN 0 ELSE 1 END) canDo
+                FROM SystemScreenPermission p
+	                LEFT JOIN EmployeeScreenMapping m
+		                ON p.system = m.system
+		                AND p.id = m.permission
+		                AND p.screen = m.screen
+		                AND m.employeeType = {1}
+                WHERE p.system = 'POS'
+	                AND p.id LIKE 'V%'
+	                AND p.screen = '{0}'
+	                AND p.id <> 'V0'
+                UNION ALL
                 SELECT p.screen, p.id, p.description, 1 orderLevel, CONVERT(BIT, CASE WHEN m.permission IS NULL THEN 0 ELSE 1 END) canDo
                 FROM SystemScreenPermission p
 	                LEFT JOIN EmployeeScreenMapping m
@@ -81,7 +96,7 @@ namespace PowerPOS
                 WHERE p.system = 'POS'
 	                AND p.id LIKE 'A%'
 	                AND p.screen = '{0}'
-                UNION ALL	
+                UNION ALL
                 SELECT p.screen, p.id, p.description, 2 orderLevel, CONVERT(BIT, CASE WHEN m.permission IS NULL THEN 0 ELSE 1 END) canDo
                 FROM SystemScreenPermission p
 	                LEFT JOIN EmployeeScreenMapping m

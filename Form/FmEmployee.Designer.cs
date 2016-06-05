@@ -42,12 +42,12 @@
             this.btnAddEmployeeType = new DevExpress.XtraEditors.SimpleButton();
             this.employeeGridControl = new DevExpress.XtraGrid.GridControl();
             this.employeeGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn9 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clFirstname = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clLastname = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clNickname = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clMobile = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clUsername = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPassword = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -232,12 +232,12 @@
             // 
             this.employeeGridView.ColumnPanelRowHeight = 24;
             this.employeeGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn9,
-            this.gridColumn2,
-            this.gridColumn3,
-            this.gridColumn4,
-            this.gridColumn8,
+            this.clFirstname,
+            this.clLastname,
+            this.clNickname,
+            this.clMobile,
+            this.clUsername,
+            this.clPassword,
             this.gridColumn5,
             this.gridColumn6,
             this.gridColumn7});
@@ -246,85 +246,85 @@
             this.employeeGridView.OptionsView.ShowGroupPanel = false;
             this.employeeGridView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.employeeGridView_CellValueChanged);
             // 
-            // gridColumn1
+            // clFirstname
             // 
-            this.gridColumn1.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn1.AppearanceCell.Options.UseFont = true;
-            this.gridColumn1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn1.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn1.Caption = "ชื่อ";
-            this.gridColumn1.FieldName = "firstname";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.OptionsColumn.AllowMove = false;
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            this.gridColumn1.Width = 95;
+            this.clFirstname.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clFirstname.AppearanceCell.Options.UseFont = true;
+            this.clFirstname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clFirstname.AppearanceHeader.Options.UseFont = true;
+            this.clFirstname.Caption = "ชื่อ";
+            this.clFirstname.FieldName = "firstname";
+            this.clFirstname.Name = "clFirstname";
+            this.clFirstname.OptionsColumn.AllowMove = false;
+            this.clFirstname.Visible = true;
+            this.clFirstname.VisibleIndex = 0;
+            this.clFirstname.Width = 95;
             // 
-            // gridColumn9
+            // clLastname
             // 
-            this.gridColumn9.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn9.AppearanceCell.Options.UseFont = true;
-            this.gridColumn9.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn9.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn9.Caption = "นามสกุล";
-            this.gridColumn9.FieldName = "lastname";
-            this.gridColumn9.Name = "gridColumn9";
-            this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 1;
-            this.gridColumn9.Width = 95;
+            this.clLastname.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clLastname.AppearanceCell.Options.UseFont = true;
+            this.clLastname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clLastname.AppearanceHeader.Options.UseFont = true;
+            this.clLastname.Caption = "นามสกุล";
+            this.clLastname.FieldName = "lastname";
+            this.clLastname.Name = "clLastname";
+            this.clLastname.Visible = true;
+            this.clLastname.VisibleIndex = 1;
+            this.clLastname.Width = 95;
             // 
-            // gridColumn2
+            // clNickname
             // 
-            this.gridColumn2.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn2.AppearanceCell.Options.UseFont = true;
-            this.gridColumn2.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn2.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn2.Caption = "ชื่อเล่น";
-            this.gridColumn2.FieldName = "nickname";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 2;
-            this.gridColumn2.Width = 47;
+            this.clNickname.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNickname.AppearanceCell.Options.UseFont = true;
+            this.clNickname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNickname.AppearanceHeader.Options.UseFont = true;
+            this.clNickname.Caption = "ชื่อเล่น";
+            this.clNickname.FieldName = "nickname";
+            this.clNickname.Name = "clNickname";
+            this.clNickname.Visible = true;
+            this.clNickname.VisibleIndex = 2;
+            this.clNickname.Width = 47;
             // 
-            // gridColumn3
+            // clMobile
             // 
-            this.gridColumn3.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn3.AppearanceCell.Options.UseFont = true;
-            this.gridColumn3.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn3.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn3.Caption = "โทรศัพท์";
-            this.gridColumn3.FieldName = "mobile";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 3;
-            this.gridColumn3.Width = 91;
+            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clMobile.AppearanceCell.Options.UseFont = true;
+            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clMobile.AppearanceHeader.Options.UseFont = true;
+            this.clMobile.Caption = "โทรศัพท์";
+            this.clMobile.FieldName = "mobile";
+            this.clMobile.Name = "clMobile";
+            this.clMobile.Visible = true;
+            this.clMobile.VisibleIndex = 3;
+            this.clMobile.Width = 91;
             // 
-            // gridColumn4
+            // clUsername
             // 
-            this.gridColumn4.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn4.AppearanceCell.Options.UseFont = true;
-            this.gridColumn4.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn4.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn4.Caption = "ชื่อผู้ใช้";
-            this.gridColumn4.FieldName = "username";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 4;
-            this.gridColumn4.Width = 97;
+            this.clUsername.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clUsername.AppearanceCell.Options.UseFont = true;
+            this.clUsername.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clUsername.AppearanceHeader.Options.UseFont = true;
+            this.clUsername.Caption = "ชื่อผู้ใช้";
+            this.clUsername.FieldName = "username";
+            this.clUsername.Name = "clUsername";
+            this.clUsername.Visible = true;
+            this.clUsername.VisibleIndex = 4;
+            this.clUsername.Width = 97;
             // 
-            // gridColumn8
+            // clPassword
             // 
-            this.gridColumn8.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn8.AppearanceCell.Options.UseFont = true;
-            this.gridColumn8.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.gridColumn8.AppearanceHeader.Options.UseFont = true;
-            this.gridColumn8.Caption = "รหัสผ่าน";
-            this.gridColumn8.ColumnEdit = this.repositoryItemTextEdit1;
-            this.gridColumn8.FieldName = "passtmp";
-            this.gridColumn8.Name = "gridColumn8";
-            this.gridColumn8.Visible = true;
-            this.gridColumn8.VisibleIndex = 5;
-            this.gridColumn8.Width = 100;
+            this.clPassword.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPassword.AppearanceCell.Options.UseFont = true;
+            this.clPassword.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clPassword.AppearanceHeader.Options.UseFont = true;
+            this.clPassword.Caption = "รหัสผ่าน";
+            this.clPassword.ColumnEdit = this.repositoryItemTextEdit1;
+            this.clPassword.FieldName = "passtmp";
+            this.clPassword.Name = "clPassword";
+            this.clPassword.Visible = true;
+            this.clPassword.VisibleIndex = 5;
+            this.clPassword.Width = 100;
             // 
             // repositoryItemTextEdit1
             // 
@@ -472,6 +472,7 @@
             this.Padding = new System.Windows.Forms.Padding(0, 0, 5, 5);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "จัดการข้อมูลผู้ใช้งานในระบบ";
+            this.Load += new System.EventHandler(this.FmEmployee_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
             this.navBarGroupControlContainer2.ResumeLayout(false);
@@ -508,10 +509,10 @@
         private DevExpress.XtraEditors.SimpleButton btnAddEmployeeType;
         private DevExpress.XtraGrid.GridControl employeeGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView employeeGridView;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn clFirstname;
+        private DevExpress.XtraGrid.Columns.GridColumn clNickname;
+        private DevExpress.XtraGrid.Columns.GridColumn clMobile;
+        private DevExpress.XtraGrid.Columns.GridColumn clUsername;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
@@ -520,9 +521,9 @@
         private DevExpress.XtraEditors.SimpleButton btnDelete;
         private DevExpress.XtraEditors.SimpleButton btnAdd;
         private DevExpress.XtraEditors.PanelControl panelControl6;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraGrid.Columns.GridColumn clLastname;
         private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
+        private DevExpress.XtraGrid.Columns.GridColumn clPassword;
         private DevExpress.XtraEditors.SimpleButton btnScreen;
     }
 }

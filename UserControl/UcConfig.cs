@@ -37,6 +37,13 @@ namespace PowerPOS
 
         private void UcConfig_Load(object sender, EventArgs e)
         {
+            btnEmployeeManage.Visible = Util.CanAccessScreenDetail("V10");
+            gcHeader.Enabled = Util.CanAccessScreenDetail("E01");
+            gcFooter.Enabled = Util.CanAccessScreenDetail("E02");
+            gcPrinter.Enabled = Util.CanAccessScreenDetail("E03");
+            gcPaperSize.Enabled = Util.CanAccessScreenDetail("E04");
+            gcPrint.Enabled = Util.CanAccessScreenDetail("E05");
+            rcTheme.Enabled = Util.CanAccessScreenDetail("E06");
             LoadData();
         }
 
@@ -80,8 +87,8 @@ namespace PowerPOS
 
             if (Param.MemberType == "Shop")
             {
-                groupControl2.Enabled = false;
-                groupControl3.Enabled = false;
+                gcHeader.Enabled = false;
+                gcFooter.Enabled = false;
             }
             //GetPrinter();
         }

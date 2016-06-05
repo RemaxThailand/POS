@@ -35,23 +35,23 @@
             this.panelControl13 = new DevExpress.XtraEditors.PanelControl();
             this.btnSaveBill = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.gcPrinter = new DevExpress.XtraEditors.GroupControl();
             this.panelControl12 = new DevExpress.XtraEditors.PanelControl();
             this.cbxPrinter = new DevExpress.XtraEditors.ComboBoxEdit();
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.gcPaperSize = new DevExpress.XtraEditors.GroupControl();
             this.rdbSize80 = new System.Windows.Forms.RadioButton();
             this.rdbSize76 = new System.Windows.Forms.RadioButton();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl18 = new DevExpress.XtraEditors.PanelControl();
             this.lblVersion = new DevExpress.XtraEditors.LabelControl();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.gcFooter = new DevExpress.XtraEditors.GroupControl();
             this.txtBillFooter = new DevExpress.XtraEditors.TextEdit();
             this.label1 = new System.Windows.Forms.Label();
             this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
+            this.gcHeader = new DevExpress.XtraEditors.GroupControl();
             this.ptbLogo = new DevExpress.XtraEditors.PictureEdit();
             this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
             this.txtBillHeader = new DevExpress.XtraEditors.TextEdit();
@@ -62,7 +62,7 @@
             this.rdbLogoPrint = new System.Windows.Forms.RadioButton();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.gcPrint = new DevExpress.XtraEditors.GroupControl();
             this.rdbNotPrint = new System.Windows.Forms.RadioButton();
             this.rdbPrint = new System.Windows.Forms.RadioButton();
             this.nudPrintCount = new DevExpress.XtraEditors.SpinEdit();
@@ -78,7 +78,7 @@
             this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
             this.btnEmployeeManage = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
-            this.ribbonControl1 = new DevExpress.XtraBars.Ribbon.RibbonControl();
+            this.rcTheme = new DevExpress.XtraBars.Ribbon.RibbonControl();
             this.skinRibbonGalleryBarItem1 = new DevExpress.XtraBars.SkinRibbonGalleryBarItem();
             this.ribbonPage1 = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -102,23 +102,23 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
             this.panelControl13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
-            this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcPrinter)).BeginInit();
+            this.gcPrinter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPrinter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
-            this.groupControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcPaperSize)).BeginInit();
+            this.gcPaperSize.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcFooter)).BeginInit();
+            this.gcFooter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtBillFooter.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcHeader)).BeginInit();
+            this.gcHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbLogo.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBillHeader.Properties)).BeginInit();
@@ -127,8 +127,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).BeginInit();
             this.panelControl5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
-            this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcPrint)).BeginInit();
+            this.gcPrint.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -138,7 +138,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
             this.panelControl22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcTheme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
@@ -167,14 +167,14 @@
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl1.Controls.Add(this.panelControl13);
             this.panelControl1.Controls.Add(this.panelControl14);
-            this.panelControl1.Controls.Add(this.groupControl4);
+            this.panelControl1.Controls.Add(this.gcPrinter);
             this.panelControl1.Controls.Add(this.panelControl19);
-            this.panelControl1.Controls.Add(this.groupControl6);
+            this.panelControl1.Controls.Add(this.gcPaperSize);
             this.panelControl1.Controls.Add(this.lblVersion);
             this.panelControl1.Controls.Add(this.panelControl10);
-            this.panelControl1.Controls.Add(this.groupControl3);
+            this.panelControl1.Controls.Add(this.gcFooter);
             this.panelControl1.Controls.Add(this.panelControl9);
-            this.panelControl1.Controls.Add(this.groupControl2);
+            this.panelControl1.Controls.Add(this.gcHeader);
             this.panelControl1.Controls.Add(this.panelControl4);
             this.panelControl1.Controls.Add(this.panelControl5);
             this.panelControl1.Controls.Add(this.panelControl3);
@@ -218,19 +218,19 @@
             this.panelControl14.Size = new System.Drawing.Size(284, 10);
             this.panelControl14.TabIndex = 29;
             // 
-            // groupControl4
+            // gcPrinter
             // 
-            this.groupControl4.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl4.AppearanceCaption.Options.UseFont = true;
-            this.groupControl4.Controls.Add(this.panelControl12);
-            this.groupControl4.Controls.Add(this.cbxPrinter);
-            this.groupControl4.Controls.Add(this.panelControl11);
-            this.groupControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl4.Location = new System.Drawing.Point(10, 493);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(284, 61);
-            this.groupControl4.TabIndex = 25;
-            this.groupControl4.Text = "เครื่องพิมพ์";
+            this.gcPrinter.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcPrinter.AppearanceCaption.Options.UseFont = true;
+            this.gcPrinter.Controls.Add(this.panelControl12);
+            this.gcPrinter.Controls.Add(this.cbxPrinter);
+            this.gcPrinter.Controls.Add(this.panelControl11);
+            this.gcPrinter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcPrinter.Location = new System.Drawing.Point(10, 493);
+            this.gcPrinter.Name = "gcPrinter";
+            this.gcPrinter.Size = new System.Drawing.Size(284, 61);
+            this.gcPrinter.TabIndex = 25;
+            this.gcPrinter.Text = "เครื่องพิมพ์";
             // 
             // panelControl12
             // 
@@ -273,20 +273,20 @@
             this.panelControl19.Size = new System.Drawing.Size(284, 10);
             this.panelControl19.TabIndex = 32;
             // 
-            // groupControl6
+            // gcPaperSize
             // 
-            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl6.AppearanceCaption.Options.UseFont = true;
-            this.groupControl6.Controls.Add(this.rdbSize80);
-            this.groupControl6.Controls.Add(this.rdbSize76);
-            this.groupControl6.Controls.Add(this.panelControl17);
-            this.groupControl6.Controls.Add(this.panelControl18);
-            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl6.Location = new System.Drawing.Point(10, 422);
-            this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(284, 61);
-            this.groupControl6.TabIndex = 31;
-            this.groupControl6.Text = "ขนาดกระดาษ";
+            this.gcPaperSize.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcPaperSize.AppearanceCaption.Options.UseFont = true;
+            this.gcPaperSize.Controls.Add(this.rdbSize80);
+            this.gcPaperSize.Controls.Add(this.rdbSize76);
+            this.gcPaperSize.Controls.Add(this.panelControl17);
+            this.gcPaperSize.Controls.Add(this.panelControl18);
+            this.gcPaperSize.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcPaperSize.Location = new System.Drawing.Point(10, 422);
+            this.gcPaperSize.Name = "gcPaperSize";
+            this.gcPaperSize.Size = new System.Drawing.Size(284, 61);
+            this.gcPaperSize.TabIndex = 31;
+            this.gcPaperSize.Text = "ขนาดกระดาษ";
             // 
             // rdbSize80
             // 
@@ -353,18 +353,18 @@
             this.panelControl10.Size = new System.Drawing.Size(284, 10);
             this.panelControl10.TabIndex = 24;
             // 
-            // groupControl3
+            // gcFooter
             // 
-            this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl3.AppearanceCaption.Options.UseFont = true;
-            this.groupControl3.Controls.Add(this.txtBillFooter);
-            this.groupControl3.Controls.Add(this.label1);
-            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl3.Location = new System.Drawing.Point(10, 331);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(284, 81);
-            this.groupControl3.TabIndex = 22;
-            this.groupControl3.Text = "ท้ายใบเสร็จ";
+            this.gcFooter.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcFooter.AppearanceCaption.Options.UseFont = true;
+            this.gcFooter.Controls.Add(this.txtBillFooter);
+            this.gcFooter.Controls.Add(this.label1);
+            this.gcFooter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcFooter.Location = new System.Drawing.Point(10, 331);
+            this.gcFooter.Name = "gcFooter";
+            this.gcFooter.Size = new System.Drawing.Size(284, 81);
+            this.gcFooter.TabIndex = 22;
+            this.gcFooter.Text = "ท้ายใบเสร็จ";
             // 
             // txtBillFooter
             // 
@@ -399,21 +399,21 @@
             this.panelControl9.Size = new System.Drawing.Size(284, 10);
             this.panelControl9.TabIndex = 23;
             // 
-            // groupControl2
+            // gcHeader
             // 
-            this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl2.AppearanceCaption.Options.UseFont = true;
-            this.groupControl2.Controls.Add(this.ptbLogo);
-            this.groupControl2.Controls.Add(this.panelControl8);
-            this.groupControl2.Controls.Add(this.txtBillHeader);
-            this.groupControl2.Controls.Add(this.label4);
-            this.groupControl2.Controls.Add(this.panelControl7);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl2.Location = new System.Drawing.Point(10, 106);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(284, 215);
-            this.groupControl2.TabIndex = 21;
-            this.groupControl2.Text = "หัวใบเสร็จ";
+            this.gcHeader.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcHeader.AppearanceCaption.Options.UseFont = true;
+            this.gcHeader.Controls.Add(this.ptbLogo);
+            this.gcHeader.Controls.Add(this.panelControl8);
+            this.gcHeader.Controls.Add(this.txtBillHeader);
+            this.gcHeader.Controls.Add(this.label4);
+            this.gcHeader.Controls.Add(this.panelControl7);
+            this.gcHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcHeader.Location = new System.Drawing.Point(10, 106);
+            this.gcHeader.Name = "gcHeader";
+            this.gcHeader.Size = new System.Drawing.Size(284, 215);
+            this.gcHeader.TabIndex = 21;
+            this.gcHeader.Text = "หัวใบเสร็จ";
             // 
             // ptbLogo
             // 
@@ -518,27 +518,27 @@
             // panelControl5
             // 
             this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl5.Controls.Add(this.groupControl1);
+            this.panelControl5.Controls.Add(this.gcPrint);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(10, 10);
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(284, 86);
             this.panelControl5.TabIndex = 18;
             // 
-            // groupControl1
+            // gcPrint
             // 
-            this.groupControl1.Controls.Add(this.rdbNotPrint);
-            this.groupControl1.Controls.Add(this.rdbPrint);
-            this.groupControl1.Controls.Add(this.nudPrintCount);
-            this.groupControl1.Controls.Add(this.rdbAlert);
-            this.groupControl1.Controls.Add(this.label2);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl1.Location = new System.Drawing.Point(0, 0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.ShowCaption = false;
-            this.groupControl1.Size = new System.Drawing.Size(284, 85);
-            this.groupControl1.TabIndex = 0;
-            this.groupControl1.Text = "groupControl1";
+            this.gcPrint.Controls.Add(this.rdbNotPrint);
+            this.gcPrint.Controls.Add(this.rdbPrint);
+            this.gcPrint.Controls.Add(this.nudPrintCount);
+            this.gcPrint.Controls.Add(this.rdbAlert);
+            this.gcPrint.Controls.Add(this.label2);
+            this.gcPrint.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcPrint.Location = new System.Drawing.Point(0, 0);
+            this.gcPrint.Name = "gcPrint";
+            this.gcPrint.ShowCaption = false;
+            this.gcPrint.Size = new System.Drawing.Size(284, 85);
+            this.gcPrint.TabIndex = 0;
+            this.gcPrint.Text = "groupControl1";
             // 
             // rdbNotPrint
             // 
@@ -656,7 +656,7 @@
             this.gbxControl.CaptionImage = ((System.Drawing.Image)(resources.GetObject("gbxControl.CaptionImage")));
             this.gbxControl.Controls.Add(this.panelControl22);
             this.gbxControl.Controls.Add(this.panelControl21);
-            this.gbxControl.Controls.Add(this.ribbonControl1);
+            this.gbxControl.Controls.Add(this.rcTheme);
             this.gbxControl.Controls.Add(this.panelControl6);
             this.gbxControl.Controls.Add(this.groupControl5);
             this.gbxControl.Dock = System.Windows.Forms.DockStyle.Left;
@@ -698,23 +698,23 @@
             this.panelControl21.Size = new System.Drawing.Size(311, 10);
             this.panelControl21.TabIndex = 19;
             // 
-            // ribbonControl1
+            // rcTheme
             // 
-            this.ribbonControl1.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
-            this.ribbonControl1.ExpandCollapseItem.Id = 0;
-            this.ribbonControl1.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
-            this.ribbonControl1.ExpandCollapseItem,
+            this.rcTheme.DrawGroupCaptions = DevExpress.Utils.DefaultBoolean.False;
+            this.rcTheme.ExpandCollapseItem.Id = 0;
+            this.rcTheme.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.rcTheme.ExpandCollapseItem,
             this.skinRibbonGalleryBarItem1});
-            this.ribbonControl1.Location = new System.Drawing.Point(2, 108);
-            this.ribbonControl1.MaxItemId = 3;
-            this.ribbonControl1.Name = "ribbonControl1";
-            this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
+            this.rcTheme.Location = new System.Drawing.Point(2, 108);
+            this.rcTheme.MaxItemId = 3;
+            this.rcTheme.Name = "rcTheme";
+            this.rcTheme.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
             this.ribbonPage1});
-            this.ribbonControl1.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
-            this.ribbonControl1.ShowToolbarCustomizeItem = false;
-            this.ribbonControl1.Size = new System.Drawing.Size(311, 142);
-            this.ribbonControl1.Toolbar.ShowCustomizeItem = false;
-            this.ribbonControl1.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
+            this.rcTheme.ShowPageHeadersMode = DevExpress.XtraBars.Ribbon.ShowPageHeadersMode.Show;
+            this.rcTheme.ShowToolbarCustomizeItem = false;
+            this.rcTheme.Size = new System.Drawing.Size(311, 142);
+            this.rcTheme.Toolbar.ShowCustomizeItem = false;
+            this.rcTheme.ToolbarLocation = DevExpress.XtraBars.Ribbon.RibbonQuickAccessToolbarLocation.Above;
             // 
             // skinRibbonGalleryBarItem1
             // 
@@ -869,24 +869,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
             this.panelControl13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
-            this.groupControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcPrinter)).EndInit();
+            this.gcPrinter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbxPrinter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl19)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
-            this.groupControl6.ResumeLayout(false);
-            this.groupControl6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcPaperSize)).EndInit();
+            this.gcPaperSize.ResumeLayout(false);
+            this.gcPaperSize.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcFooter)).EndInit();
+            this.gcFooter.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtBillFooter.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcHeader)).EndInit();
+            this.gcHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbLogo.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtBillHeader.Properties)).EndInit();
@@ -896,9 +896,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl5)).EndInit();
             this.panelControl5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
-            this.groupControl1.ResumeLayout(false);
-            this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcPrint)).EndInit();
+            this.gcPrint.ResumeLayout(false);
+            this.gcPrint.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrintCount.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -909,7 +909,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
             this.panelControl22.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rcTheme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
@@ -933,18 +933,18 @@
         private DevExpress.XtraEditors.PanelControl panelControl3;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.GroupControl gcHeader;
         private DevExpress.XtraEditors.SpinEdit nudPrintCount;
         private DevExpress.XtraEditors.PanelControl panelControl7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton rdbLogoNotPrint;
         private System.Windows.Forms.RadioButton rdbLogoPrint;
-        private DevExpress.XtraEditors.GroupControl groupControl4;
+        private DevExpress.XtraEditors.GroupControl gcPrinter;
         private DevExpress.XtraEditors.PanelControl panelControl12;
         private DevExpress.XtraEditors.ComboBoxEdit cbxPrinter;
         private DevExpress.XtraEditors.PanelControl panelControl11;
         private DevExpress.XtraEditors.PanelControl panelControl10;
-        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.GroupControl gcFooter;
         private DevExpress.XtraEditors.TextEdit txtBillFooter;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraEditors.PanelControl panelControl9;
@@ -969,10 +969,10 @@
         private DevExpress.XtraBars.SkinRibbonGalleryBarItem skinRibbonGalleryBarItem1;
         private DevExpress.XtraBars.Ribbon.RibbonPage ribbonPage1;
         private DevExpress.XtraBars.Ribbon.RibbonPageGroup ribbonPageGroup1;
-        private DevExpress.XtraBars.Ribbon.RibbonControl ribbonControl1;
+        private DevExpress.XtraBars.Ribbon.RibbonControl rcTheme;
         private System.Windows.Forms.RadioButton rdbNotPrint;
         private DevExpress.XtraEditors.PanelControl panelControl20;
-        private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.GroupControl gcPrint;
         private DevExpress.XtraEditors.LabelControl lblVersion;
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.GroupControl groupControl5;
@@ -981,7 +981,7 @@
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.PanelControl panelControl19;
-        private DevExpress.XtraEditors.GroupControl groupControl6;
+        private DevExpress.XtraEditors.GroupControl gcPaperSize;
         private DevExpress.XtraEditors.PanelControl panelControl18;
         private System.Windows.Forms.RadioButton rdbSize80;
         private System.Windows.Forms.RadioButton rdbSize76;

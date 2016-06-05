@@ -66,6 +66,7 @@ namespace PowerPOS
         public static string Logo;
         public static string ShopCost;
         public static string PaperSize;
+        public static string ScreenPermissionDetail;
 
 
         public static bool jsonObject;

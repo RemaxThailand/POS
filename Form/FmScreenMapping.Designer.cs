@@ -35,15 +35,15 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.screenGridControl = new DevExpress.XtraGrid.GridControl();
             this.mainScreenGridview = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clMainScreen = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.employeeControl = new DevExpress.XtraGrid.GridControl();
             this.employeeGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPermission = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.subScreenGridControl = new DevExpress.XtraGrid.GridControl();
             this.subScreenGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.gridColumn4 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clSubScreen = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn5 = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
@@ -125,7 +125,7 @@
             // 
             this.mainScreenGridview.ColumnPanelRowHeight = 24;
             this.mainScreenGridview.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
+            this.clMainScreen,
             this.clName});
             this.mainScreenGridview.GridControl = this.screenGridControl;
             this.mainScreenGridview.Name = "mainScreenGridview";
@@ -133,14 +133,14 @@
             this.mainScreenGridview.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.mainScreenGridview_FocusedRowChanged);
             this.mainScreenGridview.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.mainScreenGridview_CellValueChanged);
             // 
-            // gridColumn1
+            // clMainScreen
             // 
-            this.gridColumn1.Caption = " ";
-            this.gridColumn1.FieldName = "canView";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            this.gridColumn1.Width = 20;
+            this.clMainScreen.Caption = " ";
+            this.clMainScreen.FieldName = "canView";
+            this.clMainScreen.Name = "clMainScreen";
+            this.clMainScreen.Visible = true;
+            this.clMainScreen.VisibleIndex = 0;
+            this.clMainScreen.Width = 20;
             // 
             // clName
             // 
@@ -174,21 +174,21 @@
             // 
             this.employeeGridView.ColumnPanelRowHeight = 24;
             this.employeeGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn2,
+            this.clPermission,
             this.gridColumn3});
             this.employeeGridView.GridControl = this.employeeControl;
             this.employeeGridView.Name = "employeeGridView";
             this.employeeGridView.OptionsView.ShowGroupPanel = false;
             this.employeeGridView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.employeeGridView_CellValueChanged);
             // 
-            // gridColumn2
+            // clPermission
             // 
-            this.gridColumn2.Caption = " ";
-            this.gridColumn2.FieldName = "canDo";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 0;
-            this.gridColumn2.Width = 20;
+            this.clPermission.Caption = " ";
+            this.clPermission.FieldName = "canDo";
+            this.clPermission.Name = "clPermission";
+            this.clPermission.Visible = true;
+            this.clPermission.VisibleIndex = 0;
+            this.clPermission.Width = 20;
             // 
             // gridColumn3
             // 
@@ -222,7 +222,7 @@
             // 
             this.subScreenGridView.ColumnPanelRowHeight = 24;
             this.subScreenGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn4,
+            this.clSubScreen,
             this.gridColumn5});
             this.subScreenGridView.GridControl = this.subScreenGridControl;
             this.subScreenGridView.Name = "subScreenGridView";
@@ -230,14 +230,14 @@
             this.subScreenGridView.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.subScreenGridView_FocusedRowChanged);
             this.subScreenGridView.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.subScreenGridView_CellValueChanged);
             // 
-            // gridColumn4
+            // clSubScreen
             // 
-            this.gridColumn4.Caption = " ";
-            this.gridColumn4.FieldName = "canView";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 0;
-            this.gridColumn4.Width = 20;
+            this.clSubScreen.Caption = " ";
+            this.clSubScreen.FieldName = "canView";
+            this.clSubScreen.Name = "clSubScreen";
+            this.clSubScreen.Visible = true;
+            this.clSubScreen.VisibleIndex = 0;
+            this.clSubScreen.Width = 20;
             // 
             // gridColumn5
             // 
@@ -292,14 +292,14 @@
         private DevExpress.XtraGrid.GridControl screenGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView mainScreenGridview;
         private DevExpress.XtraGrid.Columns.GridColumn clName;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn clMainScreen;
         private DevExpress.XtraGrid.GridControl employeeControl;
         private DevExpress.XtraGrid.Views.Grid.GridView employeeGridView;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn clPermission;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.GridControl subScreenGridControl;
         private DevExpress.XtraGrid.Views.Grid.GridView subScreenGridView;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.XtraGrid.Columns.GridColumn clSubScreen;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
     }
 }

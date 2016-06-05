@@ -19,6 +19,22 @@ namespace PowerPOS
             loadData();
         }
 
+        private void FmEmployee_Load(object sender, EventArgs e)
+        {
+            btnAddEmployeeType.Enabled = Util.CanAccessScreenDetail("A10");
+            btnDeleteEmployeeType.Enabled = Util.CanAccessScreenDetail("D10");
+            clName.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E10");
+            btnAdd.Enabled = Util.CanAccessScreenDetail("A20");
+            btnDelete.Enabled = Util.CanAccessScreenDetail("D20");
+            clFirstname.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            clLastname.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            clNickname.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            clMobile.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            clUsername.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            clPassword.OptionsColumn.AllowEdit = Util.CanAccessScreenDetail("E20");
+            btnScreen.Visible = Util.CanAccessScreenDetail("V30");
+        }
+
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             employeeGroupGridview.AddNewRow();
@@ -33,7 +49,7 @@ namespace PowerPOS
         {
             var dt = Util.SqlCeQuery("SELECT * FROM EmployeeType WHERE shop = '" + Param.ShopId + "' ORDER BY orderLevel*1, addDate");
             employeeGroupGridControl.DataSource = dt;
-            btnDeleteEmployeeType.Enabled = dt.Rows.Count > 0;
+            btnDeleteEmployeeType.Enabled = dt.Rows.Count > 0 && Util.CanAccessScreenDetail("D10");
         }
 
         private void loadEmployeeData()
@@ -41,7 +57,7 @@ namespace PowerPOS
             DataRow dr = employeeGroupGridview.GetDataRow(employeeGroupGridview.GetSelectedRows()[0]);
             var dt = Util.SqlCeQuery("SELECT *, 'passtmp' passtmp FROM Employee WHERE shop = '" + Param.ShopId + "' AND employeeType = '"+ dr["id"] + "' ORDER BY addDate");
             employeeGridControl.DataSource = dt;
-            btnDelete.Enabled = dt.Rows.Count > 0;
+            btnDelete.Enabled = dt.Rows.Count > 0 && Util.CanAccessScreenDetail("D20");
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
