@@ -1,4 +1,5 @@
-﻿using DevExpress.XtraEditors;
+﻿using DevExpress.XtraBars.Navigation;
+using DevExpress.XtraEditors;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,6 +36,10 @@ namespace PowerPOS
             InitializeComponent();
             Param.UserId = "0000";
             Param.UserCode = "1234";
+
+            Param.EmployeeId = "0";
+            Param.EmployeeType = "1";
+
             Util.ConnectSQLiteDatabase();
             Util.GetDiviceId();
             this.Opacity = 0;
@@ -56,7 +61,12 @@ namespace PowerPOS
                     Param.ApiShopId = args[7].ToString();
                     Param.InitialFinished = false;
                     Param.Main = this;
+                    InitialEmployeeScreen();
                     InitialCloudData();
+
+                    //FmScreenMapping fm = new FmScreenMapping();
+                    //fm.ShowDialog(this);
+
                 }
                 else
                 {
@@ -140,6 +150,59 @@ namespace PowerPOS
             //    Console.WriteLine("Claim  " + jsonClaim.result[i].claimNo);
             //}
             //AddPanel(Screen.Sale);
+        }
+
+        private void InitialEmployeeScreen()
+        {
+            var dt = Util.SqlCeQuery(string.Format(@"
+                SELECT s.id, s.parent, 
+                    CASE WHEN s.active = 1 THEN 1 ELSE 0 END active,
+	                CASE WHEN m.screen IS NULL THEN 0 ELSE 1 END canView
+                FROM SystemScreen s
+	                LEFT JOIN EmployeeScreenMapping m
+		                ON s.system = m.system
+		                AND s.id = m.screen
+		                AND m.employeeType = '{0}'
+		                AND m.permission = 'V0'
+                WHERE s.system = 'POS'
+            ", Param.EmployeeType));
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                string parent = dt.Rows[i]["parent"].ToString();
+                string screen = dt.Rows[i]["id"].ToString();
+                bool hasParent = parent != "";
+                bool canView = dt.Rows[i]["canView"].ToString() == "1" && dt.Rows[i]["active"].ToString() == "1";
+
+                if (!canView)
+                {
+                    foreach (TileNavItem item in this.z.DefaultCategory.Items)
+                    {
+                        if (hasParent)
+                        {
+                            if (item.Name == parent)
+                            {
+                                foreach (TileNavSubItem subitem in item.SubItems)
+                                {
+                                    if (subitem.Name == screen)
+                                    {
+                                        Console.WriteLine("remove item {0}", screen);
+                                        item.SubItems.Remove(subitem);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                        else if (item.Name == screen)
+                        {
+                            Console.WriteLine("remove item {0}", screen);
+                            this.z.DefaultCategory.Items.Remove(item);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void InitialCloudData()

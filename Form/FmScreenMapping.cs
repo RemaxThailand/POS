@@ -19,6 +19,10 @@ namespace PowerPOS
         public FmScreenMapping()
         {
             InitializeComponent();
+        }
+
+        private void FmScreenMapping_Load(object sender, EventArgs e)
+        {
             this.Text = "กำหนดสิทธิ์การใช้งานหน้าจอในระบบ - " + employeeTypeName;
             loadData();
         }
@@ -35,6 +39,7 @@ namespace PowerPOS
 		                AND m.employeeType = {0}
                 WHERE s.system = 'POS'
 	                AND s.parent IS NULL
+	                AND s.active = 1
                 ORDER BY s.orderLevel
             ", employeeType));
             screenGridControl.DataSource = dt;
@@ -53,6 +58,7 @@ namespace PowerPOS
 		                AND m.employeeType = {1}
                 WHERE s.system = 'POS'
 	                AND s.parent = '{0}'
+	                AND s.active = 1
                 ORDER BY s.orderLevel
             ", dr["id"].ToString(), employeeType));
             subScreenGridControl.DataSource = dt;

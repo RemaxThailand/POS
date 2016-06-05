@@ -267,6 +267,7 @@
             this.Name = "FmScreenMapping";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "กำหนดสิทธิ์การใช้งานหน้าจอในระบบ";
+            this.Load += new System.EventHandler(this.FmScreenMapping_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
             this.navBarGroupControlContainer2.ResumeLayout(false);

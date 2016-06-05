@@ -133,7 +133,10 @@ namespace PowerPOS
 
         private void btnScreen_Click(object sender, EventArgs e)
         {
+            DataRow dr = employeeGroupGridview.GetDataRow(employeeGroupGridview.GetSelectedRows()[0]);
             FmScreenMapping fm = new FmScreenMapping();
+            fm.employeeType = dr["id"].ToString();
+            fm.employeeTypeName = dr["name"].ToString();
             fm.ShowDialog(this);
         }
     }

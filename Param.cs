@@ -38,6 +38,8 @@ namespace PowerPOS
         public const string ScpLogPath = "/var/www/log/pos";
         public static string ApplicationDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Remax");
         public static string SqlCeFile = Path.Combine(ApplicationDataPath, "system.dll");
+        public static string EmployeeType;
+        public static string EmployeeId;
         public static string UserId;
         public static string UserCode;
         public static bool ApiChecked;

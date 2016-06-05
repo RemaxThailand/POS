@@ -899,20 +899,19 @@ namespace PowerPOS
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
             scopeName = "SystemScreenScope";
-            Collection<string> columnsToInclude = new Collection<string>();
+            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+            /*Collection<string> columnsToInclude = new Collection<string>();
             columnsToInclude.Add("system");
             columnsToInclude.Add("id");
             columnsToInclude.Add("name");
             columnsToInclude.Add("parent");
             columnsToInclude.Add("orderLevel");
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS", columnsToInclude);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");*/
 
             serverConn.Close();
             Param.SqlCeConnection.Close();
-
-
-
 
             DataTable dt;
             int i = 0;
