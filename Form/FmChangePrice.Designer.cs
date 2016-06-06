@@ -71,6 +71,7 @@
             this.txtCode.Properties.Appearance.Options.UseFont = true;
             this.txtCode.Properties.Appearance.Options.UseTextOptions = true;
             this.txtCode.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtCode.Properties.PasswordChar = '*';
             this.txtCode.Size = new System.Drawing.Size(134, 26);
             this.txtCode.TabIndex = 14;
             this.txtCode.Enter += new System.EventHandler(this.txtCode_Enter);
@@ -116,7 +117,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(102, 34);
             this.btnSave.TabIndex = 9;
-            this.btnSave.Text = "บันทึกข้อมูล";
+            this.btnSave.Text = "ยืนยัน";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // panelControl2

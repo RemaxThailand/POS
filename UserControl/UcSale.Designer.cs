@@ -125,6 +125,7 @@
             this.clSalePrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -201,6 +202,7 @@
             this.productGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.productGridView});
             this.productGridControl.EditorKeyDown += new System.Windows.Forms.KeyEventHandler(this.productGridControl_EditorKeyDown);
+            this.productGridControl.Click += new System.EventHandler(this.productGridControl_Click);
             // 
             // productGridView
             // 
@@ -214,7 +216,8 @@
             this.clName,
             this.clPrice,
             this.clQty,
-            this.clTotal});
+            this.clTotal,
+            this.clSku});
             this.productGridView.GridControl = this.productGridControl;
             this.productGridView.Name = "productGridView";
             this.productGridView.OptionsView.ShowGroupPanel = false;
@@ -255,8 +258,6 @@
             this.clProduct.OptionsColumn.AllowEdit = false;
             this.clProduct.OptionsColumn.AllowMove = false;
             this.clProduct.OptionsColumn.FixedWidth = true;
-            this.clProduct.Visible = true;
-            this.clProduct.VisibleIndex = 1;
             this.clProduct.Width = 100;
             // 
             // clName
@@ -274,7 +275,7 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
-            this.clName.Width = 465;
+            this.clName.Width = 407;
             // 
             // clPrice
             // 
@@ -1399,6 +1400,24 @@
             this.panelControl17.Size = new System.Drawing.Size(10, 713);
             this.panelControl17.TabIndex = 18;
             // 
+            // clSku
+            // 
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
+            this.clSku.FieldName = "Sku";
+            this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.OptionsColumn.FixedWidth = true;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 100;
+            // 
             // UcSale
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1571,5 +1590,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl30;
         private DevExpress.XtraEditors.LabelControl lblListCount;
         private DevExpress.XtraGrid.Columns.GridColumn clPName;
+        private DevExpress.XtraGrid.Columns.GridColumn clSku;
     }
 }

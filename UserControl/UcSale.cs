@@ -87,35 +87,48 @@ namespace PowerPOS
             int i, a;
             int _QTY = 0;
 
-            dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode b
-                        WHERE NOT EXISTS (SELECT *
+            dt = Util.DBQuery(string.Format(@"SELECT *
                           FROM ChangePrice cp
-                          WHERE b.product = cp.product
-                          AND cp.SellNo = '{0}')
-                        AND b.SellBy = '{0}'", Param.DeviceID));
+                          WHERE cp.SellNo = '{0}'", Param.DeviceID));
 
             if (dt.Rows.Count > 0)
             {
-                //int b = 0;
-                //for (b = 0; b < dt.Rows.Count; b++)
-                //{
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE NOT EXISTS (SELECT *
+                dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode b
+                        WHERE product NOT IN (SELECT *
                           FROM ChangePrice cp
-                          WHERE Barcode.product = cp.product
-                          AND cp.SellNo = '{0}')
+                          WHERE cp.SellNo = '{0}')
+                        AND b.SellBy = '{0}'", Param.DeviceID));
+
+                if (dt.Rows.Count > 0)
+                {
+                    //int b = 0;
+                    //for (b = 0; b < dt.Rows.Count; b++)
+                    //{
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                            WHERE product NOT IN (SELECT *
+                          FROM ChangePrice cp
+                          WHERE cp.SellNo = '{0}')
                         AND Barcode.SellBy = '{0}' 
                         AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
-                        Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                            Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
                           FROM ChangePrice cp
                           WHERE Barcode.product = cp.product
                           AND cp.SellNo = '{0}'
                         AND Barcode.SellBy = '{0}' ) WHERE SellBy = '{0}' AND sellPrice IS NULL",
-                       Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
-                //}
+                           Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                    //}
+                }
             }
+            else
+            {
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                            WHERE Barcode.SellBy = '{0}' 
+                            AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
+                          Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+            }
+
 
             dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
                     WHERE NOT EXISTS (SELECT *
@@ -139,16 +152,17 @@ namespace PowerPOS
                 }
             }
 
-            _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice FROM 
-                        (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount
-                        FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b 
-                            LEFT JOIN Product p 
+            _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice, sku FROM 
+                        (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount, p.sku
+                        FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b  LEFT JOIN Product p 
                             ON b.Product = p.product
                         LEFT JOIN ChangePrice cp
                         ON cp.product = p.product
                         AND cp.SellNo = '{0}'
                     UNION ALL
-                    SELECT product, productName, price,  price priceA, amount FROM sellTemp)
+                    SELECT st.product, st.productName, st.price,  st.price priceA, st.amount, p.sku  FROM sellTemp st
+                    LEFT JOIN Product p 
+                    ON st.Product = p.product)
                     GROUP BY product", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
             var sumPrice = 0;
@@ -176,6 +190,7 @@ namespace PowerPOS
                     row[3] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Price"].ToString()).ToString("#,##0");
                     row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["ProductCount"]).ToString("#,##0");
                     row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
+                    row[6] = _TABLE_SALE.Rows[a]["sku"].ToString();
                     dt.Rows.Add(row);
                     _QTY += int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString());
                     sumPrice += total;
@@ -1040,6 +1055,11 @@ namespace PowerPOS
                 productGridControl.Visible = false;
                 returnGridControl.Visible = true;
             }
+        }
+
+        private void productGridControl_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void productGridView_CellValueChanged(object sender, CellValueChangedEventArgs e)
