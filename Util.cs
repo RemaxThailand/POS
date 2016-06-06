@@ -46,14 +46,14 @@ namespace PowerPOS
             GetConfigFromSqlCe(Param.DatabaseName, Param.DatabasePassword);
             Param.ApiUrl = Properties.Settings.Default.ApiUrl;
             Param.ApiKey = Properties.Settings.Default.ApiKey;
-            //Param.LicenseKey = Properties.Settings.Default.LicenseKey;
+            Param.LicenseKey = Properties.Settings.Default.LicenseKey;
             Param.ApiChecked = Properties.Settings.Default.ApiChecked;
             Param.ImagePath = Properties.Settings.Default.ImagePath;
             Param.DeviceID = GetDiviceId();
             Param.ComputerName = System.Environment.MachineName;
             //Param.DatabaseName = Properties.Settings.Default.DatabaseName;
             //Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
-            //Param.ShopId = Properties.Settings.Default.ShopId;
+            Param.ShopId = Properties.Settings.Default.ShopId;
             Param.ShopName = Properties.Settings.Default.ShopName;
             Param.ShopParent = Properties.Settings.Default.ShopParent;
             Param.ShopCustomer = Properties.Settings.Default.ShopCustomer;
