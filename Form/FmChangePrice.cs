@@ -30,7 +30,7 @@ namespace PowerPOS
                 DataTable dt = Util.DBQuery(string.Format(@"SELECT * FROM Employee WHERE code = '{0}' AND shop = '{1}'", txtCode.Text, Param.ShopId));
                 if (dt.Rows.Count > 0)
                 {
-                    Param.EmpCode = dt.Rows[0]["firstname"].ToString();
+                    Param.EmpName = dt.Rows[0]["firstname"].ToString();
                     Param.UserCode = dt.Rows[0]["code"].ToString();
 
 
@@ -52,7 +52,7 @@ namespace PowerPOS
                         {
                             Util.DBExecute(string.Format(@"INSERT INTO ChangePrice (shop, sellNo, product, price, changeBy, changeDate)
                             SELECT '{0}','{1}','{2}','{3}','{4}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW')",
-                            Param.ShopId, Param.DeviceID, UcSale.product, UcSale.price, Param.EmpCode));
+                            Param.ShopId, Param.DeviceID, UcSale.product, UcSale.price, Param.EmpName));
                         }
 
                         this.DialogResult = DialogResult.OK;

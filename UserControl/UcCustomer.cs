@@ -15,7 +15,7 @@ namespace PowerPOS
     public partial class UcCustomer : DevExpress.XtraEditors.XtraUserControl
     {
 
-        DataTable _TABLE_CUSTOMER;
+        DataTable _TABLE_CUSTOMER, _TABLE_CUS;
 
         public UcCustomer()
         {
@@ -24,6 +24,17 @@ namespace PowerPOS
 
         private void UcCustomer_Load(object sender, EventArgs e)
         {
+            //_TABLE_CUS = Util.SqlCeQuery(string.Format(@"SELECT * FROM Customer
+            //    WHERE Firstname LIKE '%{0}%'
+            //    OR Lastname LIKE '%{0}%'
+            //    OR Nickname LIKE '%{0}%'
+            //    OR CitizenID LIKE '%{0}%'
+            //    OR CardNo LIKE '%{0}%'
+            //    OR Mobile LIKE '%{0}%'
+            //    OR ShopName LIKE '%{0}%'
+            //    ",txtSearch.Text.Trim()));
+            //Console.WriteLine(_TABLE_CUS.Rows[3]["Customer"].ToString());
+
             LoadData();
         }
 
@@ -32,7 +43,7 @@ namespace PowerPOS
             DataTable dt;
             DataRow row;
             int i, a;
-            _TABLE_CUSTOMER = Util.DBQuery(string.Format(@"SELECT * FROM Customer
+            _TABLE_CUSTOMER = Util.SqlCeQuery(string.Format(@"SELECT * FROM Customer
                 WHERE Firstname LIKE '%{0}%'
                 OR Lastname LIKE '%{0}%'
                 OR Nickname LIKE '%{0}%'
@@ -42,7 +53,6 @@ namespace PowerPOS
                 OR ShopName LIKE '%{0}%'
                 ",
                 txtSearch.Text.Trim()));
-
 
             customerGridView.OptionsBehavior.AutoPopulateColumns = false;
             customerGridControl.MainView = customerGridView;

@@ -47,14 +47,21 @@ namespace PowerPOS
         public void LoadData()
         {
             DataTable dt, dtab;
-                dt = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b  GROUP BY b.orderNo
-                                    UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
-                                    GROUP BY orderNo HAVING SUM(N) <> SUM(R) 
-                                    UNION ALL
-                                    SELECT orderNo, SUM(Quantity ), SUM(ReceivedQuantity)  FROM PurchaseOrder GROUP BY orderNo HAVING  SUM(Quantity ) <> SUM(ReceivedQuantity)
-                                    ) bb
-                                    GROUP BY orderNo
-                                    ORDER BY orderNo DESC");
+            //dt = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b  GROUP BY b.orderNo
+            //                    UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
+            //                    GROUP BY orderNo HAVING SUM(N) <> SUM(R) 
+            //                    UNION ALL
+            //                    SELECT orderNo, SUM(Quantity ), SUM(ReceivedQuantity)  FROM PurchaseOrder GROUP BY orderNo HAVING  SUM(Quantity ) <> SUM(ReceivedQuantity)
+            //                    ) bb
+            //                    GROUP BY orderNo
+            //                    ORDER BY orderNo DESC");
+
+                dt = Util.DBQuery(@"SELECT orderNo, COUNT(b.Barcode) qty FROM Barcode b 
+                        WHERE ReceivedDate IS NULL 
+                        GROUP BY b.orderNo 
+                        HAVING qty  <> 0 
+                        ORDER BY orderNo DESC");
+                
                 cbbOrderNo.Properties.Items.Clear();
                 cbbOrderNo.Properties.Items.Add("เลขที่ใบสั่งซื้อ");
                 if (dt.Rows.Count == 0)
@@ -71,14 +78,21 @@ namespace PowerPOS
                 }
                 cbbOrderNo.SelectedIndex = 0;
 
-                dtab = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b GROUP BY b.orderNo
-                                    UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
-                                    GROUP BY orderNo HAVING SUM(N) = SUM(R) 
-                                    UNION ALL
-                                    SELECT orderNo, SUM(Quantity ), SUM(ReceivedQuantity)  FROM PurchaseOrder GROUP BY orderNo HAVING  SUM(Quantity ) = SUM(ReceivedQuantity)
-                                    ) bb
-                                    GROUP BY orderNo
-                                    ORDER BY orderNo DESC");
+            //dtab = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b GROUP BY b.orderNo
+            //                    UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
+            //                    GROUP BY orderNo HAVING SUM(N) = SUM(R) 
+            //                    UNION ALL
+            //                    SELECT orderNo, SUM(Quantity ), SUM(ReceivedQuantity)  FROM PurchaseOrder GROUP BY orderNo HAVING  SUM(Quantity ) = SUM(ReceivedQuantity)
+            //                    ) bb
+            //                    GROUP BY orderNo
+            //                    ORDER BY orderNo DESC");
+
+                dtab = Util.DBQuery(@"SELECT orderNo, COUNT(b.Barcode) qty FROM Barcode b 
+                        WHERE ReceivedDate IS NOT NULL 
+                        GROUP BY b.orderNo 
+                        HAVING qty  <> 0
+                        ORDER BY orderNo DESC");
+
                 cbbOrder.Properties.Items.Clear();
                 cbbOrder.Properties.Items.Add("เลขที่ใบสั่งซื้อ");
                 if (dtab.Rows.Count == 0)
@@ -133,7 +147,6 @@ namespace PowerPOS
                                 SELECT DISTINCT Product, COUNT(*) ReceivedCount 
                                 FROM Barcode 
                                 WHERE ReceivedDate IS NOT NULL 
-                                AND ReceivedBy = '{2}' 
                                 AND OrderNo =  '{1}' 
                                 GROUP BY Product
                         ) r
@@ -147,17 +160,8 @@ namespace PowerPOS
                                 GROUP BY bb.Product
                         ) co
                         ON p.product = co.product
-                    WHERE (b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
-                        AND b.OrderNo = '{1}'
+                    WHERE b.OrderNo = '{1}'
                     GROUP BY b.Product
-                    UNION ALL
-                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, IFNULL(po.priceCost * po.Quantity ,0) Price, IFNULL(po.priceCost * po.ReceivedQuantity,0) PriceReceived, c.name category
-                    FROM PurchaseOrder po
-                        LEFT JOIN Product p
-                        ON po.Product = p.product
-                    LEFT JOIN Category c
-                    ON p.Category = c.category
-                    WHERE po.OrderNo = '{1}'
                 ", Param.ShopId, cbbOrderNo.SelectedItem.ToString(), Param.UserId));
 
                     receivedGridView.OptionsBehavior.AutoPopulateColumns = false;
@@ -268,7 +272,6 @@ namespace PowerPOS
                                 SELECT DISTINCT Product, COUNT(*) ReceivedCount 
                                 FROM Barcode 
                                 WHERE ReceivedDate IS NOT NULL 
-                                AND ReceivedBy = '{2}' 
                                 AND OrderNo =  '{1}' 
                                 GROUP BY Product
                         ) r
@@ -282,17 +285,8 @@ namespace PowerPOS
                                 GROUP BY bb.Product
                         ) co
                         ON p.product = co.product
-                    WHERE (b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
-                        AND b.OrderNo = '{1}'
+                    WHERE b.OrderNo = '{1}'
                     GROUP BY b.Product
-                    UNION ALL
-                    SELECT DISTINCT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, IFNULL(po.priceCost * po.Quantity ,0) Price, IFNULL(po.priceCost * po.ReceivedQuantity,0) PriceReceived, c.name category
-                    FROM PurchaseOrder po
-                        LEFT JOIN Product p
-                        ON po.Product = p.product
-                    LEFT JOIN Category c
-                    ON p.Category = c.category
-                    WHERE po.OrderNo = '{1}'
                  ", Param.ShopId, cbbOrder.SelectedItem.ToString(), Param.UserId));
 
                 receivedGridView.OptionsBehavior.AutoPopulateColumns = false;
@@ -394,46 +388,51 @@ namespace PowerPOS
                     OrderNo = cbbOrderNo.SelectedItem.ToString();
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
-                        Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                        simpleSound.Play();
 
-                        if (dt.Rows.Count == 0)
-                        {
+                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                            dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        //dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
+                        //Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
 
-                            if (dt.Rows.Count == 0)
-                            {
-                                SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
-                                simpleSound.Play();
+                        //if (dt.Rows.Count == 0)
+                        //{
 
-                                MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                //lblStatus.ForeColor = Color.Red;
-                                //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                            }
-                            else
-                            {
-                                Param.status = "Received";
-                                //OrderNo = cbbOrderNo.SelectedItem.ToString();
-                                FmSelectProduct frm = new FmSelectProduct();
-                                var result = frm.ShowDialog(this);
-                                if (result == System.Windows.Forms.DialogResult.OK)
-                                {
-                                    SearchData();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Param.status = "Received";
-                            FmProductQty frm = new FmProductQty();
-                            Param.product = dt.Rows[0]["Product"].ToString();
-                            var result = frm.ShowDialog(this);
-                            if (result == System.Windows.Forms.DialogResult.OK)
-                            {
-                                SearchData();
-                            }
-                        }
+                        //    dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+
+                        //    if (dt.Rows.Count == 0)
+                        //    {
+                        //        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                        //        simpleSound.Play();
+
+                        //        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //        //lblStatus.ForeColor = Color.Red;
+                        //        //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                        //    }
+                        //    else
+                        //    {
+                        //        Param.status = "Received";
+                        //        //OrderNo = cbbOrderNo.SelectedItem.ToString();
+                        //        FmSelectProduct frm = new FmSelectProduct();
+                        //        var result = frm.ShowDialog(this);
+                        //        if (result == System.Windows.Forms.DialogResult.OK)
+                        //        {
+                        //            SearchData();
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    Param.status = "Received";
+                        //    FmProductQty frm = new FmProductQty();
+                        //    Param.product = dt.Rows[0]["Product"].ToString();
+                        //    var result = frm.ShowDialog(this);
+                        //    if (result == System.Windows.Forms.DialogResult.OK)
+                        //    {
+                        //        SearchData();
+                        //    }
+                        //}
                     }
                     else
                     {

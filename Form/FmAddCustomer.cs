@@ -72,6 +72,8 @@ namespace PowerPOS
             cbbSellPrice.Properties.Items.Add("ส่ง2");
             cbbSellPrice.Properties.Items.Add("ส่ง3");
             cbbSellPrice.Properties.Items.Add("ส่ง4");
+            cbbSellPrice.Properties.Items.Add("ส่ง7");
+
 
             DataTable dt = Util.DBQuery(@"SELECT * FROM Customer WHERE " + dataType + " = '" + keyword + "'");
             if (dt.Rows.Count != 0)

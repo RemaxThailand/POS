@@ -41,6 +41,7 @@
             this.panelControl11 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl19 = new DevExpress.XtraEditors.PanelControl();
             this.gcPaperSize = new DevExpress.XtraEditors.GroupControl();
+            this.rdbSizeA4 = new System.Windows.Forms.RadioButton();
             this.rdbSize80 = new System.Windows.Forms.RadioButton();
             this.rdbSize76 = new System.Windows.Forms.RadioButton();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
@@ -277,6 +278,7 @@
             // 
             this.gcPaperSize.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gcPaperSize.AppearanceCaption.Options.UseFont = true;
+            this.gcPaperSize.Controls.Add(this.rdbSizeA4);
             this.gcPaperSize.Controls.Add(this.rdbSize80);
             this.gcPaperSize.Controls.Add(this.rdbSize76);
             this.gcPaperSize.Controls.Add(this.panelControl17);
@@ -288,11 +290,24 @@
             this.gcPaperSize.TabIndex = 31;
             this.gcPaperSize.Text = "ขนาดกระดาษ";
             // 
+            // rdbSizeA4
+            // 
+            this.rdbSizeA4.AutoSize = true;
+            this.rdbSizeA4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbSizeA4.Location = new System.Drawing.Point(151, 31);
+            this.rdbSizeA4.Name = "rdbSizeA4";
+            this.rdbSizeA4.Size = new System.Drawing.Size(41, 20);
+            this.rdbSizeA4.TabIndex = 28;
+            this.rdbSizeA4.TabStop = true;
+            this.rdbSizeA4.Text = "A4";
+            this.rdbSizeA4.UseVisualStyleBackColor = true;
+            this.rdbSizeA4.CheckedChanged += new System.EventHandler(this.rdbSizeA4_CheckedChanged);
+            // 
             // rdbSize80
             // 
             this.rdbSize80.AutoSize = true;
             this.rdbSize80.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdbSize80.Location = new System.Drawing.Point(102, 31);
+            this.rdbSize80.Location = new System.Drawing.Point(77, 31);
             this.rdbSize80.Name = "rdbSize80";
             this.rdbSize80.Size = new System.Drawing.Size(64, 20);
             this.rdbSize80.TabIndex = 27;
@@ -340,7 +355,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(59, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.23";
+            this.lblVersion.Text = "V 1.0.0.28";
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
@@ -569,7 +584,7 @@
             // nudPrintCount
             // 
             this.nudPrintCount.EditValue = new decimal(new int[] {
-            0,
+            1,
             0,
             0,
             0});
@@ -989,5 +1004,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl22;
         private DevExpress.XtraEditors.SimpleButton btnEmployeeManage;
         private DevExpress.XtraEditors.PanelControl panelControl21;
+        private System.Windows.Forms.RadioButton rdbSizeA4;
     }
 }

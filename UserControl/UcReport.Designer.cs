@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcReport));
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
@@ -72,7 +73,7 @@
             this.clStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
@@ -85,6 +86,11 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrintA4 = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl16 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -133,6 +139,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl18)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -493,7 +504,7 @@
             this.btnPrint.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnPrint.Location = new System.Drawing.Point(0, 4);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(178, 35);
+            this.btnPrint.Size = new System.Drawing.Size(157, 35);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "พิมพ์ใบเสร็จรับเงิน";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
@@ -699,6 +710,7 @@
             // 
             // panelControl17
             // 
+            this.panelControl17.Controls.Add(this.groupControl6);
             this.panelControl17.Controls.Add(this.groupControl4);
             this.panelControl17.Controls.Add(this.groupControl5);
             this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -718,7 +730,7 @@
             this.groupControl4.Location = new System.Drawing.Point(2, 2);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.ShowCaption = false;
-            this.groupControl4.Size = new System.Drawing.Size(222, 43);
+            this.groupControl4.Size = new System.Drawing.Size(167, 43);
             this.groupControl4.TabIndex = 30;
             this.groupControl4.Text = "groupControl4";
             // 
@@ -728,7 +740,7 @@
             this.panelControl20.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl20.Location = new System.Drawing.Point(0, 39);
             this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(178, 4);
+            this.panelControl20.Size = new System.Drawing.Size(157, 4);
             this.panelControl20.TabIndex = 20;
             // 
             // panelControl19
@@ -737,16 +749,16 @@
             this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl19.Location = new System.Drawing.Point(0, 0);
             this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(178, 4);
+            this.panelControl19.Size = new System.Drawing.Size(157, 4);
             this.panelControl19.TabIndex = 19;
             // 
             // panelControl18
             // 
             this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl18.Location = new System.Drawing.Point(178, 0);
+            this.panelControl18.Location = new System.Drawing.Point(157, 0);
             this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(44, 43);
+            this.panelControl18.Size = new System.Drawing.Size(10, 43);
             this.panelControl18.TabIndex = 18;
             // 
             // groupControl5
@@ -757,17 +769,17 @@
             this.groupControl5.Controls.Add(this.lblListCount);
             this.groupControl5.Controls.Add(this.lblProductCount);
             this.groupControl5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl5.Location = new System.Drawing.Point(287, 2);
+            this.groupControl5.Location = new System.Drawing.Point(572, 2);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(626, 43);
+            this.groupControl5.Size = new System.Drawing.Size(341, 43);
             this.groupControl5.TabIndex = 29;
             this.groupControl5.Text = "groupControl5";
             // 
             // labelControl3
             // 
             this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Location = new System.Drawing.Point(459, 5);
+            this.labelControl3.Location = new System.Drawing.Point(190, 4);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(84, 16);
             this.labelControl3.TabIndex = 19;
@@ -776,7 +788,7 @@
             // labelControl4
             // 
             this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Location = new System.Drawing.Point(430, 24);
+            this.labelControl4.Location = new System.Drawing.Point(161, 23);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(113, 16);
             this.labelControl4.TabIndex = 20;
@@ -785,7 +797,7 @@
             // lblListCount
             // 
             this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListCount.Location = new System.Drawing.Point(549, 5);
+            this.lblListCount.Location = new System.Drawing.Point(280, 4);
             this.lblListCount.Name = "lblListCount";
             this.lblListCount.Size = new System.Drawing.Size(51, 16);
             this.lblListCount.TabIndex = 22;
@@ -794,11 +806,67 @@
             // lblProductCount
             // 
             this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductCount.Location = new System.Drawing.Point(549, 24);
+            this.lblProductCount.Location = new System.Drawing.Point(280, 23);
             this.lblProductCount.Name = "lblProductCount";
             this.lblProductCount.Size = new System.Drawing.Size(27, 16);
             this.lblProductCount.TabIndex = 23;
             this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl6.Controls.Add(this.btnPrintA4);
+            this.groupControl6.Controls.Add(this.panelControl15);
+            this.groupControl6.Controls.Add(this.panelControl16);
+            this.groupControl6.Controls.Add(this.panelControl21);
+            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl6.Location = new System.Drawing.Point(169, 2);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.ShowCaption = false;
+            this.groupControl6.Size = new System.Drawing.Size(224, 43);
+            this.groupControl6.TabIndex = 31;
+            this.groupControl6.Text = "groupControl6";
+            // 
+            // btnPrintA4
+            // 
+            this.btnPrintA4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintA4.Appearance.Options.UseFont = true;
+            this.btnPrintA4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrintA4.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintA4.Image")));
+            this.btnPrintA4.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrintA4.Location = new System.Drawing.Point(0, 4);
+            this.btnPrintA4.Name = "btnPrintA4";
+            this.btnPrintA4.Size = new System.Drawing.Size(214, 35);
+            this.btnPrintA4.TabIndex = 0;
+            this.btnPrintA4.Text = "พิมพ์ใบเสร็จรับเงิน (ขนาด A4)";
+            this.btnPrintA4.Click += new System.EventHandler(this.btnPrintA4_Click);
+            // 
+            // panelControl15
+            // 
+            this.panelControl15.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl15.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl15.Location = new System.Drawing.Point(0, 39);
+            this.panelControl15.Name = "panelControl15";
+            this.panelControl15.Size = new System.Drawing.Size(214, 4);
+            this.panelControl15.TabIndex = 20;
+            // 
+            // panelControl16
+            // 
+            this.panelControl16.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl16.Location = new System.Drawing.Point(0, 0);
+            this.panelControl16.Name = "panelControl16";
+            this.panelControl16.Size = new System.Drawing.Size(214, 4);
+            this.panelControl16.TabIndex = 19;
+            // 
+            // panelControl21
+            // 
+            this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl21.Location = new System.Drawing.Point(214, 0);
+            this.panelControl21.Name = "panelControl21";
+            this.panelControl21.Size = new System.Drawing.Size(10, 43);
+            this.panelControl21.TabIndex = 18;
             // 
             // UcReport
             // 
@@ -860,6 +928,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             this.groupControl5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl16)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -922,5 +995,10 @@
         private DevExpress.XtraEditors.PanelControl panelControl12;
         private DevExpress.XtraEditors.PanelControl panelControl13;
         private DevExpress.XtraEditors.PanelControl panelControl14;
+        private DevExpress.XtraEditors.GroupControl groupControl6;
+        private DevExpress.XtraEditors.SimpleButton btnPrintA4;
+        private DevExpress.XtraEditors.PanelControl panelControl15;
+        private DevExpress.XtraEditors.PanelControl panelControl16;
+        private DevExpress.XtraEditors.PanelControl panelControl21;
     }
 }

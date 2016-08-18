@@ -116,10 +116,7 @@ namespace PowerPOS
                         }
 
                         DataTable dtF = Util.DBQuery(string.Format(@"SELECT SUM(SellPrice) SellPrice, SUM(Cost) Cost, SUM(OperationCost) OP, (SUM(SellPrice) - SUM(Cost) ) Profit FROM (
-                            SELECT IFNULL(SUM(SellPrice),0) SellPrice, IFNULL(SUM(Cost),0) Cost, IFNULL(SUM(OperationCost),0) OperationCost FROM Barcode WHERE SellNo = '{0}'
-                            UNION
-                            SELECT IFNULL(SUM(TotalPrice),0) SellPrice, IFNULL(SUM(PriceCost),0) Cost, 0 FROM sellTemp
-                            ) aa", _SELL_NO));
+                            SELECT IFNULL(SUM(SellPrice),0) SellPrice, IFNULL(SUM(Cost),0) Cost, IFNULL(SUM(OperationCost),0) OperationCost FROM Barcode WHERE SellNo = '{0}') aa", _SELL_NO));
 
                         Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer, CustomerSex, CustomerAge, SellDate, SellBy)
                             SELECT '{0}', '{6}','{5}', '{1}', '{2}', {3}, STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{4}'",
@@ -127,9 +124,7 @@ namespace PowerPOS
 
 
                         Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
-                            SELECT sellNo, Product, SUM(TotalPrice)TotalPrice, SUM(PriceCost) PriceCost, SUM(Amount) Amount,1 FROM(
-                               SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode WHERE SellNo = '{0}' GROUP BY Product
-                               Union ALL SELECT  '{0}', Product, TotalPrice, PriceCost, Amount, 1 FROM SellTemp) GROUP BY sellNo,   Product", _SELL_NO));
+                            SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode WHERE SellNo = '{0}' GROUP BY Product,   Product", _SELL_NO));
 
                         DataTable dtS = Util.DBQuery(string.Format(@"SELECT * FROM SellTemp"));
                         for (int i = 0; i < dtS.Rows.Count; i++)

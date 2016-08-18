@@ -33,7 +33,7 @@ namespace PowerPOS
         {
             //DevExpress.LookAndFeel.UserLookAndFeel.Default.SkinName = "DevExpress Dark Style";
             pgbStatus.Value = 0;
-            pictureBox1.Image = Image.FromFile(Param.LoadingImageLocal);
+            //pictureBox1.Image = Image.FromFile(Param.LoadingImageLocal);
             progressPanel1.Description = "กำลังตรวจสอบสิทธิ์การใช้งานระบบ";
             bwCheckLicense.RunWorkerAsync();
         }
@@ -258,116 +258,116 @@ namespace PowerPOS
             LoadCategory(Param.ShopId);
             LoadBrand(Param.ShopId);
 
-            Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder WHERE sync = 0"));
+            //Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder WHERE sync = 0"));
 
-            //PurchaseOrder
-            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS PurchaseOrder (
-                shop   NVARCHAR(10) NOT NULL,
-                orderNo  NVARCHAR(20) NOT NULL,
-                product  NVARCHAR(10)NOT NULL,
-                quantity INT NOT NULL,
-                receivedQuantity INT ,
-                priceCost FLOAT NOT NULL DEFAULT 0 ,
-                priceTotal FLOAT NOT NULL DEFAULT 0 ,
-                orderDate  NVARCHAR(50) NOT NULL,
-                receivedDate  NVARCHAR(50),
-                receivedBy  NVARCHAR(10),
-                sync BIT DEFAULT 0,
-                PRIMARY KEY (shop, orderNo, product))");
+            ////PurchaseOrder
+            //Util.DBExecute(@"CREATE TABLE IF NOT EXISTS PurchaseOrder (
+            //    shop   NVARCHAR(10) NOT NULL,
+            //    orderNo  NVARCHAR(20) NOT NULL,
+            //    product  NVARCHAR(10)NOT NULL,
+            //    quantity INT NOT NULL,
+            //    receivedQuantity INT ,
+            //    priceCost FLOAT NOT NULL DEFAULT 0 ,
+            //    priceTotal FLOAT NOT NULL DEFAULT 0 ,
+            //    orderDate  NVARCHAR(50) NOT NULL,
+            //    receivedDate  NVARCHAR(50),
+            //    receivedBy  NVARCHAR(10),
+            //    sync BIT DEFAULT 0,
+            //    PRIMARY KEY (shop, orderNo, product))");
 
-            string purchase = Util.GetApiData("/product/infoNsPos",
-                    string.Format("shop={0}", Param.ApiShopId));
+            //string purchase = Util.GetApiData("/product/infoNsPos",
+            //        string.Format("shop={0}", Param.ApiShopId));
 
-            dynamic jsonPurchase = JsonConvert.DeserializeObject(purchase);
-            //Console.WriteLine(jsonPurchase.success);
+            //dynamic jsonPurchase = JsonConvert.DeserializeObject(purchase);
+            ////Console.WriteLine(jsonPurchase.success);
 
-            if (jsonPurchase.success.Value)
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
-                    priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
-                d = 0;
-                for (i = 0; i < jsonPurchase.result.Count; i++)
-                {
-                    if (d != 0) sb.Append(" UNION ALL ");
-                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7}, {8}, '{9}'",
-                        jsonPurchase.result[i].shop, jsonPurchase.result[i].orderNo, jsonPurchase.result[i].product, jsonPurchase.result[i].quantity == null ? 0 : jsonPurchase.result[i].quantity, jsonPurchase.result[i].receivedQuantity == null ? 0 : jsonPurchase.result[i].receivedQuantity,
-                        jsonPurchase.result[i].priceCost == null ? 0 : jsonPurchase.result[i].priceCost, jsonPurchase.result[i].priceTotal == null ? 0 : jsonPurchase.result[i].priceTotal,
-                        jsonPurchase.result[i].orderDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].orderDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
-                        jsonPurchase.result[i].receivedDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].receivedDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonPurchase.result[i].receivedBy));
-                    d++;
+            //if (jsonPurchase.success.Value)
+            //{
+            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //    StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
+            //        priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
+            //    d = 0;
+            //    for (i = 0; i < jsonPurchase.result.Count; i++)
+            //    {
+            //        if (d != 0) sb.Append(" UNION ALL ");
+            //        sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', {3}, {4}, {5}, {6}, {7}, {8}, '{9}'",
+            //            jsonPurchase.result[i].shop, jsonPurchase.result[i].orderNo, jsonPurchase.result[i].product, jsonPurchase.result[i].quantity == null ? 0 : jsonPurchase.result[i].quantity, jsonPurchase.result[i].receivedQuantity == null ? 0 : jsonPurchase.result[i].receivedQuantity,
+            //            jsonPurchase.result[i].priceCost == null ? 0 : jsonPurchase.result[i].priceCost, jsonPurchase.result[i].priceTotal == null ? 0 : jsonPurchase.result[i].priceTotal,
+            //            jsonPurchase.result[i].orderDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].orderDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
+            //            jsonPurchase.result[i].receivedDate.ToString() == "" ? "NULL" : "'" + jsonPurchase.result[i].receivedDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonPurchase.result[i].receivedBy));
+            //        d++;
 
-                    if (d % 500 == 0)
-                    {
-                        d = 0;
-                        Util.DBExecute(sb.ToString());
-                        //Console.WriteLine(sb.ToString());
-                        sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
-                        priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
-                    }
+            //        if (d % 500 == 0)
+            //        {
+            //            d = 0;
+            //            Util.DBExecute(sb.ToString());
+            //            //Console.WriteLine(sb.ToString());
+            //            sb = new StringBuilder(@"INSERT OR REPLACE INTO PurchaseOrder (shop, orderNo, product, quantity, receivedQuantity, 
+            //            priceCost, priceTotal, orderDate, receivedDate, receivedBy) ");
+            //        }
 
-                }
-                Util.DBExecute(sb.ToString());
+            //    }
+            //    Util.DBExecute(sb.ToString());
 
-                Console.WriteLine("Load PurchaseOrder = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
-            }
-            else
-            {
-                Console.WriteLine(jsonPurchase.errorMessage);
-            }
-
-
-            //SellTemp
-            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SellTemp (
-                product  NVARCHAR(20) NOT NULL,
-                productName  NVARCHAR(100) NOT NULL,
-                price FLOAT NOT NULL DEFAULT 0,
-                amount FLOAT NOT NULL DEFAULT 0 ,
-                totalPrice FLOAT NOT NULL DEFAULT 0,
-                priceCost FLOAT NOT NULL DEFAULT 0)");
+            //    Console.WriteLine("Load PurchaseOrder = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
+            //}
+            //else
+            //{
+            //    Console.WriteLine(jsonPurchase.errorMessage);
+            //}
 
 
-            //InventoryCount
-            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS InventoryCount (
-                shop NVARCHAR(10) NOT NULL,
-                product  NVARCHAR(20) NOT NULL,
-                quantity int NOT NULL DEFAULT 0,              
-                sync BIT DEFAULT 0,
-                PRIMARY KEY (shop, product))");
+            ////SellTemp
+            //Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SellTemp (
+            //    product  NVARCHAR(20) NOT NULL,
+            //    productName  NVARCHAR(100) NOT NULL,
+            //    price FLOAT NOT NULL DEFAULT 0,
+            //    amount FLOAT NOT NULL DEFAULT 0 ,
+            //    totalPrice FLOAT NOT NULL DEFAULT 0,
+            //    priceCost FLOAT NOT NULL DEFAULT 0)");
 
-            string inventory = Util.GetApiData("/product/infoCount",
-            string.Format("shop={0}", Param.ApiShopId));
 
-            dynamic jsonInventory = JsonConvert.DeserializeObject(inventory);
-            //Console.WriteLine(jsonInventory.success);
+            ////InventoryCount
+            //Util.DBExecute(@"CREATE TABLE IF NOT EXISTS InventoryCount (
+            //    shop NVARCHAR(10) NOT NULL,
+            //    product  NVARCHAR(20) NOT NULL,
+            //    quantity int NOT NULL DEFAULT 0,              
+            //    sync BIT DEFAULT 0,
+            //    PRIMARY KEY (shop, product))");
 
-            if (jsonInventory.success.Value)
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
-                d = 0;
-                for (i = 0; i < jsonInventory.result.Count; i++)
-                {
-                    if (d != 0) sb.Append(" UNION ALL ");
-                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}'",
-                        jsonInventory.result[i].shop, jsonInventory.result[i].product, jsonInventory.result[i].quantity));
-                    d++;
+            //string inventory = Util.GetApiData("/product/infoCount",
+            //string.Format("shop={0}", Param.ApiShopId));
 
-                    if (d % 500 == 0)
-                    {
-                        d = 0;
-                        Util.DBExecute(sb.ToString());
-                        //Console.WriteLine(sb.ToString());
-                        sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
-                    }
+            //dynamic jsonInventory = JsonConvert.DeserializeObject(inventory);
+            ////Console.WriteLine(jsonInventory.success);
 
-                }
-                Util.DBExecute(sb.ToString());
-            }
-            else
-            {
-                Console.WriteLine(jsonInventory.errorMessage);
-            }
+            //if (jsonInventory.success.Value)
+            //{
+            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //    StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
+            //    d = 0;
+            //    for (i = 0; i < jsonInventory.result.Count; i++)
+            //    {
+            //        if (d != 0) sb.Append(" UNION ALL ");
+            //        sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}'",
+            //            jsonInventory.result[i].shop, jsonInventory.result[i].product, jsonInventory.result[i].quantity));
+            //        d++;
+
+            //        if (d % 500 == 0)
+            //        {
+            //            d = 0;
+            //            Util.DBExecute(sb.ToString());
+            //            //Console.WriteLine(sb.ToString());
+            //            sb = new StringBuilder(@"INSERT OR REPLACE INTO InventoryCount (shop, product, quantity) ");
+            //        }
+
+            //    }
+            //    Util.DBExecute(sb.ToString());
+            //}
+            //else
+            //{
+            //    Console.WriteLine(jsonInventory.errorMessage);
+            //}
 
             //CreditCustomer
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS CreditCustomer (
@@ -487,14 +487,13 @@ namespace PowerPOS
             if (jsonEmployee.success.Value)
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
-                    code, username, password, addDate, updateDate, status) ");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname,          code, username, password, addDate, updateDate, status) ");
                 d = 0;
                 for (i = 0; i < jsonEmployee.result.Count; i++)
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', {8}, {9}, '{10}'",
-                        jsonEmployee.result[i].shop, jsonEmployee.result[i].employeeID, jsonEmployee.result[i].firstname, jsonEmployee.result[i].lastname, jsonEmployee.result[i].nickname,
+                        jsonEmployee.result[i].shop, jsonEmployee.result[i].employeeId, jsonEmployee.result[i].firstname, jsonEmployee.result[i].lastname, jsonEmployee.result[i].nickname,
                         jsonEmployee.result[i].code, jsonEmployee.result[i].username, jsonEmployee.result[i].password,
                         jsonEmployee.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
                         jsonEmployee.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployee.result[i].status));
@@ -685,6 +684,7 @@ namespace PowerPOS
                 price3 FLOAT DEFAULT 0,
                 price4 FLOAT DEFAULT 0,
                 price5 FLOAT DEFAULT 0,
+                price7 FLOAT DEFAULT 0,
                 warranty INT DEFAULT 0,
                 webPrice FLOAT DEFAULT 0,
                 webPrice1 FLOAT DEFAULT 0,
@@ -692,6 +692,7 @@ namespace PowerPOS
                 webPrice3 FLOAT DEFAULT 0,
                 webPrice4 FLOAT DEFAULT 0,
                 webPrice5 FLOAT DEFAULT 0,
+                webPrice7 FLOAT DEFAULT 0,
                 webWarranty INT DEFAULT 0,
                 isPromotion BIT DEFAULT 0,
                 pricePromotion FLOAT DEFAULT 0,
@@ -704,13 +705,13 @@ namespace PowerPOS
                 PRIMARY KEY (shop, product))
             ");
 
-            string inProduct = Util.GetApiData("/product/insertPos",
-            string.Format("shop={0}", Param.ApiShopId));
+            //string inProduct = Util.GetApiData("/product/insertPos",
+            //string.Format("shop={0}", Param.ApiShopId));
 
-            dynamic jsonInProduct = JsonConvert.DeserializeObject(inProduct);
-            //Console.WriteLine(jsonInProduct.success);
+            //dynamic jsonInProduct = JsonConvert.DeserializeObject(inProduct);
+            ////Console.WriteLine(jsonInProduct.success);
 
-            string product = Util.GetApiData("/product/pos",
+            string product = Util.GetApiData("/product/productPos",
             string.Format("shop={0}", Param.ApiShopId));
 
 
@@ -720,21 +721,20 @@ namespace PowerPOS
             if (jsonProduct.success.Value)
             {
 
-                const string command = @"INSERT OR REPLACE INTO Product (shop, product, sku, name, image, Price, Price1, Price2, Price3, Price4, warranty, 
-                                            webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, isPromotion, pricePromotion, cost, category, brand, barcode, quantity) ";
+                const string command = @"INSERT OR REPLACE INTO Product (shop, product, sku, name, image, Price, Price1, Price2, Price3, Price4, warranty, webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, isPromotion, pricePromotion, cost, category, brand, barcode, quantity, price7, webPrice7, price5) ";
                 var sb = new StringBuilder(command);
 
                 for (i = 0; i < jsonProduct.result.Count; i++)
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
-                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, '{23}', {24}",
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, '{23}', {24}, {25}, {26}, {27}",
                        jsonProduct.result[i].shop, jsonProduct.result[i].id, jsonProduct.result[i].sku, jsonProduct.result[i].name,
                        jsonProduct.result[i].image == null ? "" : jsonProduct.result[i].image, jsonProduct.result[i].price, jsonProduct.result[i].price1, jsonProduct.result[i].price2, jsonProduct.result[i].price3, jsonProduct.result[i].price4, 
                        jsonProduct.result[i].webWarranty, jsonProduct.result[i].webPrice, jsonProduct.result[i].webPrice1, jsonProduct.result[i].webPrice2,
                        jsonProduct.result[i].webPrice3, jsonProduct.result[i].webPrice4, jsonProduct.result[i].webPrice5, jsonProduct.result[i].webWarranty,
                        jsonProduct.result[i].isPromotion == null ? 0 : jsonProduct.result[i].isPromotion == true ? 1 : 0, jsonProduct.result[i].pricePromotion == null ? 0 : jsonProduct.result[i].pricePromotion, jsonProduct.result[i].costShop,
                        jsonProduct.result[i].category == null ? "" : jsonProduct.result[i].category, jsonProduct.result[i].brand == null ? "" : jsonProduct.result[i].brand, jsonProduct.result[i].barcode == null ? "" : jsonProduct.result[i].barcode, 
-                       jsonProduct.result[i].quantity == null ? "" : jsonProduct.result[i].quantity));
+                       jsonProduct.result[i].quantity == null ? "" : jsonProduct.result[i].quantity, jsonProduct.result[i].price7 == null ? 0 : jsonProduct.result[i].price7, jsonProduct.result[i].webPrice7 == null ? 0 : jsonProduct.result[i].webPrice7, jsonProduct.result[i].price5 == null ? 0 : jsonProduct.result[i].price5));
                     d++;
                     if (d % 500 == 0)
                     {
@@ -758,106 +758,106 @@ namespace PowerPOS
 
         private void bwInitialShopProduct_DoWork(object sender, DoWorkEventArgs e)
         {
-            int i = 0;
-            DataTable dt;
+            //int i = 0;
+            //DataTable dt;
 
-            //_TABLE_CONFIG = Util.DBQuery("SELECT COUNT(*) cnt FROM ShopConfig");
-            //if (_TABLE_CONFIG.Rows[0]["cnt"].ToString() != "0")
-            //if(Param.ShopType == "shop")
+            ////_TABLE_CONFIG = Util.DBQuery("SELECT COUNT(*) cnt FROM ShopConfig");
+            ////if (_TABLE_CONFIG.Rows[0]["cnt"].ToString() != "0")
+            ////if(Param.ShopType == "shop")
+            ////{
+            ////    dt = Util.DBQuery(string.Format(@"SELECT '{0}', p.product, p.name, p.sku, p.image, p.category, p.brand, p.price, p.price1, p.price2, p.price3, p.price4, p.price5, p.warranty,
+            ////            p.webPrice, p.webPrice1, p.webPrice2, p.webPrice3, p.webPrice4, p.webPrice5, p.webWarranty, p.cost
+            ////            FROM (SELECT DISTINCT Product FROM Barcode) b
+            ////            LEFT JOIN Product p
+            ////            ON b.Product = p.Product
+            ////            AND p.Shop = '{0}'
+            ////            ", Param.ShopId, Param.ShopParent));
+
+            ////    while (i < dt.Rows.Count)
+            ////    {
+            ////        Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO Product (shop, product, name, sku, image, category, brand, price, price1, price2, price3, price4, price5, warranty, webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, cost) 
+            ////        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21})"
+            ////        , Param.ShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["name"].ToString(), dt.Rows[i]["sku"].ToString(), dt.Rows[i]["image"].ToString(), dt.Rows[i]["category"].ToString(), dt.Rows[i]["brand"].ToString(), dt.Rows[i]["price"].ToString(), dt.Rows[i]["price1"].ToString()
+            ////        , dt.Rows[i]["price2"].ToString(), dt.Rows[i]["price3"].ToString(), dt.Rows[i]["price4"].ToString(), dt.Rows[i]["price5"].ToString(), dt.Rows[i]["warranty"].ToString(), dt.Rows[i]["webPrice"].ToString(), dt.Rows[i]["webPrice1"].ToString()
+            ////        , dt.Rows[i]["webPrice2"].ToString(), dt.Rows[i]["webPrice3"].ToString(), dt.Rows[i]["webPrice4"].ToString(), dt.Rows[i]["webPrice5"].ToString(), dt.Rows[i]["webWarranty"].ToString(), dt.Rows[i]["cost"].ToString()));
+            ////        i++;
+            ////    }
+            ////}
+            ////else
+            ////{
+            ////    //Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO Product (shop, product, name, image, category, brand, price, price1, price2, price3, price4, price5, warranty,
+            ////    //    webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, cost) 
+            ////    //    SELECT '{0}', p.product, p.name, p.image, p.category, p.brand, p.price, p.price1, p.price2, p.price3, p.price4, p.price5, p.warranty,
+            ////    //    p.webPrice, p.webPrice1, p.webPrice2, p.webPrice3, p.webPrice4, p.webPrice5, ps.Warranty WebWarranty, ps.Cost
+            ////    //    FROM (SELECT DISTINCT Product FROM Barcode) b
+            ////    //    LEFT JOIN Product p
+            ////    //    ON b.Product = p.ID
+            ////    //    AND p.Shop = '{1}'
+            ////    //    LEFT JOIN Product ps
+            ////    //    ON b.Product = ps.ID
+            ////    //    AND ps.Shop = '{0}'", Param.ShopId, Param.ShopParent));
+            ////    //i++;
+            ////}
+
+
+            //dt = Util.DBQuery("SELECT * FROM ShopConfig");
+            //i = 0;
+            //if (dt.Rows.Count > 0)
             //{
-            //    dt = Util.DBQuery(string.Format(@"SELECT '{0}', p.product, p.name, p.sku, p.image, p.category, p.brand, p.price, p.price1, p.price2, p.price3, p.price4, p.price5, p.warranty,
-            //            p.webPrice, p.webPrice1, p.webPrice2, p.webPrice3, p.webPrice4, p.webPrice5, p.webWarranty, p.cost
-            //            FROM (SELECT DISTINCT Product FROM Barcode) b
-            //            LEFT JOIN Product p
-            //            ON b.Product = p.Product
-            //            AND p.Shop = '{0}'
-            //            ", Param.ShopId, Param.ShopParent));
-
-            //    while (i < dt.Rows.Count)
+            //    for (i = 0; i < dt.Rows.Count; i++)
             //    {
-            //        Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO Product (shop, product, name, sku, image, category, brand, price, price1, price2, price3, price4, price5, warranty, webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, cost) 
-            //        VALUES ('{0}','{1}','{2}','{3}','{4}','{5}',{6},'{7}',{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21})"
-            //        , Param.ShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["name"].ToString(), dt.Rows[i]["sku"].ToString(), dt.Rows[i]["image"].ToString(), dt.Rows[i]["category"].ToString(), dt.Rows[i]["brand"].ToString(), dt.Rows[i]["price"].ToString(), dt.Rows[i]["price1"].ToString()
-            //        , dt.Rows[i]["price2"].ToString(), dt.Rows[i]["price3"].ToString(), dt.Rows[i]["price4"].ToString(), dt.Rows[i]["price5"].ToString(), dt.Rows[i]["warranty"].ToString(), dt.Rows[i]["webPrice"].ToString(), dt.Rows[i]["webPrice1"].ToString()
-            //        , dt.Rows[i]["webPrice2"].ToString(), dt.Rows[i]["webPrice3"].ToString(), dt.Rows[i]["webPrice4"].ToString(), dt.Rows[i]["webPrice5"].ToString(), dt.Rows[i]["webWarranty"].ToString(), dt.Rows[i]["cost"].ToString()));
-            //        i++;
+            //        if (dt.Rows[i]["configKey"].ToString() == "price")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price1")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price1 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price1,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price2")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price2 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price2,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price3")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price3 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price3,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price4")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price4 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price4,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price5")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price5 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price5,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+            //        else if (dt.Rows[i]["configKey"].ToString() == "price7")
+            //        {
+            //            Util.DBExecute(string.Format(@"UPDATE Product SET Price7 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price7,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
+            //        }
+
             //    }
+
+            //    Util.DBExecute(string.Format(@"UPDATE Product SET Warranty = IFNULL(WebWarranty,0), Sync = 1 WHERE Shop = '{0}' AND IFNULL(WebWarranty,0) <> IFNULL(Warranty,'')", Param.ShopId));
+
+            //}
+            //else if (Param.ShopType == "event")
+            //{
+            //    //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 1 WHERE Shop = '{0}'", Param.ShopId));
+            //    //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE category = '1' AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 99));
+            //    //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE product IN ('1124','1125','1127','1128') AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 59));
+
             //}
             //else
             //{
-            //    //Util.DBExecute(string.Format(@"INSERT OR REPLACE INTO Product (shop, product, name, image, category, brand, price, price1, price2, price3, price4, price5, warranty,
-            //    //    webPrice, webPrice1, webPrice2, webPrice3, webPrice4, webPrice5, webWarranty, cost) 
-            //    //    SELECT '{0}', p.product, p.name, p.image, p.category, p.brand, p.price, p.price1, p.price2, p.price3, p.price4, p.price5, p.warranty,
-            //    //    p.webPrice, p.webPrice1, p.webPrice2, p.webPrice3, p.webPrice4, p.webPrice5, ps.Warranty WebWarranty, ps.Cost
-            //    //    FROM (SELECT DISTINCT Product FROM Barcode) b
-            //    //    LEFT JOIN Product p
-            //    //    ON b.Product = p.ID
-            //    //    AND p.Shop = '{1}'
-            //    //    LEFT JOIN Product ps
-            //    //    ON b.Product = ps.ID
-            //    //    AND ps.Shop = '{0}'", Param.ShopId, Param.ShopParent));
-            //    //i++;
-
+            //    //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 1 WHERE Shop = '{0}'", Param.ShopId));
             //}
 
-
-            dt = Util.DBQuery("SELECT * FROM ShopConfig");
-            i = 0;
-            if (dt.Rows.Count > 0)
-            {
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    if (dt.Rows[i]["configKey"].ToString() == "price")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-                    else if (dt.Rows[i]["configKey"].ToString() == "price1")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price1 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price1,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-
-                    else if (dt.Rows[i]["configKey"].ToString() == "price2")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price2 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price2,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-
-                    else if (dt.Rows[i]["configKey"].ToString() == "price3")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price3 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price3,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-
-                    else if (dt.Rows[i]["configKey"].ToString() == "price4")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price4 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price4,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-
-                    else if (dt.Rows[i]["configKey"].ToString() == "price5")
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Product SET Price5 = {1}, Sync = 1 WHERE Shop = '{0}' AND IFNULL(Price5,0) <> {1}", Param.ShopId, dt.Rows[i]["configValue"].ToString()));
-                    }
-                }
-
-                Util.DBExecute(string.Format(@"UPDATE Product SET Warranty = IFNULL(WebWarranty,0), Sync = 1 WHERE Shop = '{0}' AND IFNULL(WebWarranty,0) <> IFNULL(Warranty,'')", Param.ShopId));
-
-            }
-            else if (Param.ShopType == "event")
-            {
-                //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 1 WHERE Shop = '{0}'", Param.ShopId));
-                //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE category = '1' AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 99));
-                //Util.DBExecute(string.Format(@"UPDATE Product SET Price = {1},Price1 = {1},Price2 = {1},Price3 = {1},Price4 = {1},Price5 = {1},Sync = 1 WHERE product IN ('1124','1125','1127','1128') AND Shop = '{0}' AND IFNULL(Price,0) <> {1}", Param.ShopId, 59));
-
-            }
-            else
-            {
-                //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 1 WHERE Shop = '{0}'", Param.ShopId));
-            }
-
-            dt = Util.DBQuery(string.Format(@"SELECT product, name, image, price, price1, price2, price3, price4, price5, warranty, IFNULL(cost,0) Cost, category, brand 
-                FROM Product
-                WHERE Shop = '{0}'
-                AND Sync = 1", Param.ShopId));
-            Console.WriteLine("Update product total = {0} records", dt.Rows.Count);
-            //Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 0 WHERE Shop = '{0}'", Param.ShopId));
+            //dt = Util.DBQuery(string.Format(@"SELECT product, name, image, price, price1, price2, price3, price4, price5, warranty, IFNULL(cost,0) Cost, category, brand 
+            //    FROM Product
+            //    WHERE Shop = '{0}'
+            //    AND Sync = 1", Param.ShopId));
+            //Console.WriteLine("Update product total = {0} records", dt.Rows.Count);
+            ////Util.DBExecute(string.Format(@"UPDATE Product SET Sync = 0 WHERE Shop = '{0}'", Param.ShopId));
         }
 
         private void bwInitialShopProduct_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

@@ -73,8 +73,14 @@
             this.clWebPrice3 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice4 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clWebPrice5 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clPrice7 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clWebPrice7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.pnlPrice = new DevExpress.XtraEditors.PanelControl();
             this.grbPrice = new DevExpress.XtraEditors.GroupControl();
+            this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
+            this.txtPercent7 = new DevExpress.XtraEditors.TextEdit();
+            this.nudPrice7 = new DevExpress.XtraEditors.SpinEdit();
+            this.txtPrice7 = new DevExpress.XtraEditors.TextEdit();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl10 = new DevExpress.XtraEditors.LabelControl();
             this.txtPercent4 = new DevExpress.XtraEditors.TextEdit();
@@ -139,6 +145,9 @@
             this.pnlPrice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grbPrice)).BeginInit();
             this.grbPrice.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPercent7.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice7.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice7.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent4.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent3.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice4.Properties)).BeginInit();
@@ -197,7 +206,7 @@
             this.panelControl4.Controls.Add(this.labelControl9);
             this.panelControl4.Controls.Add(this.lblCost);
             this.panelControl4.Controls.Add(this.labelControl8);
-            this.panelControl4.Location = new System.Drawing.Point(509, 35);
+            this.panelControl4.Location = new System.Drawing.Point(594, 35);
             this.panelControl4.Name = "panelControl4";
             this.panelControl4.Size = new System.Drawing.Size(195, 37);
             this.panelControl4.TabIndex = 12;
@@ -460,7 +469,7 @@
             this.productGridControl.Location = new System.Drawing.Point(258, 150);
             this.productGridControl.MainView = this.productGridview;
             this.productGridControl.Name = "productGridControl";
-            this.productGridControl.Size = new System.Drawing.Size(937, 436);
+            this.productGridControl.Size = new System.Drawing.Size(970, 436);
             this.productGridControl.TabIndex = 6;
             this.productGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.productGridview});
@@ -490,7 +499,9 @@
             this.clWebPrice2,
             this.clWebPrice3,
             this.clWebPrice4,
-            this.clWebPrice5});
+            this.clWebPrice5,
+            this.clPrice7,
+            this.clWebPrice7});
             this.productGridview.GridControl = this.productGridControl;
             this.productGridview.Name = "productGridview";
             this.productGridview.OptionsView.ShowGroupPanel = false;
@@ -780,6 +791,20 @@
             this.clWebPrice5.FieldName = "webPrice5";
             this.clWebPrice5.Name = "clWebPrice5";
             // 
+            // clPrice7
+            // 
+            this.clPrice7.Caption = "ราคาส่ง7";
+            this.clPrice7.DisplayFormat.FormatString = "N";
+            this.clPrice7.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.clPrice7.FieldName = "price7";
+            this.clPrice7.Name = "clPrice7";
+            // 
+            // clWebPrice7
+            // 
+            this.clWebPrice7.Caption = "WebPrice7";
+            this.clWebPrice7.FieldName = "webPrice7";
+            this.clWebPrice7.Name = "clWebPrice7";
+            // 
             // pnlPrice
             // 
             this.pnlPrice.Controls.Add(this.grbPrice);
@@ -788,12 +813,16 @@
             this.pnlPrice.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlPrice.Location = new System.Drawing.Point(258, 0);
             this.pnlPrice.Name = "pnlPrice";
-            this.pnlPrice.Size = new System.Drawing.Size(937, 150);
+            this.pnlPrice.Size = new System.Drawing.Size(970, 150);
             this.pnlPrice.TabIndex = 5;
             this.pnlPrice.Visible = false;
             // 
             // grbPrice
             // 
+            this.grbPrice.Controls.Add(this.labelControl12);
+            this.grbPrice.Controls.Add(this.txtPercent7);
+            this.grbPrice.Controls.Add(this.nudPrice7);
+            this.grbPrice.Controls.Add(this.txtPrice7);
             this.grbPrice.Controls.Add(this.labelControl7);
             this.grbPrice.Controls.Add(this.labelControl10);
             this.grbPrice.Controls.Add(this.txtPercent4);
@@ -825,9 +854,69 @@
             this.grbPrice.Dock = System.Windows.Forms.DockStyle.Left;
             this.grbPrice.Location = new System.Drawing.Point(153, 2);
             this.grbPrice.Name = "grbPrice";
-            this.grbPrice.Size = new System.Drawing.Size(751, 146);
+            this.grbPrice.Size = new System.Drawing.Size(799, 146);
             this.grbPrice.TabIndex = 1;
             this.grbPrice.Text = "ราคาขาย";
+            // 
+            // labelControl12
+            // 
+            this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl12.Location = new System.Drawing.Point(528, 31);
+            this.labelControl12.Name = "labelControl12";
+            this.labelControl12.Size = new System.Drawing.Size(36, 16);
+            this.labelControl12.TabIndex = 30;
+            this.labelControl12.Text = "ส่ง 4.5";
+            // 
+            // txtPercent7
+            // 
+            this.txtPercent7.Location = new System.Drawing.Point(509, 104);
+            this.txtPercent7.Name = "txtPercent7";
+            this.txtPercent7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPercent7.Properties.Appearance.Options.UseFont = true;
+            this.txtPercent7.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtPercent7.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtPercent7.Properties.ReadOnly = true;
+            this.txtPercent7.Size = new System.Drawing.Size(80, 22);
+            this.txtPercent7.TabIndex = 29;
+            // 
+            // nudPrice7
+            // 
+            this.nudPrice7.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.nudPrice7.Location = new System.Drawing.Point(508, 77);
+            this.nudPrice7.Name = "nudPrice7";
+            this.nudPrice7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice7.Properties.Appearance.Options.UseFont = true;
+            this.nudPrice7.Properties.Appearance.Options.UseTextOptions = true;
+            this.nudPrice7.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.nudPrice7.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.nudPrice7.Properties.DisplayFormat.FormatString = "0";
+            this.nudPrice7.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.nudPrice7.Properties.Mask.EditMask = "n";
+            this.nudPrice7.Properties.MaxLength = 8;
+            this.nudPrice7.Properties.MaxValue = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            0});
+            this.nudPrice7.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice7.TabIndex = 28;
+            // 
+            // txtPrice7
+            // 
+            this.txtPrice7.Location = new System.Drawing.Point(508, 50);
+            this.txtPrice7.Name = "txtPrice7";
+            this.txtPrice7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPrice7.Properties.Appearance.Options.UseFont = true;
+            this.txtPrice7.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtPrice7.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtPrice7.Properties.ReadOnly = true;
+            this.txtPrice7.Size = new System.Drawing.Size(80, 22);
+            this.txtPrice7.TabIndex = 27;
             // 
             // labelControl7
             // 
@@ -955,7 +1044,7 @@
             // 
             this.btnUsePercentPrice.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUsePercentPrice.Appearance.Options.UseFont = true;
-            this.btnUsePercentPrice.Location = new System.Drawing.Point(512, 102);
+            this.btnUsePercentPrice.Location = new System.Drawing.Point(597, 102);
             this.btnUsePercentPrice.Name = "btnUsePercentPrice";
             this.btnUsePercentPrice.Size = new System.Drawing.Size(164, 23);
             this.btnUsePercentPrice.TabIndex = 18;
@@ -966,7 +1055,7 @@
             // 
             this.btnUseWebPrice.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUseWebPrice.Appearance.Options.UseFont = true;
-            this.btnUseWebPrice.Location = new System.Drawing.Point(512, 76);
+            this.btnUseWebPrice.Location = new System.Drawing.Point(597, 76);
             this.btnUseWebPrice.Name = "btnUseWebPrice";
             this.btnUseWebPrice.Size = new System.Drawing.Size(164, 23);
             this.btnUseWebPrice.TabIndex = 17;
@@ -977,7 +1066,7 @@
             // 
             this.btnConfig.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
-            this.btnConfig.Location = new System.Drawing.Point(679, 103);
+            this.btnConfig.Location = new System.Drawing.Point(764, 103);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(25, 23);
             this.btnConfig.TabIndex = 15;
@@ -987,7 +1076,7 @@
             // 
             this.btnSave.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(679, 76);
+            this.btnSave.Location = new System.Drawing.Point(764, 76);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(25, 23);
             this.btnSave.TabIndex = 9;
@@ -1044,7 +1133,7 @@
             // 
             this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl5.Location = new System.Drawing.Point(1195, 0);
+            this.panelControl5.Location = new System.Drawing.Point(1228, 0);
             this.panelControl5.Name = "panelControl5";
             this.panelControl5.Size = new System.Drawing.Size(10, 606);
             this.panelControl5.TabIndex = 7;
@@ -1206,7 +1295,7 @@
             this.groupControl1.Controls.Add(this.panelControl7);
             this.groupControl1.Controls.Add(this.lblTotal);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl1.Location = new System.Drawing.Point(183, 0);
+            this.groupControl1.Location = new System.Drawing.Point(216, 0);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.ShowCaption = false;
             this.groupControl1.Size = new System.Drawing.Size(754, 20);
@@ -1325,7 +1414,7 @@
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl6.Location = new System.Drawing.Point(258, 586);
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(937, 20);
+            this.panelControl6.Size = new System.Drawing.Size(970, 20);
             this.panelControl6.TabIndex = 31;
             // 
             // UcProduct
@@ -1339,7 +1428,7 @@
             this.Controls.Add(this.panelControl13);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcProduct";
-            this.Size = new System.Drawing.Size(1205, 606);
+            this.Size = new System.Drawing.Size(1238, 606);
             this.Load += new System.EventHandler(this.UcProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
             this.panelControl4.ResumeLayout(false);
@@ -1364,6 +1453,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.grbPrice)).EndInit();
             this.grbPrice.ResumeLayout(false);
             this.grbPrice.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPercent7.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPrice7.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtPrice7.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent4.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPercent3.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudPrice4.Properties)).EndInit();
@@ -1487,5 +1579,11 @@
         private DevExpress.XtraEditors.PanelControl panelControl9;
         private DevExpress.XtraEditors.PanelControl panelControl8;
         private DevExpress.XtraEditors.PanelControl panelControl7;
+        private DevExpress.XtraEditors.LabelControl labelControl12;
+        private DevExpress.XtraEditors.TextEdit txtPercent7;
+        private DevExpress.XtraEditors.SpinEdit nudPrice7;
+        private DevExpress.XtraEditors.TextEdit txtPrice7;
+        private DevExpress.XtraGrid.Columns.GridColumn clPrice7;
+        private DevExpress.XtraGrid.Columns.GridColumn clWebPrice7;
     }
 }

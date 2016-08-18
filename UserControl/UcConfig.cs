@@ -70,6 +70,7 @@ namespace PowerPOS
             rdbLogoNotPrint.Checked = "" + Param.PrintLogo == "N";
             rdbSize76.Checked = "" + Param.PaperSize == "76";
             rdbSize80.Checked = "" + Param.PaperSize == "80";
+            rdbSizeA4.Checked = "" + Param.PaperSize == "A4";
             txtBillHeader.Text = "" + Param.HeaderName;
             txtBillFooter.Text = "" + Param.FooterText;
 
@@ -286,6 +287,15 @@ namespace PowerPOS
             if (rdbSize80.Checked && !_FIRST_LOAD)
             {
                 Param.PaperSize = "80";
+                btnSaveBill.Enabled = true;
+            }
+        }
+
+        private void rdbSizeA4_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbSizeA4.Checked && !_FIRST_LOAD)
+            {
+                Param.PaperSize = "A4";
                 btnSaveBill.Enabled = true;
             }
         }

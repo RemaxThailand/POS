@@ -31,6 +31,7 @@ namespace PowerPOS
             {
                 Param.EmployeeId = dt.Rows[0]["employeeId"].ToString();
                 Param.EmployeeType = dt.Rows[0]["employeeType"].ToString();
+                Param.UserId = Param.EmployeeId;
                 DialogResult = DialogResult.OK;
             }
             else
@@ -43,6 +44,36 @@ namespace PowerPOS
         private void btnExit_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void txtUsername_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter))
+            {
+                if (txtUsername.Text != "")
+                {
+                    txtPassword.Focus();
+                }
+                else
+                {
+                    MessageBox.Show("กรุณากรอกข้อมูลชื่อผู้ใช้", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
+        }
+
+        private void txtPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Enter))
+            {
+                if (txtPassword.Text != "")
+                {
+                    btnLogin_Click(sender, (e));
+                }
+                else
+                {
+                    MessageBox.Show("กรุณากรอกข้อมูลรหัสผ่าน", "มีข้อผิดพลาดเกิดขึ้น", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+            }
         }
     }
 }

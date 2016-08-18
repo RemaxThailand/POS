@@ -268,6 +268,19 @@ namespace PowerPOS
             }
         }
 
+        private void btnPrintA4_Click(object sender, EventArgs e)
+        {
+            Param.Paper = Param.PaperSize;
+            FmSelectPrinter fm = new FmSelectPrinter();
+            if (fm.ShowDialog(this) == DialogResult.OK)
+            {
+                Param.PaperSize = "A4";
+                miPrintReceipt_Click(sender, (e));
+                Param.DevicePrinter = Param.Printer;
+                Param.PaperSize = Param.Paper;
+            }
+        }
+
         private void miPrintReceipt_Click(object sender, EventArgs e)
         {
             if (creditGridview.RowCount > 0)

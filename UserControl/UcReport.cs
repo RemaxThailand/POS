@@ -30,6 +30,7 @@ namespace PowerPOS
         private void UcReport_Load(object sender, EventArgs e)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
+            dtpDate.Enabled = Util.CanAccessScreenDetail("V10");
             LoadData();
         }
 
@@ -52,20 +53,20 @@ namespace PowerPOS
                     ptbShop.Visible = true;
                     pictureEdit1.Image = new Bitmap(Properties.Resources.dailyShop);
                 }
-                    //_TABLE_REPORT = Util.DBQuery(string.Format(@"
-                    //     SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
-                    //     FROM SellHeader h
-                    //     LEFT JOIN Customer c
-                    //     ON h.Customer = c.Customer
-                    //    LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
-                    //     ON h.sellNo = b.sellNo
-                    //     WHERE h.SellDate LIKE '{0}%'
-                    //       AND h.Customer NOT IN ('000001','000002')
-                    //       AND b.sellPrice IS NOT NULL   
-                    //     ORDER BY h.SellDate DESC
-                    // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
+                //_TABLE_REPORT = Util.DBQuery(string.Format(@"
+                //     SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, b.sellPrice  - b.cost Profit, b.sellPrice TotalPrice, h.Paid
+                //     FROM SellHeader h
+                //     LEFT JOIN Customer c
+                //     ON h.Customer = c.Customer
+                //    LEFT JOIN  (SELECT Product, SUM(cost) cost, SUM(sellPrice) sellPrice ,SellNo FROM Barcode WHERE SellBy = '{1}' GROUP BY SellNo) b 
+                //     ON h.sellNo = b.sellNo
+                //     WHERE h.SellDate LIKE '{0}%'
+                //       AND h.Customer NOT IN ('000001','000002')
+                //       AND b.sellPrice IS NOT NULL   
+                //     ORDER BY h.SellDate DESC
+                // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
-                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
+                _TABLE_REPORT = Util.DBQuery(string.Format(@"
                  SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType
                FROM SellHeader h
                 LEFT JOIN Customer c
@@ -75,6 +76,17 @@ namespace PowerPOS
                   AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
+
+                //   _TABLE_REPORT = Util.SqlCeQuery(string.Format(@"
+                //    SELECT h.SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType
+                //  FROM SellHeader h
+                //   LEFT JOIN Customer c
+                //   ON h.Customer = c.Customer 
+                //   WHERE h.SellDate LIKE '{0}%'
+                //     AND h.Customer NOT IN ('000001','000002')
+                //     AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                //   ORDER BY SellDate DESC
+                //", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
                 reportGridView.OptionsBehavior.AutoPopulateColumns = false;
                 reportGridControl.MainView = reportGridView;
@@ -388,5 +400,17 @@ namespace PowerPOS
             }
         }
 
+        private void btnPrintA4_Click(object sender, EventArgs e)
+        {
+            Param.Paper = Param.PaperSize;
+            FmSelectPrinter fm = new FmSelectPrinter();
+            if (fm.ShowDialog(this) == DialogResult.OK)
+            {
+                Param.PaperSize = "A4";
+                miPrintReceipt_Click(sender, (e));
+                Param.DevicePrinter = Param.Printer;
+                Param.PaperSize = Param.Paper;
+            }
+        }
     }
 }

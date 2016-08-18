@@ -806,6 +806,7 @@
             this.btnPrint.Size = new System.Drawing.Size(163, 35);
             this.btnPrint.TabIndex = 1;
             this.btnPrint.Text = "พิมพ์รายงานสต็อค";
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // panelControl18
             // 

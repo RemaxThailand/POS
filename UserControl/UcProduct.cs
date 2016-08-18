@@ -56,12 +56,30 @@ namespace PowerPOS
         private void UcProduct_Load(object sender, EventArgs e)
         {
             _FIRST_LOAD = true;
+
+            grbPrice.Enabled = Util.CanAccessScreenDetail("E01");
+            grbPrice.Enabled = Util.CanAccessScreenDetail("E02");
+            lblCost.Visible = Util.CanAccessScreenDetail("E03");
             LoadData();
             txtSearch.Focus();
         }
 
         public void LoadData()
         {
+            if (Param.ShopCost == "4")
+            {
+                labelControl12.Visible = false;
+                txtPrice7.Visible = false;
+                nudPrice7.Visible = false;
+                txtPercent7.Visible = false;
+                panelControl4.Location = new Point(508, 35);
+                btnUseWebPrice.Location = new Point(508, 76);
+                btnUsePercentPrice.Location = new Point(508, 102);
+                btnSave.Location = new Point(675, 76);
+                btnConfig.Location = new Point(675, 102);
+                grbPrice.Width = 719;
+            }
+
             if (Param.MemberType == "Shop")
             {
                 grbPrice.Enabled = false;
@@ -176,8 +194,8 @@ namespace PowerPOS
 
 
                     _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost, 0) Cost,  IFNULL(cnt.OperationCost, 0) OperationCost, 
-                                        IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5,
-                                        IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(cnt.ProductCount, 0) Qty
+                                        IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5, IFNULL(p.Price{6}, 0)  Price7,
+                                        IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(p.webPrice{6}, 0)  webPrice7, IFNULL(cnt.ProductCount, 0) Qty
                                          FROM Barcode b
                                             LEFT JOIN Product p
                                                 ON b.Product = p.Product
@@ -195,7 +213,7 @@ namespace PowerPOS
                              (cbbCategory.SelectedIndex != 0) ? "AND c.Name  = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
                              (cbbBrand.SelectedIndex != 0) ? "AND b.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
                              (cbNoPrice.Checked) ? "AND (p.Price = 0 OR p.Price = '' OR p.Price = null)" : "",
-                             (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : ""
+                             (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : "", Param.ShopCost
                     ));
                     //}
                     productGridview.OptionsBehavior.AutoPopulateColumns = false;
@@ -233,6 +251,8 @@ namespace PowerPOS
                         row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
                         row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
                         row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
+                        row[22] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price7"]).ToString("#,##0");
+                        row[23] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice7"]).ToString("#,##0");
                         dt.Rows.Add(row);
                         double cost = double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString()) * int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
                         //Console.WriteLine(cost.ToString());
@@ -306,16 +326,19 @@ namespace PowerPOS
                         txtPrice2.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice2"]).ToString();
                         txtPrice3.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice3"]).ToString();
                         txtPrice4.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice4"]).ToString();
+                        txtPrice7.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice7"]).ToString();
                         nudPrice.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price"]));
                         nudPrice1.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price1"]));
                         nudPrice2.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price2"]));
                         nudPrice3.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price3"]));
                         nudPrice4.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price4"]));
+                        nudPrice7.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price7"]));
                         nudPrice_ValueChanged(sender, e);
                         nudPrice1_ValueChanged(sender, e);
                         nudPrice2_ValueChanged(sender, e);
                         nudPrice3_ValueChanged(sender, e);
                         nudPrice4_ValueChanged(sender, e);
+                        nudPrice7_ValueChanged(sender, e);
                         btnSave.Enabled = false;
                         lblCategory.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["category"]);
                         id = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["product"]);
@@ -428,6 +451,14 @@ namespace PowerPOS
             btnSave.Enabled = true;
         }
 
+        private void nudPrice7_ValueChanged(object sender, EventArgs e)
+        {
+            var percent = (((double)nudPrice7.Value * 1.00 / double.Parse(lblCost.Text.Replace(",", "")) * 100) - 100);
+            txtPercent7.Text = ((double)nudPrice7.Value == 0 || lblCost.Text == "0.00") ? "∞" : percent.ToString("#,##0.00");
+            nudPrice7.ForeColor = percent < 0 ? Color.Red : Color.Gray;
+            btnSave.Enabled = true;
+        }
+
         private void btnUseWebPrice_Click(object sender, EventArgs e)
         {
             nudPrice.Value = int.Parse(txtPrice.Text.Replace(",", ""));
@@ -435,6 +466,8 @@ namespace PowerPOS
             nudPrice2.Value = int.Parse(txtPrice2.Text.Replace(",", ""));
             nudPrice3.Value = int.Parse(txtPrice3.Text.Replace(",", ""));
             nudPrice4.Value = int.Parse(txtPrice4.Text.Replace(",", ""));
+            nudPrice7.Value = int.Parse(txtPrice7.Text.Replace(",", ""));
+
         }
 
         private void btnUsePercentPrice_Click(object sender, EventArgs e)
@@ -451,6 +484,7 @@ namespace PowerPOS
                 nudPrice2.Value = (int)Math.Ceiling((100 + double.Parse(dt.Rows[0]["Price2"].ToString())) * double.Parse(lblCost.Text.Replace(",", "")) / 100);
                 nudPrice3.Value = (int)Math.Ceiling((100 + double.Parse(dt.Rows[0]["Price3"].ToString())) * double.Parse(lblCost.Text.Replace(",", "")) / 100);
                 nudPrice4.Value = (int)Math.Ceiling((100 + double.Parse(dt.Rows[0]["Price4"].ToString())) * double.Parse(lblCost.Text.Replace(",", "")) / 100);
+                nudPrice7.Value = (int)Math.Ceiling((100 + double.Parse(dt.Rows[0]["Price7"].ToString())) * double.Parse(lblCost.Text.Replace(",", "")) / 100);
             }
         }
 
@@ -488,9 +522,9 @@ namespace PowerPOS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะกำหนดสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะกำหนดราคาสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Util.DBExecute(string.Format(@"UPDATE Product SET Cost = '" + lblCost.Text + "' , Price = '{2}', Price1 = '{3}', Price2 = '{4}',Price3 = '{5}',Price4 = '{6}',Sync = 1 WHERE product = '{0}' AND shop = '{1}'", id, Param.ShopId, nudPrice.Value.ToString(), nudPrice1.Value.ToString(), nudPrice2.Value.ToString(), nudPrice3.Value.ToString(), nudPrice4.Value.ToString()));
+                Util.DBExecute(string.Format(@"UPDATE Product SET Cost = '" + lblCost.Text + "' , Price = '{2}', Price1 = '{3}', Price2 = '{4}',Price3 = '{5}',Price4 = '{6}', price7 = '{7}', Sync = 1 WHERE product = '{0}' AND shop = '{1}'", id, Param.ShopId, nudPrice.Value.ToString(), nudPrice1.Value.ToString(), nudPrice2.Value.ToString(), nudPrice3.Value.ToString(), nudPrice4.Value.ToString(), nudPrice7.Value.ToString()));
                 SearchData();
             }
         }
@@ -541,16 +575,19 @@ namespace PowerPOS
                         txtPrice2.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice2"]).ToString();
                         txtPrice3.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice3"]).ToString();
                         txtPrice4.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice4"]).ToString();
+                        txtPrice7.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["webPrice7"]).ToString();
                         nudPrice.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price"]));
                         nudPrice1.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price1"]));
                         nudPrice2.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price2"]));
                         nudPrice3.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price3"]));
                         nudPrice4.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price4"]));
+                        nudPrice7.Value = Convert.ToDecimal(productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["price7"]));
                         nudPrice_ValueChanged(sender, e);
                         nudPrice1_ValueChanged(sender, e);
                         nudPrice2_ValueChanged(sender, e);
                         nudPrice3_ValueChanged(sender, e);
                         nudPrice4_ValueChanged(sender, e);
+                        nudPrice7_ValueChanged(sender, e);
                         btnSave.Enabled = false;
                         lblCategory.Text = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["category"]);
                         id = productGridview.GetRowCellDisplayText(productGridview.FocusedRowHandle, productGridview.Columns["product"]);

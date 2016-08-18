@@ -46,14 +46,14 @@ namespace PowerPOS
             GetConfigFromSqlCe(Param.DatabaseName, Param.DatabasePassword);
             Param.ApiUrl = Properties.Settings.Default.ApiUrl;
             Param.ApiKey = Properties.Settings.Default.ApiKey;
-            Param.LicenseKey = Properties.Settings.Default.LicenseKey;
+            //Param.LicenseKey = Properties.Settings.Default.LicenseKey;
             Param.ApiChecked = Properties.Settings.Default.ApiChecked;
             Param.ImagePath = Properties.Settings.Default.ImagePath;
             Param.DeviceID = GetDiviceId();
             Param.ComputerName = System.Environment.MachineName;
             //Param.DatabaseName = Properties.Settings.Default.DatabaseName;
             //Param.DatabasePassword = Properties.Settings.Default.DatabasePassword;
-            Param.ShopId = Properties.Settings.Default.ShopId;
+            //Param.ShopId = Properties.Settings.Default.ShopId;
             Param.ShopName = Properties.Settings.Default.ShopName;
             Param.ShopParent = Properties.Settings.Default.ShopParent;
             Param.ShopCustomer = Properties.Settings.Default.ShopCustomer;
@@ -861,13 +861,21 @@ namespace PowerPOS
                 catch { }
             }*/
 
-            Param.ShopId = "00000007";
+            //Param.ShopId = "00000007";
 
             var scopeName = "ProvinceScope";
             CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
             SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
             scopeName = "DistrictScope";
+            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+
+            scopeName = "BrandScope";
+            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+
+            scopeName = "CategoryScope";
             CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
             SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
@@ -883,6 +891,10 @@ namespace PowerPOS
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
+            //scopeName = "CustomerScope";
+            //CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+
             scopeName = "EmployeeScope";
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
@@ -892,6 +904,14 @@ namespace PowerPOS
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
             scopeName = "BarcodeScope";
+            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+
+            scopeName = "SellHeaderScope";
+            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+
+            scopeName = "SellDetailScope";
             CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
             SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
@@ -1001,35 +1021,35 @@ namespace PowerPOS
             }
 
 
-            //## PurchaseOrder (Noserial) ##//
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM PurchaseOrder WHERE Sync = 1");
-                i = 0;
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    string val = dt.Rows[i]["ReceivedQuantity"].ToString() + "," + dt.Rows[i]["ReceivedBy"].ToString() + "," + dt.Rows[i]["ReceivedDate"].ToString();
+            ////## PurchaseOrder (Noserial) ##//
+            //try
+            //{
+            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //    dt = Util.DBQuery("SELECT * FROM PurchaseOrder WHERE Sync = 1");
+            //    i = 0;
+            //    for (i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        string val = dt.Rows[i]["ReceivedQuantity"].ToString() + "," + dt.Rows[i]["ReceivedBy"].ToString() + "," + dt.Rows[i]["ReceivedDate"].ToString();
 
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateNsPos",
-                    string.Format("shop={0}&orderno={4}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "receivedQuantity,receivedBy,receivedDate", val, dt.Rows[i]["orderNo"].ToString())
-                    ));
-                    if (!json.success.Value)
-                    {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    }
-                    else
-                    {
-                        Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
-                    }
+            //        dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateNsPos",
+            //        string.Format("shop={0}&orderno={4}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "receivedQuantity,receivedBy,receivedDate", val, dt.Rows[i]["orderNo"].ToString())
+            //        ));
+            //        if (!json.success.Value)
+            //        {
+            //            Console.WriteLine(json.errorMessage.Value + json.error.Value);
+            //        }
+            //        else
+            //        {
+            //            Util.DBExecute(string.Format("UPDATE Product SET Sync = 0 WHERE product = '{0}' AND Shop = '{1}'", dt.Rows[i]["product"].ToString(), Param.ShopId));
+            //        }
 
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    WriteErrorLog(ex.Message);
+            //    WriteErrorLog(ex.StackTrace);
+            //}
 
             ////## CategoryProfit ##//
             //try
@@ -1250,32 +1270,32 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
-            ////## InventoryCount ##//
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM InventoryCount WHERE Sync = 1");
-                i = 0;
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/addCount",
-                    string.Format("shop={0}&product={1}&quantity={2}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["quantity"].ToString())
-                    ));
-                    if (!json.success.Value)
-                    {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    }
-                    else
-                    {
-                        Util.DBExecute(string.Format("UPDATE InventoryCount SET Sync = 0 WHERE product = '{0}'", dt.Rows[i]["product"].ToString()));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
+            //////## InventoryCount ##//
+            //try
+            //{
+            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //    dt = Util.DBQuery("SELECT * FROM InventoryCount WHERE Sync = 1");
+            //    i = 0;
+            //    for (i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/addCount",
+            //        string.Format("shop={0}&product={1}&quantity={2}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), dt.Rows[i]["quantity"].ToString())
+            //        ));
+            //        if (!json.success.Value)
+            //        {
+            //            Console.WriteLine(json.errorMessage.Value + json.error.Value);
+            //        }
+            //        else
+            //        {
+            //            Util.DBExecute(string.Format("UPDATE InventoryCount SET Sync = 0 WHERE product = '{0}'", dt.Rows[i]["product"].ToString()));
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    WriteErrorLog(ex.Message);
+            //    WriteErrorLog(ex.StackTrace);
+            //}
 
             ////## Claim ##//
             //try
@@ -1341,26 +1361,61 @@ namespace PowerPOS
 
         public static void PrintReceipt(string sellNo)
         {
-            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
-
-            var hight = 250 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
-            //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
-            //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
-            PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
-            paperSize.RawKind = (int)PaperKind.Custom;
-
-            PrintDocument pd = new PrintDocument();
-            pd.DefaultPageSettings.PaperSize = paperSize;
-            pd.PrintController = new System.Drawing.Printing.StandardPrintController();
-            pd.PrinterSettings.PrinterName = Param.DevicePrinter;
-            //pd.PrinterSettings.PrinterName = "GP-80250 Series";
-            //pd.PrinterSettings.PrinterName = "POS80";
-
-            pd.PrintPage += (_, g) =>
+            if (Param.PaperSize == "A4")
             {
-                PrintReceipt(g, sellNo);
-            };
-            pd.Print();
+                Param.Page = 0;
+                Param.d = 0;
+                DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
+
+                PaperSize paperSize = new PaperSize();
+                paperSize.RawKind = (int)PaperKind.A4;
+
+                PrintDocument pd = new PrintDocument();
+                pd.DefaultPageSettings.PaperSize = paperSize;
+                pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+                pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+
+                int count = int.Parse(dt.Rows[0]["cnt"].ToString());
+               
+                for (int i = 1; i <= Math.Ceiling((float)count / Param.Num); i++)
+                {
+                    //if (i > 1)
+                    //{
+                    //    Param.Page = Param.Page + 1;
+                    //}
+
+                    pd.PrintPage += (_, g) =>
+                    {
+                        PrintReceipt(g, sellNo);
+                    };
+
+                    pd.Print();
+                    Param.Page += Param.Num;
+                }
+            }
+            else
+            {
+                DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
+
+                var hight = 250 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
+                //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
+                //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
+                PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
+                paperSize.RawKind = (int)PaperKind.Custom;
+
+                PrintDocument pd = new PrintDocument();
+                pd.DefaultPageSettings.PaperSize = paperSize;
+                pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+                pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+                //pd.PrinterSettings.PrinterName = "GP-80250 Series";
+                //pd.PrinterSettings.PrinterName = "POS80";
+
+                pd.PrintPage += (_, g) =>
+                {
+                    PrintReceipt(g, sellNo);
+                };
+                pd.Print();
+            }
 
         }
 
@@ -1646,6 +1701,204 @@ namespace PowerPOS
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
                 }
+                else if (Param.PaperSize == "A4")
+                {
+                    var width = 800;
+                    var gab = 20;
+
+                    //if (Param.PrintLogo == "Y")
+                    //{
+                    //    if (!File.Exists(Param.LogoPath))
+                    //    {
+                    //        if (!Directory.Exists("Resource/Images")) Directory.CreateDirectory("Resource/Images");
+                    //        if (File.Exists(Param.LogoPath)) File.Delete(Param.LogoPath);
+                    //        using (var client = new WebClient())
+                    //        {
+                    //            Param.LogoPath = "1234";
+                    //            client.DownloadFile(Param.LogoUrl, Param.LogoPath);
+                    //            Param.Logo = Param.LogoUrl;
+                    //        }
+
+                    //    }
+                    //    Image image = Image.FromFile(Param.LogoPath);
+                    //    Rectangle destRect = new Rectangle(0, 0, width, 280);
+                    //    //Rectangle destRect = new Rectangle(0, 0, width, image.Height * width / image.Width);
+                    //    g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+                    //}
+
+
+                    SolidBrush brush = new SolidBrush(Color.Black);
+                    Font stringFont = new Font("Calibri", 6);
+                    //if (Param.Logo == Param.LogoUrl && Param.PrintLogo == "Y")
+                    //{
+                    //    g.Graphics.DrawString("http:// www.", stringFont, brush, new PointF(62, 49));
+                    //    g.Graphics.DrawString(".co.th", stringFont, brush, new PointF(193, 49));
+                    //    stringFont = new Font("Calibri", 6.5f, FontStyle.Bold);
+                    //    g.Graphics.DrawString("R e m a x T h a i l a n d", stringFont, brush, new PointF(109, 48.3f));
+                    //}
+                    var pX = 0;
+                    var pY = 0;
+                    if (Param.PrintLogo == "Y")
+                    {
+                        pX = 0;
+                        pY = 280;
+                    }
+                    else
+                    {
+                        pX = 0;
+                        pY = 5;
+                    }
+
+                    if (Param.MemberType == "Shop")
+                    {
+                        stringFont = new Font("DilleniaUPC", 20, FontStyle.Bold);
+                        g.Graphics.DrawString(Param.ShopName, stringFont, brush, new PointF(pX, pY + 6));
+                        pY += 20;
+                    }
+
+                    stringFont = new Font("DilleniaUPC", 17);
+                    g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
+
+                    stringFont = new Font("DilleniaUPC", 20);
+                    g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 620, pY));
+
+                    stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                    string measureString = sellNo;
+                    SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width - gab, pY + 3));
+                    pY += 30;
+
+                    stringFont = new Font("DilleniaUPC", 20, FontStyle.Bold);
+                    measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+                    pY += 30;
+
+                    stringFont = new Font("DilleniaUPC", 15);
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                            FROM  SellDetail sd
+                                LEFT JOIN Product p 
+                                ON sd.Product = p.Product 
+                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0
+                       ORDER BY p.Name", sellNo, Param.ShopId));
+
+                    DataTable dtCnt = Util.DBQuery(string.Format(@"SELECT SUM(sd.Quantity) cnt, SUM(sd.SellPrice) SellP
+                            FROM  SellDetail sd
+                                LEFT JOIN Product p 
+                                ON sd.Product = p.Product 
+                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
+
+                    var totalQty = 0;
+                    totalQty = int.Parse(dtCnt.Rows[0]["cnt"].ToString());
+                    var totalPrice = 0;
+                    totalPrice = int.Parse(dtCnt.Rows[0]["SellP"].ToString());
+
+
+                    var sumQty = 0;
+                    var sumPrice = 0;
+                    int i = 0;
+                    //if (Param.Page >= Param.Num)
+                    //{
+                        Param.d = int.Parse(Param.Page.ToString());
+                        //d = d - 49;
+                        for (i = Param.d; i < Param.Num + Param.Page/*dt.Rows.Count*/; i++)
+                        {
+                            if (i == dt.Rows.Count)
+                            {
+                                break;
+                            }
+                            g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                            g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 20, pY));
+
+                            g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 620, pY + 3, 620, 10);
+                            g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                                stringFont, brush, new PointF(pX + 620, pY));
+                            measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                            sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                            pY += 20;
+                            Param.Qty += 1;
+                        }
+                        
+
+                    //}
+                    //else
+                    //{
+                    //    d = 1;
+
+                    //    for (i = d; i < Param.Num; i++) //dt.Rows.Count; i++)
+                    //    {
+                    //        g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    //        g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 20, pY));
+
+                    //        g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 620, pY + 3, 620, 10);
+                    //        g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                    //            stringFont, brush, new PointF(pX + 620, pY));
+                    //        measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                    //        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    //        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                    //        sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                    //        sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                    //        pY += 20;
+                    //    }
+                    //}
+
+                    //for (i = d; i < Param.Page; i++) //dt.Rows.Count; i++)
+                    //{
+                    //    g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    //    g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 20, pY));
+
+                    //    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 500, pY + 3, 500, 10);
+                    //    g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
+                    //        stringFont, brush, new PointF(pX + 650, pY));
+                    //    measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
+                    //    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    //    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    //    sumQty += int.Parse(dt.Rows[i]["ProductCount"].ToString());
+                    //    sumPrice += int.Parse(dt.Rows[i]["SellPrice"].ToString());
+                    //    pY += 20;
+                    //}
+                    if (i == dt.Rows.Count)
+                    {
+                        pY += 4;
+                        stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
+                        g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, totalQty/*sumQty*/), stringFont, brush, new PointF(pX, pY));
+                        measureString = "" + totalPrice.ToString("#,##0");/*sumPrice.ToString("#,##0");*/
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                        pY += 30;
+                        stringFont = new Font("DilleniaUPC", 15);
+                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - totalPrice/*sumPrice*/).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                        pY += 30;
+
+                        g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+                        pY += 5;
+
+                        stringFont = new Font("DilleniaUPC", 15);
+                        g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
+                            ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+                            " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                            : "")
+                            , stringFont, brush, new PointF(pX, pY));
+
+                        /*stringFont = new Font("DilleniaUPC", 11);
+                        measureString = "แต้มสะสม  " + (34534).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY - 2));*/
+                        pY += 20;
+
+                        stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                        measureString = Param.FooterText;
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
+                        Param.Qty = 0;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -1695,25 +1948,15 @@ namespace PowerPOS
                                 SELECT DISTINCT Product, COUNT(*) ReceivedCount
                                 FROM Barcode
                                 WHERE ReceivedDate IS NOT NULL
-                                AND ReceivedBy = '{2}'
                                 AND OrderNo = '{1}'
                                 GROUP BY Product
                         ) r
                             ON b.Product = r.Product
                         LEFT JOIN Category c
                             ON p.category = c.category
-                    WHERE(b.ReceivedDate IS NULL OR b.ReceivedBy = '{2}')
-                        AND b.OrderNo = '{1}'
+                    WHERE b.OrderNo = '{1}'
                     GROUP BY b.Product
-                    --ORDER BY c.name, p.Name
-                    UNION ALL
-                    SELECT p.sku, po.product, p.Name, po.Quantity, po.ReceivedQuantity, c.name category
-                    FROM PurchaseOrder po
-                        LEFT JOIN Product p
-                        ON po.Product = p.product
-                    LEFT JOIN Category c
-                    ON p.Category = c.category
-                    WHERE po.OrderNo = '{1}'
+                    ORDER BY c.name, p.Name
                 ", Param.ShopId, orderNo, Param.UserId));
             var width = 280;
             var gab = 5;

@@ -40,6 +40,7 @@ namespace PowerPOS
         public static string SqlCeFile = Path.Combine(ApplicationDataPath, "system.dll");
         public static string EmployeeType;
         public static string EmployeeId;
+        public static string EmpName;
         public static string UserId;
         public static string UserCode;
         public static bool ApiChecked;
@@ -66,7 +67,14 @@ namespace PowerPOS
         public static string Logo;
         public static string ShopCost;
         public static string PaperSize;
+        public static string Paper;
         public static string ScreenPermissionDetail;
+        public static string Printer;
+        public static float Page;
+        public static int Num = 49;
+        public static int Qty = 0;
+        public static int d = 0;
+
 
 
         public static bool jsonObject;

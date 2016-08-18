@@ -65,6 +65,12 @@
             this.clCustomer = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrintA4 = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl8 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
+            this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -97,6 +103,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.reportGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -109,7 +120,8 @@
             this.navBarControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.navBarControl1.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
             this.navBarGroup1,
-            this.navBarGroup2});
+            this.navBarGroup2,
+            this.navBarGroup3});
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 250;
@@ -138,7 +150,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl1);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(250, 482);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(250, 454);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl1
@@ -153,7 +165,7 @@
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl1.Size = new System.Drawing.Size(250, 482);
+            this.panelControl1.Size = new System.Drawing.Size(250, 454);
             this.panelControl1.TabIndex = 0;
             // 
             // panelControl3
@@ -279,7 +291,7 @@
             // 
             this.navBarGroup2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold);
             this.navBarGroup2.Appearance.Options.UseFont = true;
-            this.navBarGroup2.Caption = "ข้อมูลส่งคืนรายวัน";
+            this.navBarGroup2.Caption = "ข้อมูลรับคืนรายวัน";
             this.navBarGroup2.ControlContainer = this.navBarGroupControlContainer1;
             this.navBarGroup2.GroupClientHeight = 80;
             this.navBarGroup2.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
@@ -289,6 +301,7 @@
             // 
             // panelControl17
             // 
+            this.panelControl17.Controls.Add(this.groupControl3);
             this.panelControl17.Controls.Add(this.groupControl4);
             this.panelControl17.Controls.Add(this.groupControl5);
             this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -308,7 +321,7 @@
             this.groupControl4.Location = new System.Drawing.Point(2, 2);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.ShowCaption = false;
-            this.groupControl4.Size = new System.Drawing.Size(222, 43);
+            this.groupControl4.Size = new System.Drawing.Size(154, 43);
             this.groupControl4.TabIndex = 30;
             this.groupControl4.Text = "groupControl4";
             // 
@@ -321,7 +334,7 @@
             this.btnPrint.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnPrint.Location = new System.Drawing.Point(0, 4);
             this.btnPrint.Name = "btnPrint";
-            this.btnPrint.Size = new System.Drawing.Size(178, 35);
+            this.btnPrint.Size = new System.Drawing.Size(140, 35);
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "พิมพ์รายการ";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
@@ -332,7 +345,7 @@
             this.panelControl20.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl20.Location = new System.Drawing.Point(0, 39);
             this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(178, 4);
+            this.panelControl20.Size = new System.Drawing.Size(140, 4);
             this.panelControl20.TabIndex = 20;
             // 
             // panelControl19
@@ -341,16 +354,16 @@
             this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl19.Location = new System.Drawing.Point(0, 0);
             this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(178, 4);
+            this.panelControl19.Size = new System.Drawing.Size(140, 4);
             this.panelControl19.TabIndex = 19;
             // 
             // panelControl18
             // 
             this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl18.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl18.Location = new System.Drawing.Point(178, 0);
+            this.panelControl18.Location = new System.Drawing.Point(140, 0);
             this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(44, 43);
+            this.panelControl18.Size = new System.Drawing.Size(14, 43);
             this.panelControl18.TabIndex = 18;
             // 
             // groupControl5
@@ -361,17 +374,17 @@
             this.groupControl5.Controls.Add(this.lblListCount);
             this.groupControl5.Controls.Add(this.lblProductCount);
             this.groupControl5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl5.Location = new System.Drawing.Point(204, 2);
+            this.groupControl5.Location = new System.Drawing.Point(391, 2);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.ShowCaption = false;
-            this.groupControl5.Size = new System.Drawing.Size(626, 43);
+            this.groupControl5.Size = new System.Drawing.Size(439, 43);
             this.groupControl5.TabIndex = 29;
             this.groupControl5.Text = "groupControl5";
             // 
             // labelControl3
             // 
             this.labelControl3.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Location = new System.Drawing.Point(459, 5);
+            this.labelControl3.Location = new System.Drawing.Point(274, 5);
             this.labelControl3.Name = "labelControl3";
             this.labelControl3.Size = new System.Drawing.Size(84, 16);
             this.labelControl3.TabIndex = 19;
@@ -380,7 +393,7 @@
             // labelControl4
             // 
             this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Location = new System.Drawing.Point(430, 24);
+            this.labelControl4.Location = new System.Drawing.Point(245, 24);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(113, 16);
             this.labelControl4.TabIndex = 20;
@@ -389,7 +402,7 @@
             // lblListCount
             // 
             this.lblListCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblListCount.Location = new System.Drawing.Point(549, 5);
+            this.lblListCount.Location = new System.Drawing.Point(364, 5);
             this.lblListCount.Name = "lblListCount";
             this.lblListCount.Size = new System.Drawing.Size(51, 16);
             this.lblListCount.TabIndex = 22;
@@ -398,7 +411,7 @@
             // lblProductCount
             // 
             this.lblProductCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProductCount.Location = new System.Drawing.Point(549, 24);
+            this.lblProductCount.Location = new System.Drawing.Point(364, 24);
             this.lblProductCount.Name = "lblProductCount";
             this.lblProductCount.Size = new System.Drawing.Size(27, 16);
             this.lblProductCount.TabIndex = 23;
@@ -535,6 +548,67 @@
             this.panelControl10.Size = new System.Drawing.Size(10, 567);
             this.panelControl10.TabIndex = 12;
             // 
+            // groupControl3
+            // 
+            this.groupControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl3.Controls.Add(this.btnPrintA4);
+            this.groupControl3.Controls.Add(this.panelControl7);
+            this.groupControl3.Controls.Add(this.panelControl8);
+            this.groupControl3.Controls.Add(this.panelControl9);
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl3.Location = new System.Drawing.Point(156, 2);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(214, 43);
+            this.groupControl3.TabIndex = 31;
+            this.groupControl3.Text = "groupControl3";
+            // 
+            // btnPrintA4
+            // 
+            this.btnPrintA4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintA4.Appearance.Options.UseFont = true;
+            this.btnPrintA4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrintA4.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintA4.Image")));
+            this.btnPrintA4.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrintA4.Location = new System.Drawing.Point(0, 4);
+            this.btnPrintA4.Name = "btnPrintA4";
+            this.btnPrintA4.Size = new System.Drawing.Size(200, 35);
+            this.btnPrintA4.TabIndex = 0;
+            this.btnPrintA4.Text = "พิมพ์รายการ (ขนาดA4)";
+            this.btnPrintA4.Click += new System.EventHandler(this.btnPrintA4_Click);
+            // 
+            // panelControl7
+            // 
+            this.panelControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl7.Location = new System.Drawing.Point(0, 39);
+            this.panelControl7.Name = "panelControl7";
+            this.panelControl7.Size = new System.Drawing.Size(200, 4);
+            this.panelControl7.TabIndex = 20;
+            // 
+            // panelControl8
+            // 
+            this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl8.Location = new System.Drawing.Point(0, 0);
+            this.panelControl8.Name = "panelControl8";
+            this.panelControl8.Size = new System.Drawing.Size(200, 4);
+            this.panelControl8.TabIndex = 19;
+            // 
+            // panelControl9
+            // 
+            this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl9.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl9.Location = new System.Drawing.Point(200, 0);
+            this.panelControl9.Name = "panelControl9";
+            this.panelControl9.Size = new System.Drawing.Size(14, 43);
+            this.panelControl9.TabIndex = 18;
+            // 
+            // navBarGroup3
+            // 
+            this.navBarGroup3.Caption = "ข้อมูลส่งคืนรายวัน";
+            this.navBarGroup3.Name = "navBarGroup3";
+            // 
             // UcReportProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -579,6 +653,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.reportGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.reportGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl9)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -621,5 +700,11 @@
         private DevExpress.XtraEditors.PanelControl panelControl6;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.SimpleButton btnPrintA4;
+        private DevExpress.XtraEditors.PanelControl panelControl7;
+        private DevExpress.XtraEditors.PanelControl panelControl8;
+        private DevExpress.XtraEditors.PanelControl panelControl9;
+        private DevExpress.XtraNavBar.NavBarGroup navBarGroup3;
     }
 }

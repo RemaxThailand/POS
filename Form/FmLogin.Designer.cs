@@ -47,7 +47,7 @@
             // labelControl1
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.labelControl1.Location = new System.Drawing.Point(29, 21);
+            this.labelControl1.Location = new System.Drawing.Point(34, 21);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(38, 16);
             this.labelControl1.TabIndex = 0;
@@ -56,7 +56,7 @@
             // labelControl2
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.labelControl2.Location = new System.Drawing.Point(29, 53);
+            this.labelControl2.Location = new System.Drawing.Point(28, 53);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(44, 16);
             this.labelControl2.TabIndex = 1;
@@ -70,6 +70,7 @@
             this.txtUsername.Properties.Appearance.Options.UseFont = true;
             this.txtUsername.Size = new System.Drawing.Size(176, 22);
             this.txtUsername.TabIndex = 2;
+            this.txtUsername.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtUsername_KeyDown);
             // 
             // txtPassword
             // 
@@ -80,6 +81,7 @@
             this.txtPassword.Properties.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(176, 22);
             this.txtPassword.TabIndex = 3;
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             // 
             // panelControl1
             // 
@@ -99,9 +101,9 @@
             this.btnExit.Appearance.Options.UseFont = true;
             this.btnExit.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnExit.Image = ((System.Drawing.Image)(resources.GetObject("btnExit.Image")));
-            this.btnExit.Location = new System.Drawing.Point(2, 2);
+            this.btnExit.Location = new System.Drawing.Point(0, 0);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(107, 26);
+            this.btnExit.Size = new System.Drawing.Size(107, 30);
             this.btnExit.TabIndex = 23;
             this.btnExit.Text = "ออกจากระบบ";
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
@@ -110,9 +112,9 @@
             // 
             this.panelControl6.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl6.Location = new System.Drawing.Point(163, 2);
+            this.panelControl6.Location = new System.Drawing.Point(165, 0);
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(8, 26);
+            this.panelControl6.Size = new System.Drawing.Size(8, 30);
             this.panelControl6.TabIndex = 24;
             // 
             // btnLogin
@@ -121,9 +123,9 @@
             this.btnLogin.Appearance.Options.UseFont = true;
             this.btnLogin.Dock = System.Windows.Forms.DockStyle.Right;
             this.btnLogin.Image = ((System.Drawing.Image)(resources.GetObject("btnLogin.Image")));
-            this.btnLogin.Location = new System.Drawing.Point(171, 2);
+            this.btnLogin.Location = new System.Drawing.Point(173, 0);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(87, 26);
+            this.btnLogin.Size = new System.Drawing.Size(87, 30);
             this.btnLogin.TabIndex = 22;
             this.btnLogin.Text = "เข้าสู่ระบบ";
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);

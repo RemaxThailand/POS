@@ -51,7 +51,8 @@ namespace PowerPOS
             string[] args = Environment.GetCommandLineArgs();
             try
             {
-                if(args[1].ToString() == "RemaxThailand")
+                //MessageBox.Show("Shop" + args[2].ToString());
+                if (args[1].ToString() == "RemaxThailand")
                 {
                     Param.ShopId = args[2].ToString();
                     Param.Token = args[3].ToString();
@@ -174,7 +175,7 @@ namespace PowerPOS
 
                 if (!canView)
                 {
-                    foreach (TileNavItem item in this.z.DefaultCategory.Items)
+                    foreach (TileNavItem item in this.tileNavPane1.DefaultCategory.Items)
                     {
                         if (hasParent)
                         {
@@ -195,7 +196,7 @@ namespace PowerPOS
                         else if (item.Name == screen)
                         {
                             Console.WriteLine("remove item {0}", screen);
-                            this.z.DefaultCategory.Items.Remove(item);
+                            this.tileNavPane1.DefaultCategory.Items.Remove(item);
                             break;
                         }
                     }
@@ -258,36 +259,36 @@ namespace PowerPOS
         {
             if (MessageBox.Show("คุณต้องการ ออกจากระบบใช่หรือไม่", "ยืนยันการออกจากระบบ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
-                this.Opacity = 0;
-                this.ShowInTaskbar = false;
+                //this.Opacity = 0;
+                //this.ShowInTaskbar = false;
 
-                bool exit = false;
-                FmLogin fmLogin = new FmLogin();
-                bool success = false;
-                while (!success && !exit)
-                {
-                    if (fmLogin.ShowDialog(this) == DialogResult.OK)
-                    {
-                        success = true;
-                    }
-                    else
-                    {
-                        exit = true;
-                    }
-                }
+                //bool exit = false;
+                //FmLogin fmLogin = new FmLogin();
+                //bool success = false;
+                //while (!success && !exit)
+                //{
+                //    if (fmLogin.ShowDialog(this) == DialogResult.OK)
+                //    {
+                //        success = true;
+                //    }
+                //    else
+                //    {
+                //        exit = true;
+                //    }
+                //}
 
-                if (!exit)
-                {
-                    this.Opacity = 100;
-                    this.ShowInTaskbar = true;
-                    AddPanel(Param.Screen.Sale);
-                    Param.SelectedScreen = (int)Screen.Sale;
-                }
-                else
-                {
-                    this.Dispose();
-                }
-                //this.Dispose();
+                //if (!exit)
+                //{
+                //    this.Opacity = 100;
+                //    this.ShowInTaskbar = true;
+                //    AddPanel(Param.Screen.Sale);
+                //    Param.SelectedScreen = (int)Screen.Sale;
+                //}
+                //else
+                //{
+                //    this.Dispose();
+                //}
+                this.Dispose();
             }
         }
 
@@ -337,13 +338,29 @@ namespace PowerPOS
             }
             else if (e.Element.Name == "navRefresh")
             {
-                InitialCloudData();
+                InitializeComponent();
+                Param.UserId = "0000";
+                Param.UserCode = "1234";
+
+                Param.EmployeeId = null;
+                Param.EmployeeType = null;
+
+                Util.ConnectSQLiteDatabase();
+                Util.GetDiviceId();
+                this.Opacity = 0;
+                this.ShowInTaskbar = false;
+
+                Main_Load(sender,(e));
             }
             else if (e.Element.Name == "navReportProduct")
             {
                 AddPanel(Param.Screen.ReportProduct);
             }
-            
+            else if (e.Element.Name == "navReport")
+            {
+                AddPanel(Param.Screen.Report);
+            }
+
         }
         #endregion
 
