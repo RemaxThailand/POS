@@ -78,16 +78,6 @@ namespace PowerPOS
                             AND p.Shop = bn.Shop
                     WHERE (b.ReceivedDate NOT NULL OR b.ReceivedBy = '{0}') AND (SellBy  = '' OR SellBy  IS NULL)
                     GROUP BY b.Product                   
-                UNION ALL
-                SELECT p.sku, p.image, p.product, p.name, p.quantity ProductCount, IFNULL(ic.quantity,0) stock, b.name brand, c.name category
-                FROM Product p
-                    LEFT JOIN InventoryCount ic
-                    ON p.product = ic.product
-                    LEFT JOIN Brand b
-                    ON b.brand = p.brand 
-                    LEFT JOIN Category c
-                    ON c.category = p.category
-                WHERE p.Quantity <> 0
                 ", Param.UserId
                 ));
 
