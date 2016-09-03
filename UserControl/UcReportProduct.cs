@@ -50,6 +50,7 @@ namespace PowerPOS
                 WHERE h.SellDate LIKE '{0}%'
                   AND h.Customer = '000002'
                   AND (h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                  AND h.sellNo NOT LIKE '%CL%'
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
@@ -88,6 +89,7 @@ namespace PowerPOS
                             WHERE h.SellDate LIKE '{0}%'
                               AND h.Customer = '000002'
                               AND (h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                              AND h.sellNo NOT LIKE '%CL%'
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
@@ -120,6 +122,7 @@ namespace PowerPOS
                 WHERE h.SellDate LIKE '{0}%'
                   AND h.Customer = '000001'
                   AND (h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                  AND h.sellNo NOT LIKE '%CL%'
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
@@ -158,6 +161,7 @@ namespace PowerPOS
                             WHERE h.SellDate LIKE '{0}%'
                               AND h.Customer = '000002'
                               AND (h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                              AND h.sellNo NOT LIKE '%CL%'
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 

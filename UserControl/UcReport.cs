@@ -74,6 +74,7 @@ namespace PowerPOS
                 WHERE h.SellDate LIKE '{0}%'
                   AND h.Customer NOT IN ('000001','000002')
                   AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                  AND h.sellNo NOT LIKE '%CL%' 
                 ORDER BY SellDate DESC
              ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
 
@@ -110,7 +111,8 @@ namespace PowerPOS
                     //string datetime = date.ToString("MM/dd/yyyy");
                     row = dt.NewRow();
                     row[0] = (a + 1) * 1;
-                    row[1] = _TABLE_REPORT.Rows[a]["SellDate"].ToString();
+                    //row[1] = _TABLE_REPORT.Rows[a]["SellDate"].ToString();
+                    row[1] = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
                     row[2] = _TABLE_REPORT.Rows[a]["SellNo"].ToString();
                     row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
                     row[4] = mobile == "" ? "-" : mobile;
@@ -140,6 +142,8 @@ namespace PowerPOS
                             WHERE h.SellDate LIKE '{0}%'
                               AND h.Customer NOT IN ('000001','000002')
                               AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
+                              AND h.sellNo NOT LIKE '%CL%' 
+
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
                 lblProductCount.Text = int.Parse(dtQty.Rows[0]["QTY"].ToString()).ToString("#,##0") + " ชิ้น";

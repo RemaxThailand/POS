@@ -217,9 +217,9 @@ namespace PowerPOS
             lblListCount.Text = productGridView.RowCount.ToString() + " รายการ";
             lblProductCount.Text = _QTY.ToString() + " ชิ้น";
 
-            btnCancelSale.Enabled = sumPrice > 0;
-            btnCancelProduct.Enabled = sumPrice > 0;
-            btnConfirm.Enabled = sumPrice > 0;
+            //btnCancelSale.Enabled = sumPrice > 0;
+            //btnCancelProduct.Enabled = sumPrice > 0;
+            //btnConfirm.Enabled = sumPrice > 0;
             
         }
 
@@ -714,214 +714,15 @@ namespace PowerPOS
                     FROM Barcode b LEFT JOIN Product p ON b.product = p.Product WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcodeReturn.Text));
-                        Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
-                        if (dt.Rows.Count == 0)
-                        {
                             SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
                             simpleSound.Play();
 
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            //    dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcodeReturn.Text));
-
-                            //    if (dt.Rows.Count == 0)
-                            //    {
-                            //        lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                            //        lblStatus.ForeColor = Color.Red;
-                            //    }
-                            //    else
-                            //    {
-                            //        Param.status = "Return";
-                            //        FmSelectProduct frm = new FmSelectProduct();
-                            //        var result = frm.ShowDialog(this);
-                            //        if (result == System.Windows.Forms.DialogResult.OK)
-                            //        {
-                            //            lblStatus.Visible = false;
-                            //            txtBarcode.Enabled = true;
-
-                            //            returnGridControl.DataSource = null;
-
-                            //            returnGridView.OptionsBehavior.AutoPopulateColumns = false;
-                            //            returnGridControl.MainView = returnGridView;
-
-                            //            dt = new DataTable();
-                            //            for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
-                            //            {
-                            //                dt.Columns.Add(returnGridView.Columns[i].FieldName);
-                            //            }
-
-                            //            if (Param.amount != "")
-                            //            {
-                            //                for (i = 0; i < 1; i++)
-                            //                {
-                            //                    string customer = FmReturnSell.customer;
-                            //                    string SellDate = FmReturnSell.sellDate;
-                            //                    string Pname = FmReturnSell.PName;
-                            //                    int Amount = int.Parse(Param.amount);
-                            //                    //dt = new DataTable();
-                            //                    //for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
-                            //                    //{
-                            //                    //    dt.Columns.Add(returnGridView.Columns[i].FieldName);
-                            //                    //}                                            
-                            //                    string SellP = (int.Parse(FmReturnSell.sellP) * int.Parse(Param.amount)).ToString();
-
-                            //                    row = dt.NewRow();
-                            //                    row[0] = (i + 1) * 1;
-                            //                    row[1] = SellDate;
-                            //                    row[2] = customer;
-                            //                    row[3] = Pname;
-                            //                    row[4] = Amount;
-                            //                    row[5] = SellP;
-                            //                    dt.Rows.Add(row);
-
-                            //                    returnGridControl.DataSource = dt;
-                            //                }
-                            //            }
-
-
-                            //            var remain = (DateTime.Now - Convert.ToDateTime(FmReturnSell.sellDate)).TotalDays;
-
-                            //            btnReturn.Visible = remain > 0;
-
-                            //            int day = Convert.ToInt32(remain);
-                            //            if (day == 0)
-                            //            {
-                            //                lblWarranty.Text = "สินค้าชิ้นนี้ขายไปแล้วในวันนี้";
-                            //            }
-                            //            else
-                            //            {
-                            //                lblWarranty.Text = "สินค้าชิ้นนี้" + ((day > 0) ? " ขายไปแล้ว " + day.ToString("#,###") + " วัน" : " ขายไปแล้ว " + (day * -1).ToString("#,###") + " วัน");
-                            //            }
-                            //            lblWarranty.Visible = true;
-
-                            //            var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
-                            //            dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
-
-                            //            _STREAM_IMAGE_URL = Param.ImagePath + "/" + dt.Rows[0]["Sku"].ToString() + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
-
-                            //            if (!File.Exists(filename))
-                            //            {
-                            //                if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
-                            //                {
-                            //                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
-                            //                }
-                            //            }
-                            //            else
-                            //            {
-                            //                try { ptbProduct.Image = Image.FromFile(filename); }
-                            //                catch
-                            //                {
-                            //                    if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
-                            //                    {
-                            //                        DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
-                            //                    }
-                            //                }
-                            //            }
-
-                            //            lblListCount.Text = returnGridView.RowCount.ToString() + " รายการ";
-                            //            lblProductCount.Text = Param.amount + " ชิ้น";
-                            //        }
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    int qty = 0;
-                            //    Param.status = "Return";
-                            //    FmProductQty frm = new FmProductQty();
-                            //    Param.product = dt.Rows[0]["Product"].ToString();
-                            //    var result = frm.ShowDialog(this);
-                            //    if (result == System.Windows.Forms.DialogResult.OK)
-                            //    {
-                            //        lblStatus.Visible = false;
-                            //        txtBarcode.Enabled = true;
-
-                            //        returnGridView.OptionsBehavior.AutoPopulateColumns = false;
-                            //        returnGridControl.MainView = returnGridView;
-
-                            //        dt = new DataTable();
-                            //        for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
-                            //        {
-                            //            dt.Columns.Add(returnGridView.Columns[i].FieldName);
-                            //        }
-
-                            //        if (Param.amount != "")
-                            //        {
-                            //            for (i = 0; i < 1; i++)
-                            //            {
-                            //                string customer = FmReturnSell.customer;
-                            //                string SellDate = FmReturnSell.sellDate;
-                            //                string Pname = FmReturnSell.PName;
-                            //                int Amount = int.Parse(Param.amount);
-                            //                string SellP = (int.Parse(FmReturnSell.sellP) * int.Parse(Param.amount)).ToString();
-
-                            //                dt = new DataTable();
-                            //                for (i = 0; i < ((ColumnView)returnGridControl.MainView).Columns.Count; i++)
-                            //                {
-                            //                    dt.Columns.Add(returnGridView.Columns[i].FieldName);
-                            //                }
-
-                            //                row = dt.NewRow();
-                            //                row[0] = (i + 1) * 1;
-                            //                row[1] = SellDate;
-                            //                row[2] = customer;
-                            //                row[3] = Pname;
-                            //                row[4] = Amount;
-                            //                row[5] = SellP;
-                            //                dt.Rows.Add(row);
-                            //                qty += Amount;
-                            //                returnGridControl.DataSource = dt;
-
-                            //            }
-                            //        }
-
-                            //        var remain = (DateTime.Now - Convert.ToDateTime(FmReturnSell.sellDate)).TotalDays;
-
-                            //        btnReturn.Visible = remain > 0;
-
-                            //        int day = Convert.ToInt32(remain);
-                            //        if (day == 0)
-                            //        {
-                            //            lblWarranty.Text = "สินค้าชิ้นนี้ขายไปแล้วในวันนี้";
-                            //        }
-                            //        else
-                            //        {
-                            //            lblWarranty.Text = "สินค้าชิ้นนี้" + ((day > 0) ? " ขายไปแล้ว " + day.ToString("#,###") + " วัน" : " ขายไปแล้ว " + (day * -1).ToString("#,###") + " วัน");
-                            //        }
-                            //        lblWarranty.Visible = true;
-
-                            //        lblListCount.Text = returnGridView.RowCount.ToString() + " รายการ";
-                            //        lblProductCount.Text = qty.ToString() + " ชิ้น";
-
-                            //        var filename = @"Resource/Images/Product/" + Param.product + ".jpg";
-                            //        dt = Util.DBQuery(string.Format("SELECT Sku, Image FROM Product WHERE product = '{0}'", Param.product));
-
-                            //        _STREAM_IMAGE_URL = Param.ImagePath + "/" + dt.Rows[0]["Sku"].ToString() + "/" + dt.Rows[0]["Image"].ToString().Split(',')[0];
-
-                            //        if (!File.Exists(filename))
-                            //        {
-                            //            if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
-                            //            {
-                            //                DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
-                            //            }
-                            //        }
-                            //        else
-                            //        {
-                            //            try { ptbProduct.Image = Image.FromFile(filename); }
-                            //            catch
-                            //            {
-                            //                if (dt.Rows.Count > 0 && dt.Rows[0]["Image"].ToString() != "")
-                            //                {
-                            //                    DownloadImage(_STREAM_IMAGE_URL, @"Resource/Images/Product/", Param.ProductId + ".jpg");
-                            //                }
-                            //            }
-                            //        }
-                            //    }
-                        }
                     }
                     else
                     {
                         _TABLE_RETURN = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, 
-                    b.ReceivedDate, b.ReceivedBy, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku, 1 Amount
+                    b.ReceivedDate, b.ReceivedBy, b.sellPrice, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku, 1 Amount
                     FROM Barcode b 
                         LEFT JOIN Product p 
                         ON b.Product = p.Product 
@@ -929,14 +730,15 @@ namespace PowerPOS
                         ON b.SellNo = sh.SellNo
                         LEFT JOIN Customer c
                         ON sh.Customer = c.Customer
-                    WHERE b.Barcode = '{0}' AND (b.SellDate IS NOT NULL OR b.SellDate = '')", txtBarcodeReturn.Text));
+                    WHERE b.Barcode = '{0}' AND (b.SellDate IS NOT NULL OR b.SellDate = '') AND b.sellNo NOT LIKE '%CL%'", txtBarcodeReturn.Text));
                         lblStatusReturn.Visible = true;
 
 
                         if (_TABLE_RETURN.Rows.Count == 0)
                         {
-                            lblStatusReturn.Text = "สินค้าชิ้นนี้ยังไม่ได้ทำการขาย";
+                            lblStatusReturn.Text = "";
                             lblStatusReturn.ForeColor = Color.Red;
+                            MessageBox.Show("ไม่พบข้อมูลสินค้าหรือ สินค้าชิ้นนี้ยังไม่ได้ทำการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             lblWarranty.Visible = false;
                             lblStatusReturn.Visible = true;
                             txtBarcodeReturn.Enabled = true;
@@ -969,7 +771,7 @@ namespace PowerPOS
                                     row[2] = customer;
                                     row[3] = _TABLE_RETURN.Rows[a]["Name"].ToString();
                                     row[4] = _TABLE_RETURN.Rows[a]["Amount"].ToString();
-                                    row[5] = Convert.ToInt32(_TABLE_RETURN.Rows[a]["Price"].ToString()).ToString("#,##0");
+                                    row[5] = Convert.ToInt32(_TABLE_RETURN.Rows[a]["sellPrice"].ToString()).ToString("#,##0");
                                     dt.Rows.Add(row);
                                 }
 

@@ -318,6 +318,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UcReportStock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcReportStock.Designer.cs">
+      <DependentUpon>UcReportStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UcReportProduct.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -497,6 +503,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcReport.resx">
       <DependentUpon>UcReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcReportStock.resx">
+      <DependentUpon>UcReportStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcSale.resx">
       <DependentUpon>UcSale.cs</DependentUpon>

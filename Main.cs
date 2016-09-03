@@ -16,7 +16,7 @@ namespace PowerPOS
     public partial class Main : Form
     {
         #region Parameter
-        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, Statistic, Credit};
+        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, ReportStock, Credit};
         XtraUserControl _USER_CONTROL;
         UcSale _UC_SALE;
         UcStock _UC_STOCK;
@@ -27,6 +27,7 @@ namespace PowerPOS
         UcConfig _UC_CONFIG;
         UcClaim _UC_CLAIM;
         UcStatistic _UC_STATISTIC;
+        UcReportStock _UC_REPORT_STOCK;
         UcCredit _UC_CREDIT;
         UcReportProduct _UC_REPORT_PORDUCT;
         #endregion
@@ -328,9 +329,9 @@ namespace PowerPOS
             {
                 AddPanel(Param.Screen.Claim);
             }
-            else if (e.Element.Name == "navStatistic")
+            else if (e.Element.Name == "navReportStock")
             {
-                AddPanel(Param.Screen.Statistic);
+                AddPanel(Param.Screen.ReportStock);
             }
             else if (e.Element.Name == "navCredit")
             {
@@ -412,9 +413,9 @@ namespace PowerPOS
                     if (_UC_CLAIM == null) _UC_CLAIM = new UcClaim();
                     _USER_CONTROL = _UC_CLAIM;
                     break;
-                case Param.Screen.Statistic:
-                    if (_UC_STATISTIC == null) _UC_STATISTIC = new UcStatistic();
-                    _USER_CONTROL = _UC_STATISTIC;
+                case Param.Screen.ReportStock:
+                    if (_UC_REPORT_STOCK == null) _UC_REPORT_STOCK = new UcReportStock();
+                    _USER_CONTROL = _UC_REPORT_STOCK;
                     break;
                 case Param.Screen.Credit:
                     if (_UC_CREDIT == null) _UC_CREDIT = new UcCredit();

@@ -58,6 +58,12 @@ namespace PowerPOS
                 try
                 {
                     dynamic jsonObject = Util.LoadAppConfig();
+
+                    if (Param.DevicePrefix == "")
+                    {
+                        MessageBox.Show("กรุณาตรวจสอบการเชื่อมต่ออินเตอร์เน็ต ด้วยค่ะ");
+                        this.Close();
+                    }
                 }
                 catch
                 {
@@ -211,7 +217,7 @@ namespace PowerPOS
               string.Format("shop={0}", Param.ApiShopId));
 
             dynamic jsonBarcode = JsonConvert.DeserializeObject(barcode);
-            //Console.WriteLine(jsonBarcode.success);
+            Console.WriteLine(jsonBarcode.success);
 
             if (jsonBarcode.success.Value)
             {

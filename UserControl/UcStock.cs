@@ -377,51 +377,28 @@ namespace PowerPOS
             {
                 if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค\nหากกดยืนยันระบบจะปรับปรุงข้อมูลสินค้าคงเหลือ\nตามจำนวนที่นับสินค้าได้\nและจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้?", "ยืนยันการปรับปรุงข้อมูลสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    //    DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(sellNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(sellNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%mCL'), 3)||'0001') sellNo
-                    //    FROM SellHeader
-                    //      WHERE SUBSTR(sellNo, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
-                    //    AND SUBSTR(sellNo, 5, 2) = 'CL'"));
-                    //    var _CLEAR_NO = dt.Rows[0]["sellNo"].ToString();
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(sellNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(sellNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%mCL'), 3)||'0001') sellNo
+                        FROM SellHeader
+                          WHERE SUBSTR(sellNo, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
+                        AND SUBSTR(sellNo, 5, 2) = 'CL'"));
+                    var _CLEAR_NO = dt.Rows[0]["sellNo"].ToString();
 
-                    //    dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL"));
+                    dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL AND sellNo = ''"));
 
-                    //    for (int i = 0; i < dt.Rows.Count; i++)
-                    //    {
-                    //        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', SellDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), 
-                    //    SellNo = '{1}', Sync = 1, SellPrice = {2}, Customer = 'CL0001' WHERE Barcode = '{3}'",
-                    //            Param.UserId, _CLEAR_NO, dt.Rows[i]["cost"].ToString(), dt.Rows[i]["barcode"].ToString()));
-                    //    }
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', SellDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), SellNo = '{1}', Sync = 1, SellPrice = {2}, Customer = 'CL0001' WHERE Barcode = '{3}'",
+                            Param.UserId, _CLEAR_NO, dt.Rows[i]["cost"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                    }
 
-                    //    Util.DBExecute(string.Format(@"INSERT INTO SellTemp  SELECT * FROM (
-                    //    SELECT p.product, p.Name, p.cost,  SUM(p.quantity) - SUM(ic.quantity) total,  
-                    //    (SUM(p.quantity) - SUM(ic.quantity)) * p.cost price,  (SUM(p.quantity) - SUM(ic.quantity)) * p.cost priceCost
-                    //    FROM InventoryCount ic
-                    //        LEFT JOIN product p
-                    //        ON p.product = ic.product
-                    //    GROUP BY p.product, p.Name ) aa
-                    //        WHERE aa.Total <> 0"));
+                    DataTable dtF = Util.DBQuery(string.Format(@"SELECT IFNULL(SUM(SellPrice),0) SellPrice FROM Barcode WHERE SellNo = '{0}'", _CLEAR_NO));
 
-                    //    DataTable dtF = Util.DBQuery(string.Format(@"SELECT SUM(SellPrice) SellPrice FROM (
-                    //    SELECT IFNULL(SUM(SellPrice),0) SellPrice FROM Barcode WHERE SellNo = '{0}'
-                    //    UNION
-                    //    SELECT IFNULL(SUM(TotalPrice),0) SellPrice FROM sellTemp
-                    //    ) aa", _CLEAR_NO));
-
-                    //    Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer,CustomerSex, CustomerAge, SellDate, SellBy, Sync)
-                    //    SELECT '{0}', 0,'{2}', 'CL0001','','0', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{1}', 1", _CLEAR_NO, Param.UserId, dtF.Rows[0]["SellPrice"].ToString()));
+                    Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer,CustomerSex, CustomerAge, SellDate, SellBy, Sync)
+                        SELECT '{0}', 0,'{2}', 'CL0001','','0', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{1}', 1", _CLEAR_NO, Param.UserId, dtF.Rows[0]["SellPrice"].ToString()));
 
 
-                    //    Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
-                    //    SELECT sellNo, Product, SUM(TotalPrice)TotalPrice, SUM(PriceCost) PriceCost, SUM(Amount) Amount,1 FROM(
-                    //       SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode 
-                    //       WHERE inStock = 0 AND receivedDate IS NOT NULl GROUP BY Product
-                    //       UNION ALL SELECT  '{0}', Product, TotalPrice, PriceCost, Amount, 1 FROM SellTemp) GROUP BY sellNo, Product", _CLEAR_NO));
-
-                    //    Util.DBExecute(string.Format(@"UPDATE Product SET quantity = IFNULL((SELECT ic.Quantity FROM InventoryCount ic 
-                    //         LEFT JOIN product p ON p.product = ic.product WHERE Product.product = ic.product),0)"));
-
-                    //    Util.DBExecute(string.Format(@"DELETE FROM InventoryCount"));
-                    //    Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
+                    Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
+                           SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL AND sellNo = '{0}' GROUP BY Product", _CLEAR_NO));
                 }
             }
             catch (Exception ex)

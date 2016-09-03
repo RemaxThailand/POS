@@ -51,6 +51,7 @@ namespace PowerPOS
                 AND SUBSTR(sh.SellDate,1,10) BETWEEN '{1}' AND '{2}' 
                 AND sh.Customer NOT IN ('000001','000002')
                 AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
+                AND h.sellNo NOT LIKE '%CL%'
                 AND {0}", (cbPaid.Checked) ? "sh.payType = 1 AND cc.paidPrice IS NOT NULL" : "sh.payType = 0 AND (cc.paidPrice IS NULL OR cc.paidPrice = 0)",
                 Convert.ToDateTime(dtpStartDate.Value).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpEndDate.Value).ToString("yyyy-MM-dd"),
                 txtSearch.Text.Trim()
@@ -110,6 +111,7 @@ namespace PowerPOS
                 AND SUBSTR(sh.SellDate,1,10) LIKE '%{0}%' 
                 AND sh.Customer NOT IN ('000001','000002')
                 AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
+                AND h.sellNo NOT LIKE '%CL%'
                 AND payType = 1", Convert.ToDateTime(dtpDate.Value).ToString("yyyy-MM-dd"),  txtSearch.Text.Trim()
             ));
 

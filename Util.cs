@@ -861,79 +861,72 @@ namespace PowerPOS
                 catch { }
             }*/
 
-            //Param.ShopId = "00000007";
+            try
+            {
+                var scopeName = "ProvinceScope";
+                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-            var scopeName = "ProvinceScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "DistrictScope";
+                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-            scopeName = "DistrictScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "CustomerScope";
+                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-            scopeName = "BrandScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "SystemScreenPermissionScope";
+                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-            scopeName = "CategoryScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "ProductScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "CustomerScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "EmployeeScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "SystemScreenPermissionScope";
-            CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-            SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+                scopeName = "EmployeeTypeScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "ProductScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                scopeName = "BarcodeScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            //scopeName = "CustomerScope";
-            //CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            //SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                scopeName = "SellHeaderScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "EmployeeScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                scopeName = "SellDetailScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "EmployeeTypeScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                scopeName = "EmployeeScreenMappingScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-            scopeName = "BarcodeScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+                scopeName = "SystemScreenScope";
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+                /*Collection<string> columnsToInclude = new Collection<string>();
+                columnsToInclude.Add("system");
+                columnsToInclude.Add("id");
+                columnsToInclude.Add("name");
+                columnsToInclude.Add("parent");
+                columnsToInclude.Add("orderLevel");
+                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS", columnsToInclude);
+                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");*/
 
-            scopeName = "SellHeaderScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-
-            scopeName = "SellDetailScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-
-            scopeName = "EmployeeScreenMappingScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-
-            scopeName = "SystemScreenScope";
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
-            /*Collection<string> columnsToInclude = new Collection<string>();
-            columnsToInclude.Add("system");
-            columnsToInclude.Add("id");
-            columnsToInclude.Add("name");
-            columnsToInclude.Add("parent");
-            columnsToInclude.Add("orderLevel");
-            CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS", columnsToInclude);
-            SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");*/
-
-            serverConn.Close();
-            Param.SqlCeConnection.Close();
-
+                serverConn.Close();
+                Param.SqlCeConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
             DataTable dt;
             int i = 0;
             //## Barcode ##//
