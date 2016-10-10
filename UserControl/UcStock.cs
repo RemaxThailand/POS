@@ -191,7 +191,7 @@ namespace PowerPOS
             {
                 if (stockGridView.RowCount > 0)
                 {
-                    if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่ ?", "ยืนยันการนับสต็อกสินค้าใหม่", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่\nหากกดยืนยันระบบจะลบข้อมูลจำนวนที่นับสินค้าทั้งหมดออก\nและต้องเริ่มนับสต็อคใหม่ตั้งแต่ต้น\nจะไม่สามารถดึงข้อมูลจำนวนสินค้าที่ถูกลบออกกลับมาได้ ?", "ยืนยันการนับสต็อกสินค้าใหม่", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 ,Sync = 1 WHERE inStock = 1 AND sellNo = '' "));
                         //Util.DBExecute(string.Format(@"DELETE FROM InventoryCount"));

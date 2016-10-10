@@ -67,6 +67,7 @@
             this.clSellNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSellDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSellPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clDueDate = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrintA4 = new DevExpress.XtraEditors.SimpleButton();
@@ -517,7 +518,8 @@
             this.clName,
             this.clSellNo,
             this.clSellDate,
-            this.clSellPrice});
+            this.clSellPrice,
+            this.clDueDate});
             this.creditGridview.GridControl = this.creditGridControl;
             this.creditGridview.Name = "creditGridview";
             this.creditGridview.OptionsView.ShowGroupPanel = false;
@@ -558,7 +560,7 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.OptionsColumn.FixedWidth = true;
             this.clName.Visible = true;
-            this.clName.VisibleIndex = 3;
+            this.clName.VisibleIndex = 4;
             this.clName.Width = 200;
             // 
             // clSellNo
@@ -614,8 +616,27 @@
             this.clSellPrice.OptionsColumn.AllowMove = false;
             this.clSellPrice.OptionsColumn.FixedWidth = true;
             this.clSellPrice.Visible = true;
-            this.clSellPrice.VisibleIndex = 4;
+            this.clSellPrice.VisibleIndex = 5;
             this.clSellPrice.Width = 150;
+            // 
+            // clDueDate
+            // 
+            this.clDueDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clDueDate.AppearanceCell.Options.UseFont = true;
+            this.clDueDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clDueDate.AppearanceHeader.Options.UseFont = true;
+            this.clDueDate.AppearanceHeader.Options.UseTextOptions = true;
+            this.clDueDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clDueDate.Caption = "วันครบกำหนดชำระ";
+            this.clDueDate.FieldName = "dueDate";
+            this.clDueDate.Name = "clDueDate";
+            this.clDueDate.OptionsColumn.AllowEdit = false;
+            this.clDueDate.OptionsColumn.AllowMove = false;
+            this.clDueDate.OptionsColumn.AllowSize = false;
+            this.clDueDate.OptionsColumn.FixedWidth = true;
+            this.clDueDate.Visible = true;
+            this.clDueDate.VisibleIndex = 3;
+            this.clDueDate.Width = 150;
             // 
             // panelControl27
             // 
@@ -1000,8 +1021,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.paidGridControl);
             this.Controls.Add(this.creditGridControl);
+            this.Controls.Add(this.paidGridControl);
             this.Controls.Add(this.panelControl27);
             this.Controls.Add(this.panelControl11);
             this.Controls.Add(this.panelControl13);
@@ -1141,5 +1162,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl24;
         private DevExpress.XtraEditors.PanelControl panelControl25;
         private DevExpress.XtraEditors.PanelControl panelControl26;
+        private DevExpress.XtraGrid.Columns.GridColumn clDueDate;
     }
 }

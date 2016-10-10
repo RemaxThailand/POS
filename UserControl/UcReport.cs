@@ -67,7 +67,7 @@ namespace PowerPOS
                 // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
-                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType
+                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType, CASE WHEN h.discountCash = '' THEN 0 ELSE h.discountCash END discountCash, CASE WHEN h.discountCash = '' THEN h.TotalPrice - 0 ELSE h.TotalPrice - h.discountCash END NetPrice
                FROM SellHeader h
                 LEFT JOIN Customer c
                 ON h.Customer = c.Customer 
@@ -92,6 +92,7 @@ namespace PowerPOS
                 reportGridView.OptionsBehavior.AutoPopulateColumns = false;
                 reportGridControl.MainView = reportGridView;
                 var sumPrice = 0.0;
+                var sumDiscount = 0.0;
                 var sumProfit = 0.0;
                 dt = new DataTable();
                 for (i = 0; i < ((ColumnView)reportGridControl.MainView).Columns.Count; i++)
@@ -103,8 +104,8 @@ namespace PowerPOS
                 for (a = 0; a < _TABLE_REPORT.Rows.Count; a++)
                 {
                     var mobile = (_TABLE_REPORT.Rows[a]["Mobile"].ToString().Length == 10) ? _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(0, 3) + "-" +
-                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(3, 4) + "-" +
-                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(7, 3)
+                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(3, 3) + "-" +
+                        _TABLE_REPORT.Rows[a]["Mobile"].ToString().Substring(6, 4)
                         : _TABLE_REPORT.Rows[a]["Mobile"].ToString();
 
                     //DateTime date = Convert.ToDateTime(_TABLE_REPORT.Rows[a]["SellDate"].ToString());
@@ -117,6 +118,8 @@ namespace PowerPOS
                     row[3] = _TABLE_REPORT.Rows[a]["Firstname"].ToString() + " " + _TABLE_REPORT.Rows[a]["Lastname"].ToString();
                     row[4] = mobile == "" ? "-" : mobile;
                     row[5] = int.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
+                    row[7] = int.Parse(_TABLE_REPORT.Rows[a]["discountCash"].ToString()).ToString("#,##0");
+                    row[8] = int.Parse(_TABLE_REPORT.Rows[a]["NetPrice"].ToString()).ToString("#,##0");
                     if (_TABLE_REPORT.Rows[a]["payType"].ToString() == "1")
                     {
                         row[6] = "ชำระเงินแล้ว";
@@ -127,6 +130,7 @@ namespace PowerPOS
                     }
                     dt.Rows.Add(row);
                     sumPrice += double.Parse(_TABLE_REPORT.Rows[a]["TotalPrice"].ToString());
+                    sumDiscount += double.Parse(_TABLE_REPORT.Rows[a]["discountCash"].ToString());
                     sumProfit += double.Parse(_TABLE_REPORT.Rows[a]["Profit"].ToString());
                 }
 
@@ -143,7 +147,6 @@ namespace PowerPOS
                               AND h.Customer NOT IN ('000001','000002')
                               AND(h.Comment <> 'คืนสินค้า' OR h.Comment IS Null)
                               AND h.sellNo NOT LIKE '%CL%' 
-
                             ORDER BY SellDate DESC
                          ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId));
                 lblProductCount.Text = int.Parse(dtQty.Rows[0]["QTY"].ToString()).ToString("#,##0") + " ชิ้น";
@@ -214,7 +217,7 @@ namespace PowerPOS
                         chart.Add(double.Parse(dt.Rows[i]["TotalPrice"].ToString()));
                         if (chart[i] > max) max = chart[i];
                     }
-                    DrawImage(sumPrice, sumProfit, avg30, max, chart);
+                    DrawImage(sumPrice-sumDiscount, sumProfit, avg30, max, chart);
                 }
                 catch (Exception ex)
                 {

@@ -153,6 +153,7 @@
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(244, 174);
             this.panelControl3.TabIndex = 5;
+            this.panelControl3.Visible = false;
             // 
             // ptbShop
             // 

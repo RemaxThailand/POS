@@ -74,7 +74,7 @@ namespace PowerPOS
         public static int Num = 49;
         public static int Qty = 0;
         public static int d = 0;
-
+        public static int Due = 0;
 
 
         public static bool jsonObject;

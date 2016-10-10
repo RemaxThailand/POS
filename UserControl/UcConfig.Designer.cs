@@ -355,7 +355,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(59, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.28";
+            this.lblVersion.Text = "V 1.0.0.30";
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 

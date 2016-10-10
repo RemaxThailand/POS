@@ -43,7 +43,7 @@ namespace PowerPOS
             DataTable dt;
             DataRow row;
             int i, a;
-            _TABLE_CUSTOMER = Util.SqlCeQuery(string.Format(@"SELECT * FROM Customer
+            _TABLE_CUSTOMER = Util.DBQuery(string.Format(@"SELECT * FROM Customer
                 WHERE Firstname LIKE '%{0}%'
                 OR Lastname LIKE '%{0}%'
                 OR Nickname LIKE '%{0}%'

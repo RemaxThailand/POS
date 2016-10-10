@@ -135,7 +135,6 @@ namespace PowerPOS
                 }
                 else if (!_FIRST_LOAD)
                 {
-
                     int i, a;
                     _TABLE_RECEIVED = Util.DBQuery(string.Format(@"
                     SELECT DISTINCT p.sku,b.Product, p.Name, IFNULL(co.Count, 0) ProductCount, IFNULL(r.ReceivedCount, 0) ReceivedCount, IFNULL(b.cost * co.Count,0) Price, IFNULL(b.cost * r.ReceivedCount,0) PriceReceived,  c.name Category
@@ -484,13 +483,14 @@ namespace PowerPOS
                         }
                         else
                         {
-                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
-                            simpleSound.Play();
-
+                          
                             Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
                             WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
                             _PRODUCT = Param.ProductId;
                             SearchData();
+
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/fastpop.wav");
+                            simpleSound.Play();
 
                             lblStatus.ForeColor = Color.Green;
                             lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";

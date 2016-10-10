@@ -130,27 +130,27 @@ namespace PowerPOS
             }
 
 
-            dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
-                    WHERE NOT EXISTS (SELECT *
-                      FROM ChangePrice cp
-                      WHERE st.product = cp.product
-                      AND cp.SellNo = '{0}')", Param.DeviceID));
-            if (dt.Rows.Count > 0)
-            {
-                int b = 0;
-                for (b = 0; b < dt.Rows.Count; b++)
-                {
-                    Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
-                    Price = (SELECT p.Price{0} FROM Product p
-                    WHERE sellTemp.product = p.product),
-                    TotalPrice =  (SELECT p.Price{0} FROM Product p
-                    WHERE sellTemp.product = p.product) * sellTemp.Amount,
-                    PriceCost = (SELECT p.Cost FROM Product p
-                    WHERE sellTemp.product = p.Product) * sellTemp.Amount
-                    WHERE sellTemp.product = '{2}'",
-                    Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price, dt.Rows[b]["product"].ToString()));
-                }
-            }
+            //dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
+            //        WHERE NOT EXISTS (SELECT *
+            //          FROM ChangePrice cp
+            //          WHERE st.product = cp.product
+            //          AND cp.SellNo = '{0}')", Param.DeviceID));
+            //if (dt.Rows.Count > 0)
+            //{
+            //    int b = 0;
+            //    for (b = 0; b < dt.Rows.Count; b++)
+            //    {
+            //        Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
+            //        Price = (SELECT p.Price{0} FROM Product p
+            //        WHERE sellTemp.product = p.product),
+            //        TotalPrice =  (SELECT p.Price{0} FROM Product p
+            //        WHERE sellTemp.product = p.product) * sellTemp.Amount,
+            //        PriceCost = (SELECT p.Cost FROM Product p
+            //        WHERE sellTemp.product = p.Product) * sellTemp.Amount
+            //        WHERE sellTemp.product = '{2}'",
+            //        Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price, dt.Rows[b]["product"].ToString()));
+            //    }
+            //}
 
             _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount,  b.SellPrice*ProductCount totalPrice, p.sku
                         FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b  LEFT JOIN Product p 
@@ -217,10 +217,10 @@ namespace PowerPOS
             lblListCount.Text = productGridView.RowCount.ToString() + " รายการ";
             lblProductCount.Text = _QTY.ToString() + " ชิ้น";
 
-            //btnCancelSale.Enabled = sumPrice > 0;
-            //btnCancelProduct.Enabled = sumPrice > 0;
-            //btnConfirm.Enabled = sumPrice > 0;
-            
+            btnCancelSale.Enabled = sumPrice > 0;
+            btnCancelProduct.Enabled = sumPrice > 0;
+            btnConfirm.Enabled = sumPrice > 0;
+
         }
 
         private void SelectCustomer(object sender, EventArgs e)
@@ -303,7 +303,7 @@ namespace PowerPOS
                     //}
                     Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '', SellPrice = '0',Sync = 1 WHERE SellBy = '{0}'", Param.DeviceID));
                     Util.DBExecute(string.Format(@"DELETE FROM ChangePrice WHERE SellNo = '{0}'", Param.DeviceID));
-                    Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
+                    //Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
 
                     Param.SelectCustomerId = "000000";
                     Param.SelectCustomerName = "ลูกค้าทั่วไป";
@@ -336,7 +336,7 @@ namespace PowerPOS
         {
             if (productGridView.RowCount > 0)
             {
-                if (MessageBox.Show("คูณต้องการ ยืนยันการขายนี้หรือไม่ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("คุณต้องการ ยืนยันการขายนี้หรือไม่ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(SellNo), 1, 5)||SUBSTR('0000'||(SUBSTR(MAX(SellNo), 6, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}'), 3)||'0001') SellNo
                     FROM SellHeader
@@ -426,7 +426,7 @@ namespace PowerPOS
                     barcode = txtBarcode.Text;
 
 
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, ReceivedDate, ReceivedBy, SellDate, SellBy, Comment 
+                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, IFNULL(p.Price3, 0) Price3,IFNULL(p.Price4, 0) Price4,IFNULL(p.Price5, 0) Price5,IFNULL(p.Price7, 0) Price7, ReceivedDate, ReceivedBy, SellDate, SellBy, Comment 
                     FROM Barcode b 
                         LEFT JOIN Product p 
                         ON b.Product = p.Product 
@@ -444,28 +444,28 @@ namespace PowerPOS
                         //Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
                         //if (dt.Rows.Count == 0)
                         //{
-                            //dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
-                            //if (dt.Rows.Count == 0)
-                            //{
-                            //    //lblStatus.Visible = true;
-                            //    //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                            //    //lblStatus.ForeColor = Color.Red;
-                            //SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
-                            //simpleSound.Play();
+                        //dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        //if (dt.Rows.Count == 0)
+                        //{
+                        //    //lblStatus.Visible = true;
+                        //    //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                        //    //lblStatus.ForeColor = Color.Red;
+                        //SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                        //simpleSound.Play();
 
-                            //MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                            //}
-                            //else
-                            //{
-                            //    Param.status = "Sell";
-                            //    FmSelectProduct frm = new FmSelectProduct();
-                            //    var result = frm.ShowDialog(this);
-                            //    if (result == System.Windows.Forms.DialogResult.OK)
-                            //    {
-                            //        LoadData();
-                            //    }
-                            //}
+                        //}
+                        //else
+                        //{
+                        //    Param.status = "Sell";
+                        //    FmSelectProduct frm = new FmSelectProduct();
+                        //    var result = frm.ShowDialog(this);
+                        //    if (result == System.Windows.Forms.DialogResult.OK)
+                        //    {
+                        //        LoadData();
+                        //    }
+                        //}
                         //}
                         //else
                         //{
@@ -529,7 +529,7 @@ namespace PowerPOS
                         MessageBox.Show("มีสินค้าชิ้นนี้ในรายการขายแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     }
-                    else if (int.Parse(dt.Rows[0]["Price"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price1"].ToString()) == 0)
+                    else if (int.Parse(dt.Rows[0]["Price"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price1"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price2"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price3"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price4"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price5"].ToString()) == 0)
                     {
                         //lblStatus.Visible = true;
                         //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย";
@@ -547,12 +547,11 @@ namespace PowerPOS
                     else
                     {
                         //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.CpuId, txtBarcode.Text));
-                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
-                        simpleSound.Play();
-
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p WHERE Barcode.product = p.product AND p.shop = '{2}'),
                             SellBy = '{0}' WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/fastpop.wav");
+                        simpleSound.Play();
                         txtBarcode.Focus();
                         //lblStatus.Visible = true;
                         //lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
@@ -878,6 +877,174 @@ namespace PowerPOS
         private void productGridControl_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtBarcode_KeyUp(object sender, KeyEventArgs e)
+        {
+            //try
+            //{
+            //    productGridControl.Visible = true;
+            //    returnGridControl.Visible = false;
+            //    lblStatus.Visible = false;
+            //    Param.BarcodeNo = txtBarcode.Text;
+
+            //    if (e.KeyCode == Keys.Return)
+            //    {
+            //        barcode = txtBarcode.Text;
+
+
+            //        DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, ReceivedDate, ReceivedBy, SellDate, SellBy, Comment 
+            //        FROM Barcode b 
+            //            LEFT JOIN Product p 
+            //            ON b.Product = p.Product 
+            //        WHERE b.Barcode = '{0}'", txtBarcode.Text, Param.ShopId));
+            //        //lblStatus.Visible = true;
+
+            //        if (dt.Rows.Count == 0)
+            //        {
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+            //            simpleSound.Play();
+
+            //            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            //            //dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
+            //            //Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
+            //            //if (dt.Rows.Count == 0)
+            //            //{
+            //            //dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+            //            //if (dt.Rows.Count == 0)
+            //            //{
+            //            //    //lblStatus.Visible = true;
+            //            //    //lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+            //            //    //lblStatus.ForeColor = Color.Red;
+            //            //SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+            //            //simpleSound.Play();
+
+            //            //MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            //            //}
+            //            //else
+            //            //{
+            //            //    Param.status = "Sell";
+            //            //    FmSelectProduct frm = new FmSelectProduct();
+            //            //    var result = frm.ShowDialog(this);
+            //            //    if (result == System.Windows.Forms.DialogResult.OK)
+            //            //    {
+            //            //        LoadData();
+            //            //    }
+            //            //}
+            //            //}
+            //            //else
+            //            //{
+            //            //    Param.status = "Sell";
+            //            //    FmProductQty frm = new FmProductQty();
+            //            //    Param.product = dt.Rows[0]["Product"].ToString();
+            //            //    var result = frm.ShowDialog(this);
+            //            //    if (result == System.Windows.Forms.DialogResult.OK)
+            //            //    {
+            //            //        LoadData();
+            //            //    }
+            //            //}
+            //        }
+            //        else if (dt.Rows[0]["ReceivedDate"].ToString() == "")
+            //        {
+            //            //lblStatus.Visible = true;
+            //            //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้รับเข้าระบบ";
+            //            //lblStatus.ForeColor = Color.Red;
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+            //            simpleSound.Play();
+
+            //            var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้รับเข้าระบบ\nคุณต้องการไปที่หน้าจอรับสินค้าเข้าระบบหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            //            if (confirm)
+            //            {
+            //                Param.Main.AddPanel(Param.Screen.ReceiveProduct);
+            //                Param.SelectedScreen = (int)Param.Screen.ReceiveProduct;
+            //            }
+            //        }
+            //        else if (dt.Rows[0]["ReceivedBy"].ToString() == "")
+            //        {
+            //            //lblStatus.Visible = true;
+            //            //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดต้นทุน";
+            //            //lblStatus.ForeColor = Color.Red;
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+            //            simpleSound.Play();
+
+            //            var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้กำหนดต้นทุน\nคุณต้องการไปที่หน้าจอรับสินค้าเข้าระบบหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            //            if (confirm)
+            //            {
+            //                Param.Main.AddPanel(Param.Screen.ReceiveProduct);
+            //                Param.SelectedScreen = (int)Param.Screen.ReceiveProduct;
+            //            }
+            //        }
+            //        else if (dt.Rows[0]["SellDate"].ToString() != "")
+            //        {
+            //            //lblStatus.Visible = true;
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+            //            simpleSound.Play();
+
+            //            MessageBox.Show("สินค้าชิ้นนี้ได้ขายออกจากระบบไปแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //            //lblStatus.ForeColor = Color.Red;
+            //        }
+            //        else if (dt.Rows[0]["SellBy"].ToString() == Param.DeviceID)
+            //        {
+            //            //lblStatus.Visible = true;
+            //            //lblStatus.Text = "มีสินค้าชิ้นนี้ในรายการขายแล้ว";
+            //            //lblStatus.ForeColor = Color.Red;
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+            //            simpleSound.Play();
+
+            //            MessageBox.Show("มีสินค้าชิ้นนี้ในรายการขายแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            //        }
+            //        else if (int.Parse(dt.Rows[0]["Price"].ToString()) == 0 || int.Parse(dt.Rows[0]["Price1"].ToString()) == 0)
+            //        {
+            //            //lblStatus.Visible = true;
+            //            //lblStatus.Text = "สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย";
+            //            //lblStatus.ForeColor = Color.Red;
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ah.wav");
+            //            simpleSound.Play();
+
+            //            var confirm = MessageBox.Show("สินค้าชิ้นนี้ยังไม่ได้กำหนดราคาขาย\nคุณต้องการไปที่หน้าจอข้อมูลสินค้าหรือไม่ ?", "แจ้งเตือน", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            //            if (confirm)
+            //            {
+            //                Param.Main.AddPanel(Param.Screen.Product);
+            //                Param.SelectedScreen = (int)Param.Screen.Product;
+            //            }
+            //        }
+            //        else
+            //        {
+            //            //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.CpuId, txtBarcode.Text));
+            //            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
+            //            simpleSound.Play();
+
+            //            Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p WHERE Barcode.product = p.product AND p.shop = '{2}'),
+            //                SellBy = '{0}' WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+            //            LoadData();
+            //            txtBarcode.Focus();
+            //            //lblStatus.Visible = true;
+            //            //lblStatus.Text = "เพิ่มสินค้าในรายการขายแล้ว";
+            //            //lblStatus.ForeColor = Color.Green;
+            //        }
+            //        lblStatus.Visible = false;
+            //        txtBarcode.Text = "";
+            //    }
+            //    else if (e.KeyCode == Keys.F1)
+            //    {
+            //        btnConfirm_Click(sender, (e));
+            //    }
+            //    else if (e.KeyCode == Keys.F11)
+            //    {
+            //        btnCancelProduct_Click(sender, (e));
+            //    }
+            //    else if (e.KeyCode == Keys.F12)
+            //    {
+            //        btnCancelSale_Click(sender, (e));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //}
         }
 
         private void productGridView_CellValueChanged(object sender, CellValueChangedEventArgs e)

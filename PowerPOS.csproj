@@ -90,6 +90,10 @@
     <Reference Include="DevExpress.XtraScheduler.v15.2.Reporting.Extensions, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="EngineIoClientDotNet, Version=0.9.22.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\EngineIoClientDotNet.0.9.22\lib\net45\EngineIoClientDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\Microsoft.Azure.KeyVault.Core.dll</HintPath>
@@ -129,6 +133,10 @@
       <HintPath>packages\PCSC.3.1.0.2\lib\net35\pcsc-sharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SocketIoClientDotNet, Version=0.9.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SocketIoClientDotNet.0.9.13\lib\net45\SocketIoClientDotNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SQLite">
@@ -139,6 +147,7 @@
       <HintPath>dll\System.Data.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -153,6 +162,10 @@
       <HintPath>packages\ThaiNationalIDCard.0.1.1\lib\net45\ThaiNationalIDCard.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="WebSocket4Net, Version=0.14.1.0, Culture=neutral, PublicKeyToken=eb4e154b696bf72a, processorArchitecture=MSIL">
+      <HintPath>packages\WebSocket4Net.0.14.1\lib\net45\WebSocket4Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="WinSCPnet, Version=1.2.10.6257, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
       <HintPath>packages\WinSCP.5.7.7\lib\WinSCPnet.dll</HintPath>
       <Private>True</Private>
@@ -160,10 +173,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
-    <Compile Include="FmSelectPrinter.cs">
+    <Compile Include="Form\FmDueDate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FmSelectPrinter.Designer.cs">
+    <Compile Include="Form\FmDueDate.Designer.cs">
+      <DependentUpon>FmDueDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FmSelectPrinter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmSelectPrinter.Designer.cs">
       <DependentUpon>FmSelectPrinter.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FmEmployee.cs">
@@ -403,7 +422,10 @@
       <DependentUpon>UcSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="FmSelectPrinter.resx">
+    <EmbeddedResource Include="Form\FmDueDate.resx">
+      <DependentUpon>FmDueDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmSelectPrinter.resx">
       <DependentUpon>FmSelectPrinter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FmEmployee.resx">

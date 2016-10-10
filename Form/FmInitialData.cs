@@ -168,6 +168,269 @@ namespace PowerPOS
 
         private void bwLoadShopConfig_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            progressPanel1.Description = "กำลังโหลดข้อมูลผู้ใช้ระบบ";
+            bwLoadEmployee.RunWorkerAsync();
+        }
+
+        private void bwLoadEmployee_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var i = 0;
+            var d = 0;
+
+            //Employee
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Employee (
+                shop   NVARCHAR(10) NOT NULL,
+                employeeId  NVARCHAR(20) NOT NULL,
+                employeeType  NVARCHAR(20) NOT NULL,
+                firstname NVARCHAR(50) NOT NULL,
+                lastname NVARCHAR(50),
+                nickname NVARCHAR(30),
+                code NVARCHAR(20),
+                username NVARCHAR(30),
+                password NVARCHAR(30),
+                mobile NVARCHAR(30),
+                addDate NVARCHAR(50),
+                addBy NVARCHAR(50),
+                updateDate NVARCHAR(50),
+                updateBy NVARCHAR(50),
+                loginDate NVARCHAR(50),
+                loginCount NVARCHAR(10),
+                status BIT DEFAULT 1,
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, employeeId))");
+
+            string employee = Util.GetApiData("/employee/Info",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonEmployee = JsonConvert.DeserializeObject(employee);
+            //Console.WriteLine(jsonEmployee.success);
+
+            if (jsonEmployee.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeId, firstname, lastname, nickname, code, username, password, addDate, updateDate, status, employeeType, mobile, addBy, updateBy, loginDate, loginCount) ");
+                d = 0;
+                for (i = 0; i < jsonEmployee.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', {8}, {9}, '{10}', '{11}', '{12}', '{13}', '{14}', {15}, '{16}'",
+                        jsonEmployee.result[i].shop, jsonEmployee.result[i].employeeId, jsonEmployee.result[i].firstname, jsonEmployee.result[i].lastname, jsonEmployee.result[i].nickname,
+                        jsonEmployee.result[i].code, jsonEmployee.result[i].username, jsonEmployee.result[i].password,
+                        jsonEmployee.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
+                        jsonEmployee.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployee.result[i].status, jsonEmployee.result[i].employeeType, jsonEmployee.result[i].mobile, jsonEmployee.result[i].addBy, jsonEmployee.result[i].updateBy, jsonEmployee.result[i].loginDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].loginDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployee.result[i].loginCount));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
+                        code, username, password, addDate, updateDate, status, employeeType, mobile, addBy, updateBy, loginDate, loginCount) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonEmployee.errorMessage);
+            }
+
+
+            //EmployeeType
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS EmployeeType (
+                shop   NVARCHAR(10) NOT NULL,
+                id  NVARCHAR(20) NOT NULL,
+                name NVARCHAR(50) NOT NULL,
+                orderLevel NVARCHAR(50),
+                active NVARCHAR(30),
+                addDate NVARCHAR(20),
+                addBy NVARCHAR(30),
+                updateDate NVARCHAR(50),
+                updateBy NVARCHAR(50),
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (shop, id))");
+
+            string employeeType = Util.GetApiData("/employee/TypeInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonEmployeeType = JsonConvert.DeserializeObject(employeeType);
+            //Console.WriteLine(jsonEmployee.success);
+
+            if (jsonEmployeeType.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO EmployeeType (shop, id, name, orderLevel, active, addDate, addBy, updateDate, updateBy) ");
+                d = 0;
+                for (i = 0; i < jsonEmployeeType.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', {7}, '{8}'",
+                        jsonEmployeeType.result[i].shop, jsonEmployeeType.result[i].id, jsonEmployeeType.result[i].name, jsonEmployeeType.result[i].orderLevel, jsonEmployeeType.result[i].active,
+                        jsonEmployeeType.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployeeType.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployeeType.result[i].addBy,
+                        jsonEmployeeType.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployeeType.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployeeType.result[i].updateBy));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO EmployeeType (shop, id, name, orderLevel, active, addDate, addBy, updateDate, updateBy) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonEmployeeType.errorMessage);
+            }
+
+
+            //
+
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS EmployeeScreenMapping (
+                system   NVARCHAR(10) NOT NULL,
+                screen  NVARCHAR(30) NOT NULL,
+                permission NVARCHAR(50) NOT NULL,
+                shop NVARCHAR(50),
+                employeeType NVARCHAR(30),
+                addDate NVARCHAR(20),
+                addBy NVARCHAR(30),
+                updateDate NVARCHAR(30),
+                updateBy NVARCHAR(50),
+                sync BIT DEFAULT 0,
+                PRIMARY KEY (system, screen, permission, shop, employeeType))");
+
+            string employeeScreenMapping = Util.GetApiData("/employee/MappingInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonEmployeeScreenMapping = JsonConvert.DeserializeObject(employeeScreenMapping);
+            //Console.WriteLine(jsonEmployee.success);
+
+            if (jsonEmployeeScreenMapping.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO EmployeeScreenMapping (system, screen, permission, shop, employeeType, addDate, addBy, updateDate, updateBy) ");
+                d = 0;
+                for (i = 0; i < jsonEmployeeScreenMapping.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', {7}, '{8}'",
+                        jsonEmployeeScreenMapping.result[i].system, jsonEmployeeScreenMapping.result[i].screen, jsonEmployeeScreenMapping.result[i].permission, jsonEmployeeScreenMapping.result[i].shop, jsonEmployeeScreenMapping.result[i].employeeType,
+                        jsonEmployeeScreenMapping.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployeeScreenMapping.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployeeScreenMapping.result[i].addBy,
+                        jsonEmployeeScreenMapping.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployeeScreenMapping.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployeeScreenMapping.result[i].updateBy));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO EmployeeScreenMapping (system, screen, permission, shop, employeeType, addDate, addBy, updateDate, updateBy) ");
+                    }
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonEmployeeScreenMapping.errorMessage);
+            }
+
+
+            //SystemScreen
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SystemScreen (
+                system   NVARCHAR(10) NOT NULL,
+                id  NVARCHAR(50) NOT NULL,
+                name NVARCHAR(50) NOT NULL,
+                parent NVARCHAR(50),
+                orderLevel NVARCHAR(30),
+                active NVARCHAR(20),
+                PRIMARY KEY (system, id))");
+
+            string screen = Util.GetApiData("/employee/ScreenInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonScreen = JsonConvert.DeserializeObject(screen);
+            //Console.WriteLine(jsonEmployee.success);
+
+            if (jsonScreen.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO SystemScreen (system, id, name, parent, orderLevel, active) ");
+                d = 0;
+                for (i = 0; i < jsonScreen.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}'",
+                        jsonScreen.result[i].system, jsonScreen.result[i].id, jsonScreen.result[i].name, jsonScreen.result[i].parent, jsonScreen.result[i].orderLevel, jsonScreen.result[i].active));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO SystemScreen (system, id, name, parent, orderLevel, active) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonScreen.errorMessage);
+            }
+
+
+
+            //SystemScreenPermission
+            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS SystemScreenPermission (
+                system   NVARCHAR(10) NOT NULL,
+                screen  NVARCHAR(20) NOT NULL,
+                id NVARCHAR(50) NOT NULL,
+                description NVARCHAR(200),
+                PRIMARY KEY (system, screen, id))");
+
+            string permission = Util.GetApiData("/employee/PermissionInfo",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonPermission = JsonConvert.DeserializeObject(permission);
+            //Console.WriteLine(jsonEmployee.success);
+
+            if (jsonPermission.success.Value)
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO SystemScreenPermission (system, screen, id, description) ");
+                d = 0;
+                for (i = 0; i < jsonPermission.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}'",
+                        jsonPermission.result[i].system, jsonPermission.result[i].screen, jsonPermission.result[i].id, jsonPermission.result[i].description));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO SystemScreenPermission (system, screen, id, description) ");
+                    }
+
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonPermission.errorMessage);
+            }
+        }
+
+        private void bwLoadEmployee_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             progressPanel1.Description = "กำลังโหลดข้อมูลบาร์โค้ดสินค้า";
             bwLoadBarcode.RunWorkerAsync();
         }
@@ -214,7 +477,9 @@ namespace PowerPOS
                 PRIMARY KEY (shop, barcode ))");
 
             string barcode = Util.GetApiData("/product/barcodePos",
-              string.Format("shop={0}", Param.ApiShopId));
+            string.Format("shop={0}", Param.ApiShopId));
+
+            //string barcode = Util.GetApiBigData("/product/barcodePos");
 
             dynamic jsonBarcode = JsonConvert.DeserializeObject(barcode);
             Console.WriteLine(jsonBarcode.success);
@@ -236,7 +501,7 @@ namespace PowerPOS
                         jsonBarcode.result[i].barcode, jsonBarcode.result[i].orderNo, jsonBarcode.result[i].product, jsonBarcode.result[i].cost == null ? 0 : jsonBarcode.result[i].cost, jsonBarcode.result[i].operationCost == null ? 0 : jsonBarcode.result[i].operationCost, jsonBarcode.result[i].sellPrice == null ? 0 : jsonBarcode.result[i].sellPrice,
                         jsonBarcode.result[i].receivedDate.ToString() == "" ? "NULL" : "'" + jsonBarcode.result[i].receivedDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonBarcode.result[i].receivedBy, jsonBarcode.result[i].sellNo == null ? "" : jsonBarcode.result[i].sellNo,
                         jsonBarcode.result[i].sellDate.ToString() == "1/1/2000 12:00:00 AM" ? "NULL" : "'" + jsonBarcode.result[i].sellDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonBarcode.result[i].sellBy == null ? "" : jsonBarcode.result[i].sellBy, jsonBarcode.result[i].customer == "" ? "" : jsonBarcode.result[i].customer,
-                        jsonBarcode.result[i].comment == null ? "" : jsonBarcode.result[i].comment, jsonBarcode.result[i].inStock == false ? 0 : 1 ,Param.ShopId));
+                        jsonBarcode.result[i].comment == null ? "" : jsonBarcode.result[i].comment, jsonBarcode.result[i].inStock == false ? 0 : 1, Param.ShopId));
                     //i++;
                     d++;
 
@@ -376,6 +641,8 @@ namespace PowerPOS
             //}
 
             //CreditCustomer
+            Util.DBExecute(@"DROP TABLE CreditCustomer");
+
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS CreditCustomer (
                 shop   NVARCHAR(10) NOT NULL,
                 creditNo  NVARCHAR(20) NOT NULL,
@@ -383,6 +650,7 @@ namespace PowerPOS
                 paidPrice FLOAT,
                 paidBy NVARCHAR(10),
                 paidDate NVARCHAR(50),
+                dueDate NVARCHAR(50),
                 sync BIT DEFAULT 0,
                 PRIMARY KEY (shop, creditNo, sellNo))");
 
@@ -395,14 +663,14 @@ namespace PowerPOS
             if (jsonCustomer.success.Value)
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate, dueDate) ");
                 d = 0;
                 for (i = 0; i < jsonCustomer.result.Count; i++)
                 {
                     if (d != 0) sb.Append(" UNION ALL ");
-                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}",
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', {5}, {6}",
                         jsonCustomer.result[i].shop, jsonCustomer.result[i].creditNo, jsonCustomer.result[i].sellNo, jsonCustomer.result[i].paidPrice, jsonCustomer.result[i].paidBy,
-                        jsonCustomer.result[i].paidDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].paidDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
+                        jsonCustomer.result[i].paidDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].paidDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonCustomer.result[i].dueDate.ToString() == "1900-01-01 00:00:00" ? "NULL" : "'" + jsonCustomer.result[i].dueDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
                     d++;
 
                     if (d % 500 == 0)
@@ -410,7 +678,7 @@ namespace PowerPOS
                         d = 0;
                         Util.DBExecute(sb.ToString());
                         //Console.WriteLine(sb.ToString());
-                        sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate) ");
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO CreditCustomer (shop, creditNo, sellNo, paidPrice, paidBy, paidDate, dueDate) ");
                     }
 
                 }
@@ -468,59 +736,7 @@ namespace PowerPOS
                 Console.WriteLine(jsonChange.errorMessage);
             }
 
-            //Employee
-            Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Employee (
-                shop   NVARCHAR(10) NOT NULL,
-                employeeId  NVARCHAR(20) NOT NULL,
-                firstname NVARCHAR(50) NOT NULL,
-                lastname NVARCHAR(50),
-                nickname NVARCHAR(30),
-                code NVARCHAR(20),
-                username NVARCHAR(30),
-                password NVARCHAR(30),
-                addDate NVARCHAR(50),
-                updateDate NVARCHAR(50),
-                status BIT DEFAULT 1,
-                sync BIT DEFAULT 0,
-                PRIMARY KEY (shop, employeeId))");
 
-            string employee = Util.GetApiData("/employee/Info",
-            string.Format("shop={0}", Param.ApiShopId));
-
-            dynamic jsonEmployee = JsonConvert.DeserializeObject(employee);
-            //Console.WriteLine(jsonEmployee.success);
-
-            if (jsonEmployee.success.Value)
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname,          code, username, password, addDate, updateDate, status) ");
-                d = 0;
-                for (i = 0; i < jsonEmployee.result.Count; i++)
-                {
-                    if (d != 0) sb.Append(" UNION ALL ");
-                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', {8}, {9}, '{10}'",
-                        jsonEmployee.result[i].shop, jsonEmployee.result[i].employeeId, jsonEmployee.result[i].firstname, jsonEmployee.result[i].lastname, jsonEmployee.result[i].nickname,
-                        jsonEmployee.result[i].code, jsonEmployee.result[i].username, jsonEmployee.result[i].password,
-                        jsonEmployee.result[i].addDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
-                        jsonEmployee.result[i].updateDate.ToString() == "" ? "NULL" : "'" + jsonEmployee.result[i].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonEmployee.result[i].status));
-                    d++;
-
-                    if (d % 500 == 0)
-                    {
-                        d = 0;
-                        Util.DBExecute(sb.ToString());
-                        //Console.WriteLine(sb.ToString());
-                        sb = new StringBuilder(@"INSERT OR REPLACE INTO Employee (shop, employeeid, firstname, lastname, nickname, 
-                        code, username, password, addDate, updateDate, status) ");
-                    }
-
-                }
-                Util.DBExecute(sb.ToString());
-            }
-            else
-            {
-                Console.WriteLine(jsonEmployee.errorMessage);
-            }
 
         }
 
@@ -985,7 +1201,7 @@ namespace PowerPOS
             bwLoadSale.RunWorkerAsync();
         }
 
-        private void bwLoadSale_DoWork(object sender, DoWorkEventArgs e)
+        private  void bwLoadSale_DoWork(object sender, DoWorkEventArgs e)
         {
             var startDate = DateTime.Now;
             int i, d;
@@ -1292,6 +1508,6 @@ namespace PowerPOS
 
         }
 
-       
+
     }
 }

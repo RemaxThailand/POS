@@ -186,6 +186,7 @@
             this.clPermission.Caption = " ";
             this.clPermission.FieldName = "canDo";
             this.clPermission.Name = "clPermission";
+            this.clPermission.UnboundType = DevExpress.Data.UnboundColumnType.Boolean;
             this.clPermission.Visible = true;
             this.clPermission.VisibleIndex = 0;
             this.clPermission.Width = 20;

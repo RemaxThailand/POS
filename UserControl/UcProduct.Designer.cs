@@ -356,6 +356,11 @@
             0,
             0,
             0});
+            this.nudPrice.Properties.MinValue = new decimal(new int[] {
+            99999999,
+            0,
+            0,
+            -2147483648});
             this.nudPrice.Size = new System.Drawing.Size(80, 22);
             this.nudPrice.TabIndex = 6;
             this.nudPrice.ValueChanged += new System.EventHandler(this.nudPrice_ValueChanged);
@@ -863,9 +868,9 @@
             this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl12.Location = new System.Drawing.Point(528, 31);
             this.labelControl12.Name = "labelControl12";
-            this.labelControl12.Size = new System.Drawing.Size(36, 16);
+            this.labelControl12.Size = new System.Drawing.Size(57, 16);
             this.labelControl12.TabIndex = 30;
-            this.labelControl12.Text = "ส่ง 4.5";
+            this.labelControl12.Text = "ส่ง 4.5 (7)";
             // 
             // txtPercent7
             // 

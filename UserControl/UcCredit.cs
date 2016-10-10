@@ -29,6 +29,8 @@ namespace PowerPOS
 
         private void UcCredit_Load(object sender, EventArgs e)
         {
+            btnPaid.Enabled = Util.CanAccessScreenDetail("E01");
+
             LoadData();
         }
 
@@ -41,7 +43,7 @@ namespace PowerPOS
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             sellNo = "";
             _TOTAL = 0;
-            _TABLE_CREDIT = Util.DBQuery(string.Format(@"SELECT c.firstname||' '||c.lastname name, sh.sellNo, strftime('%d-%m-%Y %H:%M:%S', sh.SellDate) sellDate, sh.totalPrice
+            _TABLE_CREDIT = Util.DBQuery(string.Format(@"SELECT c.firstname||' '||c.lastname name, sh.sellNo, strftime('%d-%m-%Y %H:%M:%S', sh.SellDate) sellDate, sh.totalPrice, strftime('%d-%m-%Y %H:%M:%S', cc.dueDate) dueDate
                     FROM CreditCustomer cc
                 LEFT JOIN SellHeader sh
                 ON cc.sellNo = sh.sellNo
@@ -51,7 +53,7 @@ namespace PowerPOS
                 AND SUBSTR(sh.SellDate,1,10) BETWEEN '{1}' AND '{2}' 
                 AND sh.Customer NOT IN ('000001','000002')
                 AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
-                AND h.sellNo NOT LIKE '%CL%'
+                AND sh.sellNo NOT LIKE '%CL%'
                 AND {0}", (cbPaid.Checked) ? "sh.payType = 1 AND cc.paidPrice IS NOT NULL" : "sh.payType = 0 AND (cc.paidPrice IS NULL OR cc.paidPrice = 0)",
                 Convert.ToDateTime(dtpStartDate.Value).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpEndDate.Value).ToString("yyyy-MM-dd"),
                 txtSearch.Text.Trim()
@@ -59,7 +61,7 @@ namespace PowerPOS
 
             creditGridview.OptionsBehavior.AutoPopulateColumns = false;
             creditGridControl.MainView = creditGridview;
-            btnPaid.Enabled = false;
+            //btnPaid.Enabled = false;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
 
             dt = new DataTable();
@@ -75,14 +77,16 @@ namespace PowerPOS
                 row[0] = (a + 1) * 1;
                 row[1] = _TABLE_CREDIT.Rows[a]["name"].ToString();
                 row[2] = _TABLE_CREDIT.Rows[a]["sellNo"].ToString();
-                row[3] = _TABLE_CREDIT.Rows[a]["SellDate"].ToString();
+                row[3] = Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
+                //_TABLE_CREDIT.Rows[a]["SellDate"].ToString();
                 //Convert.ToDateTime(_TABLE_CREDIT.Rows[a]["sellDate"].ToString()).ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss");
                 row[4] = Convert.ToInt32(_TABLE_CREDIT.Rows[a]["totalPrice"]).ToString("#,##0");
+                row[5] = _TABLE_CREDIT.Rows[a]["dueDate"].ToString();
                 _TOTAL += int.Parse(_TABLE_CREDIT.Rows[a]["totalPrice"].ToString());
 
                 dt.Rows.Add(row);
 
-                btnPaid.Enabled = true;
+                //btnPaid.Enabled = true;
             }
 
             creditGridControl.DataSource = dt;

@@ -106,7 +106,14 @@ namespace PowerPOS
                 cbbDistrictS.SelectedItem = row["ShopDistrict"].ToString();
                 txtZipCodeS.Text = row["ShopZipcode"].ToString();
                 cbxSameAddress.Checked = row["ShopSameAddress"].ToString() == "True";
-                cbbSellPrice.SelectedIndex = row["SellPrice"].ToString() == "0" ? 0 : int.Parse(row["SellPrice"].ToString());
+                if (row["SellPrice"].ToString() == "7")
+                {
+                    cbbSellPrice.SelectedIndex = 5;
+                }
+                else
+                {
+                    cbbSellPrice.SelectedIndex = row["SellPrice"].ToString() == "0" ? 0 : int.Parse(row["SellPrice"].ToString());
+                }
                 cbbCredit.SelectedItem = row["Credit"].ToString() + " วัน";
 
                 //เรียกรูปจาก Folder Resources/Images/Customer/ เพื่อแสดงที่ PictureBox

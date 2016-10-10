@@ -20,7 +20,7 @@ namespace PowerPOS
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            var dt = Util.SqlCeQuery(string.Format(@"
+            var dt = Util.DBQuery(string.Format(@"
                 SELECT employeeId, employeeType 
                 FROM Employee
                 WHERE LOWER(username) = '{0}'

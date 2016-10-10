@@ -745,6 +745,7 @@
             this.cbbCredit.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             this.cbbCredit.Size = new System.Drawing.Size(91, 22);
             this.cbbCredit.TabIndex = 52;
+            this.cbbCredit.Visible = false;
             this.cbbCredit.SelectedIndexChanged += new System.EventHandler(this.CheckInputData);
             // 
             // labelControl21
@@ -756,6 +757,7 @@
             this.labelControl21.Size = new System.Drawing.Size(71, 16);
             this.labelControl21.TabIndex = 51;
             this.labelControl21.Text = "เครดิต (วัน) :";
+            this.labelControl21.Visible = false;
             // 
             // btnSmartCard
             // 

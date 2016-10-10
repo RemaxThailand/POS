@@ -154,9 +154,9 @@ namespace PowerPOS
 
         private void InitialEmployeeScreen()
         {
-            var dt = Util.SqlCeQuery(string.Format(@"
+            var dt = Util.DBQuery(string.Format(@"
                 SELECT s.id, s.parent, 
-                    CASE WHEN s.active = 1 THEN 1 ELSE 0 END active,
+                    CASE WHEN s.active = 'True' THEN 1 ELSE 0 END active,
 	                CASE WHEN m.screen IS NULL THEN 0 ELSE 1 END canView
                 FROM SystemScreen s
 	                LEFT JOIN EmployeeScreenMapping m
@@ -339,19 +339,20 @@ namespace PowerPOS
             }
             else if (e.Element.Name == "navRefresh")
             {
-                InitializeComponent();
-                Param.UserId = "0000";
-                Param.UserCode = "1234";
+                //InitializeComponent();
+                //Param.UserId = "0000";
+                //Param.UserCode = "1234";
 
-                Param.EmployeeId = null;
-                Param.EmployeeType = null;
+                //Param.EmployeeId = null;
+                //Param.EmployeeType = null;
 
-                Util.ConnectSQLiteDatabase();
-                Util.GetDiviceId();
-                this.Opacity = 0;
-                this.ShowInTaskbar = false;
+                //Util.ConnectSQLiteDatabase();
+                //Util.GetDiviceId();
+                //this.Opacity = 0;
+                //this.ShowInTaskbar = false;
 
-                Main_Load(sender,(e));
+                //Main_Load(sender,(e));
+                InitialCloudData();
             }
             else if (e.Element.Name == "navReportProduct")
             {

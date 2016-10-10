@@ -39,6 +39,7 @@
             this.clPrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clQty = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dockManager1 = new DevExpress.XtraBars.Docking.DockManager(this.components);
             this.navBarControl1 = new DevExpress.XtraNavBar.NavBarControl();
             this.navBarGroup1 = new DevExpress.XtraNavBar.NavBarGroup();
@@ -125,7 +126,6 @@
             this.clSalePrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.clSku = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dockManager1)).BeginInit();
@@ -335,6 +335,24 @@
             this.clTotal.Visible = true;
             this.clTotal.VisibleIndex = 5;
             this.clTotal.Width = 80;
+            // 
+            // clSku
+            // 
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceCell.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceHeader.Options.UseFont = true;
+            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSku.Caption = "รหัสสินค้า";
+            this.clSku.FieldName = "Sku";
+            this.clSku.Name = "clSku";
+            this.clSku.OptionsColumn.AllowEdit = false;
+            this.clSku.OptionsColumn.AllowMove = false;
+            this.clSku.OptionsColumn.FixedWidth = true;
+            this.clSku.Visible = true;
+            this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 100;
             // 
             // dockManager1
             // 
@@ -694,6 +712,7 @@
             this.txtBarcode.TabIndex = 6;
             this.txtBarcode.Enter += new System.EventHandler(this.txtBarcode_Enter);
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
+            this.txtBarcode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyUp);
             // 
             // panelControl5
             // 
@@ -1399,24 +1418,6 @@
             this.panelControl17.Name = "panelControl17";
             this.panelControl17.Size = new System.Drawing.Size(10, 713);
             this.panelControl17.TabIndex = 18;
-            // 
-            // clSku
-            // 
-            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.clSku.AppearanceCell.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
-            this.clSku.AppearanceHeader.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Options.UseTextOptions = true;
-            this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clSku.Caption = "รหัสสินค้า";
-            this.clSku.FieldName = "Sku";
-            this.clSku.Name = "clSku";
-            this.clSku.OptionsColumn.AllowEdit = false;
-            this.clSku.OptionsColumn.AllowMove = false;
-            this.clSku.OptionsColumn.FixedWidth = true;
-            this.clSku.Visible = true;
-            this.clSku.VisibleIndex = 1;
-            this.clSku.Width = 100;
             // 
             // UcSale
             // 

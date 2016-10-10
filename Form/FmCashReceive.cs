@@ -25,13 +25,21 @@ namespace PowerPOS
         private void FmCashReceive_Load(object sender, EventArgs e)
         {
             txtCash.Focus();
+            rdbBath.Checked = true;
+            if (Param.MemberType != "Event")
+            {
+                txtCoupon.Enabled = false;
+                txtDiscountBath.Enabled = false;
+            }
         }
 
         private void txtCash_KeyUp(object sender, KeyEventArgs e)
         {
             try
             {
-                lblChange.Text = (int.Parse(txtCash.Text) - _TOTAL).ToString("#,##0");
+                //lblChange.Text = (int.Parse(txtCash.Text) - _TOTAL).ToString("#,##0");
+                lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)).ToString("#,##0");
+
             }
             catch
             {
@@ -88,8 +96,17 @@ namespace PowerPOS
                         {
                             if (MessageBox.Show("ข้อมูลการขายนี้ จะถูกบันทึกลงข้อมูลลูกหนี้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
                             {
-                                Util.DBExecute(string.Format(@"INSERT INTO CreditCustomer (shop, creditNo, sellNo, sync)  SELECT '{2}','{0}', '{1}', 1", CreditNo, _SELL_NO, Param.ShopId));
-                                _CASH = true;
+                                FmDueDate frm = new FmDueDate();
+                                var result = frm.ShowDialog(this);
+                                if (result == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    DateTime dtime = DateTime.Now.AddDays(Param.Due);
+
+                                    Util.DBExecute(string.Format(@"INSERT INTO CreditCustomer (shop, creditNo, sellNo, dueDate, sync)  SELECT '{2}','{0}', '{1}', '{3}', 1", CreditNo, _SELL_NO, Param.ShopId, dtime.ToString("yyyy-MM-dd HH:mm:ss")));
+
+                                    _CASH = true;
+                                }
+
                             }
                         }
                     }
@@ -122,18 +139,17 @@ namespace PowerPOS
                             SELECT '{0}', '{6}','{5}', '{1}', '{2}', {3}, STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{4}'",
                                 _SELL_NO, Param.SelectCustomerId, Param.SelectCustomerSex, Param.SelectCustomerAge, Param.UserId, _TOTAL, dtF.Rows[0]["Profit"].ToString()));
 
-
                         Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
                             SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode WHERE SellNo = '{0}' GROUP BY Product,   Product", _SELL_NO));
 
-                        DataTable dtS = Util.DBQuery(string.Format(@"SELECT * FROM SellTemp"));
-                        for (int i = 0; i < dtS.Rows.Count; i++)
-                        {
-                            DataTable dtP = Util.DBQuery(string.Format(@"SELECT * FROM Product WHERE product = '{0}'", dtS.Rows[i]["Product"].ToString()));
-                            int Amount = Convert.ToInt32(dtP.Rows[0]["quantity"].ToString()) - Convert.ToInt32(dtS.Rows[i]["Amount"].ToString());
+                        //DataTable dtS = Util.DBQuery(string.Format(@"SELECT * FROM SellTemp"));
+                        //for (int i = 0; i < dtS.Rows.Count; i++)
+                        //{
+                        //    DataTable dtP = Util.DBQuery(string.Format(@"SELECT * FROM Product WHERE product = '{0}'", dtS.Rows[i]["Product"].ToString()));
+                        //    int Amount = Convert.ToInt32(dtP.Rows[0]["quantity"].ToString()) - Convert.ToInt32(dtS.Rows[i]["Amount"].ToString());
 
-                            Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = '{0}', Sync = 1 WHERE Product = '{1}' AND shop = '{2}'", Amount.ToString(), dtS.Rows[i]["Product"].ToString(), Param.ShopId));
-                        }
+                        //    Util.DBExecute(string.Format(@"UPDATE Product SET Quantity = '{0}', Sync = 1 WHERE Product = '{1}' AND shop = '{2}'", Amount.ToString(), dtS.Rows[i]["Product"].ToString(), Param.ShopId));
+                        //}
 
                         //Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer, CustomerSex, CustomerAge, SellDate, SellBy)
                         //    SELECT '{0}', (SELECT SUM(SellPrice-Cost-OperationCost) FROM Barcode WHERE SellNo = '{0}'),
@@ -144,18 +160,19 @@ namespace PowerPOS
 
 
                         var cash = int.Parse(txtCash.Text);
-                        if ((cash >= double.Parse(lblPrice.Text)) || cash == 0)
+                        //var Discount = int.Parse(txtCash.Text);
+                        if (((cash + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)) >= double.Parse(lblPrice.Text)) || cash == 0)
                         {
                             if (cash != 0)
                             {
-                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = {0}, PayType = 1, Paid = 1, Sync = 1 WHERE SellNo = '{1}'", cash, _SELL_NO));
+                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = {0}, PayType = 1, Paid = 1, discountCash = '{2}',  Sync = 1 WHERE SellNo = '{1}'", cash, _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text));
                             }
                             else
                             {
-                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, Sync = 1 WHERE SellNo = '{0}'", _SELL_NO));
+                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, discountCash = '{1}', Sync = 1 WHERE SellNo = '{0}'", _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text));
                             }
 
-                            Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
+                            //Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
 
                             //Util.PrintReceipt(_SELL_NO);
                             Param.SelectCustomerId = "000000";
@@ -220,6 +237,64 @@ namespace PowerPOS
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtCredit_Enter(object sender, EventArgs e)
+        {
+            Util.SetKeyboardLayout(Util.GetInputLanguageByName("US"));
+        }
+
+        private void txtDiscountBath_Enter(object sender, EventArgs e)
+        {
+            Util.SetKeyboardLayout(Util.GetInputLanguageByName("US"));
+        }
+
+        private void txtDiscountBath_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)).ToString("#,##0");
+            }
+            catch
+            {
+                lblChange.Text = _TOTAL.ToString("#,##0");
+            }
+
+        }
+
+        private void txtDiscountBath_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCoupon_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyCode == Keys.Return))
+            {
+                if (txtCoupon.Text == "Coupon100" || txtCoupon.Text == "coupon100")
+                {
+                    txtDiscountBath.Text = "100";
+                    txtDiscountBath_KeyUp(sender, (e));
+                }
+                else if (txtCoupon.Text == "")
+                {
+                    txtDiscountBath.Text = "";
+                    txtDiscountBath_KeyUp(sender, (e));
+                }
+                else
+                {
+                    MessageBox.Show("ไม่มีโค้ดคูปองนี้");
+                }
+            }
         }
     }
 }

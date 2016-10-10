@@ -26,6 +26,7 @@ using Microsoft.Synchronization.Data.SqlServer;
 using Microsoft.Synchronization.Data;
 using WinSCP;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 
 namespace PowerPOS
 {
@@ -193,21 +194,78 @@ namespace PowerPOS
             }
         }
 
+        public class TimedWebClient : WebClient
+        {
+            // Timeout in milliseconds, default = 600,000 msec
+            public int Timeout { get; set; }
+
+            public TimedWebClient()
+            {
+                this.Timeout = 600000;
+            }
+
+            protected override WebRequest GetWebRequest(Uri address)
+            {
+                var objWebRequest = base.GetWebRequest(address);
+                objWebRequest.Timeout = this.Timeout;
+                return objWebRequest;
+            }
+        }
+
+
         public static string GetApiData(string method, string parameter)
         {
-            using (WebClient wc = new WebClient())
+
+            using (WebClient wc = new TimedWebClient())
             {
-                //try
-                //{
                 wc.Headers[HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded";
                 wc.Encoding = System.Text.Encoding.UTF8;
                 return wc.UploadString(new Uri(Param.ApiUrl + method), parameter + "&apiKey=" + Param.ApiKey);
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("เกิดข้อผิดพลาดที่การเชื่อมต่อ\nกรุณาตรวจสอบการเชื่อมต่ออินเตอร์เน็ตอีกครั้ง", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //}
             }
+        }
+
+        public static string GetApiBigData(string method)
+        {
+
+            //using (var client = new HttpClient())
+            //{
+            //    var values = new Dictionary<string, string>
+            //{
+            //   { "apiKey", Param.ApiKey },
+            //   { "shop", Param.ApiShopId }
+            //};
+
+
+            //    var content = new FormUrlEncodedContent(values);
+
+            //    var response = await client.PostAsync(new Uri(Param.ApiUrl + method), content);
+
+            //    var responseString = await response.Content.ReadAsStringAsync();
+
+            //    return responseString;
+            //}
+
+            var request = (HttpWebRequest)WebRequest.Create(new Uri(Param.ApiUrl + method));
+
+            var postData = "apiKey=" + Param.ApiKey;
+            postData += "&shop=" + Param.ApiShopId;
+            var data = Encoding.UTF8.GetBytes(postData);
+            request.KeepAlive = false;
+            request.ProtocolVersion = HttpVersion.Version10;
+            request.Method = "POST";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+            
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(data, 0, data.Length);
+            }
+
+            var response = (HttpWebResponse)request.GetResponse();
+            
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            
+            return responseString;
 
         }
 
@@ -814,119 +872,120 @@ namespace PowerPOS
 
         public static void SyncData()
         {
-            SyncFile();
+            //SyncFile();
 
-            string connStr = "Data Source=" + Param.SqlCeFile; // + "; password=" + Param.DatabasePassword;
-            Param.SqlCeConnection = new SqlCeConnection(connStr);
+            //string connStr = "Data Source=" + Param.SqlCeFile; // + "; password=" + Param.DatabasePassword;
+            //Param.SqlCeConnection = new SqlCeConnection(connStr);
 
-            SqlConnection serverConn = new SqlConnection(@"Data Source=" + Param.SqlCeConfig["msSqlServer"].ToString() +
-                ";Initial Catalog=" + Param.SqlCeConfig["msSqlDatabase"].ToString() +
-                ";User ID=" + Param.SqlCeConfig["msSqlUsername"].ToString() +
-                ";Password=" + Param.SqlCeConfig["msSqlPassword"].ToString());
+            //SqlConnection serverConn = new SqlConnection(@"Data Source=" + Param.SqlCeConfig["msSqlServer"].ToString() +
+            //    ";Initial Catalog=" + Param.SqlCeConfig["msSqlDatabase"].ToString() +
+            //    ";User ID=" + Param.SqlCeConfig["msSqlUsername"].ToString() +
+            //    ";Password=" + Param.SqlCeConfig["msSqlPassword"].ToString());
 
-            if (serverConn.State == ConnectionState.Closed)
-            {
-                serverConn.Open();
-            }
+            //if (serverConn.State == ConnectionState.Closed)
+            //{
+            //    serverConn.Open();
+            //}
 
-            if (!File.Exists(Param.SqlCeFile))
-            {
-                SqlCeEngine engine = new SqlCeEngine(connStr);
-                engine.CreateDatabase();
-                engine.Dispose();
-            }
-            /*else
-            {
-                try
-                {
-                    //SqlCeCommand selectCmd = Param.SqlCeConnection.CreateCommand();
-                    //selectCmd.CommandText = "SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'";
-                    //SqlCeDataAdapter adp = new SqlCeDataAdapter(selectCmd);
-                    //var dataTable = new DataTable();
-                    //adp.Fill(dataTable);
-                    //adp.Dispose();
+            //if (!File.Exists(Param.SqlCeFile))
+            //{
+            //    SqlCeEngine engine = new SqlCeEngine(connStr);
+            //    engine.CreateDatabase();
+            //    engine.Dispose();
+            //}
+            ///*else
+            //{
+            //    try
+            //    {
+            //        //SqlCeCommand selectCmd = Param.SqlCeConnection.CreateCommand();
+            //        //selectCmd.CommandText = "SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'";
+            //        //SqlCeDataAdapter adp = new SqlCeDataAdapter(selectCmd);
+            //        //var dataTable = new DataTable();
+            //        //adp.Fill(dataTable);
+            //        //adp.Dispose();
 
-                    var dataTable = SqlCeQuery("SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'");
+            //        var dataTable = SqlCeQuery("SELECT COUNT(*) cnt FROM Barcode WHERE shop <> '" + Param.ShopId + "'");
 
-                    if (dataTable.Rows[0]["cnt"].ToString() != "0")
-                    {
-                        Param.SqlCeConnection.Close();
-                        File.Delete(Param.SqlCeFile);
-                        SqlCeEngine engine = new SqlCeEngine(connStr);
-                        engine.CreateDatabase();
-                        engine.Dispose();
-                        Param.SqlCeConnection = new SqlCeConnection(connStr);
-                    }
-                }
-                catch { }
-            }*/
+            //        if (dataTable.Rows[0]["cnt"].ToString() != "0")
+            //        {
+            //            Param.SqlCeConnection.Close();
+            //            File.Delete(Param.SqlCeFile);
+            //            SqlCeEngine engine = new SqlCeEngine(connStr);
+            //            engine.CreateDatabase();
+            //            engine.Dispose();
+            //            Param.SqlCeConnection = new SqlCeConnection(connStr);
+            //        }
+            //    }
+            //    catch { }
+            //}*/
 
-            try
-            {
-                var scopeName = "ProvinceScope";
-                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+            ////try
+            ////{
+            //    var scopeName = "ProvinceScope";
+            //    CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            //    SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-                scopeName = "DistrictScope";
-                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+            //    scopeName = "DistrictScope";
+            //    CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            //    SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-                scopeName = "CustomerScope";
-                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+            //    scopeName = "CustomerScope";
+            //    CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            //    SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-                scopeName = "SystemScreenPermissionScope";
-                CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
-                SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
+            //    scopeName = "SystemScreenPermissionScope";
+            //    CreateDatabaseProvision(serverConn, Param.SqlCeConnection, scopeName);
+            //    SyncDatabase(serverConn, Param.SqlCeConnection, scopeName);
 
-                scopeName = "ProductScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "ProductScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "EmployeeScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "EmployeeScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "EmployeeTypeScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "EmployeeTypeScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "BarcodeScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "BarcodeScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "SellHeaderScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "SellHeaderScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "SellDetailScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "SellDetailScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "EmployeeScreenMappingScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    scopeName = "EmployeeScreenMappingScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "shop", Param.ShopId);
 
-                scopeName = "SystemScreenScope";
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
-                /*Collection<string> columnsToInclude = new Collection<string>();
-                columnsToInclude.Add("system");
-                columnsToInclude.Add("id");
-                columnsToInclude.Add("name");
-                columnsToInclude.Add("parent");
-                columnsToInclude.Add("orderLevel");
-                CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS", columnsToInclude);
-                SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");*/
+            //    scopeName = "SystemScreenScope";
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");
+            //    /*Collection<string> columnsToInclude = new Collection<string>();
+            //    columnsToInclude.Add("system");
+            //    columnsToInclude.Add("id");
+            //    columnsToInclude.Add("name");
+            //    columnsToInclude.Add("parent");
+            //    columnsToInclude.Add("orderLevel");
+            //    CreateDatabaseProvisionFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS", columnsToInclude);
+            //    SyncDatabaseFilter(serverConn, Param.SqlCeConnection, scopeName, "system", "POS");*/
 
-                serverConn.Close();
-                Param.SqlCeConnection.Close();
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
+            //    serverConn.Close();
+            //    Param.SqlCeConnection.Close();
+            ////}
+            ////catch (Exception ex)
+            ////{
+            ////    WriteErrorLog(ex.Message);
+            ////    WriteErrorLog(ex.StackTrace);
+            ////}
+
             DataTable dt;
             int i = 0;
             //## Barcode ##//
@@ -973,10 +1032,152 @@ namespace PowerPOS
                     //{
                     //    Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     //}
+               }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
 
-
+            //## SellHeader ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM SellHeader WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/sale",
+                    string.Format("shop={0}&saleno={1}&profit={2}&totalPrice={3}&payType={4}&cash={5}&credit={6}&customer={7}&sex={8}&age={9}&comment={10}&saledate={11}&saleby={12}&discountcash={13}&discountpercent={14}",
+                                Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["Profit"].ToString(), dt.Rows[i]["totalPrice"].ToString(), dt.Rows[i]["payType"].ToString(),
+                                dt.Rows[i]["cash"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["customer"].ToString(), dt.Rows[i]["customerSex"].ToString(), dt.Rows[i]["customerAge"].ToString(),
+                                dt.Rows[i]["comment"].ToString(), dt.Rows[i]["sellDate"].ToString(), dt.Rows[i]["sellBy"].ToString(), dt.Rows[i]["discountCash"].ToString(), dt.Rows[i]["discountPercent"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE SellHeader SET Sync = 0 WHERE sellNo = '{0}' ", dt.Rows[i]["sellNo"].ToString()));
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
 
+            ////## SellDetail ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM SellDetail WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleDetailAdd",
+                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&quantity={5}&comment={6}",
+                        Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
+                        dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString()
+                        )));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE SellDetail SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+            //## Return ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM ReturnProduct WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/return/returnAdd",
+                    string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}&barcode={8}",
+                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(),
+                                dt.Rows[i]["returnDate"].ToString(), dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()), dt.Rows[i]["barcode"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE ReturnProduct SET Sync = 0 WHERE SellNo = '{0}' AND Barcode = '{1}'", dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+            ////## ChangePrice ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM ChangePrice WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/ChangePriceAdd",
+                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&change={4}&by={5}&date={6}",
+                            Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["price"].ToString(),
+                           dt.Rows[i]["priceChange"].ToString(), dt.Rows[i]["changeBy"].ToString(), dt.Rows[i]["changeDate"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE ChangePrice SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+            ////## CreditCustomer ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM CreditCustomer WHERE Sync = 1");
+                i = 0;
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/credit",
+                    string.Format("shop={0}&creditno={1}&saleno={2}&paidprice={3}&paidby={4}&paiddate={5}&duedate={6}",
+                            Param.ApiShopId, dt.Rows[i]["creditNo"].ToString(), dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["paidPrice"].ToString(), dt.Rows[i]["paidBy"].ToString(), dt.Rows[i]["paidDate"].ToString(), dt.Rows[i]["dueDate"].ToString())
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE CreditCustomer SET Sync = 0 WHERE creditNo = '{0}'", dt.Rows[i]["creditNo"].ToString()));
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -992,10 +1193,10 @@ namespace PowerPOS
                 i = 0;
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
-                    string val = dt.Rows[i]["price"].ToString() + "," + dt.Rows[i]["price1"].ToString() + "," + dt.Rows[i]["price2"].ToString() + "," + dt.Rows[i]["price3"].ToString() + "," + dt.Rows[i]["price4"].ToString() + "," + dt.Rows[i]["price5"].ToString() + "," + dt.Rows[i]["quantity"].ToString() + "," + dt.Rows[i]["cost"].ToString();
+                    string val = dt.Rows[i]["price"].ToString() + "," + dt.Rows[i]["price1"].ToString() + "," + dt.Rows[i]["price2"].ToString() + "," + dt.Rows[i]["price3"].ToString() + "," + dt.Rows[i]["price4"].ToString() + "," + dt.Rows[i]["price5"].ToString() + "," + dt.Rows[i]["price7"].ToString() + "," + dt.Rows[i]["quantity"].ToString() + "," + dt.Rows[i]["cost"].ToString();
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updatePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "price,price1,price2,price3,price4,price5,quantity,cost", val)
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["product"].ToString(), "price,price1,price2,price3,price4,price5,price7,quantity,cost", val)
                     ));
                     if (!json.success.Value)
                     {
@@ -1117,19 +1318,24 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
-            //## SellHeader ##//
+
+            ////## Employee ##//
             try
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM SellHeader WHERE Sync = 1");
+                dt = Util.DBQuery("SELECT * FROM Employee WHERE Sync = 1");
                 i = 0;
+                //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
+                //    TableBatchOperation batchOperation = new TableBatchOperation();
+
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleAdd",
-                    string.Format("shop={0}&saleno={1}&profit={2}&totalPrice={3}&payType={4}&cash={5}&credit={6}&customer={7}&sex={8}&age={9}&comment={10}&saledate={11}&saleby={12}",
-                                Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["Profit"].ToString(), dt.Rows[i]["totalPrice"].ToString(), dt.Rows[i]["payType"].ToString(),
-                                dt.Rows[i]["cash"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["customer"].ToString(), dt.Rows[i]["customerSex"].ToString(), dt.Rows[i]["customerAge"].ToString(),
-                                dt.Rows[i]["comment"].ToString(), dt.Rows[i]["sellDate"].ToString(), dt.Rows[i]["sellBy"].ToString())
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/employee/Add",
+                    string.Format("shop={0}&employeeId={1}&employeeType={2}&firstname={3}&lastname={4}&nickname={5}&mobile={6}&code={7}&username={8}&password={9}&status={10}&logindate={11}&logincount={12}&addby={13}&updateby={14}",
+                                Param.ApiShopId, dt.Rows[i]["employeeid"].ToString(), dt.Rows[i]["employeeType"].ToString(), dt.Rows[i]["firstname"].ToString(), dt.Rows[i]["lastname"].ToString(), dt.Rows[i]["nickname"].ToString(),
+                                dt.Rows[i]["mobile"].ToString(), dt.Rows[i]["code"].ToString(), dt.Rows[i]["username"].ToString(),
+                                dt.Rows[i]["password"].ToString(), dt.Rows[i]["status"].ToString() == "False" ? 0 : 1,
+                                dt.Rows[i]["logindate"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["logindate"].ToString()), dt.Rows[i]["logincount"].ToString(), dt.Rows[i]["addby"].ToString(), dt.Rows[i]["updateby"].ToString())
                     ));
                     if (!json.success.Value)
                     {
@@ -1137,7 +1343,7 @@ namespace PowerPOS
                     }
                     else
                     {
-                        Util.DBExecute(string.Format("UPDATE SellHeader SET Sync = 0 WHERE sellNo = '{0}' ", dt.Rows[i]["sellNo"].ToString()));
+                        Util.DBExecute(string.Format("UPDATE Employee SET Sync = 0 WHERE employeeid = '{0}'", dt.Rows[i]["employeeid"].ToString()));
                     }
                 }
             }
@@ -1147,26 +1353,27 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
-            ////## SellDetail ##//
+            ////## EmployeeType ##//
             try
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM SellDetail WHERE Sync = 1");
+                dt = Util.DBQuery("SELECT * FROM EmployeeType WHERE Sync = 1");
                 i = 0;
+                //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
+                //    TableBatchOperation batchOperation = new TableBatchOperation();
+
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/saleDetailAdd",
-                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&cost={4}&quantity={5}&comment={6}",
-                        Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["sellPrice"].ToString(),
-                        dt.Rows[i]["cost"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["comment"].ToString()
-                        )));
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/employee/AddType",
+                    string.Format("shop={0}&id={1}&name={2}&level={3}&active={4}&adddate={5}&addby={6}&updatedate={7}&updateby={8}",
+                            Param.ApiShopId, dt.Rows[i]["id"].ToString(), dt.Rows[i]["name"].ToString(), dt.Rows[i]["orderLevel"].ToString(), dt.Rows[i]["active"].ToString() == "False" ? 0 : 1, dt.Rows[i]["addDate"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["addDate"].ToString()), dt.Rows[i]["addBy"].ToString(), dt.Rows[i]["updateDate"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["updateDate"].ToString()), dt.Rows[i]["updateBy"].ToString())));
                     if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
                     else
                     {
-                        Util.DBExecute(string.Format("UPDATE SellDetail SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
+                        Util.DBExecute(string.Format("UPDATE EmployeeType SET Sync = 0 WHERE id = '{0}'", dt.Rows[i]["id"].ToString()));
                     }
                 }
             }
@@ -1176,84 +1383,28 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
-            //## Return ##//
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM ReturnProduct WHERE Sync = 1");
-                i = 0;
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/return/returnAdd",
-                    string.Format("shop={0}&returnNo={1}&quantity={2}&sellNo={3}&product={4}&returnDate={5}&returnBy={6}&salePrice={7}&barcode={8}",
-                                Param.ApiShopId, dt.Rows[i]["ReturnNo"].ToString(), dt.Rows[i]["quantity"].ToString(), dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["product"].ToString(),
-                                dt.Rows[i]["returnDate"].ToString(), dt.Rows[i]["returnBy"].ToString(), double.Parse(dt.Rows[i]["SellPrice"].ToString()), dt.Rows[i]["barcode"].ToString())
-                    ));
-                    if (!json.success.Value)
-                    {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    }
-                    else
-                    {
-                        Util.DBExecute(string.Format("UPDATE ReturnProduct SET Sync = 0 WHERE SellNo = '{0}' AND Barcode = '{1}'", dt.Rows[i]["SellNo"].ToString(), dt.Rows[i]["barcode"].ToString()));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
 
-            ////## ChangePrice ##//
+            ////## EmployeeScreenMapping ##//
             try
             {
                 Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM ChangePrice WHERE Sync = 1");
+                dt = Util.DBQuery("SELECT * FROM EmployeeScreenMapping WHERE Sync = 1");
                 i = 0;
-                for (i = 0; i < dt.Rows.Count; i++)
-                {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/sale/ChangePriceAdd",
-                    string.Format("shop={0}&saleno={1}&product={2}&price={3}&change={4}&by={5}&date={6}",
-                            Param.ApiShopId, dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["product"].ToString(), dt.Rows[i]["price"].ToString(),
-                           dt.Rows[i]["priceChange"].ToString(), dt.Rows[i]["changeBy"].ToString(), dt.Rows[i]["changeDate"].ToString())
-                    ));
-                    if (!json.success.Value)
-                    {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    }
-                    else
-                    {
-                        Util.DBExecute(string.Format("UPDATE ChangePrice SET Sync = 0 WHERE sellNo = '{0}'", dt.Rows[i]["sellNo"].ToString()));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
+                //    var azureTable = Param.AzureTableClient.GetTableReference("Customer");
+                //    TableBatchOperation batchOperation = new TableBatchOperation();
 
-            ////## CreditCustomer ##//
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM CreditCustomer WHERE Sync = 1");
-                i = 0;
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/creditAdd",
-                    string.Format("shop={0}&creditno={1}&saleno={2}&paidprice={3}&paidby={4}&paiddate={5}",
-                            Param.ApiShopId, dt.Rows[i]["creditNo"].ToString(), dt.Rows[i]["sellNo"].ToString(), dt.Rows[i]["paidPrice"].ToString(),
-                           dt.Rows[i]["paidBy"].ToString(), dt.Rows[i]["paidDate"].ToString())
-                    ));
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/employee/AddScreen",
+                    string.Format("shop={0}&system={1}&screen={2}&permission={3}&employeetype={4}&adddate={5}&addby={6}",
+                            Param.ApiShopId, dt.Rows[i]["system"].ToString(), dt.Rows[i]["screen"].ToString(), dt.Rows[i]["permission"].ToString(), dt.Rows[i]["employeeType"].ToString(), dt.Rows[i]["addDate"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["addDate"].ToString()),dt.Rows[i]["addBy"].ToString()) ));
                     if (!json.success.Value)
                     {
                         Console.WriteLine(json.errorMessage.Value + json.error.Value);
                     }
                     else
                     {
-                        Util.DBExecute(string.Format("UPDATE CreditCustomer SET Sync = 0 WHERE creditNo = '{0}'", dt.Rows[i]["creditNo"].ToString()));
+                        Util.DBExecute(string.Format("UPDATE EmployeeScreenMapping SET Sync = 0 WHERE system = '{0}', screen = '{1}', permission = '{2}', employeeType = '{3}' ", dt.Rows[i]["system"].ToString(), dt.Rows[i]["screen"].ToString(), dt.Rows[i]["permission"].ToString(), dt.Rows[i]["employeeType"].ToString()));
                     }
                 }
             }
@@ -1390,7 +1541,7 @@ namespace PowerPOS
             {
                 DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM SellDetail WHERE SellNo = '{0}'", sellNo));
 
-                var hight = 250 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
+                var hight = 290 + int.Parse(dt.Rows[0]["cnt"].ToString()) * 13;
                 //PaperSize paperSize = new PaperSize("Custom Size", 280, hight);
                 //PaperSize paperSize = new PaperSize("Custom Size", 380, hight);
                 PaperSize paperSize = new PaperSize("Custom Size", 400, hight);
@@ -1419,7 +1570,7 @@ namespace PowerPOS
             try
             {
 
-                DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy
+                DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy, h.discountCash, h.discountPercent
                     FROM SellHeader h
                         LEFT JOIN Customer c
                         ON h.Customer = c.Customer
@@ -1492,7 +1643,7 @@ namespace PowerPOS
                     string measureString = sellNo;
                     SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
-                    pY += 20;
+                    pY += 12;
 
                     stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
                     measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
@@ -1514,7 +1665,7 @@ namespace PowerPOS
                         g.Graphics.DrawString(int.Parse(dt.Rows[i]["ProductCount"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
                         g.Graphics.DrawString(dt.Rows[i]["Name"].ToString(), stringFont, brush, new PointF(pX + 15, pY));
 
-                        g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 3, 150, 10);
+                        g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 220, pY + 5, 150, 10);
                         g.Graphics.DrawString("@" + (int.Parse(dt.Rows[i]["SellPrice"].ToString()) / int.Parse(dt.Rows[i]["ProductCount"].ToString())).ToString("#,##0"),
                             stringFont, brush, new PointF(pX + 222, pY));
                         measureString = int.Parse(dt.Rows[i]["SellPrice"].ToString()).ToString("#,##0");
@@ -1528,13 +1679,37 @@ namespace PowerPOS
                     pY += 4;
                     stringFont = new Font("Cordia New", 12, FontStyle.Bold);
                     g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+
+                    stringFont = new Font("Cordia New", 11, FontStyle.Bold);
                     measureString = "" + sumPrice.ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 15;
+
+                    //g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+
+                    stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                    //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
+                    g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 188, pY));
+
+                    stringFont = new Font("Cordia New", 11);
+                    measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 17;
+
+                    stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                    g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 188, pY));
+
+                    stringFont = new Font("Cordia New", 12, FontStyle.Bold);
+                    measureString = (sumPrice - int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+
                     pY += 17;
                     stringFont = new Font("Cordia New", 11);
                     g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                    measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                    measureString = "เงินทอน  " + ((int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice) + int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
                     pY += 23;
@@ -1545,7 +1720,7 @@ namespace PowerPOS
                     stringFont = new Font("DilleniaUPC", 10);
                     g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
                         ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
-                        " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                        " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(6) + ")"
                         : "")
                         , stringFont, brush, new PointF(pX, pY));
 
@@ -2144,7 +2319,7 @@ namespace PowerPOS
         public static void LoadScreenPermissionDetail(string screen)
         {
             StringBuilder sb = new StringBuilder("|");
-            var dt = Util.SqlCeQuery(string.Format(@"
+            var dt = Util.DBQuery(string.Format(@"
                 SELECT permission 
                 FROM EmployeeScreenMapping 
                 WHERE system = 'POS' 

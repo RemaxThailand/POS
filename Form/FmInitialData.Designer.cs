@@ -48,6 +48,7 @@
             this.progressPanel1 = new DevExpress.XtraWaitForm.ProgressPanel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.bwLoadShopApplication = new System.ComponentModel.BackgroundWorker();
+            this.bwLoadEmployee = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -174,7 +175,6 @@
             this.progressPanel1.Size = new System.Drawing.Size(506, 136);
             this.progressPanel1.TabIndex = 9;
             this.progressPanel1.Text = "progressPanel1";
-            //this.progressPanel1.TextHorzOffset = 30;
             // 
             // pictureBox1
             // 
@@ -188,6 +188,11 @@
             // bwLoadShopApplication
             // 
             this.bwLoadShopApplication.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadShopApplication_DoWork);
+            // 
+            // bwLoadEmployee
+            // 
+            this.bwLoadEmployee.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwLoadEmployee_DoWork);
+            this.bwLoadEmployee.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwLoadEmployee_RunWorkerCompleted);
             // 
             // FmInitialData
             // 
@@ -230,5 +235,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraWaitForm.ProgressPanel progressPanel1;
         private System.ComponentModel.BackgroundWorker bwLoadShopApplication;
+        private System.ComponentModel.BackgroundWorker bwLoadEmployee;
     }
 }

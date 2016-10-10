@@ -8,6 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
+using System.Threading;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace PowerPOS
 {
@@ -47,7 +50,7 @@ namespace PowerPOS
 
         private void loadData()
         {
-            var dt = Util.SqlCeQuery("SELECT * FROM EmployeeType WHERE shop = '" + Param.ShopId + "' ORDER BY orderLevel*1, addDate");
+            var dt = Util.DBQuery("SELECT * FROM EmployeeType WHERE shop = '" + Param.ShopId + "' ORDER BY orderLevel*1, addDate");
             employeeGroupGridControl.DataSource = dt;
             btnDeleteEmployeeType.Enabled = dt.Rows.Count > 0 && Util.CanAccessScreenDetail("D10");
         }
@@ -55,7 +58,7 @@ namespace PowerPOS
         private void loadEmployeeData()
         {
             DataRow dr = employeeGroupGridview.GetDataRow(employeeGroupGridview.GetSelectedRows()[0]);
-            var dt = Util.SqlCeQuery("SELECT *, 'passtmp' passtmp FROM Employee WHERE shop = '" + Param.ShopId + "' AND employeeType = '"+ dr["id"] + "' ORDER BY addDate");
+            var dt = Util.DBQuery("SELECT *, 'passtmp' passtmp FROM Employee WHERE shop = '" + Param.ShopId + "' AND employeeType = '"+ dr["id"] + "' ORDER BY addDate");
             employeeGridControl.DataSource = dt;
             btnDelete.Enabled = dt.Rows.Count > 0 && Util.CanAccessScreenDetail("D20");
         }
@@ -67,21 +70,24 @@ namespace PowerPOS
 
         private void employeeGroupGridview_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            var dtime = DateTime.Now.ToString("yyyy-MM-dd HH:ss:mm");
+
             if (employeeGroupGridview.GetSelectedRows()[0] >= 0 && e.Value.ToString().Trim() != "")
             {
                 DataRow dr = employeeGroupGridview.GetDataRow(employeeGroupGridview.GetSelectedRows()[0]);
-                Util.SqlCeExecute("UPDATE EmployeeType SET name = '" + e.Value + "', updateDate = GETDATE() WHERE id = '" + dr["id"] + "'");
+                Util.DBExecute("UPDATE EmployeeType SET name = '" + e.Value + "', updateDate = '" + dtime + "', updateBy = '" + Param.UserId + "', Sync = 1 WHERE id = '" + dr["id"] + "'");
             }
             else
             {
-                var dt = Util.SqlCeQuery("SELECT MAX(id*1)+1 maxId FROM EmployeeType WHERE shop = '" + Param.ShopId + "'");
-                Util.SqlCeExecute("INSERT EmployeeType (shop, id, name, orderLevel, active, addDate) VALUES ('" + Param.ShopId + "', " + dt.Rows[0]["maxId"].ToString() + ", '" + e.Value + "', 99, 1, GETDATE())");
+                var dt = Util.DBQuery("SELECT MAX(id*1)+1 maxId FROM EmployeeType WHERE shop = '" + Param.ShopId + "'");
+                Util.DBExecute("INSERT INTO EmployeeType (shop, id, name, orderLevel, active, addDate, addBy, sync) VALUES ('" + Param.ShopId + "', " + dt.Rows[0]["maxId"].ToString() + ", '" + e.Value + "', 99, 1, '" + dtime + "', '" + Param.UserId + "', 1)");
                 loadData();
             }
         }
 
         private void employeeGridView_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
+            var dtime = DateTime.Now.ToString("yyyy-MM-dd HH:ss:mm");
             var data = e.Value;
             var name = e.Column.FieldName;
             bool pass = true;
@@ -96,7 +102,7 @@ namespace PowerPOS
             }
             else if (name == "username")
             {
-                DataTable dt = Util.SqlCeQuery("SELECT COUNT(*) cnt FROM Employee WHERE username = '" + e.Value.ToString() + "'");
+                DataTable dt = Util.DBQuery("SELECT COUNT(*) cnt FROM Employee WHERE username = '" + e.Value.ToString() + "'");
                 pass = dt.Rows[0]["cnt"].ToString() == "0";
                 if (!pass)
                 {
@@ -109,15 +115,15 @@ namespace PowerPOS
                 if (employeeGridView.GetSelectedRows()[0] >= 0)
                 {
                     DataRow dr = employeeGridView.GetDataRow(employeeGridView.GetSelectedRows()[0]);
-                    Util.SqlCeExecute("UPDATE Employee SET " + name + " = '" + data + "', updateDate = GETDATE() WHERE employeeId = '" + dr["employeeId"] + "'");
+                    Util.DBExecute("UPDATE Employee SET " + name + " = '" + data + "', updateDate = '" + dtime +"', updateBy = '" + Param.UserId + "', Sync = 1 WHERE employeeId = '" + dr["employeeId"] + "'");
                 }
                 else
                 {
-                    DataTable dt = Util.SqlCeQuery("SELECT MAX(employeeId*1)+1 maxId FROM Employee WHERE shop = '" + Param.ShopId + "'");
+                    DataTable dt = Util.DBQuery("SELECT MAX(employeeId*1)+1 maxId FROM Employee WHERE shop = '" + Param.ShopId + "'");
                     DataRow dr = employeeGroupGridview.GetDataRow(employeeGroupGridview.GetSelectedRows()[0]);
                     var key = (dt.Rows.Count == 0) ? "1" : dt.Rows[0]["maxId"].ToString();
-                    Util.SqlCeExecute("INSERT Employee (shop, employeeId, employeeType, status, addDate, loginCount, " + name + ") VALUES ('"
-                        + Param.ShopId + "', " + key + ", '" + dr["id"] + "', 1, GETDATE(), 0, '" + data + "')");
+                    Util.DBExecute("INSERT INTO Employee (shop, employeeId, employeeType, status, addDate, addBy , loginCount, " + name + ", Sync) VALUES ('"
+                        + Param.ShopId + "', " + key + ", '" + dr["id"] + "', 1, '" + dtime + "', '" + Param.UserId + "', 0, '" + data + "', 1)");
 
                     loadEmployeeData();
                     employeeGridView.FocusedRowHandle = employeeGridView.RowCount - 1;
@@ -131,8 +137,29 @@ namespace PowerPOS
             if (MessageBox.Show("คุณแน่ใจหรือไม่ ?\nที่จะลบข้อมูล " + dr["name"].ToString() + " ออกจากระบบ", "ยืนยันการทำงาน",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Util.SqlCeExecute("DELETE FROM EmployeeType WHERE id = '" + dr["id"] + "'");
+                Util.DBExecute("DELETE FROM EmployeeType WHERE id = '" + dr["id"] + "'");
+                //employeeGroupGridview.DeleteSelectedRows();
+
+                try
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/employee/DeleteType",
+                    string.Format("shop={0}&id={1}", Param.ApiShopId, dr["id"])));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Util.WriteErrorLog(ex.Message);
+                    Util.WriteErrorLog(ex.StackTrace);
+                }
+
                 employeeGroupGridview.DeleteSelectedRows();
+
             }
         }
 
@@ -142,8 +169,29 @@ namespace PowerPOS
             if (MessageBox.Show("คุณแน่ใจหรือไม่ ?\nที่จะลบข้อมูล " + dr["firstname"].ToString() + " " + dr["lastname"].ToString() + " ออกจากระบบ", "ยืนยันการทำงาน",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Util.SqlCeExecute("DELETE FROM Employee WHERE employeeId = '" + dr["employeeId"] + "'");
+                Util.DBExecute("DELETE FROM Employee WHERE employeeId = '" + dr["employeeId"] + "'");
+                //employeeGridView.DeleteSelectedRows();
+
+                try
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/employee/Delete",
+                    string.Format("shop={0}&employeeId={1}", Param.ApiShopId, dr["employeeId"])));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Util.WriteErrorLog(ex.Message);
+                    Util.WriteErrorLog(ex.StackTrace);
+                }
+
                 employeeGridView.DeleteSelectedRows();
+
             }
         }
 

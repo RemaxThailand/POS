@@ -193,8 +193,8 @@ namespace PowerPOS
                     //     ));
                     Console.WriteLine(DateTime.Now.ToString());
                     _TABLE_PRODUCT = Util.DBQuery(string.Format(@"SELECT DISTINCT p.product, p.Name, c.Name Category, bb.name Brand, p.Image, p.sku,  IFNULL(p.Warranty, 0)  Warranty, IFNULL(cnt.Cost, 0) Cost,  IFNULL(cnt.OperationCost, 0) OperationCost, 
-                                          IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5, IFNULL(p.Price{6}, 0)  Price7,
-                                          IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(p.webPrice{6}, 0)  webPrice7, IFNULL(cnt.ProductCount, 0) Qty
+                                          IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0)  Price1,IFNULL(p.Price2, 0)  Price2, IFNULL(p.Price3, 0) Price3, IFNULL(p.Price4, 0)  Price4, IFNULL(p.Price5, 0)  Price5, IFNULL(p.Price7, 0)  Price7,
+                                          IFNULL(p.webPrice, 0) webPrice, IFNULL(p.webPrice1, 0)  webPrice1,IFNULL(p.webPrice2, 0)  webPrice2, IFNULL(p.webPrice3, 0) webPrice3, IFNULL(p.webPrice4, 0)  webPrice4, IFNULL(p.webPrice5, 0)  webPrice5, IFNULL(p.webPrice7, 0)  webPrice7, IFNULL(cnt.ProductCount, 0) Qty
                                            FROM Barcode b
                                               LEFT JOIN Product p
                                                   ON b.Product = p.Product
@@ -506,7 +506,7 @@ namespace PowerPOS
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Return)
             {
                 DataTable dt;
-                dt = Util.SqlCeQuery(string.Format(@"SELECT Barcode FROM Barcode WHERE Barcode = '" + txtSearch.Text.Trim() + "'"));
+                dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Barcode WHERE Barcode = '" + txtSearch.Text.Trim() + "'"));
                 if (dt.Rows.Count > 0)
                 {
                     barcode = dt.Rows[0]["Barcode"].ToString();
@@ -525,7 +525,7 @@ namespace PowerPOS
         {
             if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะกำหนดราคาสินค้านี้ ?", "ยืนยันข้อมูล", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Util.SqlCeExecute(string.Format(@"UPDATE Product SET Cost = '" + lblCost.Text + "' , Price = '{2}', Price1 = '{3}', Price2 = '{4}',Price3 = '{5}',Price4 = '{6}', price7 = '{7}' WHERE id = '{0}' AND shop = '{1}'", id, Param.ShopId, nudPrice.Value.ToString(), nudPrice1.Value.ToString(), nudPrice2.Value.ToString(), nudPrice3.Value.ToString(), nudPrice4.Value.ToString(), nudPrice7.Value.ToString()));
+                Util.DBExecute(string.Format(@"UPDATE Product SET Cost = '" + lblCost.Text + "' , Price = '{2}', Price1 = '{3}', Price2 = '{4}',Price3 = '{5}',Price4 = '{6}', price7 = '{7}', Sync = 1 WHERE product = '{0}' AND shop = '{1}'", id, Param.ShopId, nudPrice.Value.ToString(), nudPrice1.Value.ToString(), nudPrice2.Value.ToString(), nudPrice3.Value.ToString(), nudPrice4.Value.ToString(), nudPrice7.Value.ToString()));
                 SearchData();
             }
         }
