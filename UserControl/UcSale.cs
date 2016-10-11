@@ -220,6 +220,7 @@ namespace PowerPOS
             btnCancelSale.Enabled = sumPrice > 0;
             btnCancelProduct.Enabled = sumPrice > 0;
             btnConfirm.Enabled = sumPrice > 0;
+            txtBarcode.Focus();
 
         }
 
@@ -314,6 +315,7 @@ namespace PowerPOS
 
                     lblCustomerName.Text = "ลูกค้าทั่วไป";
                     LoadData();
+                    txtBarcode.Focus();
                 }
             }
         }
@@ -365,6 +367,7 @@ namespace PowerPOS
                         Param.SelectCustomerSellPrice = 0;
                         //SelectCustomer(sender, (e));
                         LoadData();
+                        txtBarcode.Focus();
                         //Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, Sync = 1 WHERE SellNo = '{0}'", SellNo));
                     }
 
@@ -410,6 +413,8 @@ namespace PowerPOS
             {
                 SelectCustomer(sender, e);
             }
+
+            txtBarcode.Focus();
         }
 
         private void txtBarcode_KeyDown(object sender, KeyEventArgs e)
@@ -582,6 +587,8 @@ namespace PowerPOS
         private void btnReturn_Click(object sender, EventArgs e)
         {
             DataTable dt;
+            string barcodeR = "";
+            barcodeR = txtBarcodeReturn.Text;
 
             DataTable RId = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(returnNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(returnNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}R'), 3)||'0001') Return
                                             FROM ReturnProduct
@@ -657,11 +664,11 @@ namespace PowerPOS
                     VALUES ('{3}','{0}', '{6}', '{4}', '{1}', '{5}', '{2}',1, 1 ) ",dt.Rows[0]["SellNo"].ToString(), dt.Rows[0]["Barcode"].ToString(), Param.UserId, Return, dt.Rows[0]["product"].ToString(), 
                     dt.Rows[0]["SellPrice"].ToString(), dt.Rows[0]["ReturnDate"].ToString()));
 
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '',SellNo = '',Customer = '',SellPrice = '0',SellDate = null ,
-                    Sync = 1 WHERE Barcode = '{0}'", txtBarcodeReturn.Text));
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '', SellNo = '', Customer = '', SellPrice = '0', SellDate = null ,
+                    Sync = 1 WHERE Barcode = '{0}'", barcodeR));
 
-                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Profit = (SELECT IFNULL(SUM(SellPrice-Cost-OperationCost),0) FROM Barcode WHERE SellNo = '{0}')
-                        , TotalPrice = (SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}') ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
+                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Profit = (SELECT IFNULL(SUM((SellPrice-Cost)-OperationCost),0) FROM Barcode WHERE SellNo = '{0}')
+                        , TotalPrice = (SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}') WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
 
                 Util.DBExecute(string.Format(@"UPDATE SellDetail SET SellPrice =  IFNULL((SELECT IFNULL(SUM(SellPrice),0) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0)  ,
                             Cost = IFNULL((SELECT IFNULL(SUM(Cost),0) FROM Barcode WHERE SellNo = '{0}' AND Product = '{1}'),0), Quantity = IFNULL((SELECT COUNT(*) 
@@ -671,12 +678,14 @@ namespace PowerPOS
 
                 if (dtap.Rows[0]["TotalPrice"].ToString() == "0" || dtap.Rows[0]["TotalPrice"].ToString() == "")
                 {
-                    Util.DBExecute(string.Format(@"UPDATE SellHeader SET Comment = 'คืนสินค้า' ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
+                    Util.DBExecute(string.Format(@"UPDATE SellHeader SET Comment = 'คืนสินค้า'  WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
                     //Util.DBExecute(string.Format(@"UPDATE SellDetail SET Comment = 'คืนสินค้า' ,Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
                 }
 
                 Util.DBExecute(string.Format(@"UPDATE SellDetail SET Comment = 'คืนสินค้า' WHERE SellNo = '{0}' AND Quantity = 0", dt.Rows[0]["SellNo"].ToString()));
 
+
+                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
                 Util.DBExecute(string.Format(@"UPDATE SellDetail SET Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
             }
 
