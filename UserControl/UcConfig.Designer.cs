@@ -76,6 +76,9 @@
             this.bwUpdateConfig = new System.ComponentModel.BackgroundWorker();
             this.bwDownloadLogo = new System.ComponentModel.BackgroundWorker();
             this.gbxControl = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl24 = new DevExpress.XtraEditors.PanelControl();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
             this.btnEmployeeManage = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl21 = new DevExpress.XtraEditors.PanelControl();
@@ -136,6 +139,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gbxControl)).BeginInit();
             this.gbxControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
             this.panelControl22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
@@ -355,7 +360,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(59, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.30";
+            this.lblVersion.Text = "V 1.0.0.31";
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
@@ -669,6 +674,9 @@
             this.gbxControl.AppearanceCaption.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxControl.AppearanceCaption.Options.UseFont = true;
             this.gbxControl.CaptionImage = ((System.Drawing.Image)(resources.GetObject("gbxControl.CaptionImage")));
+            this.gbxControl.Controls.Add(this.panelControl24);
+            this.gbxControl.Controls.Add(this.simpleButton1);
+            this.gbxControl.Controls.Add(this.panelControl23);
             this.gbxControl.Controls.Add(this.panelControl22);
             this.gbxControl.Controls.Add(this.panelControl21);
             this.gbxControl.Controls.Add(this.rcTheme);
@@ -680,6 +688,37 @@
             this.gbxControl.Size = new System.Drawing.Size(315, 686);
             this.gbxControl.TabIndex = 1;
             this.gbxControl.Text = "ตั้งค่าโปรแกรม";
+            // 
+            // panelControl24
+            // 
+            this.panelControl24.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl24.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl24.Location = new System.Drawing.Point(2, 342);
+            this.panelControl24.Name = "panelControl24";
+            this.panelControl24.Size = new System.Drawing.Size(311, 10);
+            this.panelControl24.TabIndex = 33;
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.simpleButton1.Appearance.Options.UseFont = true;
+            this.simpleButton1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.simpleButton1.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.Image")));
+            this.simpleButton1.Location = new System.Drawing.Point(2, 306);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(311, 36);
+            this.simpleButton1.TabIndex = 32;
+            this.simpleButton1.Text = "จัดการข้อมูลคูปองส่วนลด";
+            this.simpleButton1.Visible = false;
+            // 
+            // panelControl23
+            // 
+            this.panelControl23.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl23.Location = new System.Drawing.Point(2, 296);
+            this.panelControl23.Name = "panelControl23";
+            this.panelControl23.Size = new System.Drawing.Size(311, 10);
+            this.panelControl23.TabIndex = 31;
             // 
             // panelControl22
             // 
@@ -693,7 +732,7 @@
             // 
             // btnEmployeeManage
             // 
-            this.btnEmployeeManage.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEmployeeManage.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEmployeeManage.Appearance.Options.UseFont = true;
             this.btnEmployeeManage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnEmployeeManage.Image = ((System.Drawing.Image)(resources.GetObject("btnEmployeeManage.Image")));
@@ -921,6 +960,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gbxControl)).EndInit();
             this.gbxControl.ResumeLayout(false);
             this.gbxControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
             this.panelControl22.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
@@ -1005,5 +1046,8 @@
         private DevExpress.XtraEditors.SimpleButton btnEmployeeManage;
         private DevExpress.XtraEditors.PanelControl panelControl21;
         private System.Windows.Forms.RadioButton rdbSizeA4;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.PanelControl panelControl23;
+        private DevExpress.XtraEditors.PanelControl panelControl24;
     }
 }

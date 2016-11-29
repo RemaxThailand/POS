@@ -14,6 +14,7 @@ using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
 using System.Media;
+using System.Globalization;
 
 namespace PowerPOS
 {
@@ -193,7 +194,32 @@ namespace PowerPOS
                 {
                     if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่\nหากกดยืนยันระบบจะลบข้อมูลจำนวนที่นับสินค้าทั้งหมดออก\nและต้องเริ่มนับสต็อคใหม่ตั้งแต่ต้น\nจะไม่สามารถดึงข้อมูลจำนวนสินค้าที่ถูกลบออกกลับมาได้ ?", "ยืนยันการนับสต็อกสินค้าใหม่", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 ,Sync = 1 WHERE inStock = 1 AND sellNo = '' "));
+                        Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 WHERE inStock = 1 AND sellNo = '' "));
+
+                        //## CHECK BARCODE ##//
+                        try
+                        {
+                                dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/productCheck",
+                                string.Format("shop={0}&value={1}", Param.ApiShopId, "CHECK")));
+                                if (!json.success.Value)
+                                {
+                                    Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                                }
+                                else
+                                {
+                                   
+                                }
+                        }
+                        catch (Exception ex)
+                        {
+                            Util.WriteErrorLog(ex.Message);
+                            Util.WriteErrorLog(ex.StackTrace);
+                        }
+
+                        //Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 ,Sync = 1 WHERE inStock = 1 AND sellNo = '' "));
+
+
+
                         //Util.DBExecute(string.Format(@"DELETE FROM InventoryCount"));
 
                         //string inventory = Util.GetApiData("/product/deleteCount",
@@ -319,7 +345,7 @@ namespace PowerPOS
                             SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/hiscale.wav");
                             simpleSound.Play(); 
 
-                            Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 1, Sync = 1 WHERE Barcode = '{0}'", txtBarcode.Text));
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 1, syncCheck = 1 WHERE Barcode = '{0}'", txtBarcode.Text));
                             SearchData();
 
                             lblStatus.ForeColor = Color.Green;

@@ -484,7 +484,7 @@ namespace PowerPOS
                         else
                         {
                           
-                            Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', Sync = 1
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', syncReceived = 1
                             WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
                             _PRODUCT = Param.ProductId;
                             SearchData();

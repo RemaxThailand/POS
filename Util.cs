@@ -27,11 +27,22 @@ using Microsoft.Synchronization.Data;
 using WinSCP;
 using System.Collections.ObjectModel;
 using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text;
+using Zen.Barcode;
+using System.Threading;
+using System.Globalization;
+using System.Drawing.Printing;
+using Newtonsoft.Json;
+using System.Windows.Forms;
 
 namespace PowerPOS
 {
     public class Util
     {
+        public static dynamic jsonAddressInfo;
+        public static dynamic jsonWarrantyInfo;
+
         public static string ApiProcess(string method, string parameter)
         {
             using (WebClient wc = new WebClient())
@@ -988,6 +999,42 @@ namespace PowerPOS
 
             DataTable dt;
             int i = 0;
+            //## Barcode Received ##//
+
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM Barcode WHERE syncReceived = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
+                    string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
+                    string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
+
+                    string value = sellPrice + "," + sellNo + "," + sellBy + "," + values;
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellPrice,sellNo,sellBy,receivedDate,operationCost,cost,receivedBy", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Barcode SET syncReceived = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
             //## Barcode ##//
             try
             {
@@ -997,23 +1044,15 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     string sellDate = dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()).ToString();
-                    string inStock = dt.Rows[i]["inStock"].ToString() == "False" ? "0" : "1";
                     string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
                     string customer = dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString();
                     string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
                     string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
-                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
 
-                    string value = sellDate + "," + inStock + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy + "," + values;
-                    //dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() == "false" ? "0" : "1" + "," + 
-                    //dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString() + "," + 
-                    //dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString() + "," + 
-                    //dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString() + "," + dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
-
-
+                    string value = sellDate + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy;
 
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy,receivedDate,inStock,operationCost,cost,receivedBy", value)
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,sellPrice,customer,sellNo,sellBy", value)
                     ));
                     if (!json.success.Value)
                     {
@@ -1023,15 +1062,6 @@ namespace PowerPOS
                     {
                         Util.DBExecute(string.Format("UPDATE Barcode SET Sync = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
                     }
-
-
-                    //json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                    //string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
-                    //));
-                    //if (!json.success.Value)
-                    //{
-                    //    Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    //}
                }
             }
             catch (Exception ex)
@@ -1039,6 +1069,131 @@ namespace PowerPOS
                 WriteErrorLog(ex.Message);
                 WriteErrorLog(ex.StackTrace);
             }
+
+            //## Barcode Return ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM Barcode WHERE syncReturn = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string sellDate = dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()).ToString();
+                    string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
+                    string customer = dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString();
+                    string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
+                    string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+
+                    string value = sellDate + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy;
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,sellPrice,customer,sellNo,sellBy", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Barcode SET syncReturn = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+
+            //## Barcode Check ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM Barcode WHERE syncCheck = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string inStock = dt.Rows[i]["inStock"].ToString() == "False" ? "0" : "1";
+                    
+                    string value = inStock;
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "inStock", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Barcode SET syncCheck = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+
+            ////## Barcode ##//
+            //try
+            //{
+            //    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            //    dt = Util.DBQuery("SELECT * FROM Barcode WHERE Sync = 1");
+
+            //    for (i = 0; i < dt.Rows.Count; i++)
+            //    {
+            //        string sellDate = dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()).ToString();
+            //        string inStock = dt.Rows[i]["inStock"].ToString() == "False" ? "0" : "1";
+            //        string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
+            //        string customer = dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString();
+            //        string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
+            //        string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+            //        string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
+
+            //        string value = sellDate + "," + inStock + "," + sellPrice + "," + customer + "," + sellNo + "," + sellBy + "," + values;
+            //        //dt.Rows[i]["sellDate"].ToString() == "" ? "2000-01-01 00:00:00.000" : Convert.ToDateTime(dt.Rows[i]["sellDate"].ToString()) + "," + dt.Rows[i]["inStock"].ToString() == "false" ? "0" : "1" + "," + 
+            //        //dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString() + "," + 
+            //        //dt.Rows[i]["customer"].ToString() == "" ? "" : dt.Rows[i]["customer"].ToString() + "," + 
+            //        //dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString() + "," + dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+
+
+
+            //        dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+            //        string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellDate,inStock,sellPrice,customer,sellNo,sellBy,receivedDate,inStock,operationCost,cost,receivedBy", value)
+            //        ));
+            //        if (!json.success.Value)
+            //        {
+            //            Console.WriteLine(json.errorMessage.Value + json.error.Value);
+            //        }
+            //        else
+            //        {
+            //            Util.DBExecute(string.Format("UPDATE Barcode SET Sync = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+            //        }
+
+
+            //        //json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+            //        //string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "receivedDate,inStock,operationCost,cost,receivedBy", values)
+            //        //));
+            //        //if (!json.success.Value)
+            //        //{
+            //        //    Console.WriteLine(json.errorMessage.Value + json.error.Value);
+            //        //}
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    WriteErrorLog(ex.Message);
+            //    WriteErrorLog(ex.StackTrace);
+            //}
+
+
+
 
             //## SellHeader ##//
             try
@@ -2339,6 +2494,676 @@ namespace PowerPOS
         {
             return Param.ScreenPermissionDetail.IndexOf("|" + permission + "|") != -1;
         }
+
+        public static void PrintReturn(PrintPageEventArgs g, string claimNo)
+        {
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                var pX = 60;
+                var pY = 60;
+
+                Image image = Image.FromFile("logo.png");
+                Rectangle destRect = new Rectangle(pX, pY, 134, 32);
+                g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush = new SolidBrush(Color.Black);
+                Font stringFont = new Font("DilleniaUPC", 14);
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont, brush, new PointF(pX - 2, pY + 30));
+                stringFont = new Font("DilleniaUPC", 12);
+                /*g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont, brush, new PointF(pX - 2, pY + 50));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont, brush, new PointF(pX - 2, pY + 65));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont, brush, new PointF(pX - 2, pY + 80));*/
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont, brush, new PointF(pX - 2, pY + 50));
+
+                stringFont = new Font("DilleniaUPC", 26, FontStyle.Bold);
+                g.Graphics.DrawString("ใบส่งคืนสินค้า", stringFont, brush, new PointF(pX + 550, pY));
+
+                stringFont = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("(สำหรับลูกค้า)", stringFont, brush, new PointF(pX + 600, pY + 30));
+
+                Code128BarcodeDraw bdw = BarcodeDrawFactory.Code128WithChecksum;
+                Image img = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img, new Point(pX + 568, pY + 50));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("เลขที่:", stringFont, brush, new PointF(pX + 560, pY + 75));
+                g.Graphics.DrawString("วันที่:", stringFont, brush, new PointF(pX + 560, pY + 95));
+
+                stringFont = new Font("Calibri", 10, FontStyle.Bold);
+                g.Graphics.DrawString(claimNo, stringFont, brush, new PointF(pX + 600, pY + 78));
+
+                DateTime now = DateTime.Now;
+                g.Graphics.DrawString(now.ToString("dd/MM/yyyy (HH:mm)"), stringFont, brush, new PointF(pX + 600, pY + 98));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 120, 710, 90);
+
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อลูกค้า", stringFont, brush, new PointF(pX + 10, pY + 130));
+                g.Graphics.DrawString("ที่อยู่", stringFont, brush, new PointF(pX + 10, pY + 150));
+                g.Graphics.DrawString("เบอร์โทร", stringFont, brush, new PointF(pX + 10, pY + 170));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].firstname.ToString() + ' ' + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont, brush, new PointF(pX + 60, pY + 130));
+                bool isBkk = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString() + ' ' + jsonAddressInfo.result[0][0].address2.ToString() + ' ' + (isBkk ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + ' ' + jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont, brush, new PointF(pX + 60, pY + 150));
+
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont, brush, new PointF(pX + 60, pY + 170));
+                }
+                else
+                {
+                    g.Graphics.DrawString("-", stringFont, brush, new PointF(pX + 60, pY + 170));
+                }
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 220, 710, 200);
+
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("วันที่เคลม", stringFont, brush, new PointF(pX + 60, pY + 230));
+                g.Graphics.DrawString("สินค้าที่เคลม", stringFont, brush, new PointF(pX + 60, pY + 250));
+                g.Graphics.DrawString("Serial Number ที่เคลม", stringFont, brush, new PointF(pX + 60, pY + 270));
+                g.Graphics.DrawString("ประกัน", stringFont, brush, new PointF(pX + 60, pY + 290));
+                g.Graphics.DrawString("วันที่ส่งคืน", stringFont, brush, new PointF(pX + 60, pY + 310));
+                g.Graphics.DrawString("สินค้าที่ส่งคืน", stringFont, brush, new PointF(pX + 60, pY + 330));
+                g.Graphics.DrawString("Serial Number ที่ส่งคืน", stringFont, brush, new PointF(pX + 60, pY + 350));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                DateTime claimDate = DateTime.Now;
+                claimDate = jsonAddressInfo.result[0][0].claimDate;
+                g.Graphics.DrawString(claimDate.ToString("dd/MM/yyyy"), stringFont, brush, new PointF(pX + 120, pY + 230));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].productName.ToString(), stringFont, brush, new PointF(pX + 140, pY + 250));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcode.ToString(), stringFont, brush, new PointF(pX + 200, pY + 270));
+                DateTime expireDate = DateTime.Now;
+                expireDate = jsonAddressInfo.result[0][0].expireDate;
+                g.Graphics.DrawString("สิ้นสุด ณ " + expireDate.ToString("dd/MM/yyyy"), stringFont, brush, new PointF(pX + 120, pY + 290));
+                DateTime returnDate = DateTime.Now;
+                g.Graphics.DrawString(returnDate.ToString("dd/MM/yyyy"), stringFont, brush, new PointF(pX + 120, pY + 310));
+                g.Graphics.DrawString(jsonWarrantyInfo.result.productName.ToString(), stringFont, brush, new PointF(pX + 140, pY + 330));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcodeClaim.ToString(), stringFont, brush, new PointF(pX + 200, pY + 350));
+
+                Point point1 = new Point(pX + 100, pY + 460);
+                Point point2 = new Point(pX + 200, pY + 460);
+                Point point3 = new Point(pX + 300, pY + 460);
+                Point point4 = new Point(pX + 400, pY + 460);
+                Point point5 = new Point(pX + 500, pY + 460);
+                Point point6 = new Point(pX + 600, pY + 460);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point1, point2);
+                //g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point3, point4);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point5, point6);
+                stringFont = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("ผู้รับคืน", stringFont, brush, new PointF(pX + 130, pY + 465));
+                //g.Graphics.DrawString("ผู้รับเคลม", stringFont, brush, new PointF(pX + 330, pY + 465));
+                g.Graphics.DrawString("ผู้ส่งคืน", stringFont, brush, new PointF(pX + 530, pY + 465));
+
+                /////////////////////////////////////////////////////////////////////////////////////////
+                float[] dashValues = { 5, 2, 15, 4 };
+                Point pointX = new Point(pX, pY + 500);
+                Point pointY = new Point(pX + 710, pY + 500);
+                Pen linePen = new Pen(Color.Gray);
+                linePen.DashPattern = dashValues;
+                g.Graphics.DrawLine(linePen, pointX, pointY);
+
+                Image image2 = Image.FromFile("logo.png");
+                Rectangle destRect2 = new Rectangle(pX, pY + 540, 134, 32);
+                g.Graphics.DrawImage(image2, destRect2, 0, 0, image2.Width, image2.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush2 = new SolidBrush(Color.Black);
+                Font stringFont2 = new Font("DilleniaUPC", 14);
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont2, brush2, new PointF(pX - 2, pY + 30 + 540));
+                stringFont2 = new Font("DilleniaUPC", 12);
+                /*g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont2, brush2, new PointF(pX - 2, pY + 65 + 540));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont2, brush2, new PointF(pX - 2, pY + 80 + 540));*/
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 26, FontStyle.Bold);
+                g.Graphics.DrawString("ใบส่งคืนสินค้า", stringFont2, brush2, new PointF(pX + 550, pY + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("(สำหรับเจ้าหน้าที่)", stringFont2, brush2, new PointF(pX + 595, pY + 32 + 540));
+
+                Code128BarcodeDraw bdw2 = BarcodeDrawFactory.Code128WithChecksum;
+                Image img2 = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img2, new Point(pX + 568, pY + 50 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("เลขที่:", stringFont2, brush2, new PointF(pX + 560, pY + 75 + 540));
+                g.Graphics.DrawString("วันที่:", stringFont2, brush2, new PointF(pX + 560, pY + 95 + 540));
+
+                stringFont2 = new Font("Calibri", 10, FontStyle.Bold);
+                g.Graphics.DrawString(claimNo, stringFont2, brush2, new PointF(pX + 600, pY + 78 + 540));
+
+                DateTime now2 = DateTime.Now;
+                g.Graphics.DrawString(now2.ToString("dd/MM/yyyy (HH:mm)"), stringFont2, brush2, new PointF(pX + 600, pY + 98 + 540));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 120 + 540, 710, 90);
+
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อลูกค้า", stringFont2, brush2, new PointF(pX + 10, pY + 130 + 540));
+                g.Graphics.DrawString("ที่อยู่", stringFont2, brush2, new PointF(pX + 10, pY + 150 + 540));
+                g.Graphics.DrawString("เบอร์โทร", stringFont2, brush2, new PointF(pX + 10, pY + 170 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].firstname.ToString() + ' ' + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont2, brush2, new PointF(pX + 60, pY + 130 + 540));
+                bool isBkk2 = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString() + ' ' + jsonAddressInfo.result[0][0].address2.ToString() + ' ' + (isBkk ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + ' ' + jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont2, brush2, new PointF(pX + 60, pY + 150 + 540));
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont2, brush2, new PointF(pX + 60, pY + 170 + 540));
+                }
+                else
+                {
+                    g.Graphics.DrawString("-", stringFont2, brush2, new PointF(pX + 60, pY + 170 + 540));
+                }
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 220 + 540, 710, 200);
+
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("วันที่เคลม", stringFont2, brush2, new PointF(pX + 60, pY + 230 + 540));
+                g.Graphics.DrawString("สินค้าที่เคลม", stringFont2, brush2, new PointF(pX + 60, pY + 250 + 540));
+                g.Graphics.DrawString("Serial Number ที่เคลม", stringFont2, brush2, new PointF(pX + 60, pY + 270 + 540));
+                g.Graphics.DrawString("ประกัน", stringFont2, brush2, new PointF(pX + 60, pY + 290 + 540));
+                g.Graphics.DrawString("วันที่ส่งคืน", stringFont2, brush2, new PointF(pX + 60, pY + 310 + 540));
+                g.Graphics.DrawString("สินค้าที่ส่งคืน", stringFont2, brush2, new PointF(pX + 60, pY + 330 + 540));
+                g.Graphics.DrawString("Serial Number ที่ส่งคืน", stringFont2, brush2, new PointF(pX + 60, pY + 350 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                DateTime claimDate2 = DateTime.Now;
+                claimDate2 = jsonAddressInfo.result[0][0].claimDate;
+                g.Graphics.DrawString(claimDate.ToString("dd/MM/yyyy"), stringFont2, brush2, new PointF(pX + 120, pY + 230 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].productName.ToString(), stringFont2, brush2, new PointF(pX + 140, pY + 250 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcode.ToString(), stringFont2, brush2, new PointF(pX + 200, pY + 270 + 540));
+                DateTime expireDate2 = DateTime.Now;
+                expireDate = jsonAddressInfo.result[0][0].expireDate;
+                g.Graphics.DrawString("สิ้นสุด ณ " + expireDate.ToString("dd/MM/yyyy"), stringFont2, brush2, new PointF(pX + 120, pY + 290 + 540));
+                DateTime returnDate2 = DateTime.Now;
+                g.Graphics.DrawString(returnDate2.ToString("dd/MM/yyyy"), stringFont2, brush2, new PointF(pX + 120, pY + 310 + 540));
+                g.Graphics.DrawString(jsonWarrantyInfo.result.productName.ToString(), stringFont2, brush2, new PointF(pX + 140, pY + 330 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcodeClaim.ToString(), stringFont2, brush2, new PointF(pX + 200, pY + 350 + 540));
+
+                Point point12 = new Point(pX + 100, pY + 460 + 540);
+                Point point22 = new Point(pX + 200, pY + 460 + 540);
+                Point point32 = new Point(pX + 300, pY + 460 + 540);
+                Point point42 = new Point(pX + 400, pY + 460 + 540);
+                Point point52 = new Point(pX + 500, pY + 460 + 540);
+                Point point62 = new Point(pX + 600, pY + 460 + 540);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point12, point22);
+                //g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point32, point42);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point52, point62);
+                stringFont2 = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("ผู้รับคืน", stringFont2, brush2, new PointF(pX + 130, pY + 465 + 540));
+                //g.Graphics.DrawString("ผู้รับเคลม", stringFont2, brush2, new PointF(pX + 330, pY + 465 + 540));
+                g.Graphics.DrawString("ผู้ส่งคืน", stringFont2, brush2, new PointF(pX + 530, pY + 465 + 540));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error is : " + ex);
+            }
+        }
+
+        public static bool GetAddress(string claimNo, bool returnClaim)
+        {
+            bool success = false;
+            jsonAddressInfo = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/info", "shop=" + "" + "&id=" + claimNo + "&barcode=" + "" + "&claimdate_from=" + "" + "&claimdate_to=" + "" + "&status=" + "" + "&firstname=" + "" + "&lineid=" + "" + "&tel=" + ""));
+            if (jsonAddressInfo.success.Value)
+            {
+                if (returnClaim)
+                {
+                    jsonWarrantyInfo = JsonConvert.DeserializeObject(Util.ApiProcess("/warranty/info", "barcode=" + jsonAddressInfo.result[0][0].barcodeClaim.ToString()));
+                    if (jsonWarrantyInfo.success.Value)
+                    {
+                        success = true;
+                    }
+                }
+                else
+                {
+                    success = true;
+                }
+
+            }
+
+            return success;
+        }
+
+        public static void PrintClaim(PrintPageEventArgs g, string claimNo)
+        {
+            try
+            {
+
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                var pX = 60;
+                var pY = 60;
+
+                Image image = Image.FromFile("logo.png");
+                Rectangle destRect = new Rectangle(pX, pY, 134, 32);
+                g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush = new SolidBrush(Color.Black);
+                Font stringFont = new Font("DilleniaUPC", 14);
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont, brush, new PointF(pX - 2, pY + 30));
+                stringFont = new Font("DilleniaUPC", 12);
+                /*g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont, brush, new PointF(pX - 2, pY + 50));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont, brush, new PointF(pX - 2, pY + 65));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont, brush, new PointF(pX - 2, pY + 80));*/
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont, brush, new PointF(pX - 2, pY + 50));
+
+                stringFont = new Font("DilleniaUPC", 26, FontStyle.Bold);
+                g.Graphics.DrawString("ใบรับเคลมสินค้า", stringFont, brush, new PointF(pX + 550, pY));
+
+                stringFont = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("(สำหรับลูกค้า)", stringFont, brush, new PointF(pX + 600, pY + 30));
+
+                Code128BarcodeDraw bdw = BarcodeDrawFactory.Code128WithChecksum;
+                Image img = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img, new Point(pX + 568, pY + 50));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("เลขที่:", stringFont, brush, new PointF(pX + 560, pY + 75));
+                g.Graphics.DrawString("วันที่:", stringFont, brush, new PointF(pX + 560, pY + 95));
+
+                stringFont = new Font("Calibri", 10, FontStyle.Bold);
+                g.Graphics.DrawString(claimNo, stringFont, brush, new PointF(pX + 600, pY + 78));
+
+                DateTime now = DateTime.Now;
+                g.Graphics.DrawString(now.ToString("dd/MM/yyyy (HH:mm)"), stringFont, brush, new PointF(pX + 600, pY + 98));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 120, 710, 90);
+
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อลูกค้า", stringFont, brush, new PointF(pX + 10, pY + 130));
+                g.Graphics.DrawString("ที่อยู่", stringFont, brush, new PointF(pX + 10, pY + 150));
+                g.Graphics.DrawString("เบอร์โทร", stringFont, brush, new PointF(pX + 10, pY + 170));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].firstname.ToString() + ' ' + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont, brush, new PointF(pX + 60, pY + 130));
+                bool isBkk = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString() + ' ' + jsonAddressInfo.result[0][0].address2.ToString() + ' ' + (isBkk ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + ' ' + jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont, brush, new PointF(pX + 60, pY + 150));
+
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont, brush, new PointF(pX + 60, pY + 170));
+                }
+                else
+                {
+                    g.Graphics.DrawString("-", stringFont, brush, new PointF(pX + 60, pY + 170));
+                }
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 220, 710, 200);
+
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อสินค้า", stringFont, brush, new PointF(pX + 60, pY + 230));
+                g.Graphics.DrawString("ประเภท", stringFont, brush, new PointF(pX + 60, pY + 250));
+                g.Graphics.DrawString("ยี่ห้อ", stringFont, brush, new PointF(pX + 60, pY + 270));
+                g.Graphics.DrawString("Serial Number", stringFont, brush, new PointF(pX + 60, pY + 290));
+                g.Graphics.DrawString("ประกัน", stringFont, brush, new PointF(pX + 60, pY + 310));
+                g.Graphics.DrawString("วันที่เข้าระบบ", stringFont, brush, new PointF(pX + 60, pY + 330));
+                g.Graphics.DrawString("อาการเสีย", stringFont, brush, new PointF(pX + 60, pY + 350));
+
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].productName.ToString(), stringFont, brush, new PointF(pX + 120, pY + 230));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].categoryName.ToString(), stringFont, brush, new PointF(pX + 120, pY + 250));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].brandName.ToString(), stringFont, brush, new PointF(pX + 120, pY + 270));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcode.ToString(), stringFont, brush, new PointF(pX + 160, pY + 290));
+                DateTime expireDate = DateTime.Now;
+                expireDate = jsonAddressInfo.result[0][0].expireDate;
+                DateTime claimDate = DateTime.Now;
+                claimDate = jsonAddressInfo.result[0][0].claimDate;
+                g.Graphics.DrawString("สิ้นสุด ณ " + expireDate.ToString("dd/MM/yyyy"), stringFont, brush, new PointF(pX + 120, pY + 310));
+                g.Graphics.DrawString(claimDate.ToString("dd/MM/yyyy"), stringFont, brush, new PointF(pX + 160, pY + 330));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].description.ToString(), stringFont, brush, new PointF(pX + 120, pY + 350));
+
+                Point point1 = new Point(pX + 100, pY + 460);
+                Point point2 = new Point(pX + 200, pY + 460);
+                Point point3 = new Point(pX + 300, pY + 460);
+                Point point4 = new Point(pX + 400, pY + 460);
+                Point point5 = new Point(pX + 500, pY + 460);
+                Point point6 = new Point(pX + 600, pY + 460);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point1, point2);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point3, point4);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point5, point6);
+                stringFont = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("ผู้ส่งเคลม", stringFont, brush, new PointF(pX + 130, pY + 465));
+                g.Graphics.DrawString("ผู้รับเคลม", stringFont, brush, new PointF(pX + 330, pY + 465));
+                g.Graphics.DrawString("ผู้รับคืน", stringFont, brush, new PointF(pX + 530, pY + 465));
+
+                /////////////////////////////////////////////////////////////////////////////////////////
+                float[] dashValues = { 5, 2, 15, 4 };
+                Point pointX = new Point(pX, pY + 500);
+                Point pointY = new Point(pX + 710, pY + 500);
+                Pen linePen = new Pen(Color.Gray);
+                linePen.DashPattern = dashValues;
+                g.Graphics.DrawLine(linePen, pointX, pointY);
+
+                Image image2 = Image.FromFile("logo.png");
+                Rectangle destRect2 = new Rectangle(pX, pY + 540, 134, 32);
+                g.Graphics.DrawImage(image2, destRect2, 0, 0, image2.Width, image2.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush2 = new SolidBrush(Color.Black);
+                Font stringFont2 = new Font("DilleniaUPC", 14);
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont2, brush2, new PointF(pX - 2, pY + 30 + 540));
+                stringFont2 = new Font("DilleniaUPC", 12);
+                /*g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont2, brush2, new PointF(pX - 2, pY + 65 + 540));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont2, brush2, new PointF(pX - 2, pY + 80 + 540));*/
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 26, FontStyle.Bold);
+                g.Graphics.DrawString("ใบรับเคลมสินค้า", stringFont2, brush2, new PointF(pX + 550, pY + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("(สำหรับเจ้าหน้าที่)", stringFont2, brush2, new PointF(pX + 595, pY + 32 + 540));
+
+                Code128BarcodeDraw bdw2 = BarcodeDrawFactory.Code128WithChecksum;
+                Image img2 = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img2, new Point(pX + 568, pY + 50 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("เลขที่:", stringFont2, brush2, new PointF(pX + 560, pY + 75 + 540));
+                g.Graphics.DrawString("วันที่:", stringFont2, brush2, new PointF(pX + 560, pY + 95 + 540));
+
+                stringFont2 = new Font("Calibri", 10, FontStyle.Bold);
+                g.Graphics.DrawString(claimNo, stringFont2, brush2, new PointF(pX + 600, pY + 78 + 540));
+
+                DateTime now2 = DateTime.Now;
+                g.Graphics.DrawString(now2.ToString("dd/MM/yyyy (HH:mm)"), stringFont2, brush2, new PointF(pX + 600, pY + 98 + 540));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 120 + 540, 710, 90);
+
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อลูกค้า", stringFont2, brush2, new PointF(pX + 10, pY + 130 + 540));
+                g.Graphics.DrawString("ที่อยู่", stringFont2, brush2, new PointF(pX + 10, pY + 150 + 540));
+                g.Graphics.DrawString("เบอร์โทร", stringFont2, brush2, new PointF(pX + 10, pY + 170 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].firstname.ToString() + ' ' + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont2, brush2, new PointF(pX + 60, pY + 130 + 540));
+                bool isBkk2 = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString() + ' ' + jsonAddressInfo.result[0][0].address2.ToString() + ' ' + (isBkk ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + ' ' + jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont2, brush2, new PointF(pX + 60, pY + 150 + 540));
+
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont2, brush2, new PointF(pX + 60, pY + 170 + 540));
+                }
+                else
+                {
+                    g.Graphics.DrawString("-", stringFont2, brush2, new PointF(pX + 60, pY + 170 + 540));
+                }
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX, pY + 220 + 540, 710, 200);
+
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ชื่อสินค้า", stringFont2, brush2, new PointF(pX + 60, pY + 230 + 540));
+                g.Graphics.DrawString("ประเภท", stringFont2, brush2, new PointF(pX + 60, pY + 250 + 540));
+                g.Graphics.DrawString("ยี่ห้อ", stringFont2, brush2, new PointF(pX + 60, pY + 270 + 540));
+                g.Graphics.DrawString("Serial Number", stringFont2, brush2, new PointF(pX + 60, pY + 290 + 540));
+                g.Graphics.DrawString("ประกัน", stringFont2, brush2, new PointF(pX + 60, pY + 310 + 540));
+                g.Graphics.DrawString("วันที่เข้าระบบ", stringFont2, brush2, new PointF(pX + 60, pY + 330 + 540));
+                g.Graphics.DrawString("อาการเสีย", stringFont2, brush2, new PointF(pX + 60, pY + 350 + 540));
+
+                stringFont2 = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].productName.ToString(), stringFont2, brush2, new PointF(pX + 120, pY + 230 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].categoryName.ToString(), stringFont2, brush2, new PointF(pX + 120, pY + 250 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].brandName.ToString(), stringFont2, brush2, new PointF(pX + 120, pY + 270 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].barcode.ToString(), stringFont2, brush2, new PointF(pX + 160, pY + 290 + 540));
+                DateTime expireDate2 = DateTime.Now;
+                expireDate2 = jsonAddressInfo.result[0][0].expireDate;
+                DateTime claimDate2 = DateTime.Now;
+                claimDate2 = jsonAddressInfo.result[0][0].claimDate;
+                g.Graphics.DrawString("สิ้นสุด ณ " + expireDate.ToString("dd/MM/yyyy"), stringFont2, brush2, new PointF(pX + 120, pY + 310 + 540));
+                g.Graphics.DrawString(claimDate2.ToString("dd/MM/yyyy"), stringFont2, brush2, new PointF(pX + 160, pY + 330 + 540));
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].description.ToString(), stringFont2, brush2, new PointF(pX + 120, pY + 350 + 540));
+
+                Point point12 = new Point(pX + 100, pY + 460 + 540);
+                Point point22 = new Point(pX + 200, pY + 460 + 540);
+                Point point32 = new Point(pX + 300, pY + 460 + 540);
+                Point point42 = new Point(pX + 400, pY + 460 + 540);
+                Point point52 = new Point(pX + 500, pY + 460 + 540);
+                Point point62 = new Point(pX + 600, pY + 460 + 540);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point12, point22);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point32, point42);
+                g.Graphics.DrawLine(new Pen(new SolidBrush(Color.Gray)), point52, point62);
+                stringFont2 = new Font("DilleniaUPC", 12);
+                g.Graphics.DrawString("ผู้ส่งเคลม", stringFont2, brush2, new PointF(pX + 130, pY + 465 + 540));
+                g.Graphics.DrawString("ผู้รับเคลม", stringFont2, brush2, new PointF(pX + 330, pY + 465 + 540));
+                g.Graphics.DrawString("ผู้รับคืน", stringFont2, brush2, new PointF(pX + 530, pY + 465 + 540));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error is : " + ex);
+            }
+        }
+
+        public static void PrintAddress(PrintPageEventArgs g, string claimNo)
+        {
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+                var pX = 60;
+                var pY = 60;
+
+                Image image = Image.FromFile("logo.png");
+                Rectangle destRect = new Rectangle(pX, pY, 134, 32);
+                g.Graphics.DrawImage(image, destRect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush = new SolidBrush(Color.Black);
+                Font stringFont = new Font("DilleniaUPC", 14);
+                stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont, brush, new PointF(pX - 2, pY + 30));
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont, brush, new PointF(pX - 2, pY + 50));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont, brush, new PointF(pX - 2, pY + 70));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont, brush, new PointF(pX - 2, pY + 90));
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont, brush, new PointF(pX - 2, pY + 110));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX + 430, pY, 140, 50);
+
+                Code128BarcodeDraw bdw = BarcodeDrawFactory.Code128WithChecksum;
+                Image img = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img, new Point(pX + 435, pY + 5));
+
+                stringFont = new Font("Calibri", 8);
+                g.Graphics.DrawString(claimNo, stringFont, brush, new PointF(pX + 432, pY + 31));
+
+                DateTime now = DateTime.Now;
+                g.Graphics.DrawString(now.ToString("ddMMHHmm"), stringFont, brush, new PointF(pX + 517, pY + 31));
+
+                /*stringFont = new Font("Calibri", 30, FontStyle.Bold);
+                string measureString = x + "/" + boxCount;
+                SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 577 + ((124 - stringSize.Width) / 2), pY - 2));*/
+
+
+                /*stringFont = new Font("DilleniaUPC", 18);
+                if (isCash) g.Graphics.DrawString("เก็บเงินสดปลายทาง", stringFont, brush, new PointF(pX + 425, pY + 47));
+                stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                stringSize = g.Graphics.MeasureString(shipping, stringFont);
+                g.Graphics.DrawString(shipping, stringFont, brush, new PointF(pX + 705 - stringSize.Width, pY + 47));*/
+
+
+                pX += 200;
+                pY += 170;
+                stringFont = new Font("DilleniaUPC", 18);
+                g.Graphics.DrawString("กรุณาส่ง", stringFont, brush, new PointF(pX - 50, pY));
+
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString("โทรศัพท์ " + jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont, brush, new PointF(pX + 47, pY));
+                }
+                else
+                {
+                    g.Graphics.DrawString("โทรศัพท์ -", stringFont, brush, new PointF(pX + 47, pY));
+                }
+
+                pY += 50;
+                stringFont = new Font("DilleniaUPC", 24, FontStyle.Bold);
+                g.Graphics.DrawString("คุณ " + jsonAddressInfo.result[0][0].firstname.ToString() + " " + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont, brush, new PointF(pX, pY));
+
+                pY += 42;
+                pX += 47;
+                /*if (jsonAddressInfo.result[0][0].nickname.ToString().Trim() != "")
+                {
+                    stringFont = new Font("DilleniaUPC", 24, FontStyle.Bold);
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].nickname.ToString(), stringFont, brush, new PointF(pX, pY));
+                    pY += 40;
+                }*/
+
+                stringFont = new Font("DilleniaUPC", 18);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString(), stringFont, brush, new PointF(pX, pY));
+                pY += 35;
+                if (jsonAddressInfo.result[0][0].address2.ToString().Trim() != "")
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].address2.ToString(), stringFont, brush, new PointF(pX, pY));
+                    pY += 35;
+                }
+
+                bool isBkk = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString((isBkk ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + "",
+                    stringFont, brush, new PointF(pX, pY));
+                pY += 35;
+                g.Graphics.DrawString("รหัสไปรษณีย์", stringFont, brush, new PointF(pX + 30, pY));
+                stringFont = new Font("Calibri", 18, FontStyle.Bold);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont, brush, new PointF(pX + 140, pY));
+
+                pX = 60;
+                pY = 60;
+                if (jsonAddressInfo.result[0][0].trackNo.ToString().Length > 1)
+                {
+                    Code128BarcodeDraw bdwTrack = BarcodeDrawFactory.Code128WithChecksum;
+                    Image imgTrack = bdwTrack.Draw(jsonAddressInfo.result[0][0].trackNo.ToString().ToUpper(), 24);
+                    g.Graphics.DrawImage(imgTrack, new Point(pX + 435, pY + 400));
+                    stringFont = new Font("Calibri", 8);
+                    g.Graphics.DrawString("Track No.", stringFont, brush, new PointF(pX + 432, pY + 426));
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].trackNo.ToString().ToUpper(), stringFont, brush, new PointF(pX + 518, pY + 426));
+                }
+                /////////////////////////////////////////////////////////////////////////////////////////
+
+                pX = 60;
+                pY = 60;
+                float[] dashValues = { 5, 2, 15, 4 };
+                Point pointX = new Point(pX, pY + 500);
+                Point pointY = new Point(pX + 710, pY + 500);
+                Pen linePen = new Pen(Color.Gray);
+                linePen.DashPattern = dashValues;
+                g.Graphics.DrawLine(linePen, pointX, pointY);
+
+                Image image2 = Image.FromFile("logo.png");
+                Rectangle destRect2 = new Rectangle(pX, pY + 540, 134, 32);
+                g.Graphics.DrawImage(image2, destRect2, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel);
+
+                SolidBrush brush2 = new SolidBrush(Color.Black);
+                Font stringFont2 = new Font("DilleniaUPC", 14);
+                stringFont2 = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                g.Graphics.DrawString("ศูนย์บริการ Remax Thailand", stringFont2, brush2, new PointF(pX - 2, pY + 30 + 540));
+                stringFont = new Font("DilleniaUPC", 14);
+                g.Graphics.DrawString("99 หมู่ที่ 8 อาคารเชียร์รังสิต ชั้น G ห้อง GB066", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+                g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont2, brush2, new PointF(pX - 2, pY + 70 + 540));
+                g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont2, brush2, new PointF(pX - 2, pY + 90 + 540));
+                g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont2, brush2, new PointF(pX - 2, pY + 110 + 540));
+
+                g.Graphics.DrawRectangle(new Pen(new SolidBrush(Color.Gray)), pX + 430, pY + 540, 140, 50);
+
+                Code128BarcodeDraw bdw2 = BarcodeDrawFactory.Code128WithChecksum;
+                Image img2 = bdw.Draw(claimNo.ToUpper(), 24);
+                g.Graphics.DrawImage(img2, new Point(pX + 435, pY + 5 + 540));
+
+                stringFont2 = new Font("Calibri", 8);
+                g.Graphics.DrawString(claimNo, stringFont2, brush2, new PointF(pX + 432, pY + 31 + 540));
+
+                DateTime now2 = DateTime.Now;
+                g.Graphics.DrawString(now2.ToString("ddMMHHmm"), stringFont2, brush2, new PointF(pX + 517, pY + 31 + 540));
+
+                pX += 200;
+                pY += 170;
+                stringFont2 = new Font("DilleniaUPC", 18);
+                g.Graphics.DrawString("กรุณาส่ง", stringFont2, brush2, new PointF(pX - 50, pY + 540));
+                if (jsonAddressInfo.result[0][0].tel.ToString().Length > 1)
+                {
+                    g.Graphics.DrawString("โทรศัพท์ " + jsonAddressInfo.result[0][0].tel.ToString().Substring(0, 3) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(3, 4) + "-" +
+                    jsonAddressInfo.result[0][0].tel.ToString().Substring(7),
+                    stringFont2, brush2, new PointF(pX + 47, pY + 540));
+                }
+                else
+                {
+                    g.Graphics.DrawString("โทรศัพท์ -", stringFont2, brush2, new PointF(pX + 47, pY + 540));
+                }
+                pY += 50;
+                stringFont2 = new Font("DilleniaUPC", 24, FontStyle.Bold);
+                g.Graphics.DrawString("คุณ " + jsonAddressInfo.result[0][0].firstname.ToString() + " " + jsonAddressInfo.result[0][0].lastname.ToString(), stringFont2, brush2, new PointF(pX, pY + 540));
+
+                pY += 42;
+                pX += 47;
+
+                stringFont2 = new Font("DilleniaUPC", 18);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].address.ToString(), stringFont2, brush2, new PointF(pX, pY + 540));
+                pY += 35;
+                if (jsonAddressInfo.result[0][0].address2.ToString().Trim() != "")
+                {
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].address2.ToString(), stringFont2, brush2, new PointF(pX, pY + 540));
+                    pY += 35;
+                }
+
+                bool isBkk2 = jsonAddressInfo.result[0][0].province.ToString() == "กรุงเทพมหานคร";
+                g.Graphics.DrawString((isBkk2 ? "แขวง" : "ต.") + jsonAddressInfo.result[0][0].subDistrict.ToString() +
+                    (isBkk ? " เขต" : " อ.") + jsonAddressInfo.result[0][0].district.ToString() +
+                    (isBkk ? " " : " จ.") + jsonAddressInfo.result[0][0].province.ToString() + "",
+                    stringFont2, brush2, new PointF(pX, pY + 540));
+                pY += 35;
+                g.Graphics.DrawString("รหัสไปรษณีย์", stringFont2, brush2, new PointF(pX + 30, pY + 540));
+                stringFont2 = new Font("Calibri", 18, FontStyle.Bold);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].zipcode.ToString(), stringFont2, brush2, new PointF(pX + 140, pY + 540));
+
+                pX = 60;
+                pY = 60;
+                if (jsonAddressInfo.result[0][0].trackNo.ToString().Length > 1)
+                {
+                    Code128BarcodeDraw bdwTrack = BarcodeDrawFactory.Code128WithChecksum;
+                    Image imgTrack = bdwTrack.Draw(jsonAddressInfo.result[0][0].trackNo.ToString().ToUpper(), 24);
+                    g.Graphics.DrawImage(imgTrack, new Point(pX + 435, pY + 400 + 540));
+                    stringFont = new Font("Calibri", 8);
+                    g.Graphics.DrawString("Track No.", stringFont, brush, new PointF(pX + 432, pY + 426 + 540));
+                    g.Graphics.DrawString(jsonAddressInfo.result[0][0].trackNo.ToString().ToUpper(), stringFont, brush, new PointF(pX + 518, pY + 426 + 540));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error is : " + ex);
+            }
+
+        }
+
 
     }
 }

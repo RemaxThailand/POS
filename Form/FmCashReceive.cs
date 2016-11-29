@@ -28,7 +28,7 @@ namespace PowerPOS
             rdbBath.Checked = true;
             if (Param.MemberType != "Event")
             {
-                txtCoupon.Enabled = false;
+                //txtCoupon.Enabled = false;
                 txtDiscountBath.Enabled = false;
             }
         }

@@ -473,6 +473,9 @@ namespace PowerPOS
                 customer NVARCHAR(10),
                 comment NVARCHAR(256),
                 inStock BIT DEFAULT 0,
+                syncReceived BIT DEFAULT 0,
+                syncReturn BIT DEFAULT 0,
+                syncCheck BIT DEFAULT 0,
                 sync BIT DEFAULT 0,
                 PRIMARY KEY (shop, barcode ))");
 

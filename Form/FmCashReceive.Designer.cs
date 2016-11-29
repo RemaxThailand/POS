@@ -293,7 +293,7 @@
             // 
             this.txtCoupon.Location = new System.Drawing.Point(67, 7);
             this.txtCoupon.Name = "txtCoupon";
-            this.txtCoupon.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.txtCoupon.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.txtCoupon.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCoupon.Properties.Appearance.Options.UseBackColor = true;
             this.txtCoupon.Properties.Appearance.Options.UseFont = true;

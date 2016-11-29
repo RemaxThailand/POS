@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode2 = new DevExpress.XtraGrid.GridLevelNode();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UcSale));
             this.productGridControl = new DevExpress.XtraGrid.GridControl();
             this.productGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -105,6 +105,7 @@
             this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl29 = new DevExpress.XtraEditors.PanelControl();
@@ -124,7 +125,7 @@
             this.clPName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSalePrice = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.clSaleNo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
@@ -171,6 +172,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
             this.panelControl27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
@@ -185,15 +187,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.SuspendLayout();
             // 
             // productGridControl
             // 
             this.productGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            gridLevelNode1.RelationName = "Level1";
+            gridLevelNode2.RelationName = "Level1";
             this.productGridControl.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
+            gridLevelNode2});
             this.productGridControl.Location = new System.Drawing.Point(2, 2);
             this.productGridControl.MainView = this.productGridView;
             this.productGridControl.Name = "productGridControl";
@@ -1149,6 +1150,15 @@
             this.panelControl1.Size = new System.Drawing.Size(894, 717);
             this.panelControl1.TabIndex = 2;
             // 
+            // panelControl17
+            // 
+            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl17.Location = new System.Drawing.Point(882, 2);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(10, 713);
+            this.panelControl17.TabIndex = 18;
+            // 
             // panelControl27
             // 
             this.panelControl27.Controls.Add(this.groupControl2);
@@ -1281,7 +1291,9 @@
             this.clCustomer,
             this.clPName,
             this.clQuantity,
-            this.clSalePrice});
+            this.clSalePrice,
+            this.clSaleNo});
+            this.returnGridView.CustomizationFormBounds = new System.Drawing.Rectangle(840, 556, 210, 172);
             this.returnGridView.GridControl = this.returnGridControl;
             this.returnGridView.Name = "returnGridView";
             this.returnGridView.OptionsView.ShowGroupPanel = false;
@@ -1290,7 +1302,7 @@
             // 
             this.clNoRe.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clNoRe.AppearanceCell.Options.UseFont = true;
-            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clNoRe.AppearanceHeader.Options.UseFont = true;
             this.clNoRe.AppearanceHeader.Options.UseTextOptions = true;
             this.clNoRe.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1299,11 +1311,11 @@
             this.clNoRe.Name = "clNoRe";
             this.clNoRe.OptionsColumn.AllowEdit = false;
             this.clNoRe.OptionsColumn.AllowMove = false;
-            this.clNoRe.OptionsColumn.AllowSize = false;
             this.clNoRe.OptionsColumn.FixedWidth = true;
+            this.clNoRe.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clNoRe.Visible = true;
             this.clNoRe.VisibleIndex = 0;
-            this.clNoRe.Width = 50;
+            this.clNoRe.Width = 28;
             // 
             // clSaleDate
             // 
@@ -1311,7 +1323,7 @@
             this.clSaleDate.AppearanceCell.Options.UseFont = true;
             this.clSaleDate.AppearanceCell.Options.UseTextOptions = true;
             this.clSaleDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSaleDate.AppearanceHeader.Options.UseFont = true;
             this.clSaleDate.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1320,8 +1332,9 @@
             this.clSaleDate.Name = "clSaleDate";
             this.clSaleDate.OptionsColumn.AllowEdit = false;
             this.clSaleDate.OptionsColumn.AllowMove = false;
-            this.clSaleDate.OptionsColumn.AllowSize = false;
             this.clSaleDate.OptionsColumn.FixedWidth = true;
+            this.clSaleDate.OptionsFilter.AllowFilter = false;
+            this.clSaleDate.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clSaleDate.Visible = true;
             this.clSaleDate.VisibleIndex = 1;
             this.clSaleDate.Width = 100;
@@ -1332,7 +1345,7 @@
             this.clCustomer.AppearanceCell.Options.UseFont = true;
             this.clCustomer.AppearanceCell.Options.UseTextOptions = true;
             this.clCustomer.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clCustomer.AppearanceHeader.Options.UseFont = true;
             this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
             this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1341,10 +1354,10 @@
             this.clCustomer.Name = "clCustomer";
             this.clCustomer.OptionsColumn.AllowEdit = false;
             this.clCustomer.OptionsColumn.AllowMove = false;
-            this.clCustomer.OptionsColumn.AllowSize = false;
             this.clCustomer.OptionsColumn.FixedWidth = true;
+            this.clCustomer.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clCustomer.Visible = true;
-            this.clCustomer.VisibleIndex = 2;
+            this.clCustomer.VisibleIndex = 3;
             this.clCustomer.Width = 150;
             // 
             // clPName
@@ -1353,7 +1366,7 @@
             this.clPName.AppearanceCell.Options.UseFont = true;
             this.clPName.AppearanceCell.Options.UseTextOptions = true;
             this.clPName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clPName.AppearanceHeader.Options.UseFont = true;
             this.clPName.AppearanceHeader.Options.UseTextOptions = true;
             this.clPName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1362,11 +1375,11 @@
             this.clPName.Name = "clPName";
             this.clPName.OptionsColumn.AllowEdit = false;
             this.clPName.OptionsColumn.AllowMove = false;
-            this.clPName.OptionsColumn.AllowSize = false;
             this.clPName.OptionsColumn.FixedWidth = true;
+            this.clPName.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clPName.Visible = true;
-            this.clPName.VisibleIndex = 3;
-            this.clPName.Width = 200;
+            this.clPName.VisibleIndex = 4;
+            this.clPName.Width = 250;
             // 
             // clQuantity
             // 
@@ -1374,7 +1387,7 @@
             this.clQuantity.AppearanceCell.Options.UseFont = true;
             this.clQuantity.AppearanceCell.Options.UseTextOptions = true;
             this.clQuantity.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clQuantity.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clQuantity.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clQuantity.AppearanceHeader.Options.UseFont = true;
             this.clQuantity.AppearanceHeader.Options.UseTextOptions = true;
             this.clQuantity.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1383,11 +1396,11 @@
             this.clQuantity.Name = "clQuantity";
             this.clQuantity.OptionsColumn.AllowEdit = false;
             this.clQuantity.OptionsColumn.AllowMove = false;
-            this.clQuantity.OptionsColumn.AllowSize = false;
             this.clQuantity.OptionsColumn.FixedWidth = true;
+            this.clQuantity.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clQuantity.Visible = true;
-            this.clQuantity.VisibleIndex = 4;
-            this.clQuantity.Width = 100;
+            this.clQuantity.VisibleIndex = 5;
+            this.clQuantity.Width = 70;
             // 
             // clSalePrice
             // 
@@ -1395,7 +1408,7 @@
             this.clSalePrice.AppearanceCell.Options.UseFont = true;
             this.clSalePrice.AppearanceCell.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
             this.clSalePrice.AppearanceHeader.Options.UseFont = true;
             this.clSalePrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1404,20 +1417,32 @@
             this.clSalePrice.Name = "clSalePrice";
             this.clSalePrice.OptionsColumn.AllowEdit = false;
             this.clSalePrice.OptionsColumn.AllowMove = false;
-            this.clSalePrice.OptionsColumn.AllowSize = false;
             this.clSalePrice.OptionsColumn.FixedWidth = true;
+            this.clSalePrice.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.clSalePrice.Visible = true;
-            this.clSalePrice.VisibleIndex = 5;
+            this.clSalePrice.VisibleIndex = 6;
             this.clSalePrice.Width = 100;
             // 
-            // panelControl17
+            // clSaleNo
             // 
-            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl17.Location = new System.Drawing.Point(882, 2);
-            this.panelControl17.Name = "panelControl17";
-            this.panelControl17.Size = new System.Drawing.Size(10, 713);
-            this.panelControl17.TabIndex = 18;
+            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSaleNo.AppearanceCell.Options.UseFont = true;
+            this.clSaleNo.AppearanceCell.Options.UseTextOptions = true;
+            this.clSaleNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleNo.AppearanceHeader.Options.UseFont = true;
+            this.clSaleNo.AppearanceHeader.Options.UseTextOptions = true;
+            this.clSaleNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clSaleNo.Caption = "เลขที่บิลขาย";
+            this.clSaleNo.FieldName = "SaleNo";
+            this.clSaleNo.Name = "clSaleNo";
+            this.clSaleNo.OptionsColumn.AllowEdit = false;
+            this.clSaleNo.OptionsColumn.AllowMove = false;
+            this.clSaleNo.OptionsColumn.FixedWidth = true;
+            this.clSaleNo.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.clSaleNo.Visible = true;
+            this.clSaleNo.VisibleIndex = 2;
+            this.clSaleNo.Width = 100;
             // 
             // UcSale
             // 
@@ -1474,6 +1499,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
             this.panelControl27.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
@@ -1490,7 +1516,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1592,5 +1617,6 @@
         private DevExpress.XtraEditors.LabelControl lblListCount;
         private DevExpress.XtraGrid.Columns.GridColumn clPName;
         private DevExpress.XtraGrid.Columns.GridColumn clSku;
+        private DevExpress.XtraGrid.Columns.GridColumn clSaleNo;
     }
 }

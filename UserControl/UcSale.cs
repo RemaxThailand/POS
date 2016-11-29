@@ -82,147 +82,184 @@ namespace PowerPOS
 
         public void LoadData()
         {
-            DataTable dt;
+            DataTable dt, dtP;
             DataRow row;
             int i, a;
             int _QTY = 0;
-
-            dt = Util.DBQuery(string.Format(@"SELECT *
+            try
+            {
+                dt = Util.DBQuery(string.Format(@"SELECT *
                           FROM ChangePrice cp
                           WHERE cp.SellNo = '{0}'", Param.DeviceID));
 
-            if (dt.Rows.Count > 0)
-            {
-                dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode b
-                        WHERE product NOT IN (SELECT product
+                if (dt.Rows.Count > 0)
+                {
+                    dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode b
+                        WHERE product IN (SELECT product
                           FROM ChangePrice cp
                           WHERE cp.SellNo = '{0}')
                         AND b.SellBy = '{0}'", Param.DeviceID));
 
-                if (dt.Rows.Count > 0)
+                    if (dt.Rows.Count > 0)
+                    {
+                        //int b = 0;
+                        //for (b = 0; b < dt.Rows.Count; b++)
+                        //{
+                        //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                        //    WHERE product NOT IN (SELECT *
+                        //  FROM ChangePrice cp
+                        //  WHERE cp.SellNo = '{0}')
+                        //AND Barcode.SellBy = '{0}' 
+                        //AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
+                        //Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+
+                        //dtP = Util.DBQuery(string.Format(@"SELECT COUNT(*) FROM Barcode b WHERE b.SellBy = '{0}' AND b.SellPrice IS NULL", Param.DeviceID));
+
+                        //if (dtP.Rows[0][0].ToString() != "0")
+                        //{
+                        //    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
+                        //      FROM ChangePrice cp
+                        //      WHERE Barcode.product = cp.product
+                        //      AND cp.SellNo = '{0}'
+                        //    AND Barcode.SellBy = '{0}' ) WHERE SellBy = '{0}' AND sellPrice IS NULL",
+                        //    Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                        //}
+                        //else
+                        //{
+
+                        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
+                                FROM ChangePrice cp
+                                WHERE Barcode.product = cp.product
+                                AND cp.SellNo = '{0}'
+                            AND Barcode.SellBy = '{0}' ) WHERE Barcode.product IN (SELECT product
+                          FROM ChangePrice cp WHERE cp.SellNo = '{0}') AND Barcode.SellBy = '{0}'",
+                        Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                        //}
+                        //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
+                        //  FROM ChangePrice cp
+                        //  WHERE Barcode.product = cp.product
+                        //  AND cp.SellNo = '{0}'
+                        //AND Barcode.SellBy = '{0}' ) WHERE SellBy = '{0}'",
+                        //Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                        //}
+                    }
+                }
+                else
                 {
-                    //int b = 0;
-                    //for (b = 0; b < dt.Rows.Count; b++)
-                    //{
                     Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE product NOT IN (SELECT *
+                            WHERE Barcode.SellBy = '{0}' 
+                            AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
+                              Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                }
+
+
+                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
+                            WHERE p.product NOT IN (SELECT cp.product
                           FROM ChangePrice cp
                           WHERE cp.SellNo = '{0}')
                         AND Barcode.SellBy = '{0}' 
-                        AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
-                            Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                        AND Barcode.product = p.product AND p.shop = '{2}') WHERE Barcode.product NOT IN (SELECT product
+                          FROM ChangePrice cp WHERE cp.SellNo = '{0}') AND Barcode.SellBy = '{0}'",
+                     Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
-                    Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT priceChange
-                          FROM ChangePrice cp
-                          WHERE Barcode.product = cp.product
-                          AND cp.SellNo = '{0}'
-                        AND Barcode.SellBy = '{0}' ) WHERE SellBy = '{0}' AND sellPrice IS NULL",
-                           Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
-                    //}
-                }
-            }
-            else
-            {
-                Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p
-                            WHERE Barcode.SellBy = '{0}' 
-                            AND Barcode.product = p.product AND p.shop = '{2}') WHERE SellBy = '{0}'",
-                          Param.DeviceID, barcode, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
-            }
+                //dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
+                //        WHERE NOT EXISTS (SELECT *
+                //          FROM ChangePrice cp
+                //          WHERE st.product = cp.product
+                //          AND cp.SellNo = '{0}')", Param.DeviceID));
+                //if (dt.Rows.Count > 0)
+                //{
+                //    int b = 0;
+                //    for (b = 0; b < dt.Rows.Count; b++)
+                //    {
+                //        Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
+                //        Price = (SELECT p.Price{0} FROM Product p
+                //        WHERE sellTemp.product = p.product),
+                //        TotalPrice =  (SELECT p.Price{0} FROM Product p
+                //        WHERE sellTemp.product = p.product) * sellTemp.Amount,
+                //        PriceCost = (SELECT p.Cost FROM Product p
+                //        WHERE sellTemp.product = p.Product) * sellTemp.Amount
+                //        WHERE sellTemp.product = '{2}'",
+                //        Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price, dt.Rows[b]["product"].ToString()));
+                //    }
+                //}
 
-
-            //dt = Util.DBQuery(string.Format(@"SELECT product, productName, price, amount FROM sellTemp st
-            //        WHERE NOT EXISTS (SELECT *
-            //          FROM ChangePrice cp
-            //          WHERE st.product = cp.product
-            //          AND cp.SellNo = '{0}')", Param.DeviceID));
-            //if (dt.Rows.Count > 0)
-            //{
-            //    int b = 0;
-            //    for (b = 0; b < dt.Rows.Count; b++)
-            //    {
-            //        Util.DBExecute(string.Format(@"UPDATE sellTemp  SET
-            //        Price = (SELECT p.Price{0} FROM Product p
-            //        WHERE sellTemp.product = p.product),
-            //        TotalPrice =  (SELECT p.Price{0} FROM Product p
-            //        WHERE sellTemp.product = p.product) * sellTemp.Amount,
-            //        PriceCost = (SELECT p.Cost FROM Product p
-            //        WHERE sellTemp.product = p.Product) * sellTemp.Amount
-            //        WHERE sellTemp.product = '{2}'",
-            //        Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice, price, dt.Rows[b]["product"].ToString()));
-            //    }
-            //}
-
-            _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount,  b.SellPrice*ProductCount totalPrice, p.sku
+                _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount,  b.SellPrice*ProductCount totalPrice, p.sku
                         FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b  LEFT JOIN Product p 
                             ON b.Product = p.product
                         LEFT JOIN ChangePrice cp
                         ON cp.product = p.product
                         AND cp.SellNo = '{0}' ", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
-                    // _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice, sku FROM 
-                    //    (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount, p.sku
-                    //    FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b  LEFT JOIN Product p 
-                    //        ON b.Product = p.product
-                    //    LEFT JOIN ChangePrice cp
-                    //    ON cp.product = p.product
-                    //    AND cp.SellNo = '{0}'
-                    //UNION ALL
-                    //SELECT st.product, st.productName, st.price,  st.price priceA, st.amount, p.sku  FROM sellTemp st
-                    //LEFT JOIN Product p 
-                    //ON st.Product = p.product)
-                    //GROUP BY product", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                // _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice, sku FROM 
+                //    (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount, p.sku
+                //    FROM (SELECT Product, COUNT(*) ProductCount, SellPrice FROM Barcode WHERE SellBy = '{0}' GROUP BY Product) b  LEFT JOIN Product p 
+                //        ON b.Product = p.product
+                //    LEFT JOIN ChangePrice cp
+                //    ON cp.product = p.product
+                //    AND cp.SellNo = '{0}'
+                //UNION ALL
+                //SELECT st.product, st.productName, st.price,  st.price priceA, st.amount, p.sku  FROM sellTemp st
+                //LEFT JOIN Product p 
+                //ON st.Product = p.product)
+                //GROUP BY product", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
-            var sumPrice = 0;
+                var sumPrice = 0;
 
-            productGridView.OptionsBehavior.AutoPopulateColumns = false;
-            productGridControl.MainView = productGridView;
+                productGridView.OptionsBehavior.AutoPopulateColumns = false;
+                productGridControl.MainView = productGridView;
 
-            dt = new DataTable();
-            for (i = 0; i < ((ColumnView)productGridControl.MainView).Columns.Count; i++)
-            {
-                dt.Columns.Add(productGridView.Columns[i].FieldName);
-            }
-
-            if (_TABLE_SALE.Rows.Count > 0)
-            {
-                for (a = 0; a < _TABLE_SALE.Rows.Count; a++)
+                dt = new DataTable();
+                for (i = 0; i < ((ColumnView)productGridControl.MainView).Columns.Count; i++)
                 {
-                    //var total = int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString()) * int.Parse(_TABLE_SALE.Rows[a]["Price"].ToString());
-                    var total =  int.Parse(_TABLE_SALE.Rows[a]["TotalPrice"].ToString());
+                    dt.Columns.Add(productGridView.Columns[i].FieldName);
+                }
 
-                    row = dt.NewRow();
-                    row[0] = (a + 1) * 1;
-                    row[1] = _TABLE_SALE.Rows[a]["product"].ToString();
-                    row[2] = _TABLE_SALE.Rows[a]["Name"].ToString();
-                    row[3] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Price"].ToString()).ToString("#,##0");
-                    row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["ProductCount"]).ToString("#,##0");
-                    row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
-                    row[6] = _TABLE_SALE.Rows[a]["sku"].ToString();
-                    dt.Rows.Add(row);
-                    _QTY += int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString());
-                    sumPrice += total;
+                if (_TABLE_SALE.Rows.Count > 0)
+                {
+                    for (a = 0; a < _TABLE_SALE.Rows.Count; a++)
+                    {
+                        //var total = int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString()) * int.Parse(_TABLE_SALE.Rows[a]["Price"].ToString());
+                        var total = int.Parse(_TABLE_SALE.Rows[a]["TotalPrice"].ToString());
+
+                        row = dt.NewRow();
+                        row[0] = (a + 1) * 1;
+                        row[1] = _TABLE_SALE.Rows[a]["product"].ToString();
+                        row[2] = _TABLE_SALE.Rows[a]["Name"].ToString();
+                        row[3] = Convert.ToInt32(_TABLE_SALE.Rows[a]["Price"].ToString()).ToString("#,##0");
+                        row[4] = Convert.ToInt32(_TABLE_SALE.Rows[a]["ProductCount"]).ToString("#,##0");
+                        row[5] = Convert.ToInt32(_TABLE_SALE.Rows[a]["TotalPrice"].ToString()).ToString("#,##0");
+                        row[6] = _TABLE_SALE.Rows[a]["sku"].ToString();
+                        dt.Rows.Add(row);
+                        _QTY += int.Parse(_TABLE_SALE.Rows[a]["ProductCount"].ToString());
+                        sumPrice += total;
+                    }
+
+                    productGridControl.DataSource = dt;
+                    lblPrice.Text = sumPrice.ToString("#,##0");
+
+                }
+                else
+                {
+                    productGridControl.DataSource = null;
                 }
 
                 productGridControl.DataSource = dt;
                 lblPrice.Text = sumPrice.ToString("#,##0");
+                lblListCount.Text = productGridView.RowCount.ToString() + " รายการ";
+                lblProductCount.Text = _QTY.ToString() + " ชิ้น";
 
+                btnCancelSale.Enabled = sumPrice > 0;
+                btnCancelProduct.Enabled = sumPrice > 0;
+                btnConfirm.Enabled = sumPrice > 0;
+                txtBarcode.Focus();
             }
-            else
+            catch (Exception ex)
             {
-                productGridControl.DataSource = null;
+                Console.WriteLine(ex.ToString());
             }
-
-            productGridControl.DataSource = dt;
-            lblPrice.Text = sumPrice.ToString("#,##0");
-            lblListCount.Text = productGridView.RowCount.ToString() + " รายการ";
-            lblProductCount.Text = _QTY.ToString() + " ชิ้น";
-
-            btnCancelSale.Enabled = sumPrice > 0;
-            btnCancelProduct.Enabled = sumPrice > 0;
-            btnConfirm.Enabled = sumPrice > 0;
-            txtBarcode.Focus();
-
         }
+
 
         private void SelectCustomer(object sender, EventArgs e)
         {
@@ -553,7 +590,7 @@ namespace PowerPOS
                     {
                         //Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.CpuId, txtBarcode.Text));
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET SellPrice = (SELECT p.Price{3} FROM Product p WHERE Barcode.product = p.product AND p.shop = '{2}'),
-                            SellBy = '{0}' WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                            SellBy = '{0}', Sync = 1 WHERE Barcode = '{1}'", Param.DeviceID, txtBarcode.Text, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
                         LoadData();
                         SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/fastpop.wav");
                         simpleSound.Play();
@@ -689,17 +726,19 @@ namespace PowerPOS
                 Util.DBExecute(string.Format(@"UPDATE SellDetail SET Sync = 1 WHERE SellNo = '{0}'", dt.Rows[0]["SellNo"].ToString()));
             }
 
-            //txtBarcode.Focus();
-            lblStatusReturn.Visible = true;
-            lblStatusReturn.Text = "รับคืนสินค้าในชิ้นนี้แล้ว";
+            
+            //lblStatusReturn.Visible = true;
+            //lblStatusReturn.Text = "รับคืนสินค้าในชิ้นนี้แล้ว";
+            MessageBox.Show("รับคืนสินค้าในชิ้นนี้เรียบร้อยแล้ว","แจ้งการรับคืนสินค้า");
             returnGridControl.DataSource = null;
             txtBarcodeReturn.Text = "";
+            txtBarcodeReturn.Focus();
             lblWarranty.Visible = false;
             ptbProduct.Image = null;
             btnReturn.Visible = false;
             lblListCount.Text = "0 รายการ";
             lblProductCount.Text = "0 ชิ้น";
-            lblStatusReturn.ForeColor = Color.Green;
+            //lblStatusReturn.ForeColor = Color.Green;
 
         }
 
@@ -730,16 +769,16 @@ namespace PowerPOS
                     else
                     {
                         _TABLE_RETURN = Util.DBQuery(string.Format(@"SELECT p.Name, p.Product, IFNULL(p.Price, 0) Price, IFNULL(p.Price1, 0) Price1, IFNULL(p.Price2, 0) Price2, 
-                    b.ReceivedDate, b.ReceivedBy, b.sellPrice, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku, 1 Amount
-                    FROM Barcode b 
-                        LEFT JOIN Product p 
-                        ON b.Product = p.Product 
-                         LEFT JOIN SellHeader sh
-                        ON b.SellNo = sh.SellNo
-                        LEFT JOIN Customer c
-                        ON sh.Customer = c.Customer
-                    WHERE b.Barcode = '{0}' AND (b.SellDate IS NOT NULL OR b.SellDate = '') AND b.sellNo NOT LIKE '%CL%'", txtBarcodeReturn.Text));
-                        lblStatusReturn.Visible = true;
+                        b.ReceivedDate, b.ReceivedBy, b.sellPrice, b.SellDate, b.SellBy,b.Comment , sh.SellNo, c.customer, c.firstname , c.lastname, p.sku, 1 Amount
+                        FROM Barcode b 
+                            LEFT JOIN Product p 
+                            ON b.Product = p.Product 
+                             LEFT JOIN SellHeader sh
+                            ON b.SellNo = sh.SellNo
+                            LEFT JOIN Customer c
+                            ON sh.Customer = c.Customer
+                        WHERE b.Barcode = '{0}' AND (b.SellDate IS NOT NULL OR b.SellDate = '') AND b.sellNo NOT LIKE '%CL%'", txtBarcodeReturn.Text));
+                            lblStatusReturn.Visible = true;
 
 
                         if (_TABLE_RETURN.Rows.Count == 0)
@@ -780,6 +819,7 @@ namespace PowerPOS
                                     row[3] = _TABLE_RETURN.Rows[a]["Name"].ToString();
                                     row[4] = _TABLE_RETURN.Rows[a]["Amount"].ToString();
                                     row[5] = Convert.ToInt32(_TABLE_RETURN.Rows[a]["sellPrice"].ToString()).ToString("#,##0");
+                                    row[6] = _TABLE_RETURN.Rows[a]["SellNo"].ToString();
                                     dt.Rows.Add(row);
                                 }
 
@@ -834,6 +874,7 @@ namespace PowerPOS
                             }
                         }
                     }
+                    txtBarcodeReturn.Focus();
                 }
             }
             catch

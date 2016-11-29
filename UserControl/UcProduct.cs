@@ -66,7 +66,8 @@ namespace PowerPOS
 
         public void LoadData()
         {
-            if (Param.ShopCost == "4")
+            //Param.ShopCost = "";
+            if (Param.ShopCost == "4" || Param.ShopCost == "" || Param.ShopCost == null)
             {
                 labelControl12.Visible = false;
                 txtPrice7.Visible = false;

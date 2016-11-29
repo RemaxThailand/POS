@@ -75,21 +75,30 @@
     <Reference Include="DevExpress.Charts.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.DataAccess.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v15.2.UI, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraCharts.v15.2.UI, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v15.2.Wizard, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraEditors.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraNavBar.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraReports.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v15.2.Extensions, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v15.2.Reporting.Extensions, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraScheduler.v15.2.Core, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="EngineIoClientDotNet, Version=0.9.22.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\EngineIoClientDotNet.0.9.22\lib\net45\EngineIoClientDotNet.dll</HintPath>
       <Private>True</Private>
@@ -170,9 +179,37 @@
       <HintPath>packages\WinSCP.5.7.7\lib\WinSCPnet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Zen.Barcode.Core, Version=3.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Zen.Barcode.Core.Code128.3.1.0\lib\net45\Zen.Barcode.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
+    <Compile Include="Form\FmClaimImg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmClaimImg.Designer.cs">
+      <DependentUpon>FmClaimImg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FmClaimAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmClaimAdd.Designer.cs">
+      <DependentUpon>FmClaimAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FmCoupon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmCoupon.Designer.cs">
+      <DependentUpon>FmCoupon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FmWait.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmWait.Designer.cs">
+      <DependentUpon>FmWait.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FmDueDate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,12 +239,6 @@
     </Compile>
     <Compile Include="Form\FmScreenMapping.Designer.cs">
       <DependentUpon>FmScreenMapping.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form\FmWait.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form\FmWait.Designer.cs">
-      <DependentUpon>FmWait.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FmReturnSell.cs">
       <SubType>Form</SubType>
@@ -337,6 +368,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UcClaim.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcClaim.Designer.cs">
+      <DependentUpon>UcClaim.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UcReportStock.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -379,11 +416,11 @@
     <Compile Include="UserControl\UcUser.Designer.cs">
       <DependentUpon>UcUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserControl\UcClaim.cs">
+    <Compile Include="UserControl\UcClaimOld.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UserControl\UcClaim.Designer.cs">
-      <DependentUpon>UcClaim.cs</DependentUpon>
+    <Compile Include="UserControl\UcClaimOld.Designer.cs">
+      <DependentUpon>UcClaimOld.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControl\UcConfig.cs">
       <SubType>UserControl</SubType>
@@ -422,6 +459,18 @@
       <DependentUpon>UcSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
+    <EmbeddedResource Include="FmCoupon.resx">
+      <DependentUpon>FmCoupon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmClaimAdd.resx">
+      <DependentUpon>FmClaimAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmClaimImg.resx">
+      <DependentUpon>FmClaimImg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmWait.resx">
+      <DependentUpon>FmWait.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FmDueDate.resx">
       <DependentUpon>FmDueDate.cs</DependentUpon>
     </EmbeddedResource>
@@ -436,9 +485,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FmScreenMapping.resx">
       <DependentUpon>FmScreenMapping.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form\FmWait.resx">
-      <DependentUpon>FmWait.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FmReturnSell.resx">
       <DependentUpon>FmReturnSell.cs</DependentUpon>
@@ -502,14 +548,17 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcClaim.resx">
+      <DependentUpon>UcClaim.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcReportProduct.resx">
       <DependentUpon>UcReportProduct.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcCredit.resx">
       <DependentUpon>UcCredit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserControl\UcClaim.resx">
-      <DependentUpon>UcClaim.cs</DependentUpon>
+    <EmbeddedResource Include="UserControl\UcClaimOld.resx">
+      <DependentUpon>UcClaimOld.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcConfig.resx">
       <DependentUpon>UcConfig.cs</DependentUpon>
@@ -2326,6 +2375,8 @@
     <None Include="Resources\Credit.png" />
     <Content Include="Resources\Images\Loading.gif" />
     <None Include="Resources\Office.png" />
+    <None Include="Resources\reoffice.jpg" />
+    <None Include="Resources\return.jpg" />
     <Content Include="WinSCP.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

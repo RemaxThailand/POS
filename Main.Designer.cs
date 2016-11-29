@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.TileItemElement tileItemElement13 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement5 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement1 = new DevExpress.XtraEditors.TileItemElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
@@ -43,10 +42,10 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement10 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement11 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement13 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement14 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement15 = new DevExpress.XtraEditors.TileItemElement();
             this.tileNavPane1 = new DevExpress.XtraBars.Navigation.TileNavPane();
-            this.navCredit = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.navButton2 = new DevExpress.XtraBars.Navigation.NavButton();
             this.navExit = new DevExpress.XtraBars.Navigation.NavButton();
             this.navData = new DevExpress.XtraBars.Navigation.TileNavItem();
@@ -61,6 +60,7 @@
             this.navReportDaily = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.navReportProduct = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.navReportStock = new DevExpress.XtraBars.Navigation.TileNavSubItem();
+            this.navCredit = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.navConfig = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.navRefresh = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.pnlMain = new DevExpress.XtraEditors.PanelControl();
@@ -88,28 +88,6 @@
             // 
             // tileNavCategory1
             // 
-            // 
-            // navCredit
-            // 
-            this.navCredit.Caption = "ลูกหนี้";
-            this.navCredit.Name = "navCredit";
-            this.navCredit.OptionsDropDown.BackColor = System.Drawing.Color.Empty;
-            this.navCredit.OwnerCollection = this.tileNavPane1.DefaultCategory.Items;
-            // 
-            // 
-            // 
-            this.navCredit.Tile.AppearanceItem.Normal.Font = new System.Drawing.Font("DilleniaUPC", 22F, System.Drawing.FontStyle.Bold);
-            this.navCredit.Tile.AppearanceItem.Normal.Options.UseFont = true;
-            this.navCredit.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement13.Image = ((System.Drawing.Image)(resources.GetObject("tileItemElement13.Image")));
-            tileItemElement13.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
-            tileItemElement13.ImageToTextAlignment = DevExpress.XtraEditors.TileControlImageToTextAlignment.Left;
-            tileItemElement13.Text = "ลูกหนี้";
-            this.navCredit.Tile.Elements.Add(tileItemElement13);
-            this.navCredit.Tile.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Default;
-            this.navCredit.Tile.Name = "tileNavItem";
-            this.navCredit.Tile.ShowDropDownButton = DevExpress.Utils.DefaultBoolean.False;
-            this.navCredit.Tile.ShowItemShadow = DevExpress.Utils.DefaultBoolean.True;
             this.tileNavPane1.DefaultCategory.Items.AddRange(new DevExpress.XtraBars.Navigation.TileNavItem[] {
             this.navData,
             this.navCustomer,
@@ -406,6 +384,28 @@
             this.navReportStock.Tile.Elements.Add(tileItemElement11);
             this.navReportStock.Tile.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Default;
             this.navReportStock.Tile.Name = "tileBarItem1";
+            // 
+            // navCredit
+            // 
+            this.navCredit.Caption = "ลูกหนี้";
+            this.navCredit.Name = "navCredit";
+            this.navCredit.OptionsDropDown.BackColor = System.Drawing.Color.Empty;
+            this.navCredit.OwnerCollection = this.tileNavPane1.DefaultCategory.Items;
+            // 
+            // 
+            // 
+            this.navCredit.Tile.AppearanceItem.Normal.Font = new System.Drawing.Font("DilleniaUPC", 22F, System.Drawing.FontStyle.Bold);
+            this.navCredit.Tile.AppearanceItem.Normal.Options.UseFont = true;
+            this.navCredit.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement13.Image = ((System.Drawing.Image)(resources.GetObject("tileItemElement13.Image")));
+            tileItemElement13.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleCenter;
+            tileItemElement13.ImageToTextAlignment = DevExpress.XtraEditors.TileControlImageToTextAlignment.Left;
+            tileItemElement13.Text = "ลูกหนี้";
+            this.navCredit.Tile.Elements.Add(tileItemElement13);
+            this.navCredit.Tile.ItemSize = DevExpress.XtraBars.Navigation.TileBarItemSize.Default;
+            this.navCredit.Tile.Name = "tileNavItem";
+            this.navCredit.Tile.ShowDropDownButton = DevExpress.Utils.DefaultBoolean.False;
+            this.navCredit.Tile.ShowItemShadow = DevExpress.Utils.DefaultBoolean.True;
             // 
             // navConfig
             // 

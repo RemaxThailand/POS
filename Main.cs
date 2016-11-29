@@ -260,6 +260,7 @@ namespace PowerPOS
         {
             if (MessageBox.Show("คุณต้องการ ออกจากระบบใช่หรือไม่", "ยืนยันการออกจากระบบ", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
             {
+                
                 //this.Opacity = 0;
                 //this.ShowInTaskbar = false;
 

@@ -252,6 +252,8 @@
             this.clFirstname.AppearanceCell.Options.UseFont = true;
             this.clFirstname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clFirstname.AppearanceHeader.Options.UseFont = true;
+            this.clFirstname.AppearanceHeader.Options.UseTextOptions = true;
+            this.clFirstname.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clFirstname.Caption = "ชื่อ";
             this.clFirstname.FieldName = "firstname";
             this.clFirstname.Name = "clFirstname";
@@ -266,6 +268,8 @@
             this.clLastname.AppearanceCell.Options.UseFont = true;
             this.clLastname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clLastname.AppearanceHeader.Options.UseFont = true;
+            this.clLastname.AppearanceHeader.Options.UseTextOptions = true;
+            this.clLastname.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clLastname.Caption = "นามสกุล";
             this.clLastname.FieldName = "lastname";
             this.clLastname.Name = "clLastname";
@@ -279,6 +283,8 @@
             this.clNickname.AppearanceCell.Options.UseFont = true;
             this.clNickname.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clNickname.AppearanceHeader.Options.UseFont = true;
+            this.clNickname.AppearanceHeader.Options.UseTextOptions = true;
+            this.clNickname.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clNickname.Caption = "ชื่อเล่น";
             this.clNickname.FieldName = "nickname";
             this.clNickname.Name = "clNickname";
@@ -292,6 +298,8 @@
             this.clMobile.AppearanceCell.Options.UseFont = true;
             this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clMobile.AppearanceHeader.Options.UseFont = true;
+            this.clMobile.AppearanceHeader.Options.UseTextOptions = true;
+            this.clMobile.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clMobile.Caption = "โทรศัพท์";
             this.clMobile.FieldName = "mobile";
             this.clMobile.Name = "clMobile";
@@ -305,6 +313,8 @@
             this.clUsername.AppearanceCell.Options.UseFont = true;
             this.clUsername.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clUsername.AppearanceHeader.Options.UseFont = true;
+            this.clUsername.AppearanceHeader.Options.UseTextOptions = true;
+            this.clUsername.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clUsername.Caption = "ชื่อผู้ใช้";
             this.clUsername.FieldName = "username";
             this.clUsername.Name = "clUsername";
@@ -318,6 +328,8 @@
             this.clPassword.AppearanceCell.Options.UseFont = true;
             this.clPassword.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.clPassword.AppearanceHeader.Options.UseFont = true;
+            this.clPassword.AppearanceHeader.Options.UseTextOptions = true;
+            this.clPassword.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.clPassword.Caption = "รหัสผ่าน";
             this.clPassword.ColumnEdit = this.repositoryItemTextEdit1;
             this.clPassword.FieldName = "passtmp";

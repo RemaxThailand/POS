@@ -103,7 +103,7 @@ namespace PowerPOS
             }
         }
 
-        public void LoadDataOffice()
+        public void LoadDataReturn()
         {
             DataTable dt, dtQty;
             DataRow row;
@@ -111,9 +111,6 @@ namespace PowerPOS
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try
             {
-                ptbShop.Image = new Bitmap(Properties.Resources.Claim);
-
-
                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
                  SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, h.TotalPrice
                FROM SellHeader h
@@ -274,10 +271,17 @@ namespace PowerPOS
             if (navBarControl1.ActiveGroup.Caption == "ข้อมูลเคลมรายวัน")
             {
                 LoadData();
+                reportGridControl.Visible = true;
+                returnGridControl.Visible = false;
+                officeGridControl.Visible = false;
             }
             else
             {
-                LoadDataOffice();
+                LoadDataReturn();
+                reportGridControl.Visible = false;
+                returnGridControl.Visible = true;
+                officeGridControl.Visible = false;
+
             }
         }
 

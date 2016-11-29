@@ -3,6 +3,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections;
+using System.Data;
 using System.Data.SqlClient;
 using System.Data.SQLite;
 using System.Data.SqlServerCe;
@@ -20,6 +21,8 @@ namespace PowerPOS
         //public static SqlConnection SqlLocalDB;
         public static UcSale UcSale;
         public static Main Main;
+        public static DataSet DataSet;
+
         //public static string ShopId = "POWERDDH-8888-8888-B620-48D3B6489999";
         //public static string ApiUrl = "http://api.powerdd.com";
         //public static string ApiKey = "27AD365F-FBFF-4994-BB9C-97ABAF80EFBB";
