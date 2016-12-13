@@ -72,12 +72,18 @@
             this.clTotal = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clStatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clDiscount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.clNet = new DevExpress.XtraGrid.Columns.GridColumn();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.panelControl10 = new DevExpress.XtraEditors.PanelControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.btnPrintClaim = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl24 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
             this.btnPrintA4 = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
@@ -92,7 +98,6 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
-            this.clNet = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -134,6 +139,11 @@
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.panelControl17.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
+            this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
@@ -701,6 +711,27 @@
             this.clDiscount.VisibleIndex = 6;
             this.clDiscount.Width = 70;
             // 
+            // clNet
+            // 
+            this.clNet.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNet.AppearanceCell.Options.UseFont = true;
+            this.clNet.AppearanceCell.Options.UseTextOptions = true;
+            this.clNet.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.clNet.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNet.AppearanceHeader.Options.UseFont = true;
+            this.clNet.AppearanceHeader.Options.UseTextOptions = true;
+            this.clNet.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.clNet.Caption = "ยอดขายสุทธิ";
+            this.clNet.FieldName = "Net";
+            this.clNet.Name = "clNet";
+            this.clNet.OptionsColumn.AllowEdit = false;
+            this.clNet.OptionsColumn.AllowMove = false;
+            this.clNet.OptionsColumn.AllowSize = false;
+            this.clNet.OptionsColumn.FixedWidth = true;
+            this.clNet.Visible = true;
+            this.clNet.VisibleIndex = 7;
+            this.clNet.Width = 100;
+            // 
             // panelControl10
             // 
             this.panelControl10.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
@@ -736,6 +767,7 @@
             // 
             // panelControl17
             // 
+            this.panelControl17.Controls.Add(this.groupControl7);
             this.panelControl17.Controls.Add(this.groupControl6);
             this.panelControl17.Controls.Add(this.groupControl4);
             this.panelControl17.Controls.Add(this.groupControl5);
@@ -744,6 +776,63 @@
             this.panelControl17.Name = "panelControl17";
             this.panelControl17.Size = new System.Drawing.Size(915, 47);
             this.panelControl17.TabIndex = 6;
+            // 
+            // groupControl7
+            // 
+            this.groupControl7.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl7.Controls.Add(this.btnPrintClaim);
+            this.groupControl7.Controls.Add(this.panelControl22);
+            this.groupControl7.Controls.Add(this.panelControl23);
+            this.groupControl7.Controls.Add(this.panelControl24);
+            this.groupControl7.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupControl7.Location = new System.Drawing.Point(393, 2);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.ShowCaption = false;
+            this.groupControl7.Size = new System.Drawing.Size(173, 43);
+            this.groupControl7.TabIndex = 32;
+            this.groupControl7.Text = "groupControl7";
+            // 
+            // btnPrintClaim
+            // 
+            this.btnPrintClaim.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintClaim.Appearance.Options.UseFont = true;
+            this.btnPrintClaim.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrintClaim.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintClaim.Image")));
+            this.btnPrintClaim.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrintClaim.Location = new System.Drawing.Point(0, 4);
+            this.btnPrintClaim.Name = "btnPrintClaim";
+            this.btnPrintClaim.Size = new System.Drawing.Size(163, 35);
+            this.btnPrintClaim.TabIndex = 0;
+            this.btnPrintClaim.Text = "พิมพ์ใบคุมสินค้าเคลม";
+            this.btnPrintClaim.Visible = false;
+            this.btnPrintClaim.Click += new System.EventHandler(this.btnPrintClaim_Click);
+            // 
+            // panelControl22
+            // 
+            this.panelControl22.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl22.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl22.Location = new System.Drawing.Point(0, 39);
+            this.panelControl22.Name = "panelControl22";
+            this.panelControl22.Size = new System.Drawing.Size(163, 4);
+            this.panelControl22.TabIndex = 20;
+            // 
+            // panelControl23
+            // 
+            this.panelControl23.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl23.Location = new System.Drawing.Point(0, 0);
+            this.panelControl23.Name = "panelControl23";
+            this.panelControl23.Size = new System.Drawing.Size(163, 4);
+            this.panelControl23.TabIndex = 19;
+            // 
+            // panelControl24
+            // 
+            this.panelControl24.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl24.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl24.Location = new System.Drawing.Point(163, 0);
+            this.panelControl24.Name = "panelControl24";
+            this.panelControl24.Size = new System.Drawing.Size(10, 43);
+            this.panelControl24.TabIndex = 18;
             // 
             // groupControl6
             // 
@@ -894,27 +983,6 @@
             this.lblProductCount.TabIndex = 23;
             this.lblProductCount.Text = "0 ชิ้น";
             // 
-            // clNet
-            // 
-            this.clNet.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.clNet.AppearanceCell.Options.UseFont = true;
-            this.clNet.AppearanceCell.Options.UseTextOptions = true;
-            this.clNet.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clNet.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.clNet.AppearanceHeader.Options.UseFont = true;
-            this.clNet.AppearanceHeader.Options.UseTextOptions = true;
-            this.clNet.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clNet.Caption = "ยอดขายสุทธิ";
-            this.clNet.FieldName = "Net";
-            this.clNet.Name = "clNet";
-            this.clNet.OptionsColumn.AllowEdit = false;
-            this.clNet.OptionsColumn.AllowMove = false;
-            this.clNet.OptionsColumn.AllowSize = false;
-            this.clNet.OptionsColumn.FixedWidth = true;
-            this.clNet.Visible = true;
-            this.clNet.VisibleIndex = 7;
-            this.clNet.Width = 100;
-            // 
             // UcReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -967,6 +1035,11 @@
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.panelControl17.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
+            this.groupControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl22)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl24)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
@@ -995,7 +1068,6 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraGrid.GridControl reportGridControl;
-        private DevExpress.XtraGrid.Views.Grid.GridView reportGridView;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private DevExpress.XtraGrid.Columns.GridColumn clNo;
         private DevExpress.XtraGrid.Columns.GridColumn cllDate;
@@ -1049,5 +1121,11 @@
         private DevExpress.XtraEditors.PanelControl panelControl21;
         private DevExpress.XtraGrid.Columns.GridColumn clDiscount;
         private DevExpress.XtraGrid.Columns.GridColumn clNet;
+        private DevExpress.XtraEditors.GroupControl groupControl7;
+        private DevExpress.XtraEditors.SimpleButton btnPrintClaim;
+        private DevExpress.XtraEditors.PanelControl panelControl22;
+        private DevExpress.XtraEditors.PanelControl panelControl23;
+        private DevExpress.XtraEditors.PanelControl panelControl24;
+        protected DevExpress.XtraGrid.Views.Grid.GridView reportGridView;
     }
 }

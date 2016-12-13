@@ -75,6 +75,7 @@ namespace PowerPOS
         public static string Printer;
         public static float Page;
         public static int Num = 49;
+        public static int NumClaim = 30;
         public static int Qty = 0;
         public static int d = 0;
         public static int Due = 0;

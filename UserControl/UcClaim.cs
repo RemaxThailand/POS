@@ -47,12 +47,6 @@ namespace PowerPOS
 
         private void textBarcodeSwap_Properties_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
-            splashScreenManager.ShowWaitForm();
-            bwWarrantyInfo.RunWorkerAsync();
-        }
-
-        private void btnBarcodeWarr_Properties_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-        {
             try
             {
                 lblProductCodeSw.Text = "-";
@@ -64,6 +58,17 @@ namespace PowerPOS
                 lblSellPriceSw.Text = "-";
                 splashScreenManager.ShowWaitForm();
                 bwBarcodeSwap.RunWorkerAsync();
+            }
+            catch
+            { }
+        }
+
+        private void btnBarcodeWarr_Properties_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            try
+            {
+                splashScreenManager.ShowWaitForm();
+                bwWarrantyInfo.RunWorkerAsync();
             }
             catch
             { }
@@ -85,9 +90,6 @@ namespace PowerPOS
             loadDefault();
             lblClaimNo.BackColor = this.BackColor;
             lblBarcode.BackColor = this.BackColor;
-
-           
-
         }
 
         private void loadDefault()
@@ -97,7 +99,6 @@ namespace PowerPOS
 
         private void bwLoadClaim_DoWork(object sender, DoWorkEventArgs e)
         {
-            //Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
             try
             {
@@ -111,6 +112,8 @@ namespace PowerPOS
                 {
                     _shop = "";
                 }
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
                 _TABLE_CLAIM = new DataTable();
                 _JSON_CLAIM = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/info", "shop=" + _shop + "&id=" + textNo.Text + "&barcode=" + barcode.Text + "&claimdate_from=" + _dateFrom + "&claimdate_to=" + _dateTo + "&status=" + statusRadioGroup.Text + "&firstname=" + textFirstname.Text + "&lineid=" + textLineID.Text + "&tel=" + textTel.Text));
 
@@ -218,9 +221,9 @@ namespace PowerPOS
 
             try
             {
-                DateTime dateFrom = Convert.ToDateTime(claimDateFrom.Value);
-                DateTime dateTo = Convert.ToDateTime(claimDateTo.Value);
-                if (dateFrom > dateTo || dateFrom == dateTo)
+                //DateTime dateFrom = claimDateFrom.Value.Day;
+                //DateTime dateTo = claimDateTo.Value.Day;
+                if (claimDateFrom.Value.Date > claimDateTo.Value.Date)
                 {
                     comboRefresh();
                     claimGridControl.DataSource = null;
@@ -373,7 +376,7 @@ namespace PowerPOS
                 sentDatePicker.Show();
 
                 receiveDatePicker.Hide();
-                textRemark.Hide();
+                textRemark.Show();
                 textRemark.Text = "Remark";
             }
             else if (comboBoxEdit1.SelectedIndex == 1)
@@ -390,7 +393,7 @@ namespace PowerPOS
                 receiveDatePicker.Show();
 
                 sentDatePicker.Hide();
-                textRemark.Hide();
+                textRemark.Show();
                 textTrackNo.Hide();
                 textRemark.Text = "Remark";
                 textTrackNo.Text = "Track No.";
@@ -399,7 +402,7 @@ namespace PowerPOS
             {
                 receiveDatePicker.Hide();
                 sentDatePicker.Hide();
-                textRemark.Hide();
+                textRemark.Show();
                 textTrackNo.Hide();
                 textRemark.Text = "Remark";
                 textTrackNo.Text = "Track No.";
@@ -426,6 +429,8 @@ namespace PowerPOS
             lblBarcode.Text = "-";
             lblClaimNo.Text = "-";
             lblSellPriceSw.Text = "-";
+            lblSellDate.Text = "-";
+            lblSellPrice.Text = "-";
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
@@ -653,6 +658,10 @@ namespace PowerPOS
         {
             try
             {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                //DateTime d,dd;
+               // string s;
+
                 comboRefresh();
                 //bwLoadImage.RunWorkerAsync();
                 _claimNo = claimInfoGridView.GetRowCellDisplayText(claimInfoGridView.FocusedRowHandle, claimInfoGridView.Columns["claimNo"]).ToString();
@@ -721,7 +730,8 @@ namespace PowerPOS
                     textTrackNo.Show();
                     textTrackNo.Text = _CLAIM_SELECTED[10].ToString();
                     sentDatePicker.Show();
-                    sentDatePicker.Text = _CLAIM_SELECTED[22].ToString();
+                    //d = DateTime.Parse(_CLAIM_SELECTED[22].ToString());
+                    sentDatePicker.Text = _CLAIM_SELECTED[22].ToString();// d.ToString("dd/MM/yyyy HH:mm:ss", new CultureInfo("en-US"));
                 }
                 else if (_CLAIM_SELECTED[6].ToString() == "RJ")
                 {
@@ -751,7 +761,7 @@ namespace PowerPOS
                 {
                     receiveDatePicker.Hide();
                     sentDatePicker.Hide();
-                    textRemark.Hide();
+                    textRemark.Show();
                     textTrackNo.Hide();
                 }
 
@@ -761,7 +771,7 @@ namespace PowerPOS
                     sentDatePicker.Show();
 
                     receiveDatePicker.Hide();
-                    textRemark.Hide();
+                    textRemark.Show();
                 }
                 else if (comboBoxEdit1.SelectedIndex == 1)
                 {
@@ -776,7 +786,7 @@ namespace PowerPOS
                     receiveDatePicker.Show();
 
                     sentDatePicker.Hide();
-                    textRemark.Hide();
+                    textRemark.Show();
                     textTrackNo.Hide();
                 }
                 else if (comboBoxEdit1.SelectedIndex == 3)
@@ -784,14 +794,14 @@ namespace PowerPOS
                     receiveDatePicker.Show();
 
                     sentDatePicker.Hide();
-                    textRemark.Hide();
+                    textRemark.Show();
                     textTrackNo.Hide();
                 }
                 else
                 {
                     receiveDatePicker.Hide();
                     sentDatePicker.Hide();
-                    textRemark.Hide();
+                    textRemark.Show();
                     textTrackNo.Hide();
                 }
             }

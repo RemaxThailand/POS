@@ -42,7 +42,7 @@
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(141, 42);
             this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Version 1.0.0.30";
+            this.labelControl1.Text = "Version 1.0.0.33";
             // 
             // labelControl2
             // 

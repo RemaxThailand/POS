@@ -26,7 +26,7 @@ namespace PowerPOS
         {
             txtCash.Focus();
             rdbBath.Checked = true;
-            if (Param.MemberType != "Event")
+            if (Param.MemberType == "Shop")
             {
                 //txtCoupon.Enabled = false;
                 txtDiscountBath.Enabled = false;

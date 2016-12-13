@@ -36,6 +36,11 @@ namespace PowerPOS
 
         public void LoadData()
         {
+            if (Param.ApiShopId == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
+            {
+                btnPrintClaim.Visible = true;
+            }
+
             DataTable dt, dtQty;
             DataRow row;
             int i, a;
@@ -418,6 +423,22 @@ namespace PowerPOS
                 Param.DevicePrinter = Param.Printer;
                 Param.PaperSize = Param.Paper;
             }
+        }
+
+        private void btnPrintClaim_Click(object sender, EventArgs e)
+        {
+            if (Param.PrintType == "Y")
+            {
+                var cnt = int.Parse(Param.PrintCount.ToString());
+                for (int i = 1; i <= cnt; i++)
+                    Util.PrintProductClaim(sellNo);
+            }
+            else if (Param.PrintType == "A")
+            {
+                if (MessageBox.Show("คุณต้องการพิมพ์ใบเสร็จรับเงินหรือไม่ ?", "การพิมพ์", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    Util.PrintProductClaim(sellNo);
+            }
+
         }
     }
 }

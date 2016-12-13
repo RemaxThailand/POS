@@ -91,10 +91,10 @@
             this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.sentDatePicker = new System.Windows.Forms.DateTimePicker();
             this.receiveDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.textRemark = new DevExpress.XtraEditors.TextEdit();
             this.btnSubmit = new DevExpress.XtraEditors.SimpleButton();
             this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.textTrackNo = new DevExpress.XtraEditors.TextEdit();
+            this.textRemark = new DevExpress.XtraEditors.MemoEdit();
             this.btnPrintAddr = new DevExpress.XtraEditors.SimpleButton();
             this.btnPrintClaim = new DevExpress.XtraEditors.SimpleButton();
             this.btnPrintReturn = new DevExpress.XtraEditors.SimpleButton();
@@ -179,9 +179,9 @@
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblBarcode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblClaimNo.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textRemark.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textTrackNo.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textRemark.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).BeginInit();
             this.panelControl10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textBarcodeSwap.Properties)).BeginInit();
@@ -226,7 +226,7 @@
             this.claimGridControl.Location = new System.Drawing.Point(2, 2);
             this.claimGridControl.MainView = this.claimInfoGridView;
             this.claimGridControl.Name = "claimGridControl";
-            this.claimGridControl.Size = new System.Drawing.Size(639, 138);
+            this.claimGridControl.Size = new System.Drawing.Size(668, 367);
             this.claimGridControl.TabIndex = 1;
             this.claimGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.claimInfoGridView,
@@ -617,7 +617,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(219, 420);
+            this.panelControl2.Size = new System.Drawing.Size(219, 649);
             this.panelControl2.TabIndex = 42;
             // 
             // panelControl4
@@ -628,7 +628,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(2, 2);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(215, 416);
+            this.panelControl4.Size = new System.Drawing.Size(215, 645);
             this.panelControl4.TabIndex = 12;
             // 
             // panelControl6
@@ -638,7 +638,7 @@
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl6.Location = new System.Drawing.Point(2, 112);
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(211, 63);
+            this.panelControl6.Size = new System.Drawing.Size(211, 237);
             this.panelControl6.TabIndex = 13;
             // 
             // textDescription
@@ -649,7 +649,7 @@
             this.textDescription.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textDescription.Properties.Appearance.Options.UseFont = true;
             this.textDescription.Properties.ReadOnly = true;
-            this.textDescription.Size = new System.Drawing.Size(207, 0);
+            this.textDescription.Size = new System.Drawing.Size(207, 113);
             this.textDescription.TabIndex = 4;
             // 
             // panelControl12
@@ -658,7 +658,7 @@
             this.panelControl12.Controls.Add(this.simpleButton1);
             this.panelControl12.Controls.Add(this.tileControl1);
             this.panelControl12.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl12.Location = new System.Drawing.Point(2, -59);
+            this.panelControl12.Location = new System.Drawing.Point(2, 115);
             this.panelControl12.Name = "panelControl12";
             this.panelControl12.Size = new System.Drawing.Size(207, 120);
             this.panelControl12.TabIndex = 5;
@@ -773,14 +773,14 @@
             this.panelControl5.Controls.Add(this.labelControl12);
             this.panelControl5.Controls.Add(this.sentDatePicker);
             this.panelControl5.Controls.Add(this.receiveDatePicker);
-            this.panelControl5.Controls.Add(this.textRemark);
             this.panelControl5.Controls.Add(this.btnSubmit);
             this.panelControl5.Controls.Add(this.comboBoxEdit1);
             this.panelControl5.Controls.Add(this.textTrackNo);
+            this.panelControl5.Controls.Add(this.textRemark);
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl5.Location = new System.Drawing.Point(2, 175);
+            this.panelControl5.Location = new System.Drawing.Point(2, 349);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(211, 239);
+            this.panelControl5.Size = new System.Drawing.Size(211, 294);
             this.panelControl5.TabIndex = 12;
             // 
             // lblBarcode
@@ -811,7 +811,7 @@
             // 
             // labelControl17
             // 
-            this.labelControl17.Location = new System.Drawing.Point(148, 223);
+            this.labelControl17.Location = new System.Drawing.Point(148, 280);
             this.labelControl17.Name = "labelControl17";
             this.labelControl17.Size = new System.Drawing.Size(59, 13);
             this.labelControl17.TabIndex = 46;
@@ -876,7 +876,7 @@
             this.sentDatePicker.CalendarFont = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sentDatePicker.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sentDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.sentDatePicker.Location = new System.Drawing.Point(7, 169);
+            this.sentDatePicker.Location = new System.Drawing.Point(7, 136);
             this.sentDatePicker.Name = "sentDatePicker";
             this.sentDatePicker.Size = new System.Drawing.Size(197, 23);
             this.sentDatePicker.TabIndex = 39;
@@ -887,38 +887,18 @@
             this.receiveDatePicker.CalendarFont = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.receiveDatePicker.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.receiveDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.receiveDatePicker.Location = new System.Drawing.Point(7, 141);
+            this.receiveDatePicker.Location = new System.Drawing.Point(7, 136);
             this.receiveDatePicker.Name = "receiveDatePicker";
             this.receiveDatePicker.Size = new System.Drawing.Size(197, 23);
             this.receiveDatePicker.TabIndex = 38;
             this.receiveDatePicker.Visible = false;
-            // 
-            // textRemark
-            // 
-            this.textRemark.EditValue = "Remark";
-            this.textRemark.Location = new System.Drawing.Point(7, 141);
-            this.textRemark.Name = "textRemark";
-            this.textRemark.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemark.Properties.Appearance.Options.UseFont = true;
-            this.textRemark.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemark.Properties.AppearanceDisabled.Options.UseFont = true;
-            this.textRemark.Properties.AppearanceFocused.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemark.Properties.AppearanceFocused.Options.UseFont = true;
-            this.textRemark.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textRemark.Properties.AppearanceReadOnly.Options.UseFont = true;
-            this.textRemark.Size = new System.Drawing.Size(197, 22);
-            this.textRemark.TabIndex = 12;
-            this.textRemark.Tag = "";
-            this.textRemark.Visible = false;
-            this.textRemark.Enter += new System.EventHandler(this.textRemark_Enter);
-            this.textRemark.Leave += new System.EventHandler(this.textRemark_Leave);
             // 
             // btnSubmit
             // 
             this.btnSubmit.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSubmit.Appearance.Options.UseFont = true;
             this.btnSubmit.Image = ((System.Drawing.Image)(resources.GetObject("btnSubmit.Image")));
-            this.btnSubmit.Location = new System.Drawing.Point(63, 198);
+            this.btnSubmit.Location = new System.Drawing.Point(63, 255);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(81, 33);
             this.btnSubmit.TabIndex = 2;
@@ -928,7 +908,7 @@
             // comboBoxEdit1
             // 
             this.comboBoxEdit1.EditValue = "กรุณาเลือกสถานะการเคลม...";
-            this.comboBoxEdit1.Location = new System.Drawing.Point(7, 113);
+            this.comboBoxEdit1.Location = new System.Drawing.Point(7, 108);
             this.comboBoxEdit1.Name = "comboBoxEdit1";
             this.comboBoxEdit1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxEdit1.Properties.Appearance.Options.UseFont = true;
@@ -956,7 +936,7 @@
             // textTrackNo
             // 
             this.textTrackNo.EditValue = "Track No.";
-            this.textTrackNo.Location = new System.Drawing.Point(7, 141);
+            this.textTrackNo.Location = new System.Drawing.Point(7, 164);
             this.textTrackNo.Name = "textTrackNo";
             this.textTrackNo.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textTrackNo.Properties.Appearance.Options.UseFont = true;
@@ -972,6 +952,25 @@
             this.textTrackNo.Visible = false;
             this.textTrackNo.Enter += new System.EventHandler(this.textTrackNo_Enter);
             this.textTrackNo.Leave += new System.EventHandler(this.textTrackNo_Leave);
+            // 
+            // textRemark
+            // 
+            this.textRemark.EditValue = "Remark";
+            this.textRemark.Location = new System.Drawing.Point(7, 192);
+            this.textRemark.Name = "textRemark";
+            this.textRemark.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textRemark.Properties.Appearance.Options.UseFont = true;
+            this.textRemark.Properties.AppearanceDisabled.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textRemark.Properties.AppearanceDisabled.Options.UseFont = true;
+            this.textRemark.Properties.AppearanceFocused.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textRemark.Properties.AppearanceFocused.Options.UseFont = true;
+            this.textRemark.Properties.AppearanceReadOnly.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textRemark.Properties.AppearanceReadOnly.Options.UseFont = true;
+            this.textRemark.Size = new System.Drawing.Size(197, 57);
+            this.textRemark.TabIndex = 12;
+            this.textRemark.Tag = "";
+            this.textRemark.Enter += new System.EventHandler(this.textRemark_Enter);
+            this.textRemark.Leave += new System.EventHandler(this.textRemark_Leave);
             // 
             // btnPrintAddr
             // 
@@ -1012,7 +1011,7 @@
             // labelControl25
             // 
             this.labelControl25.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelControl25.Location = new System.Drawing.Point(577, 2);
+            this.labelControl25.Location = new System.Drawing.Point(606, 2);
             this.labelControl25.Name = "labelControl25";
             this.labelControl25.Size = new System.Drawing.Size(64, 13);
             this.labelControl25.TabIndex = 50;
@@ -1108,9 +1107,9 @@
             this.panelControl10.Controls.Add(this.labelControl8);
             this.panelControl10.Controls.Add(this.labelControl7);
             this.panelControl10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl10.Location = new System.Drawing.Point(0, 142);
+            this.panelControl10.Location = new System.Drawing.Point(0, 371);
             this.panelControl10.Name = "panelControl10";
-            this.panelControl10.Size = new System.Drawing.Size(643, 278);
+            this.panelControl10.Size = new System.Drawing.Size(672, 278);
             this.panelControl10.TabIndex = 2;
             // 
             // lblLastShop
@@ -1337,7 +1336,7 @@
             this.panelControl8.Controls.Add(this.labelControl6);
             this.panelControl8.Controls.Add(this.textBarcodeWarr);
             this.panelControl8.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl8.Location = new System.Drawing.Point(2, 284);
+            this.panelControl8.Location = new System.Drawing.Point(2, 513);
             this.panelControl8.Name = "panelControl8";
             this.panelControl8.Size = new System.Drawing.Size(311, 148);
             this.panelControl8.TabIndex = 37;
@@ -1549,7 +1548,7 @@
             this.panelControl9.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl9.Location = new System.Drawing.Point(2, 2);
             this.panelControl9.Name = "panelControl9";
-            this.panelControl9.Size = new System.Drawing.Size(308, 282);
+            this.panelControl9.Size = new System.Drawing.Size(308, 511);
             this.panelControl9.TabIndex = 38;
             // 
             // panelControl3
@@ -1561,7 +1560,7 @@
             this.panelControl3.Location = new System.Drawing.Point(317, 2);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Padding = new System.Windows.Forms.Padding(5);
-            this.panelControl3.Size = new System.Drawing.Size(881, 434);
+            this.panelControl3.Size = new System.Drawing.Size(910, 663);
             this.panelControl3.TabIndex = 45;
             // 
             // splitContainerControl1
@@ -1575,7 +1574,7 @@
             this.splitContainerControl1.Panel1.Text = "Panel1";
             this.splitContainerControl1.Panel2.Controls.Add(this.panelControl2);
             this.splitContainerControl1.Panel2.Text = "Panel2";
-            this.splitContainerControl1.Size = new System.Drawing.Size(867, 420);
+            this.splitContainerControl1.Size = new System.Drawing.Size(896, 649);
             this.splitContainerControl1.SplitterPosition = 219;
             this.splitContainerControl1.TabIndex = 43;
             this.splitContainerControl1.Text = "splitContainerControl1";
@@ -1586,7 +1585,7 @@
             this.panelControl11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl11.Location = new System.Drawing.Point(0, 0);
             this.panelControl11.Name = "panelControl11";
-            this.panelControl11.Size = new System.Drawing.Size(643, 142);
+            this.panelControl11.Size = new System.Drawing.Size(672, 371);
             this.panelControl11.TabIndex = 3;
             // 
             // panelControl1
@@ -1596,7 +1595,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl1.Location = new System.Drawing.Point(2, 2);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(315, 434);
+            this.panelControl1.Size = new System.Drawing.Size(315, 663);
             this.panelControl1.TabIndex = 44;
             // 
             // panelControl13
@@ -1607,7 +1606,7 @@
             this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl13.Location = new System.Drawing.Point(0, 0);
             this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(1200, 438);
+            this.panelControl13.Size = new System.Drawing.Size(1229, 667);
             this.panelControl13.TabIndex = 46;
             // 
             // label1
@@ -1628,7 +1627,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panelControl13);
             this.Name = "UcClaim";
-            this.Size = new System.Drawing.Size(1200, 438);
+            this.Size = new System.Drawing.Size(1229, 667);
             this.Load += new System.EventHandler(this.UcClaim_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.claimGridControl)).EndInit();
@@ -1655,9 +1654,9 @@
             this.panelControl5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lblBarcode.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lblClaimNo.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textRemark.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textTrackNo.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textRemark.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl10)).EndInit();
             this.panelControl10.ResumeLayout(false);
             this.panelControl10.PerformLayout();
@@ -1753,7 +1752,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl12;
         private System.Windows.Forms.DateTimePicker sentDatePicker;
         private System.Windows.Forms.DateTimePicker receiveDatePicker;
-        private DevExpress.XtraEditors.TextEdit textRemark;
         private DevExpress.XtraEditors.SimpleButton btnSubmit;
         private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.TextEdit textTrackNo;
@@ -1820,5 +1818,6 @@
         private DevExpress.XtraSplashScreen.SplashScreenManager splashScreenManager;
         private DevExpress.XtraEditors.PanelControl panelControl13;
         private System.Windows.Forms.Label label1;
+        private DevExpress.XtraEditors.MemoEdit textRemark;
     }
 }
