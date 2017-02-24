@@ -34,6 +34,8 @@
             this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl7 = new DevExpress.XtraEditors.PanelControl();
+            this.btnConfirmReceived = new DevExpress.XtraEditors.SimpleButton();
+            this.panelControl39 = new DevExpress.XtraEditors.PanelControl();
             this.ptbProduct = new System.Windows.Forms.PictureBox();
             this.panelControl15 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl14 = new DevExpress.XtraEditors.PanelControl();
@@ -118,6 +120,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).BeginInit();
             this.panelControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl39)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).BeginInit();
@@ -190,7 +193,7 @@
             this.navBarControl1.OptionsNavPane.ExpandedWidth = 234;
             this.navBarControl1.OptionsNavPane.ShowOverflowPanel = false;
             this.navBarControl1.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-            this.navBarControl1.Size = new System.Drawing.Size(234, 648);
+            this.navBarControl1.Size = new System.Drawing.Size(234, 712);
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "navBarControl1";
             // 
@@ -212,7 +215,7 @@
             this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer1.Controls.Add(this.panelControl1);
             this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(234, 562);
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(234, 626);
             this.navBarGroupControlContainer1.TabIndex = 0;
             // 
             // panelControl1
@@ -225,11 +228,13 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(234, 562);
+            this.panelControl1.Size = new System.Drawing.Size(234, 626);
             this.panelControl1.TabIndex = 0;
             // 
             // panelControl7
             // 
+            this.panelControl7.Controls.Add(this.btnConfirmReceived);
+            this.panelControl7.Controls.Add(this.panelControl39);
             this.panelControl7.Controls.Add(this.ptbProduct);
             this.panelControl7.Controls.Add(this.panelControl15);
             this.panelControl7.Controls.Add(this.panelControl14);
@@ -243,8 +248,32 @@
             this.panelControl7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl7.Location = new System.Drawing.Point(2, 161);
             this.panelControl7.Name = "panelControl7";
-            this.panelControl7.Size = new System.Drawing.Size(230, 343);
+            this.panelControl7.Size = new System.Drawing.Size(230, 407);
             this.panelControl7.TabIndex = 5;
+            // 
+            // btnConfirmReceived
+            // 
+            this.btnConfirmReceived.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmReceived.Appearance.Options.UseFont = true;
+            this.btnConfirmReceived.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnConfirmReceived.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirmReceived.Image")));
+            this.btnConfirmReceived.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnConfirmReceived.Location = new System.Drawing.Point(12, 299);
+            this.btnConfirmReceived.Name = "btnConfirmReceived";
+            this.btnConfirmReceived.Size = new System.Drawing.Size(206, 35);
+            this.btnConfirmReceived.TabIndex = 20;
+            this.btnConfirmReceived.Text = "ยืนยันการรับเข้า";
+            this.btnConfirmReceived.Visible = false;
+            this.btnConfirmReceived.Click += new System.EventHandler(this.btnConfirmReceived_Click);
+            // 
+            // panelControl39
+            // 
+            this.panelControl39.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl39.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl39.Location = new System.Drawing.Point(12, 294);
+            this.panelControl39.Name = "panelControl39";
+            this.panelControl39.Size = new System.Drawing.Size(206, 5);
+            this.panelControl39.TabIndex = 19;
             // 
             // ptbProduct
             // 
@@ -262,7 +291,7 @@
             this.panelControl15.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelControl15.Location = new System.Drawing.Point(2, 88);
             this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(10, 253);
+            this.panelControl15.Size = new System.Drawing.Size(10, 317);
             this.panelControl15.TabIndex = 18;
             // 
             // panelControl14
@@ -271,7 +300,7 @@
             this.panelControl14.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl14.Location = new System.Drawing.Point(218, 88);
             this.panelControl14.Name = "panelControl14";
-            this.panelControl14.Size = new System.Drawing.Size(10, 253);
+            this.panelControl14.Size = new System.Drawing.Size(10, 317);
             this.panelControl14.TabIndex = 17;
             // 
             // panelControl13
@@ -426,7 +455,7 @@
             this.gbOrder.Controls.Add(this.cbbOrder);
             this.gbOrder.Controls.Add(this.panelControl5);
             this.gbOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gbOrder.Location = new System.Drawing.Point(2, 504);
+            this.gbOrder.Location = new System.Drawing.Point(2, 568);
             this.gbOrder.Name = "gbOrder";
             this.gbOrder.Size = new System.Drawing.Size(230, 56);
             this.gbOrder.TabIndex = 2;
@@ -535,7 +564,7 @@
             this.receivedGridControl.Location = new System.Drawing.Point(234, 0);
             this.receivedGridControl.MainView = this.receivedGridView;
             this.receivedGridControl.Name = "receivedGridControl";
-            this.receivedGridControl.Size = new System.Drawing.Size(975, 601);
+            this.receivedGridControl.Size = new System.Drawing.Size(975, 665);
             this.receivedGridControl.TabIndex = 1;
             this.receivedGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.receivedGridView});
@@ -749,7 +778,7 @@
             this.panelControl16.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl16.Location = new System.Drawing.Point(1209, 0);
             this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(10, 648);
+            this.panelControl16.Size = new System.Drawing.Size(10, 712);
             this.panelControl16.TabIndex = 2;
             // 
             // panelControl17
@@ -759,7 +788,7 @@
             this.panelControl17.Controls.Add(this.panelControl25);
             this.panelControl17.Controls.Add(this.groupControl2);
             this.panelControl17.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl17.Location = new System.Drawing.Point(234, 601);
+            this.panelControl17.Location = new System.Drawing.Point(234, 665);
             this.panelControl17.Name = "panelControl17";
             this.panelControl17.Size = new System.Drawing.Size(975, 47);
             this.panelControl17.TabIndex = 3;
@@ -1160,7 +1189,7 @@
             this.Controls.Add(this.panelControl16);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcReceiveProduct";
-            this.Size = new System.Drawing.Size(1219, 648);
+            this.Size = new System.Drawing.Size(1219, 712);
             this.Load += new System.EventHandler(this.UcReceiveProduct_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
@@ -1169,6 +1198,7 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl7)).EndInit();
             this.panelControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl39)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbProduct)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl14)).EndInit();
@@ -1315,5 +1345,7 @@
         private DevExpress.XtraEditors.PanelControl panelControl32;
         private DevExpress.XtraGrid.Columns.GridColumn clPrice;
         private DevExpress.XtraGrid.Columns.GridColumn clPriceRe;
+        private DevExpress.XtraEditors.SimpleButton btnConfirmReceived;
+        private DevExpress.XtraEditors.PanelControl panelControl39;
     }
 }

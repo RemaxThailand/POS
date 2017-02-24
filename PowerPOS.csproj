@@ -186,6 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
+    <Compile Include="FmEditAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FmEditAddress.Designer.cs">
+      <DependentUpon>FmEditAddress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form\FmClaimImg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -368,6 +374,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UcAddDataClaim.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcAddDataClaim.Designer.cs">
+      <DependentUpon>UcAddDataClaim.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UcClaim.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -462,6 +474,9 @@
     <EmbeddedResource Include="FmCoupon.resx">
       <DependentUpon>FmCoupon.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FmEditAddress.resx">
+      <DependentUpon>FmEditAddress.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form\FmClaimAdd.resx">
       <DependentUpon>FmClaimAdd.cs</DependentUpon>
     </EmbeddedResource>
@@ -547,6 +562,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcAddDataClaim.resx">
+      <DependentUpon>UcAddDataClaim.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcClaim.resx">
       <DependentUpon>UcClaim.cs</DependentUpon>

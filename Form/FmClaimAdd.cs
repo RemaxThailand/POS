@@ -12,6 +12,7 @@ using System.Globalization;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors;
+using System.Threading;
 
 namespace PowerPOS
 {
@@ -71,6 +72,7 @@ namespace PowerPOS
 
         private void bwBarcode_DoWork(object sender, DoWorkEventArgs e)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             try
             {
                 _JSON_BARCODEEXIST = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/barcodeExist", "shop=" + Param.ShopId + "&barcode=" + textBarcode.Text));
@@ -107,14 +109,15 @@ namespace PowerPOS
                     lblProductCode.Text = _JSON_BARCODE.result.sku.ToString();
                     lblBarcode.Text = _JSON_BARCODE.result.barcode.ToString();
                     lblProductName.Text = _JSON_BARCODE.result.productName.ToString();
-                    lblSellDate.Text = _JSON_BARCODE.result.sellDate.ToString("dd/MM/yyyy").Substring(0, 10);
+                    lblSellDate.Text = _JSON_BARCODE.result.sellDate.ToString("dd/MM/yyyy");
                     lblLastShop.Text = _JSON_BARCODE.result.shop.ToString();
                     lblWarranty.Text = _JSON_BARCODE.result.warranty.ToString();
                     lblSellPrice.Text = _JSON_BARCODE.result.sellPrice.ToString();
                     lblProduct.Text = _JSON_BARCODE.result.product.ToString();
                     lblSellNo.Text = _JSON_BARCODE.result.sellNo.ToString();
 
-                    DateTime sellDate = Convert.ToDateTime(lblSellDate.Text);
+                    string dd = _JSON_BARCODE.result.sellDate.ToString("MM/dd/yyyy");
+                    DateTime sellDate = Convert.ToDateTime(dd);
                     DateTime today = DateTime.Now;
                     int wDay = Convert.ToInt32(lblWarranty.Text);
                     sellDate = sellDate.AddDays(wDay);

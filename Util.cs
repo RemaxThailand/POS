@@ -171,6 +171,7 @@ namespace PowerPOS
                         Param.HeaderName = jsonApplication.result[0].headerName;
                         Param.FooterText = jsonApplication.result[0].footerText;
                         Param.PaperSize = jsonApplication.result[0].paperSize;
+                        Param.shopClaim = jsonApplication.result[0].shopClaimType;
                         Param.ApiChecked = true;
                         Console.WriteLine(Param.LicenseKey);
                         Properties.Settings.Default.ApiShopId = Param.ApiShopId;
@@ -1000,40 +1001,42 @@ namespace PowerPOS
             DataTable dt;
             int i = 0;
             //## Barcode Received ##//
-
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
-                dt = Util.DBQuery("SELECT * FROM Barcode WHERE syncReceived = 1");
-
-                for (i = 0; i < dt.Rows.Count; i++)
+            //if (Param.ShopId != "00000008" && Param.ShopId != "66666666")
+            //{
+                try
                 {
-                    string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
-                    string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
-                    string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
-                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                    dt = Util.DBQuery("SELECT * FROM Barcode WHERE syncReceived = 1");
 
-                    string value = sellPrice + "," + sellNo + "," + sellBy + "," + values;
-
-                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
-                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellPrice,sellNo,sellBy,receivedDate,operationCost,cost,receivedBy", value)
-                    ));
-                    if (!json.success.Value)
+                    for (i = 0; i < dt.Rows.Count; i++)
                     {
-                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                    }
-                    else
-                    {
-                        Util.DBExecute(string.Format("UPDATE Barcode SET syncReceived = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
-                    }
+                        string sellPrice = dt.Rows[i]["sellPrice"].ToString() == "" ? "" : dt.Rows[i]["sellPrice"].ToString();
+                        string sellNo = dt.Rows[i]["sellNo"].ToString() == "" ? "" : dt.Rows[i]["sellNo"].ToString();
+                        string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+                        string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["operationCost"].ToString() + "," + dt.Rows[i]["cost"].ToString() + "," + dt.Rows[i]["receivedBy"].ToString();
 
+                        string value = sellPrice + "," + sellNo + "," + sellBy + "," + values;
+
+                        dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                        string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "sellPrice,sellNo,sellBy,receivedDate,operationCost,cost,receivedBy", value)
+                        ));
+                        if (!json.success.Value)
+                        {
+                            Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                        }
+                        else
+                        {
+                            Util.DBExecute(string.Format("UPDATE Barcode SET syncReceived = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                        }
+
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                WriteErrorLog(ex.Message);
-                WriteErrorLog(ex.StackTrace);
-            }
+                catch (Exception ex)
+                {
+                    WriteErrorLog(ex.Message);
+                    WriteErrorLog(ex.StackTrace);
+                }
+            //}
 
             //## Barcode ##//
             try
@@ -2785,6 +2788,10 @@ namespace PowerPOS
                 g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont, brush, new PointF(pX - 2, pY + 80));*/
                 g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont, brush, new PointF(pX - 2, pY + 50));
 
+                stringFont = new Font("DilleniaUPC", 8);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].shopCode.ToString() + " : " + Param.ShopName, stringFont, brush, new PointF(pX, pY + 65));
+
+
                 stringFont = new Font("DilleniaUPC", 26, FontStyle.Bold);
                 g.Graphics.DrawString("ใบส่งคืนสินค้า", stringFont, brush, new PointF(pX + 550, pY));
 
@@ -2891,6 +2898,9 @@ namespace PowerPOS
                 g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont2, brush2, new PointF(pX - 2, pY + 65 + 540));
                 g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont2, brush2, new PointF(pX - 2, pY + 80 + 540));*/
                 g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+
+                stringFont = new Font("DilleniaUPC", 8);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].shopCode.ToString() + " : " + Param.ShopName, stringFont, brush, new PointF(pX, pY + 65 + 540));
 
                 stringFont2 = new Font("DilleniaUPC", 26, FontStyle.Bold);
                 g.Graphics.DrawString("ใบส่งคืนสินค้า", stringFont2, brush2, new PointF(pX + 550, pY + 540));
@@ -3030,6 +3040,9 @@ namespace PowerPOS
                 g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont, brush, new PointF(pX - 2, pY + 80));*/
                 g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont, brush, new PointF(pX - 2, pY + 50));
 
+                stringFont = new Font("DilleniaUPC", 8);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].shopCode.ToString() + " : " + Param.ShopName, stringFont, brush, new PointF(pX, pY + 65));
+
                 stringFont = new Font("DilleniaUPC", 26, FontStyle.Bold);
                 g.Graphics.DrawString("ใบรับเคลมสินค้า", stringFont, brush, new PointF(pX + 550, pY));
 
@@ -3041,11 +3054,11 @@ namespace PowerPOS
                 g.Graphics.DrawImage(img, new Point(pX + 568, pY + 50));
 
                 stringFont = new Font("DilleniaUPC", 14);
-                g.Graphics.DrawString("เลขที่:", stringFont, brush, new PointF(pX + 560, pY + 75));
+                g.Graphics.DrawString("เลขที่:", stringFont, brush, new PointF(pX + 560, pY + 78));
                 g.Graphics.DrawString("วันที่:", stringFont, brush, new PointF(pX + 560, pY + 95));
 
                 stringFont = new Font("Calibri", 10, FontStyle.Bold);
-                g.Graphics.DrawString(claimNo, stringFont, brush, new PointF(pX + 600, pY + 78));
+                g.Graphics.DrawString(claimNo, stringFont, brush, new PointF(pX + 600, pY + 80));
 
                 DateTime now = DateTime.Now;
                 g.Graphics.DrawString(now.ToString("dd/MM/yyyy (HH:mm)"), stringFont, brush, new PointF(pX + 600, pY + 98));
@@ -3135,6 +3148,9 @@ namespace PowerPOS
                 g.Graphics.DrawString("ถนนพหลโยธิน ตำบลคูคต อำเภอลำลูกกา", stringFont2, brush2, new PointF(pX - 2, pY + 65 + 540));
                 g.Graphics.DrawString("จังหวัด ปทุมธานี 12130", stringFont2, brush2, new PointF(pX - 2, pY + 80 + 540));*/
                 g.Graphics.DrawString("โทรศัพท์ 081-8288-833", stringFont2, brush2, new PointF(pX - 2, pY + 50 + 540));
+
+                stringFont = new Font("DilleniaUPC", 8);
+                g.Graphics.DrawString(jsonAddressInfo.result[0][0].shopCode.ToString() + " : " + Param.ShopName, stringFont, brush, new PointF(pX, pY + 65 + 540));
 
                 stringFont2 = new Font("DilleniaUPC", 26, FontStyle.Bold);
                 g.Graphics.DrawString("ใบรับเคลมสินค้า", stringFont2, brush2, new PointF(pX + 550, pY + 540));

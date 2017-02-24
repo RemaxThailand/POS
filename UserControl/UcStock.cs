@@ -401,7 +401,7 @@ namespace PowerPOS
         {
             try
             {
-                if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค\nหากกดยืนยันระบบจะปรับปรุงข้อมูลสินค้าคงเหลือ\nตามจำนวนที่นับสินค้าได้\nและจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้?", "ยืนยันการปรับปรุงข้อมูลสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค\nหากกดยืนยันระบบจะปรับปรุงข้อมูลสินค้าคงเหลือ\nตามจำนวนที่นับสินค้าได้\nและจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้?", "ยืนยันการปรับปรุงข้อมูลสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                 {
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(sellNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(sellNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%mCL'), 3)||'0001') sellNo
                         FROM SellHeader

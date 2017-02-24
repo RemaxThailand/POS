@@ -115,7 +115,7 @@ namespace PowerPOS
                 AND SUBSTR(sh.SellDate,1,10) LIKE '%{0}%' 
                 AND sh.Customer NOT IN ('000001','000002')
                 AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
-                AND h.sellNo NOT LIKE '%CL%'
+                AND sh.sellNo NOT LIKE '%CL%'
                 AND payType = 1", Convert.ToDateTime(dtpDate.Value).ToString("yyyy-MM-dd"),  txtSearch.Text.Trim()
             ));
 

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FmClaimAdd));
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             this.comboDistrict = new DevExpress.XtraEditors.ComboBoxEdit();
             this.comboProvince = new DevExpress.XtraEditors.ComboBoxEdit();
             this.labelControl17 = new DevExpress.XtraEditors.LabelControl();
@@ -60,6 +60,8 @@
             this.lblProduct = new DevExpress.XtraEditors.LabelControl();
             this.textDescription = new DevExpress.XtraEditors.MemoEdit();
             this.lblLastShop = new DevExpress.XtraEditors.LabelControl();
+            this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
             this.textBarcode = new DevExpress.XtraEditors.ButtonEdit();
             this.lblSellPrice = new DevExpress.XtraEditors.LabelControl();
             this.labelControl20 = new DevExpress.XtraEditors.LabelControl();
@@ -77,12 +79,10 @@
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.textCustomerName = new DevExpress.XtraEditors.TextEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.addClaimGridControl = new DevExpress.XtraGrid.GridControl();
             this.addClaimGridView = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.btnRemove = new DevExpress.XtraEditors.SimpleButton();
-            this.btnAdd = new DevExpress.XtraEditors.SimpleButton();
-            this.btnConfirm = new DevExpress.XtraEditors.SimpleButton();
             this.firstname = new DevExpress.XtraGrid.Columns.GridColumn();
             this.addBarcode = new DevExpress.XtraGrid.Columns.GridColumn();
             this.addProductName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -456,6 +456,32 @@
             this.lblLastShop.Text = "lblLastShop";
             this.lblLastShop.Visible = false;
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemove.Appearance.Options.UseFont = true;
+            this.btnRemove.Enabled = false;
+            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
+            this.btnRemove.Location = new System.Drawing.Point(594, 360);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnRemove.TabIndex = 15;
+            this.btnRemove.Text = "ลบ";
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.Appearance.Options.UseFont = true;
+            this.btnAdd.Enabled = false;
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.Location = new System.Drawing.Point(497, 360);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 14;
+            this.btnAdd.Text = "เพิ่ม";
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // textBarcode
             // 
             this.textBarcode.EditValue = "Barcode...";
@@ -621,6 +647,18 @@
             this.panelControl1.Size = new System.Drawing.Size(681, 300);
             this.panelControl1.TabIndex = 2;
             // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Appearance.Options.UseFont = true;
+            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
+            this.btnConfirm.Location = new System.Drawing.Point(564, 262);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(105, 23);
+            this.btnConfirm.TabIndex = 60;
+            this.btnConfirm.Text = "ยืนยันข้อมูล";
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
             // panelControl2
             // 
             this.panelControl2.Controls.Add(this.addClaimGridControl);
@@ -673,44 +711,6 @@
             this.addClaimGridView.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.True;
             this.addClaimGridView.OptionsBehavior.AutoPopulateColumns = false;
             this.addClaimGridView.OptionsView.ShowGroupPanel = false;
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemove.Appearance.Options.UseFont = true;
-            this.btnRemove.Enabled = false;
-            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
-            this.btnRemove.Location = new System.Drawing.Point(594, 360);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(75, 23);
-            this.btnRemove.TabIndex = 15;
-            this.btnRemove.Text = "ลบ";
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Appearance.Options.UseFont = true;
-            this.btnAdd.Enabled = false;
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.Location = new System.Drawing.Point(497, 360);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 14;
-            this.btnAdd.Text = "เพิ่ม";
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnConfirm
-            // 
-            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConfirm.Appearance.Options.UseFont = true;
-            this.btnConfirm.Image = ((System.Drawing.Image)(resources.GetObject("btnConfirm.Image")));
-            this.btnConfirm.Location = new System.Drawing.Point(564, 262);
-            this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(105, 23);
-            this.btnConfirm.TabIndex = 60;
-            this.btnConfirm.Text = "ยืนยันข้อมูล";
-            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
             // firstname
             // 

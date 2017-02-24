@@ -79,7 +79,8 @@ namespace PowerPOS
         public static int Qty = 0;
         public static int d = 0;
         public static int Due = 0;
-
+        public static string shopClaimName;
+        public static bool shopClaim;
 
         public static bool jsonObject;
         public static string error;

@@ -76,12 +76,20 @@ namespace PowerPOS
 
         private void UcClaim_Load(object sender, EventArgs e)
         {
-            if (Param.ApiShopId != "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
-            {
-                panelControl1.Visible = false;
-                panelControl3.Visible = false;
-                label1.Visible = true;
-            }
+            //if (Param.ApiShopId != "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
+            //{
+            //    panelControl1.Visible = false;
+            //    panelControl3.Visible = false;
+            //    label1.Visible = true;
+            //}
+
+            //if (Param.MemberType == "Shop" || Param.MemberType == "" || Param.MemberType == null)
+            //{
+            //    panelControl1.Visible = false;
+            //    panelControl3.Visible = false;
+            //    label1.Visible = true;
+            //}
+
 
             splashScreenManager.ShowWaitForm();
             _GRID_VIEW = (GridView)claimGridControl.MainView;
@@ -107,7 +115,7 @@ namespace PowerPOS
                 //string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _dateTo = dateTo.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
-                string _shop = Param.ShopId;
+                string _shop = Param.ApiShopId;
                 if (_shop == "POWERDDH-8888-8888-B620-48D3B6489999" || _shop == "9D7B3665-D502-4E6C-8C08-891C9E6C96A8" || _shop == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
                 {
                     _shop = "";
@@ -155,6 +163,7 @@ namespace PowerPOS
                                 statusStr = "กรุณาแจ้งผู้พัฒนาโปรแกรม";
                                 break;
                         }
+                        Param.shopClaimName = _JSON_CLAIM.result[0][a].shopCode.ToString();
 
                         row = _TABLE_CLAIM.NewRow();
                         row[0] = _JSON_CLAIM.result[0][a].shopName.ToString();
@@ -411,6 +420,8 @@ namespace PowerPOS
 
         private void comboRefresh()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             comboBoxEdit1.Text = "กรุณาเลือกสถานะการเคลม...";
             comboBoxEdit1.EditValue = "กรุณาเลือกสถานะการเคลม...";
 
@@ -431,10 +442,13 @@ namespace PowerPOS
             lblSellPriceSw.Text = "-";
             lblSellDate.Text = "-";
             lblSellPrice.Text = "-";
+            //sentDatePicker.Text = DateTime.Now.ToShortDateString();
         }
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             if (receiveDatePicker.Visible)
             {
                 _receiveDate = Convert.ToDateTime(receiveDatePicker.Text);
@@ -442,7 +456,7 @@ namespace PowerPOS
             else { _receiveDate = Convert.ToDateTime("01/01/1900"); }
             if (sentDatePicker.Visible)
             {
-                _sentDate = Convert.ToDateTime(sentDatePicker.Text);
+                _sentDate = Convert.ToDateTime(sentDatePicker.Value);
             }
             else { _sentDate = Convert.ToDateTime("01/01/1900"); }
             splashScreenManager.ShowWaitForm();
@@ -451,6 +465,8 @@ namespace PowerPOS
 
         private void bwUpdateClaim_DoWork(object sender, DoWorkEventArgs e)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             try
             {
                 DOSWAP = false;
@@ -468,7 +484,7 @@ namespace PowerPOS
                         {
                             string remark = (textRemark.Text == "Remark") ? "" : textRemark.Text;
                             string barcodeClaim = (lblBarcodeSw.Text != "-" && lblBarcodeSw.Text != "") ? lblBarcodeSw.Text : "";
-                            _JSON_CLAIM_UPDATE = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/update", "shop=" + Param.ShopId + "&id=" + _claimNo + "&column=" + "status,trackNo,receiveDate,sentDate,remark,barcodeClaim" + "&value=" + _status + "," + textTrackNo.Text + "," + _receiveDate.ToString("MM/dd/yyyy") + "," + _sentDate.ToString("MM/dd/yyyy") + "," + remark + "," + barcodeClaim));
+                            _JSON_CLAIM_UPDATE = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/update", "shop=" + Param.ApiShopId + "&id=" + _claimNo + "&column=" + "status,trackNo,receiveDate,sentDate,remark,barcodeClaim" + "&value=" + _status + "," + textTrackNo.Text + "," + _receiveDate.ToString("MM/dd/yyyy") + "," + _sentDate.ToString("MM/dd/yyyy") + "," + remark + "," + barcodeClaim));
                             DOSWAP = true;
                         }
                         else
@@ -476,15 +492,16 @@ namespace PowerPOS
                             MessageBox.Show("การเปลี่ยนสินค้ามีปัญหา กรุณาติดต่อผู้พัฒนาโปรแกรม");
 
                         }
-
                     }
-
                 }
                 else
                 {
                     string remark = (textRemark.Text == "Remark") ? "" : textRemark.Text;
+                    //string barcodeClaim = (lblBarcodeSw.Text != "-" && lblBarcodeSw.Text != "") ? lblBarcodeSw.Text : "";
+                    //_JSON_CLAIM_UPDATE = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/update", "shop=" + Param.ShopId + "&id=" + _claimNo + "&column=" + "status,trackNo,receiveDate,sentDate,remark" + "&value=" + _status + "," + textTrackNo.Text + "," + _receiveDate.ToString("MM/dd/yyyy") + "," + _sentDate.ToString("MM/dd/yyyy") + "," + remark));
                     string barcodeClaim = (lblBarcodeSw.Text != "-" && lblBarcodeSw.Text != "") ? lblBarcodeSw.Text : "";
-                    _JSON_CLAIM_UPDATE = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/update", "shop=" + Param.ShopId + "&id=" + _claimNo + "&column=" + "status,trackNo,receiveDate,sentDate,remark" + "&value=" + _status + "," + textTrackNo.Text + "," + _receiveDate.ToString("MM/dd/yyyy") + "," + _sentDate.ToString("MM/dd/yyyy") + "," + remark));
+                    _JSON_CLAIM_UPDATE = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/update", "shop=" + Param.ApiShopId + "&id=" + _claimNo + "&column=" + "status,trackNo,receiveDate,sentDate,remark" + "&value=" + _status + "," + textTrackNo.Text + "," + _receiveDate.ToString("MM/dd/yyyy") + "," + _sentDate.ToString("MM/dd/yyyy") + "," + remark));
+
                     CLAIM_UPDATE = true;
                 }
             }
@@ -589,7 +606,7 @@ namespace PowerPOS
             try
             {
                 _TABLE_WARRANTY = new DataTable();
-                _JSON_WARRANTY = JsonConvert.DeserializeObject(Util.ApiProcess("/warranty/info", "shop=" + Param.ShopId + "&barcode=" + textBarcodeWarr.Text));
+                _JSON_WARRANTY = JsonConvert.DeserializeObject(Util.ApiProcess("/warranty/info", "shop=" + Param.ApiShopId + "&barcode=" + textBarcodeWarr.Text));
                 if (_JSON_WARRANTY.success.Value)
                 {
                     DataRow row;
@@ -902,7 +919,7 @@ namespace PowerPOS
         {
             try
             {
-                _JSON_BARCODESWAP = JsonConvert.DeserializeObject(Util.ApiProcess("/warranty/info", "shop=" + Param.ShopId + "&barcode=" + textBarcodeSwap.Text));
+                _JSON_BARCODESWAP = JsonConvert.DeserializeObject(Util.ApiProcess("/warranty/info", "shop=" + Param.ApiShopId + "&barcode=" + textBarcodeSwap.Text));
 
             }
             catch (Exception ex)
@@ -1078,6 +1095,24 @@ namespace PowerPOS
             else
             {
                 MessageBox.Show("ยังไม่ได้ทำการเปลี่ยนสินค้าเคลม");
+            }
+        }
+
+        private void btnAddress_Click(object sender, EventArgs e)
+        {
+            DateTime dateFrom = Convert.ToDateTime(claimDateFrom.Value);
+            DateTime dateTo = Convert.ToDateTime(claimDateTo.Value);
+            //string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
+            string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
+            string _dateTo = dateTo.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
+
+            FmEditAddress dialog = new FmEditAddress();
+            dialog._claimNo = _claimNo;
+
+            var result = dialog.ShowDialog(this);
+            if (result == DialogResult.OK)
+            {
+
             }
         }
     }

@@ -13,6 +13,8 @@ using DevExpress.XtraEditors.Repository;
 using System.IO;
 using System.Threading;
 using System.Media;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace PowerPOS
 {
@@ -46,6 +48,12 @@ namespace PowerPOS
 
         public void LoadData()
         {
+
+            btnConfirmReceived.Visible = Param.ShopId == "00000008";
+            //btnConfirmReceived.Visible = Param.ShopId == "00000003";
+            //btnConfirmReceived.Visible = Param.ShopId == "66666666";
+
+
             DataTable dt, dtab;
             //dt = Util.DBQuery(@"SELECT orderNo, SUM(No) NN, SUM(Re) RR FROM (SELECT orderNo, SUM(N) No, SUM(R) Re FROM (SELECT orderNo, COUNT(b.Barcode) N , 0 R FROM Barcode b  GROUP BY b.orderNo
             //                    UNION ALL SELECT orderNo, 0 N, COUNT(b.Barcode) R FROM Barcode b WHERE ReceivedDate IS NOT NULL GROUP BY b.orderNo) aa
@@ -547,6 +555,43 @@ namespace PowerPOS
             DownloadImage d = new DownloadImage();
             Thread thread = new Thread(() => d.Download(url, savePath, fileName));
             thread.Start();
+        }
+
+        private void btnConfirmReceived_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dt;
+                int i = 0;
+
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/receivedUpdate",
+                  string.Format("shop={0}&order={1}&by={2}", Param.ApiShopId, cbbOrderNo.Text, Param.UserId)
+                  ));
+
+                if (!json.success.Value)
+                {
+                    Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                }
+                else
+                {
+                    Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}' WHERE OrderNo = '{0}'", cbbOrderNo.Text, Param.UserId));
+                    _PRODUCT = Param.ProductId;
+                    SearchData();
+
+                    SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/yahoo.wav");
+                    simpleSound.Play();
+
+                    lblStatus.ForeColor = Color.Green;
+                    lblStatus.Text = "รับสินค้าเข้าระบบเรียบร้อยแล้ว";
+
+                    //Util.DBExecute(string.Format("UPDATE Barcode SET syncReceived = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), Param.ShopId));
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

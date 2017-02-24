@@ -30,6 +30,7 @@ namespace PowerPOS
         UcReportStock _UC_REPORT_STOCK;
         UcCredit _UC_CREDIT;
         UcReportProduct _UC_REPORT_PORDUCT;
+        UcAddDataClaim _UC_DATA_CLAIM;
         #endregion
 
         public Main()
@@ -65,8 +66,6 @@ namespace PowerPOS
                     Param.Main = this;
                     InitialCloudData();
                     InitialEmployeeScreen();
-
-
                 }
                 else
                 {
@@ -412,9 +411,21 @@ namespace PowerPOS
                     _UC_CONFIG.LoadData();
                     break;
                 case Param.Screen.Claim:
-                    if (_UC_CLAIM == null) _UC_CLAIM = new UcClaim();
-                    _USER_CONTROL = _UC_CLAIM;
+                    if (Param.shopClaim == true)
+                    {
+                        if (_UC_CLAIM == null) _UC_CLAIM = new UcClaim();
+                        _USER_CONTROL = _UC_CLAIM;
+                    }
+                    else
+                    {
+                        if (_UC_DATA_CLAIM == null) _UC_DATA_CLAIM = new UcAddDataClaim();
+                        _USER_CONTROL = _UC_DATA_CLAIM;
+                    }
                     break;
+                //case Param.Screen.Claim:
+                //    if (_UC_DATA_CLAIM == null) _UC_DATA_CLAIM = new UcAddDataClaim();
+                //    _USER_CONTROL = _UC_DATA_CLAIM;
+                //    break;
                 case Param.Screen.ReportStock:
                     if (_UC_REPORT_STOCK == null) _UC_REPORT_STOCK = new UcReportStock();
                     _USER_CONTROL = _UC_REPORT_STOCK;

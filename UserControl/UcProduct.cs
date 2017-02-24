@@ -227,48 +227,96 @@ namespace PowerPOS
                         dt.Columns.Add(productGridview.Columns[i].FieldName);
                     }
 
-                    for (a = 0; a < _TABLE_PRODUCT.Rows.Count; a++)
+                    if (Util.CanAccessScreenDetail("E03"))
                     {
-                        int warranty = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Warranty"].ToString());
-                        row = dt.NewRow();
-                        row[0] = (a + 1) * 1;
-                        row[1] = _TABLE_PRODUCT.Rows[a]["product"].ToString();
-                        row[2] = _TABLE_PRODUCT.Rows[a]["Sku"].ToString();
-                        row[3] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
-                        row[4] = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Qty"]).ToString("#,##0");
-                        row[5] = _TABLE_PRODUCT.Rows[a]["Category"].ToString();
-                        row[6] = _TABLE_PRODUCT.Rows[a]["Brand"].ToString();
-                        row[7] = (warranty == 365) ? "1 ปี" : (warranty == 3650) ? "10 ปี" : ((warranty == 0) ? "-" : ((warranty % 30 == 0) ? warranty / 30 + " เดือน" : warranty + " วัน"));
-                        row[8] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["cost"]).ToString("#,##0");
-                        row[9] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price"]).ToString("#,##0");
-                        row[10] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price1"]).ToString("#,##0");
-                        row[11] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price2"]).ToString("#,##0");
-                        row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
-                        row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
-                        row[14] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
-                        row[15] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
-                        row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
-                        row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
-                        row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");
-                        row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
-                        row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
-                        row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
-                        row[22] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price7"]).ToString("#,##0");
-                        row[23] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice7"]).ToString("#,##0");
-                        dt.Rows.Add(row);
-                        double cost = double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString()) * int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
-                        //Console.WriteLine(cost.ToString());
-                        _TOTAL += double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString());
-                        _QTY += int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
-                        _VAL += cost;
+                        for (a = 0; a < _TABLE_PRODUCT.Rows.Count; a++)
+                        {
+                            int warranty = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Warranty"].ToString());
+                            row = dt.NewRow();
+                            row[0] = (a + 1) * 1;
+                            row[1] = _TABLE_PRODUCT.Rows[a]["product"].ToString();
+                            row[2] = _TABLE_PRODUCT.Rows[a]["Sku"].ToString();
+                            row[3] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
+                            row[4] = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Qty"]).ToString("#,##0");
+                            row[5] = _TABLE_PRODUCT.Rows[a]["Category"].ToString();
+                            row[6] = _TABLE_PRODUCT.Rows[a]["Brand"].ToString();
+                            row[7] = (warranty == 365) ? "1 ปี" : (warranty == 3650) ? "10 ปี" : ((warranty == 0) ? "-" : ((warranty % 30 == 0) ? warranty / 30 + " เดือน" : warranty + " วัน"));
+                            row[8] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["cost"]).ToString("#,##0");
+                            row[9] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price"]).ToString("#,##0");
+                            row[10] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price1"]).ToString("#,##0");
+                            row[11] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price2"]).ToString("#,##0");
+                            row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
+                            row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
+                            row[14] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
+                            row[15] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
+                            row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
+                            row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
+                            row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");
+                            row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
+                            row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
+                            row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
+                            row[22] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price7"]).ToString("#,##0");
+                            row[23] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice7"]).ToString("#,##0");
+                            dt.Rows.Add(row);
+                            double cost = double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString()) * int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
+                            //Console.WriteLine(cost.ToString());
+                            _TOTAL += double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString());
+                            _QTY += int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
+                            _VAL += cost;
+                        }
+
+                        productGridControl.DataSource = dt;
+
+                        //var val = _QTY * _TOTAL;
+                        lblListCount.Text = productGridview.RowCount.ToString("#,##0") + " รายการ";
+                        lblTotal.Text = _VAL.ToString("#,##0.00") + " บาท";
+                        lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
                     }
+                    else
+                    {
+                        for (a = 0; a < _TABLE_PRODUCT.Rows.Count; a++)
+                        {
+                            int warranty = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Warranty"].ToString());
+                            row = dt.NewRow();
+                            row[0] = (a + 1) * 1;
+                            row[1] = _TABLE_PRODUCT.Rows[a]["product"].ToString();
+                            row[2] = _TABLE_PRODUCT.Rows[a]["Sku"].ToString();
+                            row[3] = _TABLE_PRODUCT.Rows[a]["Name"].ToString();
+                            row[4] = Convert.ToInt32(_TABLE_PRODUCT.Rows[a]["Qty"]).ToString("#,##0");
+                            row[5] = _TABLE_PRODUCT.Rows[a]["Category"].ToString();
+                            row[6] = _TABLE_PRODUCT.Rows[a]["Brand"].ToString();
+                            row[7] = (warranty == 365) ? "1 ปี" : (warranty == 3650) ? "10 ปี" : ((warranty == 0) ? "-" : ((warranty % 30 == 0) ? warranty / 30 + " เดือน" : warranty + " วัน"));
+                            row[8] = Convert.ToDouble(0).ToString("#,##0");
+                            row[9] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price"]).ToString("#,##0");
+                            row[10] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price1"]).ToString("#,##0");
+                            row[11] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price2"]).ToString("#,##0");
+                            row[12] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price3"]).ToString("#,##0");
+                            row[13] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price4"]).ToString("#,##0");
+                            row[14] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price5"]).ToString("#,##0");
+                            row[15] = _TABLE_PRODUCT.Rows[a]["Image"].ToString();
+                            row[16] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice"]).ToString("#,##0");
+                            row[17] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice1"]).ToString("#,##0");
+                            row[18] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice2"]).ToString("#,##0");
+                            row[19] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice3"]).ToString("#,##0");
+                            row[20] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice4"]).ToString("#,##0");
+                            row[21] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice5"]).ToString("#,##0");
+                            row[22] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["Price7"]).ToString("#,##0");
+                            row[23] = Convert.ToDouble(_TABLE_PRODUCT.Rows[a]["webPrice7"]).ToString("#,##0");
+                            dt.Rows.Add(row);
+                            double cost = double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString()) * int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
+                            //Console.WriteLine(cost.ToString());
+                            _TOTAL += double.Parse(_TABLE_PRODUCT.Rows[a]["cost"].ToString());
+                            _QTY += int.Parse(_TABLE_PRODUCT.Rows[a]["Qty"].ToString());
+                            _VAL += cost;
+                        }
 
-                    productGridControl.DataSource = dt;
+                        productGridControl.DataSource = dt;
 
-                    //var val = _QTY * _TOTAL;
-                    lblListCount.Text = productGridview.RowCount.ToString("#,##0") + " รายการ";
-                    lblTotal.Text = _VAL.ToString("#,##0.00") + " บาท";
-                    lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
+                        //var val = _QTY * _TOTAL;
+                        lblListCount.Text = productGridview.RowCount.ToString("#,##0") + " รายการ";
+                        lblTotal.Text ="-";
+                        lblProductCount.Text = _QTY.ToString("#,##0") + " ชิ้น";
+                    }
 
                 }
             }
