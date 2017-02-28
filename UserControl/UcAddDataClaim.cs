@@ -874,6 +874,7 @@ namespace PowerPOS
             {
 
             }
+
         }
 
         private void claimInfoGridView_FocusedRowChanged(object sender, FocusedRowChangedEventArgs e)
