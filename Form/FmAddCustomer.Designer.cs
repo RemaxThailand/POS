@@ -90,6 +90,9 @@
             this.btnSmartCard = new DevExpress.XtraEditors.SimpleButton();
             this.btnSave = new DevExpress.XtraEditors.SimpleButton();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rdbNoActive = new System.Windows.Forms.RadioButton();
+            this.rdbActive = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl1)).BeginInit();
@@ -123,6 +126,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbbDcPercent.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbSellPrice.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCredit.Properties)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -132,7 +136,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(434, 270);
+            this.panelControl1.Size = new System.Drawing.Size(428, 312);
             this.panelControl1.TabIndex = 0;
             // 
             // xtraTabControl1
@@ -141,7 +145,7 @@
             this.xtraTabControl1.Location = new System.Drawing.Point(0, 0);
             this.xtraTabControl1.Name = "xtraTabControl1";
             this.xtraTabControl1.SelectedTabPage = this.xtraTabPage1;
-            this.xtraTabControl1.Size = new System.Drawing.Size(434, 270);
+            this.xtraTabControl1.Size = new System.Drawing.Size(428, 312);
             this.xtraTabControl1.TabIndex = 0;
             this.xtraTabControl1.TabPages.AddRange(new DevExpress.XtraTab.XtraTabPage[] {
             this.xtraTabPage1,
@@ -151,6 +155,7 @@
             // 
             // xtraTabPage1
             // 
+            this.xtraTabPage1.Controls.Add(this.groupBox1);
             this.xtraTabPage1.Controls.Add(this.dtpBarthday);
             this.xtraTabPage1.Controls.Add(this.rdbWoman);
             this.xtraTabPage1.Controls.Add(this.rdbMan);
@@ -172,7 +177,7 @@
             this.xtraTabPage1.Controls.Add(this.ptbPhoto);
             this.xtraTabPage1.Image = ((System.Drawing.Image)(resources.GetObject("xtraTabPage1.Image")));
             this.xtraTabPage1.Name = "xtraTabPage1";
-            this.xtraTabPage1.Size = new System.Drawing.Size(428, 239);
+            this.xtraTabPage1.Size = new System.Drawing.Size(422, 281);
             this.xtraTabPage1.Text = "ข้อมูลส่วนตัว";
             // 
             // dtpBarthday
@@ -264,9 +269,12 @@
             this.txtMobile.Name = "txtMobile";
             this.txtMobile.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMobile.Properties.Appearance.Options.UseFont = true;
+            this.txtMobile.Properties.EditFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.txtMobile.Properties.MaxLength = 10;
             this.txtMobile.Size = new System.Drawing.Size(145, 22);
             this.txtMobile.TabIndex = 31;
             this.txtMobile.TextChanged += new System.EventHandler(this.txtMobile_TextChanged);
+            this.txtMobile.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMobile_KeyPress);
             this.txtMobile.KeyUp += new System.Windows.Forms.KeyEventHandler(this.CheckInputData);
             // 
             // labelControl8
@@ -381,7 +389,7 @@
             this.xtraTabPage2.Controls.Add(this.labelControl9);
             this.xtraTabPage2.Image = ((System.Drawing.Image)(resources.GetObject("xtraTabPage2.Image")));
             this.xtraTabPage2.Name = "xtraTabPage2";
-            this.xtraTabPage2.Size = new System.Drawing.Size(428, 239);
+            this.xtraTabPage2.Size = new System.Drawing.Size(437, 265);
             this.xtraTabPage2.Text = "ข้อมูลการติดต่อ";
             // 
             // cbbDistrict
@@ -532,7 +540,7 @@
             this.xtraTabPage3.Controls.Add(this.labelControl15);
             this.xtraTabPage3.Image = ((System.Drawing.Image)(resources.GetObject("xtraTabPage3.Image")));
             this.xtraTabPage3.Name = "xtraTabPage3";
-            this.xtraTabPage3.Size = new System.Drawing.Size(428, 239);
+            this.xtraTabPage3.Size = new System.Drawing.Size(437, 265);
             this.xtraTabPage3.Text = "ข้อมูลร้านค้า";
             // 
             // cbxSameAddress
@@ -684,7 +692,7 @@
             this.xtraTabPage4.Controls.Add(this.labelControl21);
             this.xtraTabPage4.Image = ((System.Drawing.Image)(resources.GetObject("xtraTabPage4.Image")));
             this.xtraTabPage4.Name = "xtraTabPage4";
-            this.xtraTabPage4.Size = new System.Drawing.Size(428, 239);
+            this.xtraTabPage4.Size = new System.Drawing.Size(437, 265);
             this.xtraTabPage4.Text = "ข้อมูลการขาย";
             // 
             // cbbDcPercent
@@ -764,7 +772,7 @@
             this.btnSmartCard.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSmartCard.Appearance.Options.UseFont = true;
             this.btnSmartCard.Image = ((System.Drawing.Image)(resources.GetObject("btnSmartCard.Image")));
-            this.btnSmartCard.Location = new System.Drawing.Point(7, 279);
+            this.btnSmartCard.Location = new System.Drawing.Point(6, 318);
             this.btnSmartCard.Name = "btnSmartCard";
             this.btnSmartCard.Size = new System.Drawing.Size(177, 31);
             this.btnSmartCard.TabIndex = 1;
@@ -776,7 +784,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(329, 279);
+            this.btnSave.Location = new System.Drawing.Point(321, 318);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 31);
             this.btnSave.TabIndex = 2;
@@ -788,18 +796,51 @@
             this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(252, 279);
+            this.btnCancel.Location = new System.Drawing.Point(244, 318);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(71, 31);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "ยกเลิก";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rdbNoActive);
+            this.groupBox1.Controls.Add(this.rdbActive);
+            this.groupBox1.Location = new System.Drawing.Point(228, 234);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(177, 44);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "สถานะการใช้งาน";
+            // 
+            // rdbNoActive
+            // 
+            this.rdbNoActive.AutoSize = true;
+            this.rdbNoActive.Location = new System.Drawing.Point(82, 21);
+            this.rdbNoActive.Name = "rdbNoActive";
+            this.rdbNoActive.Size = new System.Drawing.Size(85, 17);
+            this.rdbNoActive.TabIndex = 42;
+            this.rdbNoActive.TabStop = true;
+            this.rdbNoActive.Text = "ยกเลิกใช้งาน";
+            this.rdbNoActive.UseVisualStyleBackColor = true;
+            // 
+            // rdbActive
+            // 
+            this.rdbActive.AutoSize = true;
+            this.rdbActive.Location = new System.Drawing.Point(13, 20);
+            this.rdbActive.Name = "rdbActive";
+            this.rdbActive.Size = new System.Drawing.Size(54, 17);
+            this.rdbActive.TabIndex = 41;
+            this.rdbActive.TabStop = true;
+            this.rdbActive.Text = "ใช้งาน";
+            this.rdbActive.UseVisualStyleBackColor = true;
+            // 
             // FmAddCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 321);
+            this.ClientSize = new System.Drawing.Size(428, 361);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnSmartCard);
@@ -846,6 +887,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.cbbDcPercent.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbSellPrice.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCredit.Properties)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -913,5 +956,8 @@
         private System.Windows.Forms.RadioButton rdbWoman;
         private System.Windows.Forms.RadioButton rdbMan;
         private System.Windows.Forms.DateTimePicker dtpBarthday;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton rdbNoActive;
+        private System.Windows.Forms.RadioButton rdbActive;
     }
 }

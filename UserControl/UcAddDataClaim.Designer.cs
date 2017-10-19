@@ -77,6 +77,7 @@
             this.sellDateProduct = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.sellPriceProduct = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.sku = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
+            this.returnType = new DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -97,6 +98,8 @@
             this.textCustomerLine = new DevExpress.XtraEditors.TextEdit();
             this.customerAddress = new DevExpress.XtraEditors.MemoEdit();
             this.lbl = new DevExpress.XtraEditors.PanelControl();
+            this.lblreturn = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl33 = new DevExpress.XtraEditors.LabelControl();
             this.lblCProductName = new DevExpress.XtraEditors.LabelControl();
             this.labelControl34 = new DevExpress.XtraEditors.LabelControl();
             this.lblCProductCode = new DevExpress.XtraEditors.LabelControl();
@@ -106,9 +109,13 @@
             this.lblCBarcode = new DevExpress.XtraEditors.LabelControl();
             this.labelControl29 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl6 = new DevExpress.XtraEditors.PanelControl();
+            this.btnPrintClaim = new DevExpress.XtraEditors.SimpleButton();
             this.textDetail = new DevExpress.XtraEditors.MemoEdit();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl9 = new DevExpress.XtraEditors.PanelControl();
+            this.rdbRC = new System.Windows.Forms.RadioButton();
+            this.rdbRS = new System.Windows.Forms.RadioButton();
+            this.labelControl26 = new DevExpress.XtraEditors.LabelControl();
             this.lblSellPrice = new DevExpress.XtraEditors.LabelControl();
             this.lblSellNo = new DevExpress.XtraEditors.LabelControl();
             this.labelControl20 = new DevExpress.XtraEditors.LabelControl();
@@ -380,6 +387,7 @@
             this.gridView2,
             this.gridView3,
             this.gridView1});
+            this.claimGridControl.MouseClick += new System.Windows.Forms.MouseEventHandler(this.claimGridControl_MouseClick);
             // 
             // claimInfoGridView
             // 
@@ -416,7 +424,8 @@
             this.barcodeClaim,
             this.sellDateProduct,
             this.sellPriceProduct,
-            this.sku});
+            this.sku,
+            this.returnType});
             this.claimInfoGridView.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFullFocus;
             this.claimInfoGridView.GridControl = this.claimGridControl;
             this.claimInfoGridView.Name = "claimInfoGridView";
@@ -755,6 +764,10 @@
             this.sku.FieldName = "sku";
             this.sku.Name = "sku";
             // 
+            // returnType
+            // 
+            this.returnType.Name = "returnType";
+            // 
             // gridView2
             // 
             this.gridView2.GridControl = this.claimGridControl;
@@ -949,6 +962,8 @@
             // 
             // lbl
             // 
+            this.lbl.Controls.Add(this.lblreturn);
+            this.lbl.Controls.Add(this.labelControl33);
             this.lbl.Controls.Add(this.lblCProductName);
             this.lbl.Controls.Add(this.labelControl34);
             this.lbl.Controls.Add(this.lblCProductCode);
@@ -962,6 +977,24 @@
             this.lbl.Name = "lbl";
             this.lbl.Size = new System.Drawing.Size(328, 76);
             this.lbl.TabIndex = 27;
+            // 
+            // lblreturn
+            // 
+            this.lblreturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblreturn.Location = new System.Drawing.Point(316, 49);
+            this.lblreturn.Name = "lblreturn";
+            this.lblreturn.Size = new System.Drawing.Size(5, 16);
+            this.lblreturn.TabIndex = 113;
+            this.lblreturn.Text = "-";
+            // 
+            // labelControl33
+            // 
+            this.labelControl33.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl33.Location = new System.Drawing.Point(240, 49);
+            this.labelControl33.Name = "labelControl33";
+            this.labelControl33.Size = new System.Drawing.Size(73, 16);
+            this.labelControl33.TabIndex = 112;
+            this.labelControl33.Text = " การส่งคืน : ";
             // 
             // lblCProductName
             // 
@@ -1037,12 +1070,25 @@
             // 
             // panelControl6
             // 
+            this.panelControl6.Controls.Add(this.btnPrintClaim);
             this.panelControl6.Controls.Add(this.textDetail);
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Right;
             this.panelControl6.Location = new System.Drawing.Point(334, 2);
             this.panelControl6.Name = "panelControl6";
             this.panelControl6.Size = new System.Drawing.Size(282, 276);
             this.panelControl6.TabIndex = 13;
+            // 
+            // btnPrintClaim
+            // 
+            this.btnPrintClaim.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintClaim.Appearance.Options.UseFont = true;
+            this.btnPrintClaim.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintClaim.Image")));
+            this.btnPrintClaim.Location = new System.Drawing.Point(170, 174);
+            this.btnPrintClaim.Name = "btnPrintClaim";
+            this.btnPrintClaim.Size = new System.Drawing.Size(107, 24);
+            this.btnPrintClaim.TabIndex = 52;
+            this.btnPrintClaim.Text = "พิมพ์ใบเคลม";
+            this.btnPrintClaim.Click += new System.EventHandler(this.btnPrintClaim_Click);
             // 
             // textDetail
             // 
@@ -1067,6 +1113,9 @@
             // 
             // panelControl9
             // 
+            this.panelControl9.Controls.Add(this.rdbRC);
+            this.panelControl9.Controls.Add(this.rdbRS);
+            this.panelControl9.Controls.Add(this.labelControl26);
             this.panelControl9.Controls.Add(this.lblSellPrice);
             this.panelControl9.Controls.Add(this.lblSellNo);
             this.panelControl9.Controls.Add(this.labelControl20);
@@ -1113,10 +1162,44 @@
             this.panelControl9.Controls.Add(this.textCustomerName);
             this.panelControl9.Controls.Add(this.panelControl10);
             this.panelControl9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl9.Location = new System.Drawing.Point(2, 144);
+            this.panelControl9.Location = new System.Drawing.Point(2, 128);
             this.panelControl9.Name = "panelControl9";
-            this.panelControl9.Size = new System.Drawing.Size(462, 601);
+            this.panelControl9.Size = new System.Drawing.Size(462, 617);
             this.panelControl9.TabIndex = 38;
+            // 
+            // rdbRC
+            // 
+            this.rdbRC.AutoSize = true;
+            this.rdbRC.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbRC.Location = new System.Drawing.Point(202, 362);
+            this.rdbRC.Name = "rdbRC";
+            this.rdbRC.Size = new System.Drawing.Size(117, 20);
+            this.rdbRC.TabIndex = 117;
+            this.rdbRC.Text = "ส่งตามที่อยู่ลูกค้า";
+            this.rdbRC.UseVisualStyleBackColor = true;
+            // 
+            // rdbRS
+            // 
+            this.rdbRS.AutoSize = true;
+            this.rdbRS.Checked = true;
+            this.rdbRS.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rdbRS.Location = new System.Drawing.Point(88, 362);
+            this.rdbRS.Name = "rdbRS";
+            this.rdbRS.Size = new System.Drawing.Size(84, 20);
+            this.rdbRS.TabIndex = 116;
+            this.rdbRS.TabStop = true;
+            this.rdbRS.Text = "ส่งกลับร้าน";
+            this.rdbRS.UseVisualStyleBackColor = true;
+            // 
+            // labelControl26
+            // 
+            this.labelControl26.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl26.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.labelControl26.Location = new System.Drawing.Point(20, 362);
+            this.labelControl26.Name = "labelControl26";
+            this.labelControl26.Size = new System.Drawing.Size(62, 16);
+            this.labelControl26.TabIndex = 113;
+            this.labelControl26.Text = "การส่งคืน *";
             // 
             // lblSellPrice
             // 
@@ -1278,7 +1361,7 @@
             this.addClaimGridControl.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.addClaimGridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addClaimGridControl.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addClaimGridControl.Location = new System.Drawing.Point(2, 476);
+            this.addClaimGridControl.Location = new System.Drawing.Point(2, 492);
             this.addClaimGridControl.MainView = this.addClaimGridView;
             this.addClaimGridControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.addClaimGridControl.Name = "addClaimGridControl";
@@ -1461,7 +1544,7 @@
             // 
             // checkSameDesc
             // 
-            this.checkSameDesc.Location = new System.Drawing.Point(193, 373);
+            this.checkSameDesc.Location = new System.Drawing.Point(197, 384);
             this.checkSameDesc.Name = "checkSameDesc";
             this.checkSameDesc.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkSameDesc.Properties.Appearance.Options.UseFont = true;
@@ -1475,7 +1558,7 @@
             this.btnRemove.Appearance.Options.UseFont = true;
             this.btnRemove.Enabled = false;
             this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
-            this.btnRemove.Location = new System.Drawing.Point(400, 371);
+            this.btnRemove.Location = new System.Drawing.Point(400, 382);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(53, 23);
             this.btnRemove.TabIndex = 95;
@@ -1488,7 +1571,7 @@
             this.btnAdd.Appearance.Options.UseFont = true;
             this.btnAdd.Enabled = false;
             this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.Location = new System.Drawing.Point(345, 371);
+            this.btnAdd.Location = new System.Drawing.Point(345, 382);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(49, 23);
             this.btnAdd.TabIndex = 94;
@@ -1747,7 +1830,7 @@
             this.panelControl10.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl10.Controls.Add(this.btnConfirm);
             this.panelControl10.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl10.Location = new System.Drawing.Point(2, 570);
+            this.panelControl10.Location = new System.Drawing.Point(2, 586);
             this.panelControl10.Name = "panelControl10";
             this.panelControl10.Size = new System.Drawing.Size(458, 29);
             this.panelControl10.TabIndex = 109;
@@ -1772,14 +1855,14 @@
             this.panelControl8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl8.Location = new System.Drawing.Point(2, 2);
             this.panelControl8.Name = "panelControl8";
-            this.panelControl8.Size = new System.Drawing.Size(462, 142);
+            this.panelControl8.Size = new System.Drawing.Size(462, 126);
             this.panelControl8.TabIndex = 37;
             this.panelControl8.Tag = "`";
             // 
             // warrantyGridControl
             // 
-            this.warrantyGridControl.Cursor = System.Windows.Forms.Cursors.SizeNS;
-            this.warrantyGridControl.Location = new System.Drawing.Point(12, 59);
+            this.warrantyGridControl.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.warrantyGridControl.Location = new System.Drawing.Point(12, 56);
             this.warrantyGridControl.Name = "warrantyGridControl";
             this.warrantyGridControl.RecordWidth = 337;
             this.warrantyGridControl.RowHeaderWidth = 101;
@@ -1787,7 +1870,7 @@
             this.pName,
             this.sellDate,
             this.expireDate});
-            this.warrantyGridControl.Size = new System.Drawing.Size(445, 72);
+            this.warrantyGridControl.Size = new System.Drawing.Size(445, 63);
             this.warrantyGridControl.TabIndex = 2;
             this.warrantyGridControl.RecordCellStyle += new DevExpress.XtraVerticalGrid.Events.GetCustomRowCellStyleEventHandler(this.warrantyGridControl_RecordCellStyle);
             // 
@@ -2137,5 +2220,12 @@
         private DevExpress.XtraEditors.LabelControl lblCBarcode;
         private DevExpress.XtraEditors.LabelControl labelControl29;
         private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn sku;
+        private DevExpress.XtraEditors.SimpleButton btnPrintClaim;
+        private System.Windows.Forms.RadioButton rdbRC;
+        private System.Windows.Forms.RadioButton rdbRS;
+        private DevExpress.XtraEditors.LabelControl labelControl26;
+        private DevExpress.XtraEditors.LabelControl lblreturn;
+        private DevExpress.XtraEditors.LabelControl labelControl33;
+        private DevExpress.XtraGrid.Views.BandedGrid.BandedGridColumn returnType;
     }
 }

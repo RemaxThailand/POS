@@ -190,25 +190,29 @@ namespace PowerPOS
         {
             try
             {
-                if (stockGridView.RowCount > 0)
+                if (lblCheck.Text != "0 ชิ้น")
                 {
-                    if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่\nหากกดยืนยันระบบจะลบข้อมูลจำนวนที่นับสินค้าทั้งหมดออก\nและต้องเริ่มนับสต็อคใหม่ตั้งแต่ต้น\nจะไม่สามารถดึงข้อมูลจำนวนสินค้าที่ถูกลบออกกลับมาได้ ?", "ยืนยันการนับสต็อกสินค้าใหม่", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    FmMessage dialog = new FmMessage();
+                    dialog.lblMessage.Text = "      คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่ หากกดยืนยันระบบจะลบข้อมูลจำนวนสินค้าที่ตรวจสอบแล้วทั้งหมดออก และต้องเริ่มนับสต็อคใหม่ตั้งแต่ต้น ระบบจะไม่สามารถดึงข้อมูลจำนวนสินค้าที่ถูกลบออกกลับมาได้ ?";
+                    dialog.lblHeader.Text = "ยืนยันการนับสต็อกสินค้าใหม่";
+                    var result = dialog.ShowDialog(this);
+                    if (result == DialogResult.OK)
                     {
                         Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 WHERE inStock = 1 AND sellNo = '' "));
 
                         //## CHECK BARCODE ##//
                         try
                         {
-                                dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/productCheck",
-                                string.Format("shop={0}&value={1}", Param.ApiShopId, "CHECK")));
-                                if (!json.success.Value)
-                                {
-                                    Console.WriteLine(json.errorMessage.Value + json.error.Value);
-                                }
-                                else
-                                {
-                                   
-                                }
+                            dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/productCheck",
+                            string.Format("shop={0}&value={1}", Param.ApiShopId, "CHECK")));
+                            if (!json.success.Value)
+                            {
+                                Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                            }
+                            else
+                            {
+
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -218,20 +222,20 @@ namespace PowerPOS
 
                         //Util.DBExecute(string.Format(@"UPDATE Barcode SET inStock = 0 ,Sync = 1 WHERE inStock = 1 AND sellNo = '' "));
 
-
-
-                        //Util.DBExecute(string.Format(@"DELETE FROM InventoryCount"));
-
-                        //string inventory = Util.GetApiData("/product/deleteCount",
-                        //string.Format("shop={0}", Param.ApiShopId));
-
-                        //dynamic jsonInventory = JsonConvert.DeserializeObject(inventory);
-                        //Console.WriteLine(jsonInventory.success);
-
                         SearchData();
                         progressBarControl1.EditValue = 0;
-                        //lblStatus.Text = "";
                     }
+
+
+                    //if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะเริ่มนับสต็อกสินค้าใหม่\nหากกดยืนยันระบบจะลบข้อมูลจำนวนที่นับสินค้าทั้งหมดออก\nและต้องเริ่มนับสต็อคใหม่ตั้งแต่ต้น\nจะไม่สามารถดึงข้อมูลจำนวนสินค้าที่ถูกลบออกกลับมาได้ ?", "ยืนยันการนับสต็อกสินค้าใหม่", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    //{
+
+                    //    //lblStatus.Text = "";
+                    //}
+                }
+                else
+                {
+                    MessageBox.Show("ยังไม่ได้ทำการนับสต็อค", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch
@@ -262,7 +266,14 @@ namespace PowerPOS
                         SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
                         simpleSound.Play();
 
-                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (txtBarcode.Text == "")
+                        {
+                            MessageBox.Show("กรุณากรอกบาร์โค้ด ที่ต้องการตรวจสอบสต็อค", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
 
                         //dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
                         //if (dt.Rows.Count == 0)
@@ -401,31 +412,45 @@ namespace PowerPOS
         {
             try
             {
-                if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค\nหากกดยืนยันระบบจะปรับปรุงข้อมูลสินค้าคงเหลือ\nตามจำนวนที่นับสินค้าได้\nและจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้?", "ยืนยันการปรับปรุงข้อมูลสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (stockGridView.RowCount > 0)
                 {
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(sellNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(sellNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%mCL'), 3)||'0001') sellNo
+                    FmMessage dialog = new FmMessage();
+                    dialog.lblMessage.Text = "      คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค หากกดยืนยัน ระบบจะปรับปรุงข้อมูลสินค้าคงเหลือตามจำนวนที่ตรวจสอบสินค้าได้ และจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้ ?";
+                    dialog.lblHeader.Text = "ยืนยันการปรับปรุงข้อมูลสต็อคสินค้า";
+                    var result = dialog.ShowDialog(this);
+                    if (result == DialogResult.OK)
+                    {
+                        DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(sellNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(sellNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%mCL'), 3)||'0001') sellNo
                         FROM SellHeader
                           WHERE SUBSTR(sellNo, 1, 4) = SUBSTR(STRFTIME('%Y%m'), 3, 4)
                         AND SUBSTR(sellNo, 5, 2) = 'CL'"));
-                    var _CLEAR_NO = dt.Rows[0]["sellNo"].ToString();
+                        var _CLEAR_NO = dt.Rows[0]["sellNo"].ToString();
 
-                    dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL AND sellNo = ''"));
+                        dt = Util.DBQuery(string.Format(@"SELECT * FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL AND sellNo = ''"));
 
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', SellDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), SellNo = '{1}', Sync = 1, SellPrice = {2}, Customer = 'CL0001' WHERE Barcode = '{3}'",
-                            Param.UserId, _CLEAR_NO, dt.Rows[i]["cost"].ToString(), dt.Rows[i]["barcode"].ToString()));
-                    }
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            Util.DBExecute(string.Format(@"UPDATE Barcode SET SellBy = '{0}', SellDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), SellNo = '{1}', Sync = 1, SellPrice = {2}, Customer = 'CL0001' WHERE Barcode = '{3}'",
+                                Param.UserId, _CLEAR_NO, dt.Rows[i]["cost"].ToString(), dt.Rows[i]["barcode"].ToString()));
+                        }
 
-                    DataTable dtF = Util.DBQuery(string.Format(@"SELECT IFNULL(SUM(SellPrice),0) SellPrice FROM Barcode WHERE SellNo = '{0}'", _CLEAR_NO));
+                        DataTable dtF = Util.DBQuery(string.Format(@"SELECT IFNULL(SUM(SellPrice),0) SellPrice FROM Barcode WHERE SellNo = '{0}'", _CLEAR_NO));
 
-                    Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer,CustomerSex, CustomerAge, SellDate, SellBy, Sync)
+                        Util.DBExecute(string.Format(@"INSERT INTO SellHeader (SellNo, Profit, TotalPrice, Customer,CustomerSex, CustomerAge, SellDate, SellBy, Sync)
                         SELECT '{0}', 0,'{2}', 'CL0001','','0', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{1}', 1", _CLEAR_NO, Param.UserId, dtF.Rows[0]["SellPrice"].ToString()));
 
 
-                    Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
+                        Util.DBExecute(string.Format(@"INSERT INTO SellDetail (SellNo, Product, SellPrice, Cost, Quantity, Sync)
                            SELECT  '{0}' sellNo, Product, SUM(SellPrice) TotalPrice, SUM(Cost) PriceCost, COUNT(*) Amount, 1 FROM Barcode WHERE inStock = 0 AND receivedDate IS NOT NULL AND sellNo = '{0}' GROUP BY Product", _CLEAR_NO));
+
+                        SearchData();
+                    }
                 }
+
+
+                //if (MessageBox.Show("คุณแน่ใจหรือไม่ ที่จะปรับปรุงข้อมูลสินค้าในสต็อค\nหากกดยืนยันระบบจะปรับปรุงข้อมูลสินค้าคงเหลือ\nตามจำนวนที่นับสินค้าได้\nและจะไม่สามารถดึงข้อมูลสินค้าที่ถูกตัดออกจากสต็อคกลับมาได้?", "ยืนยันการปรับปรุงข้อมูลสินค้า", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                //{
+                //}
             }
             catch (Exception ex)
             {

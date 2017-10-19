@@ -20,6 +20,7 @@ namespace PowerPOS
     public partial class FmAddCustomer : DevExpress.XtraEditors.XtraForm
     {
         private static Bitmap _PHOTO;
+        string CNo;
 
         public FmAddCustomer()
         {
@@ -62,23 +63,49 @@ namespace PowerPOS
             cbbProvinceS.SelectedIndex = 0;
 
             rdbMan.Checked = true;
+            rdbActive.Checked = true;
         }
 
         public void LoadCustomerData(object sender, EventArgs e, string dataType, string keyword)
         {
-            cbbSellPrice.Properties.Items.Clear();
-            cbbSellPrice.Properties.Items.Add("ปลีก");
-            cbbSellPrice.Properties.Items.Add("ส่ง1");
-            cbbSellPrice.Properties.Items.Add("ส่ง2");
-            cbbSellPrice.Properties.Items.Add("ส่ง3");
-            cbbSellPrice.Properties.Items.Add("ส่ง4");
-            cbbSellPrice.Properties.Items.Add("ส่ง7");
+            if (Param.ShopCost == "4" || Param.ShopCost == "" || Param.ShopCost == null)
+            {
+                cbbSellPrice.Properties.Items.Clear();
+                cbbSellPrice.Properties.Items.Add("ปลีก");
+                cbbSellPrice.Properties.Items.Add("ส่ง1");
+                cbbSellPrice.Properties.Items.Add("ส่ง2");
+                cbbSellPrice.Properties.Items.Add("ส่ง3");
+                cbbSellPrice.Properties.Items.Add("ส่ง4");
+            }
+            else if (Param.ShopCost == "7" || Param.ShopCost == "" || Param.ShopCost == null)
+            {
+                cbbSellPrice.Properties.Items.Clear();
+                cbbSellPrice.Properties.Items.Add("ปลีก");
+                cbbSellPrice.Properties.Items.Add("ส่ง1");
+                cbbSellPrice.Properties.Items.Add("ส่ง2");
+                cbbSellPrice.Properties.Items.Add("ส่ง3");
+                cbbSellPrice.Properties.Items.Add("ส่ง4");
+                cbbSellPrice.Properties.Items.Add("ส่ง7");
+            }
+            else if (Param.ShopCost == "5" || Param.ShopCost == "" || Param.ShopCost == null)
+            {
+                cbbSellPrice.Properties.Items.Clear();
+                cbbSellPrice.Properties.Items.Add("ปลีก");
+                cbbSellPrice.Properties.Items.Add("ส่ง1");
+                cbbSellPrice.Properties.Items.Add("ส่ง2");
+                cbbSellPrice.Properties.Items.Add("ส่ง3");
+                cbbSellPrice.Properties.Items.Add("ส่ง4");
+                cbbSellPrice.Properties.Items.Add("ส่ง7");
+                cbbSellPrice.Properties.Items.Add("ส่ง5");
+            }
 
 
             DataTable dt = Util.DBQuery(@"SELECT * FROM Customer WHERE " + dataType + " = '" + keyword + "'");
             if (dt.Rows.Count != 0)
             {
                 var row = dt.Rows[0];
+                //txtMobile.Enabled = false;
+                CNo = row["customer"].ToString();
                 txtMobile.Text = row["Mobile"].ToString();
                 txtName.Text = row["Firstname"].ToString();
                 txtLastname.Text = row["Lastname"].ToString();
@@ -86,7 +113,7 @@ namespace PowerPOS
                 rdbMan.Checked = row["Sex"].ToString() == "M";
                 rdbWoman.Checked = row["Sex"].ToString() == "F";
                 if (row["Birthday"].ToString() != "")
-                    dtpBarthday.Value = Convert.ToDateTime(row["Birthday"].ToString());
+                dtpBarthday.Value = Convert.ToDateTime(row["Birthday"].ToString());
                 txtCitizenId.Text = row["CitizenID"].ToString();
                 txtCardId.Text = row["CardNo"].ToString();
                 txtEmail.Text = row["Email"].ToString();
@@ -96,6 +123,7 @@ namespace PowerPOS
                 cbbProvince.SelectedItem = row["Province"].ToString();
                 cbbProvince_SelectedIndexChanged(sender, e);
                 cbbDistrict.SelectedItem = row["District"].ToString();
+                txtZipCode.Text = row["Zipcode"].ToString();
                 txtZipCode.Text = row["Zipcode"].ToString();
                 txtShopName.Text = row["ShopName"].ToString();
                 txtAddressS1.Text = row["ShopAddress"].ToString();
@@ -110,11 +138,17 @@ namespace PowerPOS
                 {
                     cbbSellPrice.SelectedIndex = 5;
                 }
+                else if (row["SellPrice"].ToString() == "5")
+                {
+                    cbbSellPrice.SelectedIndex = 6;
+                }
                 else
                 {
                     cbbSellPrice.SelectedIndex = row["SellPrice"].ToString() == "0" ? 0 : int.Parse(row["SellPrice"].ToString());
                 }
                 cbbCredit.SelectedItem = row["Credit"].ToString() + " วัน";
+                rdbActive.Checked = row["active"].ToString() == "True";
+                rdbNoActive.Checked = row["active"].ToString() == "False";
 
                 //เรียกรูปจาก Folder Resources/Images/Customer/ เพื่อแสดงที่ PictureBox
                 var filename = @"Resources/Images/Customer/" + row["CitizenID"].ToString() + ".jpg";
@@ -237,8 +271,8 @@ namespace PowerPOS
                             Util.DBExecute(string.Format(@"UPDATE Customer SET Firstname = '{0}', Lastname = '{1}', Nickname = '{2}', Sex = '{3}', Birthday = '{4}',
                         CitizenID = '{5}', CardNo = '{6}', Mobile = '{7}', Email = '{8}', Address = '{9}', Address2 = '{10}', SubDistrict = '{11}', District = '{12}', Province = '{13}', Zipcode = '{14}',
                         ShopName = '{15}', ShopSameAddress = {16}, ShopAddress = '{17}', ShopAddress2 = '{18}', ShopSubDistrict = '{19}', ShopDistrict = '{20}', ShopProvince = '{21}', ShopZipcode = '{22}',
-                        UpdateDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), UpdateBy = '{23}', SellPrice = {24}, Credit = {25}, Sync = 1
-                        WHERE Mobile = '{7}' OR (firstname = '{26}' AND lastname = '{27}')",
+                        UpdateDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), UpdateBy = '{23}', SellPrice = {24}, Credit = {25}, active = {28}, Sync = 1
+                        WHERE customer = '{29}' OR Mobile = '{7}'",
                                 txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), (rdbMan.Checked) ? "M" : ((rdbWoman.Checked) ? "F" : "null"), dtpBarthday.Value,
                                 txtCitizenId.Text.Trim(), txtCardId.Text.Trim(), txtMobile.Text.Trim(), txtEmail.Text.Trim(), txtAddress1.Text.Trim(), txtAddress2.Text.Trim(),
                                 txtSubDistrict.Text.Trim(),
@@ -248,9 +282,11 @@ namespace PowerPOS
                                 cbbDistrictS.SelectedItem == null ? "" : cbbDistrictS.SelectedItem.ToString(),
                                 cbbProvinceS.SelectedItem.ToString() == "จังหวัด" ? "" : cbbProvinceS.SelectedItem.ToString(), txtZipCodeS.Text.Trim(), Param.UserId,
                                 cbbSellPrice.SelectedItem.ToString().Replace("ปลีก", "0").Replace("ส่ง", ""),
-                                cbbCredit.SelectedItem.ToString().Replace(" วัน", ""), firstname, lastname
+                                cbbCredit.SelectedItem.ToString().Replace(" วัน", ""), firstname, lastname, (rdbActive.Checked) ? "1" : ((rdbNoActive.Checked) ? "0" : "null"), CNo
                             ));
                         }
+
+
                     }
 
                     if (insert)
@@ -258,14 +294,13 @@ namespace PowerPOS
 
                         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
                         Util.DBExecute(string.Format(@"INSERT INTO Customer (Customer, Sex, Birthday, 
-                    CitizenID, CardNo, Mobile, Firstname, Lastname, Nickname, Email, Address, Address2, SubDistrict, District, Province, Zipcode,
-                    ShopName, ShopSameAddress, ShopAddress, ShopAddress2, ShopSubDistrict, ShopDistrict, ShopProvince, ShopZipcode, AddDate, AddBy, SellPrice, Credit, Sync, Shop) VALUES (
+                    CitizenID, CardNo, Mobile, Firstname, Lastname, Nickname, Email, Address, Address2, SubDistrict, District, Province, Zipcode,  ShopName, ShopSameAddress, ShopAddress, ShopAddress2, ShopSubDistrict, ShopDistrict, ShopProvince, ShopZipcode, AddDate, AddBy, SellPrice, Credit, Sync, Shop, active) VALUES (
                     (   SELECT IFNULL('{24}'||SUBSTR('000000'||(SUBSTR(MAX(Customer), 2, 6)+1), -6, 6), '{24}000001') Customer
                         FROM Customer
                         WHERE SUBSTR(customer, 1, 1) = '{24}'),
                     '{0}',  STRFTIME('%Y-%m-%d %H:%M:%S', '{1}'),'{2}', '{3}', '{4}',
                     '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}',
-                    '{15}', {16}, '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{23}', {25}, {26}, 1, '{27}')",
+                    '{15}', {16}, '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), '{23}', {25}, {26}, 1, '{27}', {28})",
                             (rdbMan.Checked) ? "M" : ((rdbWoman.Checked) ? "F" : "null"),
                             dtpBarthday.Value.ToString("yyyy-MM-dd HH:mm:ss") == DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") ? "" : dtpBarthday.Value.ToString("yyyy-MM-dd HH:mm:ss"),
                             txtCitizenId.Text.Trim(), txtCardId.Text.Trim(), txtMobile.Text.Trim(), txtName.Text.Trim(), txtLastname.Text.Trim(), txtNickName.Text.Trim(), txtEmail.Text.Trim(), txtAddress1.Text.Trim(), txtAddress2.Text.Trim(),
@@ -276,7 +311,7 @@ namespace PowerPOS
                             cbbDistrictS.SelectedItem == null ? "" : cbbDistrictS.SelectedItem.ToString(),
                             cbbProvinceS.SelectedItem.ToString() == "จังหวัด" ? "" : cbbProvinceS.SelectedItem.ToString(), txtZipCodeS.Text.Trim(), Param.UserId, Param.DevicePrefix,
                             cbbSellPrice.SelectedItem.ToString().Replace("ปลีก", "0").Replace("ส่ง", ""),
-                            cbbCredit.SelectedItem.ToString().Replace(" วัน", ""), Param.ShopId
+                            cbbCredit.SelectedItem.ToString().Replace(" วัน", ""), Param.ShopId, (rdbActive.Checked) ? "1" : ((rdbNoActive.Checked) ? "0" : "null")
                         ));
 
                     }
@@ -421,6 +456,14 @@ namespace PowerPOS
         private void CheckInputData(object sender, EventArgs e)
         {
             btnSave.Enabled = txtName.Text.Trim() != "" && txtLastname.Text.Trim() != "" && txtMobile.Text.Trim() != "";
+        }
+
+        private void txtMobile_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -48,9 +48,8 @@ namespace PowerPOS
 
         public void LoadData()
         {
-
-            btnConfirmReceived.Visible = Param.ShopId == "00000008";
-            //btnConfirmReceived.Visible = Param.ShopId == "00000003";
+            btnConfirmReceived.Visible = Param.shopReceived;
+            //btnConfirmReceived.Visible = Param.ShopId == "00000002";
             //btnConfirmReceived.Visible = Param.ShopId == "66666666";
 
 
@@ -391,14 +390,21 @@ namespace PowerPOS
                     FROM Barcode b LEFT JOIN Product p ON b.product = p.product
                     WHERE b.Barcode = '{0}'", txtBarcode.Text));
 
-                    lblStatus.Visible = true;
+                    //lblStatus.Visible = true;
                     OrderNo = cbbOrderNo.SelectedItem.ToString();
                     if (dt.Rows.Count == 0)
                     {
                         SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
                         simpleSound.Play();
 
-                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (txtBarcode.Text == "")
+                        {
+                            MessageBox.Show("กรุณากรอกบาร์โค้ด ที่ต้องการทำการรับสินค้าเข้า", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
 
                         //dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
                         //Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
@@ -491,7 +497,6 @@ namespace PowerPOS
                         }
                         else
                         {
-                          
                             Util.DBExecute(string.Format(@"UPDATE Barcode SET ReceivedDate = STRFTIME('%Y-%m-%d %H:%M:%S', 'NOW'), ReceivedBy = '{1}', syncReceived = 1
                             WHERE Barcode = '{0}'", txtBarcode.Text, Param.UserId));
                             _PRODUCT = Param.ProductId;
@@ -536,8 +541,11 @@ namespace PowerPOS
 
                     if (lblNoReceived.Text == "0 ชิ้น")
                     {
-                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/yahoo.wav");
-                        simpleSound.Play();
+                        if (cbbOrderNo.SelectedIndex != 0)
+                        {
+                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/yahoo.wav");
+                            simpleSound.Play();
+                        }
                     }
                     txtBarcode.Text = "";
                     txtBarcode.Focus();

@@ -105,7 +105,6 @@
             this.navBarGroup2 = new DevExpress.XtraNavBar.NavBarGroup();
             this.navBarGroup3 = new DevExpress.XtraNavBar.NavBarGroup();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.panelControl29 = new DevExpress.XtraEditors.PanelControl();
@@ -126,6 +125,7 @@
             this.clQuantity = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSalePrice = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clSaleNo = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.productGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productGridView)).BeginInit();
@@ -172,7 +172,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
             this.panelControl27.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
@@ -187,6 +186,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).BeginInit();
             this.SuspendLayout();
             // 
             // productGridControl
@@ -198,18 +198,17 @@
             this.productGridControl.Location = new System.Drawing.Point(2, 2);
             this.productGridControl.MainView = this.productGridView;
             this.productGridControl.Name = "productGridControl";
-            this.productGridControl.Size = new System.Drawing.Size(880, 688);
+            this.productGridControl.Size = new System.Drawing.Size(868, 688);
             this.productGridControl.TabIndex = 0;
             this.productGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.productGridView});
             this.productGridControl.EditorKeyDown += new System.Windows.Forms.KeyEventHandler(this.productGridControl_EditorKeyDown);
-            this.productGridControl.Click += new System.EventHandler(this.productGridControl_Click);
             // 
             // productGridView
             // 
-            this.productGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productGridView.Appearance.HeaderPanel.Options.UseFont = true;
-            this.productGridView.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 10F);
+            this.productGridView.Appearance.Row.Font = new System.Drawing.Font("Tahoma", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.productGridView.Appearance.Row.Options.UseFont = true;
             this.productGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNo,
@@ -226,11 +225,11 @@
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceCell.Options.UseFont = true;
             this.clNo.AppearanceCell.Options.UseTextOptions = true;
             this.clNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -247,9 +246,9 @@
             // 
             // clProduct
             // 
-            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceCell.Options.UseFont = true;
-            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceHeader.Options.UseFont = true;
             this.clProduct.AppearanceHeader.Options.UseTextOptions = true;
             this.clProduct.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -263,9 +262,9 @@
             // 
             // clName
             // 
-            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceCell.Options.UseFont = true;
-            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceHeader.Options.UseFont = true;
             this.clName.AppearanceHeader.Options.UseTextOptions = true;
             this.clName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -276,15 +275,15 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
-            this.clName.Width = 407;
+            this.clName.Width = 507;
             // 
             // clPrice
             // 
-            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceCell.Options.UseFont = true;
             this.clPrice.AppearanceCell.Options.UseTextOptions = true;
             this.clPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceHeader.Options.UseFont = true;
             this.clPrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -299,11 +298,11 @@
             // 
             // clQty
             // 
-            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQty.AppearanceCell.Options.UseFont = true;
             this.clQty.AppearanceCell.Options.UseTextOptions = true;
             this.clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clQty.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQty.AppearanceHeader.Options.UseFont = true;
             this.clQty.AppearanceHeader.Options.UseTextOptions = true;
             this.clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -319,11 +318,11 @@
             // 
             // clTotal
             // 
-            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceCell.Options.UseFont = true;
             this.clTotal.AppearanceCell.Options.UseTextOptions = true;
             this.clTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceHeader.Options.UseFont = true;
             this.clTotal.AppearanceHeader.Options.UseTextOptions = true;
             this.clTotal.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -339,9 +338,9 @@
             // 
             // clSku
             // 
-            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSku.AppearanceCell.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 11.25F);
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSku.AppearanceHeader.Options.UseFont = true;
             this.clSku.AppearanceHeader.Options.UseTextOptions = true;
             this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -384,10 +383,10 @@
             this.navBarGroup3});
             this.navBarControl1.Location = new System.Drawing.Point(0, 0);
             this.navBarControl1.Name = "navBarControl1";
-            this.navBarControl1.OptionsNavPane.ExpandedWidth = 227;
+            this.navBarControl1.OptionsNavPane.ExpandedWidth = 239;
             this.navBarControl1.OptionsNavPane.ShowOverflowPanel = false;
             this.navBarControl1.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-            this.navBarControl1.Size = new System.Drawing.Size(227, 717);
+            this.navBarControl1.Size = new System.Drawing.Size(239, 717);
             this.navBarControl1.TabIndex = 0;
             this.navBarControl1.Text = "navBarControl1";
             this.navBarControl1.ActiveGroupChanged += new DevExpress.XtraNavBar.NavBarGroupEventHandler(this.navBarControl1_ActiveGroupChanged);
@@ -410,7 +409,7 @@
             this.navBarGroupControlContainer2.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer2.Controls.Add(this.panelControl2);
             this.navBarGroupControlContainer2.Name = "navBarGroupControlContainer2";
-            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(227, 539);
+            this.navBarGroupControlContainer2.Size = new System.Drawing.Size(239, 539);
             this.navBarGroupControlContainer2.TabIndex = 1;
             // 
             // panelControl2
@@ -438,28 +437,28 @@
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
             this.panelControl2.Padding = new System.Windows.Forms.Padding(3);
-            this.panelControl2.Size = new System.Drawing.Size(227, 539);
+            this.panelControl2.Size = new System.Drawing.Size(239, 539);
             this.panelControl2.TabIndex = 0;
             // 
             // panelControl12
             // 
             this.panelControl12.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl12.Location = new System.Drawing.Point(3, 447);
+            this.panelControl12.Location = new System.Drawing.Point(3, 467);
             this.panelControl12.Name = "panelControl12";
-            this.panelControl12.Size = new System.Drawing.Size(221, 5);
+            this.panelControl12.Size = new System.Drawing.Size(233, 5);
             this.panelControl12.TabIndex = 17;
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirm.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirm.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnConfirm.Appearance.Options.UseFont = true;
             this.btnConfirm.Appearance.Options.UseForeColor = true;
             this.btnConfirm.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnConfirm.Location = new System.Drawing.Point(3, 402);
+            this.btnConfirm.Location = new System.Drawing.Point(3, 422);
             this.btnConfirm.Name = "btnConfirm";
-            this.btnConfirm.Size = new System.Drawing.Size(221, 45);
+            this.btnConfirm.Size = new System.Drawing.Size(233, 45);
             this.btnConfirm.TabIndex = 13;
             this.btnConfirm.Text = "ยืนยันการขาย (F1)";
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
@@ -468,21 +467,21 @@
             // 
             this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl9.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl9.Location = new System.Drawing.Point(3, 397);
+            this.panelControl9.Location = new System.Drawing.Point(3, 417);
             this.panelControl9.Name = "panelControl9";
-            this.panelControl9.Size = new System.Drawing.Size(221, 5);
+            this.panelControl9.Size = new System.Drawing.Size(233, 5);
             this.panelControl9.TabIndex = 15;
             // 
             // btnCancelSale
             // 
-            this.btnCancelSale.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelSale.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelSale.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnCancelSale.Appearance.Options.UseFont = true;
             this.btnCancelSale.Appearance.Options.UseForeColor = true;
             this.btnCancelSale.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCancelSale.Location = new System.Drawing.Point(3, 352);
+            this.btnCancelSale.Location = new System.Drawing.Point(3, 372);
             this.btnCancelSale.Name = "btnCancelSale";
-            this.btnCancelSale.Size = new System.Drawing.Size(221, 45);
+            this.btnCancelSale.Size = new System.Drawing.Size(233, 45);
             this.btnCancelSale.TabIndex = 12;
             this.btnCancelSale.Text = "ยกเลิกการขายทั้งบิล (F12)";
             this.btnCancelSale.Click += new System.EventHandler(this.btnCancelSale_Click);
@@ -491,21 +490,21 @@
             // 
             this.panelControl10.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl10.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl10.Location = new System.Drawing.Point(3, 347);
+            this.panelControl10.Location = new System.Drawing.Point(3, 367);
             this.panelControl10.Name = "panelControl10";
-            this.panelControl10.Size = new System.Drawing.Size(221, 5);
+            this.panelControl10.Size = new System.Drawing.Size(233, 5);
             this.panelControl10.TabIndex = 16;
             // 
             // btnCancelProduct
             // 
-            this.btnCancelProduct.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelProduct.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelProduct.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnCancelProduct.Appearance.Options.UseFont = true;
             this.btnCancelProduct.Appearance.Options.UseForeColor = true;
             this.btnCancelProduct.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCancelProduct.Location = new System.Drawing.Point(3, 302);
+            this.btnCancelProduct.Location = new System.Drawing.Point(3, 322);
             this.btnCancelProduct.Name = "btnCancelProduct";
-            this.btnCancelProduct.Size = new System.Drawing.Size(221, 45);
+            this.btnCancelProduct.Size = new System.Drawing.Size(233, 45);
             this.btnCancelProduct.TabIndex = 11;
             this.btnCancelProduct.Text = "ยกเลิกการขายทีละรายการ (F11)";
             this.btnCancelProduct.Click += new System.EventHandler(this.btnCancelProduct_Click);
@@ -514,13 +513,15 @@
             // 
             this.panelControl8.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl8.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl8.Location = new System.Drawing.Point(3, 297);
+            this.panelControl8.Location = new System.Drawing.Point(3, 317);
             this.panelControl8.Name = "panelControl8";
-            this.panelControl8.Size = new System.Drawing.Size(221, 5);
+            this.panelControl8.Size = new System.Drawing.Size(233, 5);
             this.panelControl8.TabIndex = 14;
             // 
             // groupControl1
             // 
+            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Calibri", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl1.AppearanceCaption.Options.UseFont = true;
             this.groupControl1.Controls.Add(this.btnSearch);
             this.groupControl1.Controls.Add(this.lblCustomerName);
             this.groupControl1.Controls.Add(this.btnAge5);
@@ -534,7 +535,7 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(3, 150);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(221, 147);
+            this.groupControl1.Size = new System.Drawing.Size(233, 167);
             this.groupControl1.TabIndex = 9;
             this.groupControl1.Text = "ข้อมูลลูกค้า";
             // 
@@ -542,7 +543,7 @@
             // 
             this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(189, 25);
+            this.btnSearch.Location = new System.Drawing.Point(196, 40);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(25, 23);
             this.btnSearch.TabIndex = 9;
@@ -553,7 +554,7 @@
             this.lblCustomerName.Appearance.Font = new System.Drawing.Font("Tahoma", 10F);
             this.lblCustomerName.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.lblCustomerName.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
-            this.lblCustomerName.Location = new System.Drawing.Point(6, 21);
+            this.lblCustomerName.Location = new System.Drawing.Point(13, 36);
             this.lblCustomerName.Name = "lblCustomerName";
             this.lblCustomerName.Size = new System.Drawing.Size(188, 28);
             this.lblCustomerName.TabIndex = 8;
@@ -565,7 +566,7 @@
             this.btnAge5.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge5.Appearance.Options.UseFont = true;
             this.btnAge5.Appearance.Options.UseForeColor = true;
-            this.btnAge5.Location = new System.Drawing.Point(158, 85);
+            this.btnAge5.Location = new System.Drawing.Point(165, 100);
             this.btnAge5.Name = "btnAge5";
             this.btnAge5.Size = new System.Drawing.Size(56, 23);
             this.btnAge5.TabIndex = 7;
@@ -578,7 +579,7 @@
             this.btnAge4.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge4.Appearance.Options.UseFont = true;
             this.btnAge4.Appearance.Options.UseForeColor = true;
-            this.btnAge4.Location = new System.Drawing.Point(158, 54);
+            this.btnAge4.Location = new System.Drawing.Point(165, 69);
             this.btnAge4.Name = "btnAge4";
             this.btnAge4.Size = new System.Drawing.Size(56, 23);
             this.btnAge4.TabIndex = 6;
@@ -591,7 +592,7 @@
             this.btnAge6.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge6.Appearance.Options.UseFont = true;
             this.btnAge6.Appearance.Options.UseForeColor = true;
-            this.btnAge6.Location = new System.Drawing.Point(158, 116);
+            this.btnAge6.Location = new System.Drawing.Point(165, 131);
             this.btnAge6.Name = "btnAge6";
             this.btnAge6.Size = new System.Drawing.Size(56, 23);
             this.btnAge6.TabIndex = 5;
@@ -604,7 +605,7 @@
             this.btnAge3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge3.Appearance.Options.UseFont = true;
             this.btnAge3.Appearance.Options.UseForeColor = true;
-            this.btnAge3.Location = new System.Drawing.Point(98, 116);
+            this.btnAge3.Location = new System.Drawing.Point(105, 131);
             this.btnAge3.Name = "btnAge3";
             this.btnAge3.Size = new System.Drawing.Size(54, 23);
             this.btnAge3.TabIndex = 4;
@@ -617,7 +618,7 @@
             this.btnAge2.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge2.Appearance.Options.UseFont = true;
             this.btnAge2.Appearance.Options.UseForeColor = true;
-            this.btnAge2.Location = new System.Drawing.Point(98, 85);
+            this.btnAge2.Location = new System.Drawing.Point(105, 100);
             this.btnAge2.Name = "btnAge2";
             this.btnAge2.Size = new System.Drawing.Size(54, 23);
             this.btnAge2.TabIndex = 3;
@@ -630,7 +631,7 @@
             this.btnAge1.Appearance.ForeColor = System.Drawing.Color.DarkGray;
             this.btnAge1.Appearance.Options.UseFont = true;
             this.btnAge1.Appearance.Options.UseForeColor = true;
-            this.btnAge1.Location = new System.Drawing.Point(98, 54);
+            this.btnAge1.Location = new System.Drawing.Point(105, 69);
             this.btnAge1.Name = "btnAge1";
             this.btnAge1.Size = new System.Drawing.Size(54, 23);
             this.btnAge1.TabIndex = 2;
@@ -645,7 +646,7 @@
             this.btnFemale.Appearance.Options.UseFont = true;
             this.btnFemale.Appearance.Options.UseForeColor = true;
             this.btnFemale.Image = global::PowerPOS.Properties.Resources.female;
-            this.btnFemale.Location = new System.Drawing.Point(6, 100);
+            this.btnFemale.Location = new System.Drawing.Point(13, 115);
             this.btnFemale.Name = "btnFemale";
             this.btnFemale.Size = new System.Drawing.Size(86, 39);
             this.btnFemale.TabIndex = 1;
@@ -660,7 +661,7 @@
             this.btnMale.Appearance.Options.UseFont = true;
             this.btnMale.Appearance.Options.UseForeColor = true;
             this.btnMale.Image = global::PowerPOS.Properties.Resources.male;
-            this.btnMale.Location = new System.Drawing.Point(6, 54);
+            this.btnMale.Location = new System.Drawing.Point(13, 69);
             this.btnMale.Name = "btnMale";
             this.btnMale.Size = new System.Drawing.Size(86, 39);
             this.btnMale.TabIndex = 0;
@@ -673,7 +674,7 @@
             this.panelControl7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl7.Location = new System.Drawing.Point(3, 145);
             this.panelControl7.Name = "panelControl7";
-            this.panelControl7.Size = new System.Drawing.Size(221, 5);
+            this.panelControl7.Size = new System.Drawing.Size(233, 5);
             this.panelControl7.TabIndex = 10;
             // 
             // lblStatus
@@ -685,7 +686,7 @@
             this.lblStatus.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblStatus.Location = new System.Drawing.Point(3, 120);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(221, 25);
+            this.lblStatus.Size = new System.Drawing.Size(233, 25);
             this.lblStatus.TabIndex = 8;
             this.lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
             this.lblStatus.Visible = false;
@@ -696,7 +697,7 @@
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl6.Location = new System.Drawing.Point(3, 115);
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(221, 5);
+            this.panelControl6.Size = new System.Drawing.Size(233, 5);
             this.panelControl6.TabIndex = 7;
             // 
             // txtBarcode
@@ -709,7 +710,7 @@
             this.txtBarcode.Properties.Appearance.Options.UseFont = true;
             this.txtBarcode.Properties.Appearance.Options.UseTextOptions = true;
             this.txtBarcode.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtBarcode.Size = new System.Drawing.Size(221, 28);
+            this.txtBarcode.Size = new System.Drawing.Size(233, 28);
             this.txtBarcode.TabIndex = 6;
             this.txtBarcode.Enter += new System.EventHandler(this.txtBarcode_Enter);
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
@@ -721,18 +722,19 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl5.Location = new System.Drawing.Point(3, 82);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(221, 5);
+            this.panelControl5.Size = new System.Drawing.Size(233, 5);
             this.panelControl5.TabIndex = 5;
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.DarkGray;
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.DimGray;
             this.labelControl1.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.labelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelControl1.Location = new System.Drawing.Point(3, 69);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(221, 13);
+            this.labelControl1.Size = new System.Drawing.Size(233, 13);
             this.labelControl1.TabIndex = 3;
             this.labelControl1.Text = "บาร์โค้ด";
             // 
@@ -742,7 +744,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl4.Location = new System.Drawing.Point(3, 64);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(221, 5);
+            this.panelControl4.Size = new System.Drawing.Size(233, 5);
             this.panelControl4.TabIndex = 1;
             // 
             // panelControl3
@@ -758,7 +760,7 @@
             this.panelControl3.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003;
             this.panelControl3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(221, 61);
+            this.panelControl3.Size = new System.Drawing.Size(233, 61);
             this.panelControl3.TabIndex = 0;
             // 
             // lblPrice
@@ -768,7 +770,7 @@
             this.lblPrice.ForeColor = System.Drawing.Color.Lime;
             this.lblPrice.Location = new System.Drawing.Point(0, 17);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(221, 44);
+            this.lblPrice.Size = new System.Drawing.Size(233, 44);
             this.lblPrice.TabIndex = 4;
             this.lblPrice.Text = "9,999,999";
             this.lblPrice.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -799,7 +801,7 @@
             this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
             this.navBarGroupControlContainer1.Controls.Add(this.panelControl13);
             this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(227, 539);
+            this.navBarGroupControlContainer1.Size = new System.Drawing.Size(239, 539);
             this.navBarGroupControlContainer1.TabIndex = 0;
             // 
             // panelControl13
@@ -820,15 +822,15 @@
             this.panelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl13.Location = new System.Drawing.Point(0, 0);
             this.panelControl13.Name = "panelControl13";
-            this.panelControl13.Size = new System.Drawing.Size(227, 539);
+            this.panelControl13.Size = new System.Drawing.Size(239, 539);
             this.panelControl13.TabIndex = 0;
             // 
             // ptbProduct
             // 
             this.ptbProduct.Dock = System.Windows.Forms.DockStyle.Top;
-            this.ptbProduct.Location = new System.Drawing.Point(12, 159);
+            this.ptbProduct.Location = new System.Drawing.Point(12, 166);
             this.ptbProduct.Name = "ptbProduct";
-            this.ptbProduct.Size = new System.Drawing.Size(203, 203);
+            this.ptbProduct.Size = new System.Drawing.Size(215, 203);
             this.ptbProduct.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ptbProduct.TabIndex = 26;
             this.ptbProduct.TabStop = false;
@@ -837,37 +839,39 @@
             // 
             this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(215, 159);
+            this.panelControl21.Location = new System.Drawing.Point(227, 166);
             this.panelControl21.Name = "panelControl21";
-            this.panelControl21.Size = new System.Drawing.Size(10, 378);
+            this.panelControl21.Size = new System.Drawing.Size(10, 371);
             this.panelControl21.TabIndex = 25;
             // 
             // panelControl20
             // 
             this.panelControl20.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl20.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelControl20.Location = new System.Drawing.Point(2, 159);
+            this.panelControl20.Location = new System.Drawing.Point(2, 166);
             this.panelControl20.Name = "panelControl20";
-            this.panelControl20.Size = new System.Drawing.Size(10, 378);
+            this.panelControl20.Size = new System.Drawing.Size(10, 371);
             this.panelControl20.TabIndex = 24;
             // 
             // panelControl18
             // 
             this.panelControl18.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl18.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl18.Location = new System.Drawing.Point(2, 149);
+            this.panelControl18.Location = new System.Drawing.Point(2, 156);
             this.panelControl18.Name = "panelControl18";
-            this.panelControl18.Size = new System.Drawing.Size(223, 10);
+            this.panelControl18.Size = new System.Drawing.Size(235, 10);
             this.panelControl18.TabIndex = 23;
             // 
             // btnReturn
             // 
-            this.btnReturn.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReturn.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReturn.Appearance.Options.UseFont = true;
             this.btnReturn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReturn.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnReturn.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnReturn.Location = new System.Drawing.Point(2, 114);
             this.btnReturn.Name = "btnReturn";
-            this.btnReturn.Size = new System.Drawing.Size(223, 35);
+            this.btnReturn.Size = new System.Drawing.Size(235, 42);
             this.btnReturn.TabIndex = 21;
             this.btnReturn.Text = "รับคืนสินค้า";
             this.btnReturn.Visible = false;
@@ -879,7 +883,7 @@
             this.panelControl19.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl19.Location = new System.Drawing.Point(2, 109);
             this.panelControl19.Name = "panelControl19";
-            this.panelControl19.Size = new System.Drawing.Size(223, 5);
+            this.panelControl19.Size = new System.Drawing.Size(235, 5);
             this.panelControl19.TabIndex = 22;
             // 
             // lblWarranty
@@ -890,7 +894,7 @@
             this.lblWarranty.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblWarranty.Location = new System.Drawing.Point(2, 83);
             this.lblWarranty.Name = "lblWarranty";
-            this.lblWarranty.Size = new System.Drawing.Size(223, 26);
+            this.lblWarranty.Size = new System.Drawing.Size(235, 26);
             this.lblWarranty.TabIndex = 18;
             this.lblWarranty.Text = "รับคืนภายใน 7 วัน (เหลืออีก 5 วัน)";
             this.lblWarranty.Visible = false;
@@ -901,7 +905,7 @@
             this.panelControl14.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl14.Location = new System.Drawing.Point(2, 78);
             this.panelControl14.Name = "panelControl14";
-            this.panelControl14.Size = new System.Drawing.Size(223, 5);
+            this.panelControl14.Size = new System.Drawing.Size(235, 5);
             this.panelControl14.TabIndex = 15;
             // 
             // lblStatusReturn
@@ -913,7 +917,7 @@
             this.lblStatusReturn.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblStatusReturn.Location = new System.Drawing.Point(2, 53);
             this.lblStatusReturn.Name = "lblStatusReturn";
-            this.lblStatusReturn.Size = new System.Drawing.Size(223, 25);
+            this.lblStatusReturn.Size = new System.Drawing.Size(235, 25);
             this.lblStatusReturn.TabIndex = 14;
             this.lblStatusReturn.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
             this.lblStatusReturn.Visible = false;
@@ -924,7 +928,7 @@
             this.panelControl15.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl15.Location = new System.Drawing.Point(2, 48);
             this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(223, 5);
+            this.panelControl15.Size = new System.Drawing.Size(235, 5);
             this.panelControl15.TabIndex = 13;
             // 
             // txtBarcodeReturn
@@ -937,7 +941,7 @@
             this.txtBarcodeReturn.Properties.Appearance.Options.UseFont = true;
             this.txtBarcodeReturn.Properties.Appearance.Options.UseTextOptions = true;
             this.txtBarcodeReturn.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtBarcodeReturn.Size = new System.Drawing.Size(223, 28);
+            this.txtBarcodeReturn.Size = new System.Drawing.Size(235, 28);
             this.txtBarcodeReturn.TabIndex = 12;
             this.txtBarcodeReturn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcodeReturn_KeyDown);
             // 
@@ -947,18 +951,19 @@
             this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl16.Location = new System.Drawing.Point(2, 15);
             this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(223, 5);
+            this.panelControl16.Size = new System.Drawing.Size(235, 5);
             this.panelControl16.TabIndex = 16;
             // 
             // labelControl3
             // 
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DarkGray;
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.DimGray;
             this.labelControl3.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.labelControl3.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.labelControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.labelControl3.Location = new System.Drawing.Point(2, 2);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(223, 13);
+            this.labelControl3.Size = new System.Drawing.Size(235, 13);
             this.labelControl3.TabIndex = 11;
             this.labelControl3.Text = "บาร์โค้ด";
             // 
@@ -1141,23 +1146,14 @@
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl1.Controls.Add(this.productGridControl);
             this.panelControl1.Controls.Add(this.panelControl27);
-            this.panelControl1.Controls.Add(this.returnGridControl);
             this.panelControl1.Controls.Add(this.panelControl17);
+            this.panelControl1.Controls.Add(this.returnGridControl);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl1.Location = new System.Drawing.Point(227, 0);
+            this.panelControl1.Location = new System.Drawing.Point(239, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Padding = new System.Windows.Forms.Padding(2);
-            this.panelControl1.Size = new System.Drawing.Size(894, 717);
+            this.panelControl1.Size = new System.Drawing.Size(882, 717);
             this.panelControl1.TabIndex = 2;
-            // 
-            // panelControl17
-            // 
-            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl17.Location = new System.Drawing.Point(882, 2);
-            this.panelControl17.Name = "panelControl17";
-            this.panelControl17.Size = new System.Drawing.Size(10, 713);
-            this.panelControl17.TabIndex = 18;
             // 
             // panelControl27
             // 
@@ -1166,7 +1162,7 @@
             this.panelControl27.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl27.Location = new System.Drawing.Point(2, 690);
             this.panelControl27.Name = "panelControl27";
-            this.panelControl27.Size = new System.Drawing.Size(880, 25);
+            this.panelControl27.Size = new System.Drawing.Size(868, 25);
             this.panelControl27.TabIndex = 19;
             // 
             // groupControl2
@@ -1226,7 +1222,7 @@
             this.groupControl3.Controls.Add(this.panelControl28);
             this.groupControl3.Controls.Add(this.panelControl30);
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupControl3.Location = new System.Drawing.Point(621, 2);
+            this.groupControl3.Location = new System.Drawing.Point(609, 2);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.ShowCaption = false;
             this.groupControl3.Size = new System.Drawing.Size(257, 21);
@@ -1277,7 +1273,7 @@
             this.returnGridControl.Location = new System.Drawing.Point(2, 2);
             this.returnGridControl.MainView = this.returnGridView;
             this.returnGridControl.Name = "returnGridControl";
-            this.returnGridControl.Size = new System.Drawing.Size(880, 713);
+            this.returnGridControl.Size = new System.Drawing.Size(878, 713);
             this.returnGridControl.TabIndex = 1;
             this.returnGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.returnGridView});
@@ -1285,6 +1281,10 @@
             // 
             // returnGridView
             // 
+            this.returnGridView.Appearance.FocusedRow.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.returnGridView.Appearance.FocusedRow.Options.UseFont = true;
+            this.returnGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.returnGridView.Appearance.HeaderPanel.Options.UseFont = true;
             this.returnGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNoRe,
             this.clSaleDate,
@@ -1300,9 +1300,9 @@
             // 
             // clNoRe
             // 
-            this.clNoRe.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clNoRe.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNoRe.AppearanceCell.Options.UseFont = true;
-            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clNoRe.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNoRe.AppearanceHeader.Options.UseFont = true;
             this.clNoRe.AppearanceHeader.Options.UseTextOptions = true;
             this.clNoRe.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1319,11 +1319,11 @@
             // 
             // clSaleDate
             // 
-            this.clSaleDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleDate.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleDate.AppearanceCell.Options.UseFont = true;
             this.clSaleDate.AppearanceCell.Options.UseTextOptions = true;
             this.clSaleDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleDate.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleDate.AppearanceHeader.Options.UseFont = true;
             this.clSaleDate.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1341,11 +1341,11 @@
             // 
             // clCustomer
             // 
-            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCustomer.AppearanceCell.Options.UseFont = true;
             this.clCustomer.AppearanceCell.Options.UseTextOptions = true;
             this.clCustomer.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCustomer.AppearanceHeader.Options.UseFont = true;
             this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
             this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1362,11 +1362,11 @@
             // 
             // clPName
             // 
-            this.clPName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clPName.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPName.AppearanceCell.Options.UseFont = true;
             this.clPName.AppearanceCell.Options.UseTextOptions = true;
             this.clPName.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clPName.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPName.AppearanceHeader.Options.UseFont = true;
             this.clPName.AppearanceHeader.Options.UseTextOptions = true;
             this.clPName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1383,11 +1383,11 @@
             // 
             // clQuantity
             // 
-            this.clQuantity.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clQuantity.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQuantity.AppearanceCell.Options.UseFont = true;
             this.clQuantity.AppearanceCell.Options.UseTextOptions = true;
             this.clQuantity.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clQuantity.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clQuantity.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clQuantity.AppearanceHeader.Options.UseFont = true;
             this.clQuantity.AppearanceHeader.Options.UseTextOptions = true;
             this.clQuantity.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1404,11 +1404,11 @@
             // 
             // clSalePrice
             // 
-            this.clSalePrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSalePrice.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSalePrice.AppearanceCell.Options.UseFont = true;
             this.clSalePrice.AppearanceCell.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSalePrice.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSalePrice.AppearanceHeader.Options.UseFont = true;
             this.clSalePrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clSalePrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1425,11 +1425,11 @@
             // 
             // clSaleNo
             // 
-            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleNo.AppearanceCell.Options.UseFont = true;
             this.clSaleNo.AppearanceCell.Options.UseTextOptions = true;
             this.clSaleNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(222)));
+            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleNo.AppearanceHeader.Options.UseFont = true;
             this.clSaleNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1443,6 +1443,15 @@
             this.clSaleNo.Visible = true;
             this.clSaleNo.VisibleIndex = 2;
             this.clSaleNo.Width = 100;
+            // 
+            // panelControl17
+            // 
+            this.panelControl17.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl17.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl17.Location = new System.Drawing.Point(870, 2);
+            this.panelControl17.Name = "panelControl17";
+            this.panelControl17.Size = new System.Drawing.Size(10, 713);
+            this.panelControl17.TabIndex = 18;
             // 
             // UcSale
             // 
@@ -1499,7 +1508,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl23)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
             this.panelControl27.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
@@ -1516,6 +1524,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.returnGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl17)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -27,7 +27,7 @@ namespace PowerPOS
         //public static string ApiUrl = "http://api.powerdd.com";
         //public static string ApiKey = "27AD365F-FBFF-4994-BB9C-97ABAF80EFBB";
 
-        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, ReportStock, Credit, ReportProduct };
+        public enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, ReportStock, Credit, ReportProduct, claimShop, claimReceived };
         public static string[] thaiMonth = { "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม" };
 
         public static string ApiShopId; //= "5BB7C6B3-F6D0-4926-B14F-C580DD148612";
@@ -81,6 +81,8 @@ namespace PowerPOS
         public static int Due = 0;
         public static string shopClaimName;
         public static bool shopClaim;
+        public static bool shopReceived;
+
 
         public static bool jsonObject;
         public static string error;
@@ -103,7 +105,7 @@ namespace PowerPOS
 
         public static string LogoPath;
         //public const string LogoUrl = "https://lh3.googleusercontent.com/of2iTh9rSFHDQreN0Pu1CIV1_-K9BwqTyfFqNMkDtRA=w2655-no";
-        public const string LogoUrl = "https://src.remaxthailand.co.th/img/web/logo/logoPos.jpg";
+        public const string LogoUrl = "https://src.remaxthailand.co.th/img/Remax/web/logo/logoPos.jpg";
         public const string LoadingImageLocal = @"Resource/Images/Loading.gif";
         public const string LoadingImageUrl = "http://a.lnwpic.com/et1xpc.gif";
         public const string SQLiteFileName = "System.dll";

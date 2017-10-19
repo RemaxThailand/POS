@@ -125,6 +125,49 @@ namespace PowerPOS
         private void bwLoadShopInfo_DoWork(object sender, DoWorkEventArgs e)
         {
             Util.LoadShopInfo();
+            var i = 0;
+            var d = 0;
+
+            string config = Util.GetApiData("/shop-application/infoShop",
+            string.Format("shop={0}", Param.ApiShopId));
+
+            dynamic jsonConfig = JsonConvert.DeserializeObject(config);
+            //Console.WriteLine(jsonConfig.success);
+
+            if (jsonConfig.success.Value)
+            {
+                Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Shop (
+                shop NVARCHAR(8) NOT NULL ,
+                name NVARCHAR(100) NOT NULL ,
+                shopName NVARCHAR(100) NOT NULL ,
+                shopCost NVARCHAR(20) NOT NULL ,
+                mobile NVARCHAR(20),
+                PRIMARY KEY (shop,name))");
+
+                const string command = @"INSERT OR REPLACE INTO Shop (shop, name, shopName, shopCost, mobile) ";
+                var sb = new StringBuilder(command);
+
+                for (i = 0; i < jsonConfig.result.Count; i++)
+                {
+                    if (d != 0) sb.Append(" UNION ALL ");
+                    sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}'",
+                       jsonConfig.result[i].shop, jsonConfig.result[i].name, jsonConfig.result[i].shopName, jsonConfig.result[i].shopCost, jsonConfig.result[i].mobile == null ? "" : jsonConfig.result[i].mobile));
+                    d++;
+
+                    if (d % 500 == 0)
+                    {
+                        d = 0;
+                        Util.DBExecute(sb.ToString());
+                        //Console.WriteLine(sb.ToString());
+                        sb = new StringBuilder(@"INSERT OR REPLACE INTO Shop (shop, name, shopName, shopCost, mobile) ");
+                    }
+                }
+                Util.DBExecute(sb.ToString());
+            }
+            else
+            {
+                Console.WriteLine(jsonConfig.errorMessage);
+            }
         }
 
         private void bwLoadShopInfo_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -531,6 +574,84 @@ namespace PowerPOS
 
             LoadCategory(Param.ShopId);
             LoadBrand(Param.ShopId);
+
+            var b = 0;
+            var p = 0;
+
+            if (Param.ApiShopId == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
+            {
+                //##Barcode Claim##
+                Util.DBExecute(@"CREATE TABLE IF NOT EXISTS  BarcodeClaim (
+                shop NVARCHAR(10) NOT NULL,
+                barcode NVARCHAR(20) NOT NULL,
+                orderNo NVARCHAR(15) NOT NULL,
+                product NVARCHAR(10),
+                cost FLOAT DEFAULT 0,
+                receivedDate NVARCHAR(50),
+                receivedBy NVARCHAR(5) DEFAULT 0,
+                status NVARCHAR(10)  DEFAULT 0,
+                comment NVARCHAR(500),
+                addDate NVARCHAR(50),
+                addBy NVARCHAR(20),
+                updateDate NVARCHAR(50),
+                updateBy NVARCHAR(20),  
+                claimDate NVARCHAR(50),
+                claimBy NVARCHAR(20),
+                priceClaim FLOAT DEFAULT 0,
+                barcodeClaim NVARCHAR(20),
+                posClaim NVARCHAR(20),
+                claimNo NVARCHAR(20),
+                sync BIT DEFAULT 0,
+                syncClaim BIT DEFAULT 0,
+                PRIMARY KEY (shop, barcode, product ))");
+
+                string barcodeC = Util.GetApiData("/product/barcodeClaimPos",
+                string.Format("shop={0}", Param.ApiShopId));
+
+                //string barcode = Util.GetApiBigData("/product/barcodePos");
+
+                dynamic jsonBarcodeC = JsonConvert.DeserializeObject(barcodeC);
+                Console.WriteLine(jsonBarcodeC.success);
+
+                if (jsonBarcodeC.success.Value)
+                {
+                    Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                    StringBuilder sb = new StringBuilder(@"INSERT OR REPLACE INTO BarcodeClaim (barcode, orderNo, product, cost, receivedDate, receivedBy, status, comment, addDate, addBy, updateDate, updateBy, shop,claimDate, claimBy, priceClaim, barcodeClaim, posClaim, claimNo ) ");
+
+                    for (b = 0; b < jsonBarcodeC.result.Count; b++)
+                    {
+
+                        //foreach(int d in jsonBarcode.result)
+                        //{
+                        //Console.WriteLine("Barcode[2]  " + jsonBarcode.result[i].barcode);
+                        if (p != 0) sb.Append(" UNION ALL ");
+                        sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', {4}, '{5}', '{6}', '{7}', {8}, '{9}', {10}, '{11}', '{12}', {13}, '{14}', '{15}', '{16}', '{17}', '{18}'",
+                            jsonBarcodeC.result[b].barcode, jsonBarcodeC.result[b].orderClaimNo, jsonBarcodeC.result[b].product, jsonBarcodeC.result[b].cost == null ? 0 : jsonBarcodeC.result[b].cost, jsonBarcodeC.result[b].receivedDate.ToString() == "" ? "NULL" : "'" + jsonBarcodeC.result[b].receivedDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonBarcodeC.result[b].receivedBy, jsonBarcodeC.result[b].status == null ? "" : jsonBarcodeC.result[b].status, jsonBarcodeC.result[b].comment == null ? "" : jsonBarcodeC.result[b].comment,
+                           jsonBarcodeC.result[b].addDate.ToString() == "" ? "NULL" : "'" + jsonBarcodeC.result[b].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonBarcodeC.result[b].addBy == null ? "" : jsonBarcodeC.result[b].addBy, jsonBarcodeC.result[b].updateDate.ToString() == "" ? "NULL" : "'" + jsonBarcodeC.result[b].updateDate.ToString("yyyy-MM-dd HH:mm:ss") + "'",
+                            jsonBarcodeC.result[b].updateBy == null ? "" : jsonBarcodeC.result[b].updateBy, jsonBarcodeC.result[b].shop, jsonBarcodeC.result[b].claimDate.ToString() == "" ? "NULL" : "'" + jsonBarcodeC.result[b].claimDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonBarcodeC.result[b].claimBy == null ? "" : jsonBarcodeC.result[b].claimBy, jsonBarcodeC.result[b].priceClaim == null ? 0 : jsonBarcodeC.result[b].priceClaim, jsonBarcodeC.result[b].barcodeClaim == null ? "" : jsonBarcodeC.result[b].barcodeClaim, jsonBarcodeC.result[b].posClaim == null ? "" : jsonBarcodeC.result[b].posClaim, jsonBarcodeC.result[b].claimNo == null ? "" : jsonBarcodeC.result[b].claimNo));
+                        //i++;
+                        p++;
+
+
+                        //Console.WriteLine(d);
+
+                        if (p % 500 == 0)
+                        {
+                            p = 0;
+                            Util.DBExecute(sb.ToString());
+                            sb = new StringBuilder(@"INSERT OR REPLACE INTO BarcodeClaim (barcode, orderNo, product, cost, receivedDate, receivedBy, status, comment, addDate, addBy, updateDate, updateBy, shop,claimDate, claimBy, priceClaim, barcodeClaim, posClaim, claimNo) ");
+                        }
+
+                    }
+                    Util.DBExecute(sb.ToString());
+
+                    Console.WriteLine("Load shop barcodeClaim = {0} seconds", (DateTime.Now - startDate).TotalSeconds);
+                }
+                else
+                {
+                    Console.WriteLine(jsonBarcodeC.errorMessage);
+                }
+            }
 
             //Util.DBExecute(string.Format(@"DELETE FROM PurchaseOrder WHERE sync = 0"));
 
@@ -1097,6 +1218,8 @@ namespace PowerPOS
             var i = 0;
             var d = 0;
 
+            Util.DBExecute(@"DROP TABLE Customer");
+
             Util.DBExecute(@"CREATE TABLE IF NOT EXISTS Customer (
                     shop NVARCHAR(8) NOT NULL,
                     customer NVARCHAR(8)NOT NULL,
@@ -1135,7 +1258,9 @@ namespace PowerPOS
                     addBy NVARCHAR(10),
                     updateDate NVARCHAR(50),
                     updateBy NVARCHAR(10),
+                    active BIT DEFAULT 1,
                     sync BIT DEFAULT 0,
+                    syncUpdate BIT DEFAULT 0,
                     PRIMARY KEY (shop, customer))");
 
             string customer = Util.GetApiData("/customer/Info",
@@ -1150,7 +1275,7 @@ namespace PowerPOS
                 const string command = @"INSERT OR REPLACE INTO Customer (shop, customer, member, name, firstname, lastname, nickname, contactName, citizenID, birthday, 
                 sex, cardNo, mobile, email, shopName, address, address2, subDistrict, district, province, zipCode, 
                 shopSameAddress, shopAddress, shopAddress2, shopSubDistrict, shopDistrict, shopProvince, shopZipCode, 
-                sellPrice, discountPercent, credit, comment, addDate) ";
+                sellPrice, discountPercent, credit, comment, addDate, active) ";
                 var sb = new StringBuilder(command);
 
                 for (i = 0; i < jsonCustomer.result.Count; i++)
@@ -1158,13 +1283,13 @@ namespace PowerPOS
                     if (d != 0) sb.Append(" UNION ALL ");
                     sb.Append(string.Format(@" SELECT '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', {9}, '{10}', '{11}',
                     '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', '{21}', '{22}', '{23}', '{24}',
-                    '{25}', '{26}', '{27}', '{28}', '{29}', '{30}', '{31}', {32}",
+                    '{25}', '{26}', '{27}', '{28}', '{29}', '{30}', '{31}', {32}, '{33}'",
                          jsonCustomer.result[i].shop, jsonCustomer.result[i].customer, jsonCustomer.result[i].member, jsonCustomer.result[i].name, jsonCustomer.result[i].firstname == null ? "" : jsonCustomer.result[i].firstname, jsonCustomer.result[i].lastname == null ? "" : jsonCustomer.result[i].lastname, jsonCustomer.result[i].nickname == null ? "" : jsonCustomer.result[i].nickname,
                         jsonCustomer.result[i].contactName == null ? "" : jsonCustomer.result[i].contactName, jsonCustomer.result[i].citizenId == null ? "" : jsonCustomer.result[i].citizenId, jsonCustomer.result[i].birthday == null ? "NULL" : "'" + jsonCustomer.result[i].birthday.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonCustomer.result[i].sex == null ? "" : jsonCustomer.result[i].sex,
                         jsonCustomer.result[i].cardNo == null ? "" : jsonCustomer.result[i].cardNo, jsonCustomer.result[i].mobile == null ? "" : jsonCustomer.result[i].mobile, jsonCustomer.result[i].email == null ? "" : jsonCustomer.result[i].email, jsonCustomer.result[i].shopName == null ? "" : jsonCustomer.result[i].shopName, jsonCustomer.result[i].address == null ? "" : jsonCustomer.result[i].address,
-                        jsonCustomer.result[i].address2 == null ? "" : jsonCustomer.result[i].address2, jsonCustomer.result[i].subDistrict == null ? "" : jsonCustomer.result[i].subDistrict, jsonCustomer.result[i].district == null ? "" : jsonCustomer.result[i].district, jsonCustomer.result[i].province == null ? "" : jsonCustomer.result[i].province, jsonCustomer.result[i].zipCode == null ? "" : jsonCustomer.result[i].zipCode,
+                        jsonCustomer.result[i].address2 == null ? "" : jsonCustomer.result[i].address2, jsonCustomer.result[i].subDistrict == null ? "" : jsonCustomer.result[i].subDistrict, jsonCustomer.result[i].district == null ? "" : jsonCustomer.result[i].district, jsonCustomer.result[i].province == null ? "" : jsonCustomer.result[i].province, jsonCustomer.result[i].zipcode == null ? "" : jsonCustomer.result[i].zipcode,
                         jsonCustomer.result[i].shopSameAddress == false ? 0 : 1, jsonCustomer.result[i].shopAddress == null ? "" : jsonCustomer.result[i].shopAddress, jsonCustomer.result[i].shopAddress2 == null ? "" : jsonCustomer.result[i].shopAddress2, jsonCustomer.result[i].shopSubDistrict == null ? "" : jsonCustomer.result[i].shopSubDistrict, jsonCustomer.result[i].shopDistrict == null ? "" : jsonCustomer.result[i].shopDistrict, 
-                        jsonCustomer.result[i].shopProvince == null ? "" : jsonCustomer.result[i].shopProvince, jsonCustomer.result[i].shopZipcode == null ? "" : jsonCustomer.result[i].shopZipcode, jsonCustomer.result[i].sellPrice, jsonCustomer.result[i].discountPercent, jsonCustomer.result[i].credit, jsonCustomer.result[i].comment, jsonCustomer.result[i].addDate == null ? "NULL" : "'" + jsonCustomer.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'"));
+                        jsonCustomer.result[i].shopProvince == null ? "" : jsonCustomer.result[i].shopProvince, jsonCustomer.result[i].shopZipcode == null ? "" : jsonCustomer.result[i].shopZipcode, jsonCustomer.result[i].sellPrice, jsonCustomer.result[i].discountPercent, jsonCustomer.result[i].credit, jsonCustomer.result[i].comment, jsonCustomer.result[i].addDate == null ? "NULL" : "'" + jsonCustomer.result[i].addDate.ToString("yyyy-MM-dd HH:mm:ss") + "'", jsonCustomer.result[i].active == false ? 0 : 1));
                     d++;
 
                     if (d % 500 == 0)

@@ -36,6 +36,8 @@
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.btnAddCustomer = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxStatus = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.customerGridControl = new DevExpress.XtraGrid.GridControl();
@@ -52,6 +54,12 @@
             this.clMobile = new DevExpress.XtraGrid.Columns.GridColumn();
             this.clCitizenId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.panelControl27 = new DevExpress.XtraEditors.PanelControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.panelControl28 = new DevExpress.XtraEditors.PanelControl();
+            this.lblCount = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
+            this.panelControl30 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer1.SuspendLayout();
@@ -61,10 +69,19 @@
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbxStatus.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).BeginInit();
+            this.panelControl27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).BeginInit();
+            this.panelControl28.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).BeginInit();
             this.SuspendLayout();
             // 
             // navBarControl1
@@ -121,9 +138,9 @@
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.btnAddCustomer);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl2.Location = new System.Drawing.Point(2, 75);
+            this.panelControl2.Location = new System.Drawing.Point(2, 155);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(232, 58);
+            this.panelControl2.Size = new System.Drawing.Size(232, 52);
             this.panelControl2.TabIndex = 1;
             // 
             // btnAddCustomer
@@ -135,29 +152,66 @@
             this.btnAddCustomer.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnAddCustomer.Location = new System.Drawing.Point(0, 0);
             this.btnAddCustomer.Name = "btnAddCustomer";
-            this.btnAddCustomer.Size = new System.Drawing.Size(232, 51);
+            this.btnAddCustomer.Size = new System.Drawing.Size(232, 50);
             this.btnAddCustomer.TabIndex = 0;
             this.btnAddCustomer.Text = "เพิ่มข้อมูลลูกค้า";
             this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
             // 
             // groupControl1
             // 
+            this.groupControl1.Appearance.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl1.Appearance.Options.UseFont = true;
+            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl1.AppearanceCaption.Options.UseFont = true;
+            this.groupControl1.Controls.Add(this.groupBox1);
             this.groupControl1.Controls.Add(this.txtSearch);
             this.groupControl1.Controls.Add(this.btnSearch);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(2, 2);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(232, 73);
+            this.groupControl1.Size = new System.Drawing.Size(232, 153);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "ค้นหาข้อมูล";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cbxStatus);
+            this.groupBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(14, 70);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(210, 77);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "สถานะลูกค้า";
+            // 
+            // cbxStatus
+            // 
+            this.cbxStatus.Location = new System.Drawing.Point(6, 31);
+            this.cbxStatus.Name = "cbxStatus";
+            this.cbxStatus.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbxStatus.Properties.Appearance.Options.UseFont = true;
+            this.cbxStatus.Properties.AppearanceDropDown.Font = new System.Drawing.Font("Calibri", 12F);
+            this.cbxStatus.Properties.AppearanceDropDown.Options.UseFont = true;
+            this.cbxStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cbxStatus.Properties.Items.AddRange(new object[] {
+            "--ไม่ระบุสถานะ--",
+            "ใช้งาน",
+            "ไม่ใช้งาน"});
+            this.cbxStatus.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.cbxStatus.Size = new System.Drawing.Size(198, 30);
+            this.cbxStatus.TabIndex = 1;
+            this.cbxStatus.SelectedIndexChanged += new System.EventHandler(this.cbxStatus_SelectedIndexChanged);
+            // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(14, 32);
+            this.txtSearch.Location = new System.Drawing.Point(14, 38);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Properties.Appearance.Options.UseFont = true;
-            this.txtSearch.Size = new System.Drawing.Size(180, 26);
+            this.txtSearch.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtSearch.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.txtSearch.Size = new System.Drawing.Size(180, 30);
             this.txtSearch.TabIndex = 13;
             this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
             // 
@@ -165,9 +219,9 @@
             // 
             this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(199, 33);
+            this.btnSearch.Location = new System.Drawing.Point(199, 39);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(25, 23);
+            this.btnSearch.Size = new System.Drawing.Size(28, 29);
             this.btnSearch.TabIndex = 12;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -177,7 +231,7 @@
             this.customerGridControl.Location = new System.Drawing.Point(236, 0);
             this.customerGridControl.MainView = this.customerGridView;
             this.customerGridControl.Name = "customerGridControl";
-            this.customerGridControl.Size = new System.Drawing.Size(721, 557);
+            this.customerGridControl.Size = new System.Drawing.Size(779, 532);
             this.customerGridControl.TabIndex = 1;
             this.customerGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.customerGridView});
@@ -410,20 +464,81 @@
             // 
             this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl3.Location = new System.Drawing.Point(957, 0);
+            this.panelControl3.Location = new System.Drawing.Point(1015, 0);
             this.panelControl3.Name = "panelControl3";
             this.panelControl3.Size = new System.Drawing.Size(10, 557);
             this.panelControl3.TabIndex = 2;
+            // 
+            // panelControl27
+            // 
+            this.panelControl27.Controls.Add(this.groupControl3);
+            this.panelControl27.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl27.Location = new System.Drawing.Point(236, 532);
+            this.panelControl27.Name = "panelControl27";
+            this.panelControl27.Size = new System.Drawing.Size(779, 25);
+            this.panelControl27.TabIndex = 20;
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.groupControl3.Controls.Add(this.panelControl28);
+            this.groupControl3.Controls.Add(this.panelControl30);
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupControl3.Location = new System.Drawing.Point(520, 2);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.ShowCaption = false;
+            this.groupControl3.Size = new System.Drawing.Size(257, 21);
+            this.groupControl3.TabIndex = 30;
+            this.groupControl3.Text = "groupControl3";
+            // 
+            // panelControl28
+            // 
+            this.panelControl28.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl28.Controls.Add(this.lblCount);
+            this.panelControl28.Controls.Add(this.labelControl2);
+            this.panelControl28.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelControl28.Location = new System.Drawing.Point(84, 0);
+            this.panelControl28.Name = "panelControl28";
+            this.panelControl28.Size = new System.Drawing.Size(173, 21);
+            this.panelControl28.TabIndex = 30;
+            // 
+            // lblCount
+            // 
+            this.lblCount.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCount.Location = new System.Drawing.Point(93, 2);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(51, 16);
+            this.lblCount.TabIndex = 27;
+            this.lblCount.Text = "0 รายการ";
+            // 
+            // labelControl2
+            // 
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl2.Location = new System.Drawing.Point(3, 2);
+            this.labelControl2.Name = "labelControl2";
+            this.labelControl2.Size = new System.Drawing.Size(84, 16);
+            this.labelControl2.TabIndex = 26;
+            this.labelControl2.Text = "จำนวนรายการ :";
+            // 
+            // panelControl30
+            // 
+            this.panelControl30.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl30.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelControl30.Location = new System.Drawing.Point(0, 0);
+            this.panelControl30.Name = "panelControl30";
+            this.panelControl30.Size = new System.Drawing.Size(86, 21);
+            this.panelControl30.TabIndex = 31;
             // 
             // UcCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.customerGridControl);
+            this.Controls.Add(this.panelControl27);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.navBarControl1);
             this.Name = "UcCustomer";
-            this.Size = new System.Drawing.Size(967, 557);
+            this.Size = new System.Drawing.Size(1025, 557);
             this.Load += new System.EventHandler(this.UcCustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).EndInit();
             this.navBarControl1.ResumeLayout(false);
@@ -434,10 +549,20 @@
             this.panelControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cbxStatus.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerGridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl27)).EndInit();
+            this.panelControl27.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl28)).EndInit();
+            this.panelControl28.ResumeLayout(false);
+            this.panelControl28.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl30)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,5 +592,13 @@
         private DevExpress.XtraGrid.Columns.GridColumn clMobile;
         private DevExpress.XtraGrid.Columns.GridColumn clCitizenId;
         private DevExpress.XtraEditors.PanelControl panelControl3;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private DevExpress.XtraEditors.ComboBoxEdit cbxStatus;
+        private DevExpress.XtraEditors.PanelControl panelControl27;
+        private DevExpress.XtraEditors.LabelControl lblCount;
+        private DevExpress.XtraEditors.LabelControl labelControl2;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.PanelControl panelControl28;
+        private DevExpress.XtraEditors.PanelControl panelControl30;
     }
 }

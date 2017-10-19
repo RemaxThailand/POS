@@ -360,7 +360,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(59, 16);
             this.lblVersion.TabIndex = 1;
-            this.lblVersion.Text = "V 1.0.0.34";
+            this.lblVersion.Text = "V 1.0.0.36";
             this.lblVersion.Click += new System.EventHandler(this.lblVersion_Click);
             this.lblVersion.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lblVersion_MouseClick);
             // 
@@ -438,6 +438,7 @@
             // ptbLogo
             // 
             this.ptbLogo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.ptbLogo.Enabled = false;
             this.ptbLogo.Location = new System.Drawing.Point(2, 114);
             this.ptbLogo.Name = "ptbLogo";
             this.ptbLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;

@@ -186,10 +186,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadImage.cs" />
-    <Compile Include="FmEditAddress.cs">
+    <Compile Include="Form\FmMessage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FmEditAddress.Designer.cs">
+    <Compile Include="Form\FmMessage.Designer.cs">
+      <DependentUpon>FmMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form\FmEditAddress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form\FmEditAddress.Designer.cs">
       <DependentUpon>FmEditAddress.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FmClaimImg.cs">
@@ -204,10 +210,10 @@
     <Compile Include="Form\FmClaimAdd.Designer.cs">
       <DependentUpon>FmClaimAdd.cs</DependentUpon>
     </Compile>
-    <Compile Include="FmCoupon.cs">
+    <Compile Include="Form\FmCoupon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FmCoupon.Designer.cs">
+    <Compile Include="Form\FmCoupon.Designer.cs">
       <DependentUpon>FmCoupon.cs</DependentUpon>
     </Compile>
     <Compile Include="Form\FmWait.cs">
@@ -374,6 +380,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UserControl\UcClaimReceived.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcClaimReceived.Designer.cs">
+      <DependentUpon>UcClaimReceived.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UcClaimShop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControl\UcClaimShop.Designer.cs">
+      <DependentUpon>UcClaimShop.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControl\UcAddDataClaim.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -471,10 +489,13 @@
       <DependentUpon>UcSale.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="FmCoupon.resx">
+    <EmbeddedResource Include="Form\FmMessage.resx">
+      <DependentUpon>FmMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form\FmCoupon.resx">
       <DependentUpon>FmCoupon.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FmEditAddress.resx">
+    <EmbeddedResource Include="Form\FmEditAddress.resx">
       <DependentUpon>FmEditAddress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form\FmClaimAdd.resx">
@@ -562,6 +583,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcClaimReceived.resx">
+      <DependentUpon>UcClaimReceived.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControl\UcClaimShop.resx">
+      <DependentUpon>UcClaimShop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControl\UcAddDataClaim.resx">
       <DependentUpon>UcAddDataClaim.cs</DependentUpon>

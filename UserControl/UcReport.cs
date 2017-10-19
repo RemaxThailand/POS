@@ -30,7 +30,7 @@ namespace PowerPOS
         private void UcReport_Load(object sender, EventArgs e)
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("th-TH");
-            dtpDate.Enabled = Util.CanAccessScreenDetail("V10");
+            //dtpDate.Enabled = Util.CanAccessScreenDetail("V10");
             LoadData();
         }
 
@@ -72,7 +72,8 @@ namespace PowerPOS
                 // ", dtpDate.Value.ToString("yyyy-MM-dd"), Param.UserId ));
 
                 _TABLE_REPORT = Util.DBQuery(string.Format(@"
-                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType, CASE WHEN h.discountCash = '' THEN 0 ELSE h.discountCash END discountCash, CASE WHEN h.discountCash = '' THEN h.TotalPrice - 0 ELSE h.TotalPrice - h.discountCash END NetPrice
+                 SELECT strftime('%d-%m-%Y %H:%M:%S', h.SellDate) SellDate, h.SellNo, c.Firstname, c.Lastname, c.Mobile, h.Profit, h.TotalPrice, h.Paid, h.payType, 
+                    CASE WHEN h.discountCash = '' THEN 0 ELSE h.discountCash END discountCash, CASE WHEN h.discountCash = '' THEN h.TotalPrice - 0 ELSE h.TotalPrice - h.discountCash END NetPrice
                FROM SellHeader h
                 LEFT JOIN Customer c
                 ON h.Customer = c.Customer 
@@ -440,5 +441,28 @@ namespace PowerPOS
             }
 
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+
+            if (reportGridView.RowCount > 0)
+            {
+                FmMessage dialog = new FmMessage();
+                dialog.lblMessage.Text = "      คุณแน่ใจหรือไม่ ที่จะยกเลิกการขายเลขที่บิล '"+ sellNo +"' ถ้ากดยืนยันแล้ว จะไม่สามารถดึงข้อมูลการขายในบิลกลับมาได้?";
+                dialog.lblHeader.Text = "ยืนยันการนับสต็อกสินค้าใหม่";
+                var result = dialog.ShowDialog(this);
+                if (result == DialogResult.OK)
+                {
+                    MessageBox.Show("ยกเลิกแล้ว", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("กรุณาเลือกรายการที่ต้องการยกเลิกบิล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+           
     }
 }

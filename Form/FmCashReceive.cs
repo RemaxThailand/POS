@@ -16,6 +16,7 @@ namespace PowerPOS
         public int _TOTAL = 0;
         public string _SELL_NO;
         bool _CASH;
+        int dis = 0;
 
         public FmCashReceive()
         {
@@ -38,7 +39,14 @@ namespace PowerPOS
             try
             {
                 //lblChange.Text = (int.Parse(txtCash.Text) - _TOTAL).ToString("#,##0");
-                lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)).ToString("#,##0");
+                if (dis == 0)
+                {
+                    lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)).ToString("#,##0");
+                }
+                else
+                {
+                    lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + dis).ToString("#,##0");
+                }
 
             }
             catch
@@ -65,12 +73,15 @@ namespace PowerPOS
             txtDiscountBath.Enabled = rdbBath.Checked;
             txtDiscountPer.Enabled = rdbPercent.Checked;
 
-            //if (rdbBath.Checked)
-            //{
-                
-            //}
-            //else if (rdbPercent.Checked)
-            //{ }
+            if (rdbBath.Checked)
+            {
+                txtDiscountPer.Text = "";
+                lblPerBath.Visible = false;
+            }
+            else if (rdbPercent.Checked)
+            {
+                txtDiscountBath.Text = "";
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -78,6 +89,7 @@ namespace PowerPOS
             try
             {
                 _CASH = false;
+
                 if (txtCash.Text != "")
                 {
                     DataTable dt = Util.DBQuery(string.Format(@"SELECT IFNULL(SUBSTR(MAX(creditNo), 1,6)||SUBSTR('0000'||(SUBSTR(MAX(creditNo), 7, 4)+1), -4, 4), SUBSTR(STRFTIME('%Y%m{0}D'), 3)||'0001') creditNo
@@ -86,13 +98,20 @@ namespace PowerPOS
                     AND SUBSTR(creditNo, 5, 1) = '{0}'", Param.DevicePrefix));
                     var CreditNo = dt.Rows[0]["creditNo"].ToString();
 
-                    if (txtCash.Text == "0")
+                    if (Param.SelectCustomerId == "000000")
                     {
-                        if (Param.SelectCustomerId == "000000")
+                        if (txtCash.Text == "0")
                         {
                             MessageBox.Show("กรุณาตรวจสอบจำนวนเงินที่รับ\nหรือข้อมูลลูกค้าให้ถูกต้อง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         else
+                        {
+                            _CASH = true;
+                        }
+                    }
+                    else
+                    {
+                        if (txtCash.Text == "0")
                         {
                             if (MessageBox.Show("ข้อมูลการขายนี้ จะถูกบันทึกลงข้อมูลลูกหนี้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Question) == DialogResult.OK)
                             {
@@ -106,15 +125,13 @@ namespace PowerPOS
 
                                     _CASH = true;
                                 }
-
                             }
                         }
+                        else
+                        {
+                            _CASH = true;
+                        }
                     }
-                    else
-                    {
-                        _CASH = true;
-                    }
-
 
                     if (_CASH)
                     {
@@ -160,51 +177,50 @@ namespace PowerPOS
 
 
                         var cash = int.Parse(txtCash.Text);
+                        //**ปิดบรรทัดนี้ก่อน**
                         //var Discount = int.Parse(txtCash.Text);
-                        if (((cash + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)) >= double.Parse(lblPrice.Text)) || cash == 0)
+                        //if (((cash + int.Parse(txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text)) >= double.Parse(lblPrice.Text)) || cash == 0)
+                        //{
+                        if (cash != 0)
                         {
-                            if (cash != 0)
-                            {
-                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = {0}, PayType = 1, Paid = 1, discountCash = '{2}',  Sync = 1 WHERE SellNo = '{1}'", cash, _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text));
-                            }
-                            else
-                            {
-                                Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, discountCash = '{1}', Sync = 1 WHERE SellNo = '{0}'", _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text));
-                            }
-
-                            //Util.DBExecute(string.Format(@"DELETE FROM SellTemp"));
-
-                            //Util.PrintReceipt(_SELL_NO);
-                            Param.SelectCustomerId = "000000";
-                            Param.SelectCustomerName = "ลูกค้าทั่วไป";
-                            Param.SelectCustomerSex = "";
-                            Param.SelectCustomerAge = 0;
-                            Param.SelectCustomerSellPrice = 0;
-
-                            this.DialogResult = System.Windows.Forms.DialogResult.OK;
-
-
-                            if (Param.PrintType == "Y")
-                            {
-                                var cnt = int.Parse(Param.PrintCount.ToString());
-                                for (int i = 1; i <= cnt; i++)
-                                    Util.PrintReceipt(_SELL_NO);
-                            }
-                            else if (Param.PrintType == "A")
-                            {
-                                if (MessageBox.Show("คุณต้องการพิมพ์ใบเสร็จรับเงินหรือไม่ ?", "การพิมพ์", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                                    Util.PrintReceipt(_SELL_NO);
-                            }
+                            Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = {0}, PayType = 1, Paid = 1, discountCash = '{2}', discountPercent = '{3}',  Sync = 1 WHERE SellNo = '{1}'", cash, _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text, txtDiscountPer.Text == "" ? "0" : txtDiscountPer.Text));
                         }
                         else
                         {
-                            MessageBox.Show("กรุณาตรวจสอบจำนวนเงินที่รับมาอีกครั้ง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            Util.DBExecute(string.Format(@"UPDATE SellHeader SET Cash = 0, PayType = 0, Paid = 0, discountCash = '{1}', discountPercent = '{2}', Sync = 1 WHERE SellNo = '{0}'", _SELL_NO, txtDiscountBath.Text == "" ? "0" : txtDiscountBath.Text, txtDiscountPer.Text == "" ? "0" : txtDiscountPer.Text));
+                        }
+
+                        //Util.PrintReceipt(_SELL_NO);
+                        Param.SelectCustomerId = "000000";
+                        Param.SelectCustomerName = "ลูกค้าทั่วไป";
+                        Param.SelectCustomerSex = "";
+                        Param.SelectCustomerAge = 0;
+                        Param.SelectCustomerSellPrice = 0;
+
+                        this.DialogResult = System.Windows.Forms.DialogResult.OK;
+
+
+                        if (Param.PrintType == "Y")
+                        {
+                            var cnt = int.Parse(Param.PrintCount.ToString());
+                            for (int i = 1; i <= cnt; i++)
+                                Util.PrintReceipt(_SELL_NO);
+                        }
+                        else if (Param.PrintType == "A")
+                        {
+                            if (MessageBox.Show("คุณต้องการพิมพ์ใบเสร็จรับเงินหรือไม่ ?", "การพิมพ์", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                                Util.PrintReceipt(_SELL_NO);
                         }
                     }
+                        //else
+                        //{
+                        //    MessageBox.Show("กรุณาตรวจสอบจำนวนเงินที่รับมาอีกครั้ง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //}
+                    //}
                 }
                 else
                 {
-                    MessageBox.Show("กรุณาตรวจสอบจำนวนเงินที่รับมาอีกครั้ง", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("กรุณากรอกจำนวนเงิน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
@@ -259,7 +275,6 @@ namespace PowerPOS
             {
                 lblChange.Text = _TOTAL.ToString("#,##0");
             }
-
         }
 
         private void txtDiscountBath_KeyPress(object sender, KeyPressEventArgs e)
@@ -294,6 +309,40 @@ namespace PowerPOS
                 {
                     MessageBox.Show("ไม่มีโค้ดคูปองนี้");
                 }
+            }
+        }
+
+        private void txtDiscountPer_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if (txtDiscountPer.Text.Length == 0)
+            {
+                lblPerBath.Visible = false;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDiscountPer_KeyUp(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                dis = (int)Math.Round(_TOTAL * (double.Parse(txtDiscountPer.Text) / 100));
+                lblPerBath.Text = "(เป็นเงิน " + dis.ToString("#,##0") + " บาท)";
+                lblChange.Text = ((int.Parse(txtCash.Text == "" ? "0" : txtCash.Text) - _TOTAL) + dis).ToString("#,##0");
+                lblPerBath.Visible = true;
+            }
+            catch
+            {
+                lblChange.Text = _TOTAL.ToString("#,##0");
             }
         }
     }

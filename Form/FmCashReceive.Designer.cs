@@ -53,6 +53,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDiscountPer = new DevExpress.XtraEditors.TextEdit();
+            this.lblPerBath = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -74,15 +75,15 @@
             this.panelControl1.Appearance.BackColor = System.Drawing.Color.Black;
             this.panelControl1.Appearance.Options.UseBackColor = true;
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.lblPrice);
             this.panelControl1.Controls.Add(this.label4);
             this.panelControl1.Controls.Add(this.label3);
+            this.panelControl1.Controls.Add(this.lblPrice);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003;
             this.panelControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(249, 61);
+            this.panelControl1.Size = new System.Drawing.Size(277, 61);
             this.panelControl1.TabIndex = 1;
             // 
             // lblPrice
@@ -92,7 +93,7 @@
             this.lblPrice.ForeColor = System.Drawing.Color.Lime;
             this.lblPrice.Location = new System.Drawing.Point(0, 17);
             this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(249, 44);
+            this.lblPrice.Size = new System.Drawing.Size(277, 44);
             this.lblPrice.TabIndex = 4;
             this.lblPrice.Text = "9,999,999";
             this.lblPrice.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -100,31 +101,34 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Silver;
-            this.label4.Location = new System.Drawing.Point(155, 2);
+            this.label4.Location = new System.Drawing.Point(211, 2);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(67, 19);
             this.label4.TabIndex = 2;
             this.label4.Text = "หน่วย = บาท";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Silver;
             this.label3.Location = new System.Drawing.Point(3, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.Size = new System.Drawing.Size(90, 33);
             this.label3.TabIndex = 3;
-            this.label3.Text = "ราคา";
+            this.label3.Text = "ยอดสุทธิ";
             // 
             // panelControl2
             // 
+            this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl2.Controls.Add(this.txtCash);
             this.panelControl2.Controls.Add(this.label1);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl2.Location = new System.Drawing.Point(0, 61);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(249, 60);
+            this.panelControl2.Size = new System.Drawing.Size(277, 60);
             this.panelControl2.TabIndex = 2;
             // 
             // txtCash
@@ -137,7 +141,7 @@
             this.txtCash.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtCash.Properties.AutoHeight = false;
             this.txtCash.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtCash.Size = new System.Drawing.Size(164, 39);
+            this.txtCash.Size = new System.Drawing.Size(198, 39);
             this.txtCash.TabIndex = 6;
             this.txtCash.Enter += new System.EventHandler(this.txtCash_Enter);
             this.txtCash.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCash_KeyDown);
@@ -161,34 +165,35 @@
             this.panelControl3.Appearance.Options.UseBackColor = true;
             this.panelControl3.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl3.Controls.Add(this.label6);
-            this.panelControl3.Controls.Add(this.lblChange);
             this.panelControl3.Controls.Add(this.label5);
-            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl3.Location = new System.Drawing.Point(0, 262);
+            this.panelControl3.Controls.Add(this.lblChange);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelControl3.Location = new System.Drawing.Point(0, 285);
             this.panelControl3.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Office2003;
             this.panelControl3.LookAndFeel.UseDefaultLookAndFeel = false;
             this.panelControl3.Name = "panelControl3";
-            this.panelControl3.Size = new System.Drawing.Size(249, 61);
+            this.panelControl3.Size = new System.Drawing.Size(277, 65);
             this.panelControl3.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Orange;
             this.label6.Location = new System.Drawing.Point(3, 2);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.Size = new System.Drawing.Size(84, 33);
             this.label6.TabIndex = 3;
-            this.label6.Text = "ราคา";
+            this.label6.Text = "เงินทอน";
             // 
             // lblChange
             // 
             this.lblChange.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblChange.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChange.ForeColor = System.Drawing.Color.Orange;
-            this.lblChange.Location = new System.Drawing.Point(0, 17);
+            this.lblChange.Location = new System.Drawing.Point(0, 19);
             this.lblChange.Name = "lblChange";
-            this.lblChange.Size = new System.Drawing.Size(249, 44);
+            this.lblChange.Size = new System.Drawing.Size(277, 46);
             this.lblChange.TabIndex = 1;
             this.lblChange.Text = "9,999,999";
             this.lblChange.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -197,7 +202,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Orange;
-            this.label5.Location = new System.Drawing.Point(155, 2);
+            this.label5.Location = new System.Drawing.Point(208, 3);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(66, 13);
             this.label5.TabIndex = 2;
@@ -208,7 +213,7 @@
             this.btnSave.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Appearance.Options.UseFont = true;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(136, 10);
+            this.btnSave.Location = new System.Drawing.Point(172, 10);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(102, 34);
             this.btnSave.TabIndex = 1;
@@ -233,9 +238,9 @@
             this.panelControl4.Controls.Add(this.btnSave);
             this.panelControl4.Controls.Add(this.btnCancel);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl4.Location = new System.Drawing.Point(0, 322);
+            this.panelControl4.Location = new System.Drawing.Point(0, 350);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(249, 50);
+            this.panelControl4.Size = new System.Drawing.Size(277, 50);
             this.panelControl4.TabIndex = 4;
             // 
             // label2
@@ -266,7 +271,7 @@
             this.txtDiscountBath.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtDiscountBath.Properties.AutoHeight = false;
             this.txtDiscountBath.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtDiscountBath.Size = new System.Drawing.Size(104, 39);
+            this.txtDiscountBath.Size = new System.Drawing.Size(121, 39);
             this.txtDiscountBath.TabIndex = 1;
             this.txtDiscountBath.Enter += new System.EventHandler(this.txtDiscountBath_Enter);
             this.txtDiscountBath.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiscountBath_KeyPress);
@@ -274,6 +279,8 @@
             // 
             // panelControl5
             // 
+            this.panelControl5.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.panelControl5.Controls.Add(this.lblPerBath);
             this.panelControl5.Controls.Add(this.txtCoupon);
             this.panelControl5.Controls.Add(this.label9);
             this.panelControl5.Controls.Add(this.rdbPercent);
@@ -283,10 +290,10 @@
             this.panelControl5.Controls.Add(this.txtDiscountPer);
             this.panelControl5.Controls.Add(this.txtDiscountBath);
             this.panelControl5.Controls.Add(this.label2);
-            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl5.Location = new System.Drawing.Point(0, 121);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(249, 141);
+            this.panelControl5.Size = new System.Drawing.Size(277, 229);
             this.panelControl5.TabIndex = 3;
             // 
             // txtCoupon
@@ -300,7 +307,7 @@
             this.txtCoupon.Properties.Appearance.Options.UseTextOptions = true;
             this.txtCoupon.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.txtCoupon.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtCoupon.Size = new System.Drawing.Size(164, 34);
+            this.txtCoupon.Size = new System.Drawing.Size(198, 34);
             this.txtCoupon.TabIndex = 13;
             this.txtCoupon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCoupon_KeyDown);
             // 
@@ -318,7 +325,6 @@
             // rdbPercent
             // 
             this.rdbPercent.AutoSize = true;
-            this.rdbPercent.Enabled = false;
             this.rdbPercent.Location = new System.Drawing.Point(67, 106);
             this.rdbPercent.Name = "rdbPercent";
             this.rdbPercent.Size = new System.Drawing.Size(14, 13);
@@ -330,7 +336,6 @@
             // rdbBath
             // 
             this.rdbBath.AutoSize = true;
-            this.rdbBath.Enabled = false;
             this.rdbBath.Location = new System.Drawing.Point(67, 61);
             this.rdbBath.Name = "rdbBath";
             this.rdbBath.Size = new System.Drawing.Size(14, 13);
@@ -344,8 +349,8 @@
             this.label8.AutoSize = true;
             this.label8.Enabled = false;
             this.label8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.LightGray;
-            this.label8.Location = new System.Drawing.Point(206, 105);
+            this.label8.ForeColor = System.Drawing.Color.Black;
+            this.label8.Location = new System.Drawing.Point(220, 106);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(36, 13);
             this.label8.TabIndex = 9;
@@ -357,7 +362,7 @@
             this.label7.Enabled = false;
             this.label7.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(203, 58);
+            this.label7.Location = new System.Drawing.Point(220, 61);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(45, 13);
             this.label7.TabIndex = 3;
@@ -365,13 +370,12 @@
             // 
             // txtDiscountPer
             // 
-            this.txtDiscountPer.EditValue = "0";
-            this.txtDiscountPer.Enabled = false;
+            this.txtDiscountPer.EditValue = "";
             this.txtDiscountPer.Location = new System.Drawing.Point(93, 93);
             this.txtDiscountPer.Name = "txtDiscountPer";
-            this.txtDiscountPer.Properties.Appearance.BackColor = System.Drawing.Color.Gainsboro;
+            this.txtDiscountPer.Properties.Appearance.BackColor = System.Drawing.Color.White;
             this.txtDiscountPer.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiscountPer.Properties.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.txtDiscountPer.Properties.Appearance.ForeColor = System.Drawing.Color.Black;
             this.txtDiscountPer.Properties.Appearance.Options.UseBackColor = true;
             this.txtDiscountPer.Properties.Appearance.Options.UseFont = true;
             this.txtDiscountPer.Properties.Appearance.Options.UseForeColor = true;
@@ -379,14 +383,29 @@
             this.txtDiscountPer.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
             this.txtDiscountPer.Properties.AutoHeight = false;
             this.txtDiscountPer.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtDiscountPer.Size = new System.Drawing.Size(104, 39);
+            this.txtDiscountPer.Size = new System.Drawing.Size(121, 39);
             this.txtDiscountPer.TabIndex = 9;
+            this.txtDiscountPer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDiscountPer_KeyPress);
+            this.txtDiscountPer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDiscountPer_KeyUp);
+            // 
+            // lblPerBath
+            // 
+            this.lblPerBath.AutoSize = true;
+            this.lblPerBath.Enabled = false;
+            this.lblPerBath.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPerBath.ForeColor = System.Drawing.Color.Black;
+            this.lblPerBath.Location = new System.Drawing.Point(90, 135);
+            this.lblPerBath.Name = "lblPerBath";
+            this.lblPerBath.Size = new System.Drawing.Size(28, 18);
+            this.lblPerBath.TabIndex = 14;
+            this.lblPerBath.Text = "....";
+            this.lblPerBath.Visible = false;
             // 
             // FmCashReceive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(249, 372);
+            this.ClientSize = new System.Drawing.Size(277, 400);
             this.Controls.Add(this.panelControl3);
             this.Controls.Add(this.panelControl5);
             this.Controls.Add(this.panelControl4);
@@ -445,5 +464,6 @@
         public DevExpress.XtraEditors.TextEdit txtDiscountPer;
         public DevExpress.XtraEditors.TextEdit txtCoupon;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblPerBath;
     }
 }

@@ -24,18 +24,10 @@ namespace PowerPOS
 
         private void UcCustomer_Load(object sender, EventArgs e)
         {
-            //_TABLE_CUS = Util.SqlCeQuery(string.Format(@"SELECT * FROM Customer
-            //    WHERE Firstname LIKE '%{0}%'
-            //    OR Lastname LIKE '%{0}%'
-            //    OR Nickname LIKE '%{0}%'
-            //    OR CitizenID LIKE '%{0}%'
-            //    OR CardNo LIKE '%{0}%'
-            //    OR Mobile LIKE '%{0}%'
-            //    OR ShopName LIKE '%{0}%'
-            //    ",txtSearch.Text.Trim()));
-            //Console.WriteLine(_TABLE_CUS.Rows[3]["Customer"].ToString());
+            cbxStatus.SelectedIndex = 1;
 
             LoadData();
+
         }
 
         public void LoadData()
@@ -44,15 +36,14 @@ namespace PowerPOS
             DataRow row;
             int i, a;
             _TABLE_CUSTOMER = Util.DBQuery(string.Format(@"SELECT * FROM Customer
-                WHERE Firstname LIKE '%{0}%'
+                WHERE (Firstname LIKE '%{0}%'
                 OR Lastname LIKE '%{0}%'
                 OR Nickname LIKE '%{0}%'
                 OR CitizenID LIKE '%{0}%'
                 OR CardNo LIKE '%{0}%'
                 OR Mobile LIKE '%{0}%'
-                OR ShopName LIKE '%{0}%'
-                ",
-                txtSearch.Text.Trim()));
+                OR ShopName LIKE '%{0}%')
+                {1}", txtSearch.Text.Trim(), (cbxStatus.SelectedIndex == 1) ? " AND active  = 1" : (cbxStatus.SelectedIndex == 2) ? " AND active  = 0" : ""));
 
             customerGridView.OptionsBehavior.AutoPopulateColumns = false;
             customerGridControl.MainView = customerGridView;
@@ -93,6 +84,7 @@ namespace PowerPOS
             }
 
             customerGridControl.DataSource = dt;
+            lblCount.Text = customerGridView.RowCount.ToString() + " รายการ";
 
             //lblRecords.Text = dt.Rows.Count.ToString("#,##0");
         }
@@ -113,6 +105,11 @@ namespace PowerPOS
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            LoadData();
+        }
+
+        private void cbxStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadData();
         }

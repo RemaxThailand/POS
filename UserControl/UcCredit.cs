@@ -54,7 +54,7 @@ namespace PowerPOS
                 AND sh.Customer NOT IN ('000001','000002')
                 AND(sh.Comment <> 'คืนสินค้า' OR sh.Comment IS Null)
                 AND sh.sellNo NOT LIKE '%CL%'
-                AND {0}", (cbPaid.Checked) ? "sh.payType = 1 AND cc.paidPrice IS NOT NULL" : "sh.payType = 0 AND (cc.paidPrice IS NULL OR cc.paidPrice = 0)",
+                --AND {0}", (cbPaid.Checked) ? "sh.payType = 1 AND cc.paidPrice IS NOT NULL" : "sh.payType = 0 AND (cc.paidPrice IS NULL OR cc.paidPrice = 0)",
                 Convert.ToDateTime(dtpStartDate.Value).ToString("yyyy-MM-dd"), Convert.ToDateTime(dtpEndDate.Value).ToString("yyyy-MM-dd"),
                 txtSearch.Text.Trim()
             ));

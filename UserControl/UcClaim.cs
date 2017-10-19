@@ -78,17 +78,17 @@ namespace PowerPOS
         {
             //if (Param.ApiShopId != "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
             //{
-            //    panelControl1.Visible = false;
-            //    panelControl3.Visible = false;
-            //    label1.Visible = true;
+            //panelControl1.Visible = false;
+            //panelControl3.Visible = false;
+            //label1.Visible = true;
             //}
 
-            //if (Param.MemberType == "Shop" || Param.MemberType == "" || Param.MemberType == null)
-            //{
-            //    panelControl1.Visible = false;
-            //    panelControl3.Visible = false;
-            //    label1.Visible = true;
-            //}
+            if (Param.MemberType == "Shop" || Param.MemberType == "" || Param.MemberType == null)
+            {
+                panelControl1.Visible = false;
+                panelControl3.Visible = false;
+                label1.Visible = true;
+            }
 
 
             splashScreenManager.ShowWaitForm();
@@ -116,7 +116,7 @@ namespace PowerPOS
                 string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _dateTo = dateTo.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _shop = Param.ApiShopId;
-                if (_shop == "POWERDDH-8888-8888-B620-48D3B6489999" || _shop == "9D7B3665-D502-4E6C-8C08-891C9E6C96A8" || _shop == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
+                if (_shop == "POWERDDH-8888-8888-B620-48D3B6489999" || _shop == "9D7B3665-D502-4E6C-8C08-891C9E6C96A8" || _shop == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6" || _shop == "B2ED5F81-0FB5-4ACF-B0A1-385A806E0C2B")
                 {
                     _shop = "";
                 }
@@ -203,6 +203,10 @@ namespace PowerPOS
                         _TABLE_CLAIM.Rows.Add(row);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("ไม่พบข้อมูล จากเงื่อนไขที่ค้นหาค่ะ");
+                }
             }
             catch (Exception ex)
             {
@@ -232,7 +236,7 @@ namespace PowerPOS
             {
                 //DateTime dateFrom = claimDateFrom.Value.Day;
                 //DateTime dateTo = claimDateTo.Value.Day;
-                if (claimDateFrom.Value.Date > claimDateTo.Value.Date)
+                if (claimDateFrom.Value.Date >= claimDateTo.Value.Date)
                 {
                     comboRefresh();
                     claimGridControl.DataSource = null;

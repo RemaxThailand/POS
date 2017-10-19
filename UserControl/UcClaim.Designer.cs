@@ -233,7 +233,7 @@
             this.claimGridControl.Location = new System.Drawing.Point(2, 2);
             this.claimGridControl.MainView = this.claimInfoGridView;
             this.claimGridControl.Name = "claimGridControl";
-            this.claimGridControl.Size = new System.Drawing.Size(715, 443);
+            this.claimGridControl.Size = new System.Drawing.Size(709, 443);
             this.claimGridControl.TabIndex = 1;
             this.claimGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.claimInfoGridView,
@@ -624,7 +624,7 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(219, 725);
+            this.panelControl2.Size = new System.Drawing.Size(225, 725);
             this.panelControl2.TabIndex = 42;
             // 
             // panelControl4
@@ -635,7 +635,7 @@
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl4.Location = new System.Drawing.Point(2, 2);
             this.panelControl4.Name = "panelControl4";
-            this.panelControl4.Size = new System.Drawing.Size(215, 721);
+            this.panelControl4.Size = new System.Drawing.Size(221, 721);
             this.panelControl4.TabIndex = 12;
             // 
             // panelControl6
@@ -645,7 +645,7 @@
             this.panelControl6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl6.Location = new System.Drawing.Point(2, 159);
             this.panelControl6.Name = "panelControl6";
-            this.panelControl6.Size = new System.Drawing.Size(211, 266);
+            this.panelControl6.Size = new System.Drawing.Size(217, 266);
             this.panelControl6.TabIndex = 13;
             // 
             // textDescription
@@ -656,7 +656,7 @@
             this.textDescription.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textDescription.Properties.Appearance.Options.UseFont = true;
             this.textDescription.Properties.ReadOnly = true;
-            this.textDescription.Size = new System.Drawing.Size(207, 142);
+            this.textDescription.Size = new System.Drawing.Size(213, 142);
             this.textDescription.TabIndex = 4;
             // 
             // panelControl12
@@ -667,7 +667,7 @@
             this.panelControl12.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl12.Location = new System.Drawing.Point(2, 144);
             this.panelControl12.Name = "panelControl12";
-            this.panelControl12.Size = new System.Drawing.Size(207, 120);
+            this.panelControl12.Size = new System.Drawing.Size(213, 120);
             this.panelControl12.TabIndex = 5;
             // 
             // labelControl22
@@ -712,7 +712,7 @@
             this.tileControl1.Margin = new System.Windows.Forms.Padding(0);
             this.tileControl1.Name = "tileControl1";
             this.tileControl1.Padding = new System.Windows.Forms.Padding(5);
-            this.tileControl1.Size = new System.Drawing.Size(203, 94);
+            this.tileControl1.Size = new System.Drawing.Size(209, 94);
             this.tileControl1.TabIndex = 0;
             this.tileControl1.Text = "tileControl1";
             this.tileControl1.ItemClick += new DevExpress.XtraEditors.TileItemClickEventHandler(this.tileControl1_ItemClick);
@@ -733,7 +733,7 @@
             this.panelControl7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl7.Location = new System.Drawing.Point(2, 2);
             this.panelControl7.Name = "panelControl7";
-            this.panelControl7.Size = new System.Drawing.Size(211, 157);
+            this.panelControl7.Size = new System.Drawing.Size(217, 157);
             this.panelControl7.TabIndex = 14;
             // 
             // btnAddress
@@ -798,7 +798,7 @@
             this.customerAddress.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.customerAddress.Properties.Appearance.Options.UseFont = true;
             this.customerAddress.Properties.ReadOnly = true;
-            this.customerAddress.Size = new System.Drawing.Size(207, 72);
+            this.customerAddress.Size = new System.Drawing.Size(213, 72);
             this.customerAddress.TabIndex = 5;
             // 
             // panelControl5
@@ -823,7 +823,7 @@
             this.panelControl5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl5.Location = new System.Drawing.Point(2, 425);
             this.panelControl5.Name = "panelControl5";
-            this.panelControl5.Size = new System.Drawing.Size(211, 294);
+            this.panelControl5.Size = new System.Drawing.Size(217, 294);
             this.panelControl5.TabIndex = 12;
             // 
             // lblBarcode
@@ -858,7 +858,7 @@
             this.labelControl17.Name = "labelControl17";
             this.labelControl17.Size = new System.Drawing.Size(59, 13);
             this.labelControl17.TabIndex = 46;
-            this.labelControl17.Text = "ver. 2.0.6.9";
+            this.labelControl17.Text = "ver. 2.0.7.0";
             // 
             // lblSellDate
             // 
@@ -1054,11 +1054,12 @@
             // labelControl25
             // 
             this.labelControl25.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelControl25.Location = new System.Drawing.Point(653, 2);
+            this.labelControl25.Location = new System.Drawing.Point(647, 2);
             this.labelControl25.Name = "labelControl25";
             this.labelControl25.Size = new System.Drawing.Size(64, 13);
             this.labelControl25.TabIndex = 50;
             this.labelControl25.Text = "สำนักงานใหญ่";
+            this.labelControl25.Visible = false;
             // 
             // lblClaimQty
             // 
@@ -1152,7 +1153,7 @@
             this.panelControl10.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl10.Location = new System.Drawing.Point(0, 447);
             this.panelControl10.Name = "panelControl10";
-            this.panelControl10.Size = new System.Drawing.Size(719, 278);
+            this.panelControl10.Size = new System.Drawing.Size(713, 278);
             this.panelControl10.TabIndex = 2;
             // 
             // lblLastShop
@@ -1315,7 +1316,7 @@
             // textBarcodeWarr
             // 
             this.textBarcodeWarr.EditValue = "Barcode...";
-            this.textBarcodeWarr.Location = new System.Drawing.Point(36, 31);
+            this.textBarcodeWarr.Location = new System.Drawing.Point(6, 33);
             this.textBarcodeWarr.Name = "textBarcodeWarr";
             this.textBarcodeWarr.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBarcodeWarr.Properties.Appearance.Options.UseFont = true;
@@ -1364,13 +1365,13 @@
             this.warrantyGridControl.Cursor = System.Windows.Forms.Cursors.SizeWE;
             this.warrantyGridControl.Location = new System.Drawing.Point(5, 61);
             this.warrantyGridControl.Name = "warrantyGridControl";
-            this.warrantyGridControl.RecordWidth = 156;
+            this.warrantyGridControl.RecordWidth = 195;
             this.warrantyGridControl.RowHeaderWidth = 101;
             this.warrantyGridControl.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
             this.pName,
             this.sellDate,
             this.expireDate});
-            this.warrantyGridControl.Size = new System.Drawing.Size(268, 72);
+            this.warrantyGridControl.Size = new System.Drawing.Size(301, 72);
             this.warrantyGridControl.TabIndex = 2;
             this.warrantyGridControl.RecordCellStyle += new DevExpress.XtraVerticalGrid.Events.GetCustomRowCellStyleEventHandler(this.warrantyGridControl_RecordCellStyle);
             // 
@@ -1571,6 +1572,7 @@
             // 
             // panelControl9
             // 
+            this.panelControl9.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl9.Controls.Add(this.labelControl27);
             this.panelControl9.Controls.Add(this.txtBarcodeClaim);
             this.panelControl9.Controls.Add(this.labelControl21);
@@ -1639,7 +1641,7 @@
             this.splitContainerControl1.Panel2.Controls.Add(this.panelControl2);
             this.splitContainerControl1.Panel2.Text = "Panel2";
             this.splitContainerControl1.Size = new System.Drawing.Size(943, 725);
-            this.splitContainerControl1.SplitterPosition = 219;
+            this.splitContainerControl1.SplitterPosition = 225;
             this.splitContainerControl1.TabIndex = 43;
             this.splitContainerControl1.Text = "splitContainerControl1";
             // 
@@ -1649,7 +1651,7 @@
             this.panelControl11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl11.Location = new System.Drawing.Point(0, 0);
             this.panelControl11.Name = "panelControl11";
-            this.panelControl11.Size = new System.Drawing.Size(719, 447);
+            this.panelControl11.Size = new System.Drawing.Size(713, 447);
             this.panelControl11.TabIndex = 3;
             // 
             // panelControl1

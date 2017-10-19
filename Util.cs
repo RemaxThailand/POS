@@ -172,6 +172,7 @@ namespace PowerPOS
                         Param.FooterText = jsonApplication.result[0].footerText;
                         Param.PaperSize = jsonApplication.result[0].paperSize;
                         Param.shopClaim = jsonApplication.result[0].shopClaimType;
+                        Param.shopReceived = jsonApplication.result[0].shopReceived;
                         Param.ApiChecked = true;
                         Console.WriteLine(Param.LicenseKey);
                         Properties.Settings.Default.ApiShopId = Param.ApiShopId;
@@ -223,7 +224,6 @@ namespace PowerPOS
                 return objWebRequest;
             }
         }
-
 
         public static string GetApiData(string method, string parameter)
         {
@@ -1143,6 +1143,69 @@ namespace PowerPOS
             }
 
 
+
+            //## BarcodeClaim ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM BarcodeClaim WHERE Sync = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string status = dt.Rows[i]["status"].ToString() == "" ? "" : dt.Rows[i]["status"].ToString();
+                    string comment = dt.Rows[i]["comment"].ToString() == "" ? "" : dt.Rows[i]["comment"].ToString();
+                    //string sellBy = dt.Rows[i]["sellBy"].ToString() == "" ? "" : dt.Rows[i]["sellBy"].ToString();
+                    string values = dt.Rows[i]["receivedDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["receivedDate"].ToString()) + "," + dt.Rows[i]["receivedBy"].ToString() ;
+                    //string values2= dt.Rows[i]["claimDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["claimDate"].ToString()) + "," + dt.Rows[i]["claimBy"].ToString() + "," + dt.Rows[i]["priceClaim"].ToString() + "," + dt.Rows[i]["barcodeClaim"].ToString() + "," + dt.Rows[i]["posClaim"].ToString() + "," + dt.Rows[i]["claimNo"].ToString();
+
+                    string value = status + "," + comment + "," + values ;
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodeClaimPos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", dt.Rows[i]["shop"].ToString(), dt.Rows[i]["barcode"].ToString(), "status,comment,receivedDate,receivedBy", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE BarcodeClaim SET sync = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), dt.Rows[i]["shop"].ToString()));
+                    }
+                }
+
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM BarcodeClaim WHERE SyncClaim = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string status = dt.Rows[i]["status"].ToString() == "" ? "" : dt.Rows[i]["status"].ToString();
+                    string comment = dt.Rows[i]["comment"].ToString() == "" ? "" : dt.Rows[i]["comment"].ToString();
+                    string values2 = dt.Rows[i]["claimDate"].ToString() == "" ? "" : Convert.ToDateTime(dt.Rows[i]["claimDate"].ToString()) + "," + dt.Rows[i]["claimBy"].ToString() + "," + dt.Rows[i]["priceClaim"].ToString() + "," + dt.Rows[i]["barcodeClaim"].ToString() + "," + dt.Rows[i]["posClaim"].ToString() + "," + dt.Rows[i]["claimNo"].ToString();
+
+                    string value = status + "," + comment + "," + values2;
+
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodeClaimPos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", dt.Rows[i]["shop"].ToString(), dt.Rows[i]["barcode"].ToString(), "status,comment,claimDate,claimBy,priceClaim,barcodeClaim,posclaim,claimNo", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE BarcodeClaim SET SyncClaim = 0 WHERE barcode = '{0}' AND Shop = '{1}'", dt.Rows[i]["barcode"].ToString(), dt.Rows[i]["shop"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
+
+
+
             ////## Barcode ##//
             //try
             //{
@@ -1452,13 +1515,12 @@ namespace PowerPOS
                 for (i = 0; i < dt.Rows.Count; i++)
                 {
                     dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/customer/Add",
-                    string.Format("shop={0}&mobile={1}&firstname={2}&lastname={3}&nickname={4}&sex={5}&birthday={6}&citizen={7}&cardno={8}&email={9}&address={10}&address2={11}&subdistrict={12}&district={13}&province={14}&zipcode={15}&shopname={16}&shopsameaddress={17}&shopaddress={18}&shopaddress2={19}&shopsubdistrict={20}&shopdistrict={21}&shopprovince={22}&shopzipcode={23}&credit={24}&sellprice={25}&customer={26}",
+                    string.Format("shop={0}&mobile={1}&firstname={2}&lastname={3}&nickname={4}&sex={5}&birthday={6}&citizen={7}&cardno={8}&email={9}&address={10}&address2={11}&subdistrict={12}&district={13}&province={14}&zipcode={15}&shopname={16}&shopsameaddress={17}&shopaddress={18}&shopaddress2={19}&shopsubdistrict={20}&shopdistrict={21}&shopprovince={22}&shopzipcode={23}&credit={24}&sellprice={25}&addBy={26}&updateBy={27}&customer={28}",
                                 Param.ApiShopId, dt.Rows[i]["mobile"].ToString(), dt.Rows[i]["firstname"].ToString(), dt.Rows[i]["lastname"].ToString(), dt.Rows[i]["nickname"].ToString(),
                                 dt.Rows[i]["sex"].ToString(), dt.Rows[i]["birthday"].ToString() == "" ? DateTime.Now : DateTime.Parse(dt.Rows[i]["birthday"].ToString()), dt.Rows[i]["citizenId"].ToString(), dt.Rows[i]["cardno"].ToString(), dt.Rows[i]["email"].ToString(),
                                 dt.Rows[i]["address"].ToString(), dt.Rows[i]["address2"].ToString(), dt.Rows[i]["subdistrict"].ToString(), dt.Rows[i]["district"].ToString(), dt.Rows[i]["province"].ToString(),
                                 dt.Rows[i]["zipcode"].ToString(), dt.Rows[i]["shopname"].ToString(), dt.Rows[i]["shopsameaddress"].ToString() == "False" ? 0 : 1, dt.Rows[i]["shopaddress"].ToString(), dt.Rows[i]["shopaddress2"].ToString(),
-                                dt.Rows[i]["shopsubdistrict"].ToString(), dt.Rows[i]["shopdistrict"].ToString(), dt.Rows[i]["shopprovince"].ToString(), dt.Rows[i]["shopzipcode"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["sellprice"].ToString(),
-                                dt.Rows[i]["customer"].ToString())
+                                dt.Rows[i]["shopsubdistrict"].ToString(), dt.Rows[i]["shopdistrict"].ToString(), dt.Rows[i]["shopprovince"].ToString(), dt.Rows[i]["shopzipcode"].ToString(), dt.Rows[i]["credit"].ToString(), dt.Rows[i]["sellprice"].ToString(), dt.Rows[i]["addBy"].ToString(), dt.Rows[i]["updateBy"].ToString(), dt.Rows[i]["customer"].ToString())
                     ));
                     if (!json.success.Value)
                     {
@@ -1476,6 +1538,38 @@ namespace PowerPOS
                 WriteErrorLog(ex.StackTrace);
             }
 
+
+            ////## Customer Update ##//
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+                dt = Util.DBQuery("SELECT * FROM Customer WHERE SyncUpdate = 1");
+
+                for (i = 0; i < dt.Rows.Count; i++)
+                {
+                    string inStock = dt.Rows[i]["inStock"].ToString() == "False" ? "0" : "1";
+
+                    string value = inStock;
+
+                    dynamic json = JsonConvert.DeserializeObject(Util.ApiProcess("/product/updateBarcodePos",
+                    string.Format("shop={0}&id={1}&entity={2}&value={3}", Param.ApiShopId, dt.Rows[i]["barcode"].ToString(), "inStock", value)
+                    ));
+                    if (!json.success.Value)
+                    {
+                        Console.WriteLine(json.errorMessage.Value + json.error.Value);
+                    }
+                    else
+                    {
+                        Util.DBExecute(string.Format("UPDATE Customer SET Sync = 0 WHERE customer = '{0}'", dt.Rows[i]["customer"].ToString()));
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteErrorLog(ex.Message);
+                WriteErrorLog(ex.StackTrace);
+            }
 
             ////## Employee ##//
             try
@@ -1700,7 +1794,7 @@ namespace PowerPOS
             try
             {
 
-                DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy, h.discountCash, h.discountPercent
+                DataTable dtHeader = Util.DBQuery(string.Format(@"SELECT h.TotalPrice Price, IFNULL(h.Cash,0) Cash, c.Firstname, c.Lastname, c.Mobile, datetime(h.SellDate, 'localtime') SellDate, h.SellBy, h.discountCash, h.discountPercent, c.address
                     FROM SellHeader h
                         LEFT JOIN Customer c
                         ON h.Customer = c.Customer
@@ -1751,36 +1845,47 @@ namespace PowerPOS
                 else
                 {
                     pX = 0;
-                    pY = 5;
+                    pY = 10;
                 }
 
-                if (Param.MemberType == "Shop")
-                {
-                    stringFont = new Font("DilleniaUPC", 25, FontStyle.Bold);
-                    g.Graphics.DrawString(Param.ShopName, stringFont, brush, new PointF(pX, pY + 6));
-                    pY += 50;
-                }
+                //if (Param.MemberType == "Shop")
+                //{
+                //    stringFont = new Font("DilleniaUPC", 25, FontStyle.Bold);
+                //    g.Graphics.DrawString(Param.ShopName, stringFont, brush, new PointF(pX, pY + 6));
+                //    pY += 50;
+                //}
 
-                stringFont = new Font("DilleniaUPC", 25);
+                stringFont = new Font("DilleniaUPC", 20);
 
                 g.Graphics.DrawString("วันที่", stringFont, brush, new PointF(pX, pY));
 
                 g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm"), stringFont, brush, new PointF(pX + 70, pY));
 
-                //stringFont = new Font("DilleniaUPC", 20);
-                //g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 620, pY));
+                g.Graphics.DrawString("เลขที่ ", stringFont, brush, new PointF(pX + 620, pY));
 
-                //stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
-                //string measureString = sellNo;
-                //SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                //g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width - gab, pY + 3));
+                string measureString = sellNo;
+                SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                pY += 35;
+
+
+                stringFont = new Font("DilleniaUPC", 20);
+                g.Graphics.DrawString("ชื่อร้านค้า : " + dtHeader.Rows[0]["address"].ToString() + " " +
+                    ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
+                    " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
+                    : "")
+                    , stringFont, brush, new PointF(pX, pY));
                 pY += 30;
 
+                //stringFont = new Font("DilleniaUPC", 20);
+               
+                
+
                 stringFont = new Font("DilleniaUPC", 25, FontStyle.Bold);
-                string measureString = "ใบรับสินค้าเคลม";
-                SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                measureString = "ใบรับสินค้าเคลม";
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
                 g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
-                pY += 50;
+                pY += 40;
 
                 stringFont = new Font("DilleniaUPC", 20);
                 DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
@@ -1889,6 +1994,8 @@ namespace PowerPOS
 
                     stringFont = new Font("DilleniaUPC", 20, FontStyle.Bold);
                     g.Graphics.DrawString(string.Format("ลงชื่อ...........................................(ผู้รับสินค้า)"), stringFont, brush, new PointF(pX, pY));
+                    pY += 35;
+                    g.Graphics.DrawString(string.Format("วันที่............/............/..............."), stringFont, brush, new PointF(pX, pY));
 
                     //stringFont = new Font("DilleniaUPC", 15);
                     //g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
@@ -1925,8 +2032,6 @@ namespace PowerPOS
                 Console.WriteLine(ex.ToString());
             }
         }
-
-
 
         public static void PrintReceipt(string sellNo)
         {
@@ -1987,7 +2092,6 @@ namespace PowerPOS
             }
 
         }
-
 
         private static void PrintReceipt(PrintPageEventArgs g, string sellNo)
         {
@@ -2058,7 +2162,7 @@ namespace PowerPOS
                         pY += 20;
                     }
 
-                    stringFont = new Font("Calibri", 7);
+                    stringFont = new Font("Calibri", 8);
                     g.Graphics.DrawString(DateTime.Parse(dtHeader.Rows[0]["SellDate"].ToString()).ToString("dd/MM/yyyy HH:mm") + " : " + dtHeader.Rows[0]["SellBy"].ToString(), stringFont, brush, new PointF(pX, pY + 6));
 
                     stringFont = new Font("DilleniaUPC", 13);
@@ -2070,18 +2174,20 @@ namespace PowerPOS
                     g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
                     pY += 12;
 
-                    stringFont = new Font("DilleniaUPC", 17, FontStyle.Bold);
+                    stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
                     measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
                     pY += 30;
 
                     stringFont = new Font("Cordia New", 10);
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                    DataTable dt = Util.DBQuery(string.Format
+                        (@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
                             FROM  SellDetail sd
                                 LEFT JOIN Product p 
                                 ON sd.Product = p.Product 
-                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
+                            WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0
+                            ORDER BY p.Name ", sellNo, Param.ShopId));
 
                     var sumQty = 0;
                     var sumPrice = 0;
@@ -2112,10 +2218,11 @@ namespace PowerPOS
                     pY += 15;
 
                     //g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
-
+                    /*
                     stringFont = new Font("Cordia New", 11, FontStyle.Bold);
                     //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
                     g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 188, pY));
+
 
                     stringFont = new Font("Cordia New", 11);
                     measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
@@ -2137,12 +2244,74 @@ namespace PowerPOS
                     measureString = "เงินทอน  " + ((int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice) + int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
-                    pY += 23;
+                    pY += 23; */
+
+                    //********************************
+                    stringFont = new Font("DilleniaUPC", 11, FontStyle.Bold);
+                    //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
+
+                    if (dtHeader.Rows[0]["discountPercent"].ToString() == "0")
+                    {
+                        g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 188, pY));
+
+                        stringFont = new Font("Cordia New", 11);
+                        measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+
+                        stringFont = new Font("DilleniaUPC", 11, FontStyle.Bold);
+                        g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 188, pY));
+
+                        stringFont = new Font("Cordia New", 13, FontStyle.Bold);
+                        measureString = (sumPrice - int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+
+                        stringFont = new Font("Cordia New", 11);
+                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+                    }
+                    else if (dtHeader.Rows[0]["discountPercent"].ToString() != "0")
+                    {
+                        g.Graphics.DrawString(string.Format("ส่วนลด ({0}%)", dtHeader.Rows[0]["discountPercent"].ToString()), stringFont, brush, new PointF(pX + 188, pY));
+
+                        double perBath = (int)Math.Round(sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString()) / 100);
+                        double perTotal = (int)Math.Round(sumPrice - (sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString()) / 100));
+
+                        stringFont = new Font("Cordia New", 11);
+                        measureString = perBath.ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+
+                        stringFont = new Font("DilleniaUPC", 11, FontStyle.Bold);
+                        g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 188, pY));
+
+                        stringFont = new Font("Cordia New", 13, FontStyle.Bold);
+                        measureString = perTotal.ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+
+                        stringFont = new Font("Cordia New", 11);
+                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - perTotal/*sumPrice*/).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 17;
+                    }
+
+                    //*************************
 
                     g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
                     pY += 5;
 
-                    stringFont = new Font("DilleniaUPC", 10);
+                    stringFont = new Font("Cordia New", 10);
                     g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
                         ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
                         " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(6) + ")"
@@ -2226,20 +2395,22 @@ namespace PowerPOS
                     string measureString = sellNo;
                     SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width + gab, pY + 3));
-                    pY += 18;
+                    pY += 15;
 
-                    stringFont = new Font("DilleniaUPC", 14, FontStyle.Bold);
+                    stringFont = new Font("DilleniaUPC", 12, FontStyle.Bold);
                     measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
-                    pY += 30;
+                    pY += 25;
 
-                    stringFont = new Font("Cordia New", 8);
-                    DataTable dt = Util.DBQuery(string.Format(@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
+                    stringFont = new Font("Cordia New", 9);
+                    DataTable dt = Util.DBQuery(string.Format
+                           (@"SELECT p.Name Name, sd.Quantity ProductCount, sd.SellPrice SellPrice
                             FROM  SellDetail sd
                                 LEFT JOIN Product p 
                                 ON sd.Product = p.Product 
-                       WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0", sellNo, Param.ShopId));
+                            WHERE p.Shop = '{1}' AND sd.SellNo = '{0}' AND sd.Quantity <> 0
+                            ORDER BY p.Name", sellNo, Param.ShopId));
 
                     var sumQty = 0;
                     var sumPrice = 0;
@@ -2259,9 +2430,45 @@ namespace PowerPOS
                         pY += 13;
                     }
 
-                    pY += 4;
-                    stringFont = new Font("Cordia New", 10, FontStyle.Bold);
+                    //pY += 4;
+                    stringFont = new Font("DilleniaUPC", 10, FontStyle.Bold);
                     g.Graphics.DrawString(string.Format("รวม {0} รายการ ({1} ชิ้น)", dt.Rows.Count, sumQty), stringFont, brush, new PointF(pX, pY));
+                    stringFont = new Font("Cordia New", 10, FontStyle.Bold);
+                    measureString = "" + sumPrice.ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 15;
+                    /*
+                    stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                    //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
+                    g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 188, pY));
+
+
+                    stringFont = new Font("Cordia New", 11);
+                    measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 17;
+
+                    stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                    g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 188, pY));
+
+                    stringFont = new Font("Cordia New", 12, FontStyle.Bold);
+                    measureString = (sumPrice - int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+
+                    pY += 17;
+                    stringFont = new Font("Cordia New", 11);
+                    g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                    measureString = "เงินทอน  " + ((int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice) + int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                    stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                    g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                    pY += 23;
+
+                    g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
+                    pY += 5;
+
                     measureString = "" + sumPrice.ToString("#,##0");
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
@@ -2272,11 +2479,72 @@ namespace PowerPOS
                     stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
                     pY += 23;
+                    */
+                    //********************************
+                    stringFont = new Font("Cordia New", 9, FontStyle.Bold);
+                    //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
 
+                    if (dtHeader.Rows[0]["discountPercent"].ToString() == "0")
+                    {
+                        g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 150, pY));
+
+                        stringFont = new Font("Cordia New", 9);
+                        measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+
+                        stringFont = new Font("Cordia New", 9, FontStyle.Bold);
+                        g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 150, pY));
+
+                        stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                        measureString = (sumPrice - int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+
+                        stringFont = new Font("Cordia New", 9);
+                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - sumPrice).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+                    }
+                    else if (dtHeader.Rows[0]["discountPercent"].ToString() != "0")
+                    {
+                        g.Graphics.DrawString(string.Format("ส่วนลด ({0}%)", dtHeader.Rows[0]["discountPercent"].ToString()), stringFont, brush, new PointF(pX + 150, pY));
+
+                        double perBath = (int)Math.Round(sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString()) / 100);
+                        double perTotal = (int)Math.Round(sumPrice - (sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString()) / 100));
+
+                        stringFont = new Font("Cordia New", 9);
+                        measureString = perBath.ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+
+                        stringFont = new Font("Cordia New", 9, FontStyle.Bold);
+                        g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 150, pY));
+
+                        stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                        measureString = perTotal.ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+
+                        stringFont = new Font("Cordia New", 9);
+                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - perTotal/*sumPrice*/).ToString("#,##0");
+                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        pY += 15;
+                    }
+
+                    //*************************
                     g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
                     pY += 5;
 
-                    stringFont = new Font("DilleniaUPC", 8);
+                    stringFont = new Font("Cordia New", 9);
                     g.Graphics.DrawString("ชื่อลูกค้า " + dtHeader.Rows[0]["Firstname"].ToString() + " " + dtHeader.Rows[0]["Lastname"].ToString() +
                         ((dtHeader.Rows[0]["Mobile"].ToString() != "") ?
                         " (" + dtHeader.Rows[0]["Mobile"].ToString().Substring(0, 3) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(3, 4) + "-" + dtHeader.Rows[0]["Mobile"].ToString().Substring(7) + ")"
@@ -2359,7 +2627,7 @@ namespace PowerPOS
                     string measureString = sellNo;
                     SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
                     g.Graphics.DrawString(sellNo, stringFont, brush, new PointF(width - stringSize.Width - gab, pY + 3));
-                    pY += 30;
+                    pY += 35;
 
                     stringFont = new Font("DilleniaUPC", 20, FontStyle.Bold);
                     measureString = Param.HeaderName; // "ใบเสร็จรับเงิน";
@@ -2461,13 +2729,75 @@ namespace PowerPOS
                         measureString = "" + totalPrice.ToString("#,##0");/*sumPrice.ToString("#,##0");*/
                         stringSize = g.Graphics.MeasureString(measureString, stringFont);
                         g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
-                        pY += 30;
-                        stringFont = new Font("DilleniaUPC", 15);
-                        g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
-                        measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - totalPrice/*sumPrice*/).ToString("#,##0");
-                        stringSize = g.Graphics.MeasureString(measureString, stringFont);
-                        g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
-                        pY += 30;
+                        pY += 25;
+                        //stringFont = new Font("Cordia New", 11, FontStyle.Bold);
+                        //measureString = "" + sumPrice.ToString("#,##0");
+                        //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                        //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width + gab, pY));
+                        //pY += 15;
+                        //********************************
+
+                        stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
+                        //g.Graphics.DrawString(string.Format("ส่วนลด {0}", int.Parse(dtHeader.Rows[0]["discountCash"].ToString())), stringFont, brush, new PointF(pX, pY));
+
+                        if (dtHeader.Rows[0]["discountPercent"].ToString() == "0")
+                        {
+                            g.Graphics.DrawString("ส่วนลด ", stringFont, brush, new PointF(pX + 600, pY));
+
+                            stringFont = new Font("DilleniaUPC", 15);
+                            measureString = int.Parse(dtHeader.Rows[0]["discountCash"].ToString()).ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 25;
+
+                            stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
+                            g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 600, pY));
+
+                            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                            measureString = (sumPrice - int.Parse(dtHeader.Rows[0]["discountCash"].ToString())).ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 30;
+
+                            stringFont = new Font("DilleniaUPC", 15);
+                            g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                            measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - totalPrice + int.Parse(dtHeader.Rows[0]["discountCash"].ToString())/*sumPrice*/).ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 30;
+                        }
+                        else if (dtHeader.Rows[0]["discountPercent"].ToString() != "0")
+                        {
+                            g.Graphics.DrawString(string.Format("ส่วนลด ({0}%)", dtHeader.Rows[0]["discountPercent"].ToString()), stringFont, brush, new PointF(pX + 600, pY));
+
+                            double perBath = (int)Math.Round(sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString())/100);
+                            double perTotal = (int)Math.Round(sumPrice - (sumPrice * double.Parse(dtHeader.Rows[0]["discountPercent"].ToString()) / 100));
+
+                            stringFont = new Font("DilleniaUPC", 15);
+                            measureString = perBath.ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 25;
+
+                            stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
+                            g.Graphics.DrawString("รวมสุทธิ ", stringFont, brush, new PointF(pX + 600, pY));
+
+                            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                            measureString = perTotal.ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 30;
+
+                            stringFont = new Font("DilleniaUPC", 15);
+                            g.Graphics.DrawString("เงินสด  " + int.Parse(dtHeader.Rows[0]["Cash"].ToString()).ToString("#,##0"), stringFont, brush, new PointF(pX, pY));
+                            measureString = "เงินทอน  " + (int.Parse(dtHeader.Rows[0]["Cash"].ToString()) - perTotal/*sumPrice*/).ToString("#,##0");
+                            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(width - stringSize.Width - gab, pY));
+                            pY += 30;
+                        }
+
+                        //*************************
+                       
 
                         g.Graphics.DrawLine(new Pen(Color.Black, 0.25f), pX, pY, pX + width, pY);
                         pY += 5;
@@ -2499,7 +2829,6 @@ namespace PowerPOS
             }
         }
 
-
         public static void PrintOrder(string orderNo)
         {
             DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM Barcode WHERE OrderNo = '{0}'", orderNo));
@@ -2524,7 +2853,6 @@ namespace PowerPOS
             pd.Print();
 
         }
-
 
         private static void PrintOrder(PrintPageEventArgs g, string orderNo)
         {
@@ -2682,7 +3010,6 @@ namespace PowerPOS
             //g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY));
 
         }
-
 
         public static bool GetConfigFromSqlCe(string filename, string password)
         {
@@ -3240,6 +3567,342 @@ namespace PowerPOS
             {
                 MessageBox.Show("Error is : " + ex);
             }
+        }
+
+        public static void PrintReportStatusClaim(string data, string dat)
+        {
+            Param.Page = 0;
+            Param.d = 0;
+            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM BarcodeClaim WHERE  status = '{0}' AND claimDate LIKE '%{1}%'", data, dat));
+
+            PaperSize paperSize = new PaperSize();
+            paperSize.RawKind = (int)PaperKind.A4;
+
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.PaperSize = paperSize;
+            pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+            pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+
+            int count = int.Parse(dt.Rows[0]["cnt"].ToString());
+
+            for (int i = 1; i <= Math.Ceiling((float)count / Param.Num); i++)
+            {
+                //if (i > 1)
+                //{
+                //    Param.Page = Param.Page + 1;
+                //}
+
+                pd.PrintPage += (_, g) =>
+                {
+                    PrintReportStatusClaim(g, data, dat);
+                };
+
+                pd.Print();
+                Param.Page += Param.Num;
+            }
+        }
+
+        private static void PrintReportStatusClaim(PrintPageEventArgs g, string data, string dat)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+
+            DataTable dtHeader = Util.DBQuery(string.Format(@"
+                SELECT DISTINCT s.shop, s.shopName  FROM BarcodeClaim b
+                LEFT JOIN Product p
+                ON p.product = b.product
+                LEFT JOIN Shop s
+                ON b.shop = s.shop
+                LEFT JOIN Employee e
+                ON b.claimBy = e.employeeId
+                WHERE b.status = '{0}' AND claimDate LIKE '%{1}%'
+                ", data, dat, Param.UserId));
+
+            var width = 800;
+            var gab = 20;
+
+            SolidBrush brush = new SolidBrush(Color.Black);
+            Font stringFont = new Font("DilleniaUPC", 6);
+
+            var pX = 0;
+            var pY = 5;
+
+            stringFont = new Font("DilleniaUPC", 22, FontStyle.Bold);
+            string measureString = "รายงานการเคลมสินค้า ตามสถานะการเคลม";
+            SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+            pY += 35;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("วันที่ ", stringFont, brush, new PointF(pX, pY));
+            stringFont = new Font("DilleniaUPC", 18);
+            measureString = DateTime.Now.ToString("dd/MM/yyyy");
+            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 40, pY));
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("สถานะการเคลม : ", stringFont, brush, new PointF(pX + 250, pY));
+            stringFont = new Font("DilleniaUPC", 18);
+
+            var stat = "";
+            if (data == "1")
+            {
+                stat = "คืนของผิดเงื่อนไข";
+            }
+            else if (data == "2")
+            {
+                stat = "เปลี่ยนสินค้า";
+            }
+            else if (data == "3")
+            {
+                stat = "ลดหนี้/คืนเงิน";
+            }
+            measureString = stat;
+            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 380, pY));
+            pY += 25;
+
+
+            for (int w = 0; w < dtHeader.Rows.Count; w++)
+            {
+                stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                g.Graphics.DrawString("สาขา : ", stringFont, brush, new PointF(pX, pY));
+                stringFont = new Font("DilleniaUPC", 18);
+                measureString = dtHeader.Rows[w]["shopName"].ToString();
+                stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 50, pY));
+
+                //stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+                //g.Graphics.DrawString("สาขา : ", stringFont, brush, new PointF(pX + 250, pY));
+                //stringFont = new Font("DilleniaUPC", 18);
+                //measureString = dtHeader.Rows[0]["shopName"].ToString();
+                //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+                //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 320, pY));
+
+                pY += 40;
+
+                stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
+                DataTable dt = Util.DBQuery(string.Format(@"
+                      SELECT  s.shopName, b.orderNo, p.name, b.barcode, receivedDate, receivedBy, b.status, claimDate, e.firstname claimBy, priceClaim, barcodeClaim, posClaim, comment, CASE WHEN  b.status= 1 THEN 'คืนสินค้า'  WHEN  b.status= 2 THEN 'เปลี่ยนสินค้า' WHEN  b.status= 3 THEN 'ลดหนี้/คืนเงิน' WHEN  b.status= '' THEN 'ยังไม่รับเข้า' ELSE 'ค้างส่ง' END st, CASE WHEN  b.status = 1 THEN comment WHEN  b.status= 2 THEN posClaim||'/'||barcodeClaim||' '||comment   WHEN  b.status= 3 THEN priceClaim||'   '||comment  WHEN  b.status= '' THEN '' ELSE '' END comm FROM BarcodeClaim b
+                        LEFT JOIN Product p
+                        ON p.product = b.product
+                        LEFT JOIN Shop s
+                        ON b.shop = s.shop
+                        LEFT JOIN Employee e
+                        ON b.claimBy = e.employeeId
+                        WHERE b.status = '{0}' 
+                        AND b.claimDate LIKE '%{1}%'
+                        AND s.shop = '{3}'
+                        ORDER BY p.name, b.barcode
+                        ", data, dat, Param.ShopId, dtHeader.Rows[w]["shop"].ToString()));
+                g.Graphics.DrawString("ที่", stringFont, brush, new PointF(pX, pY));
+                g.Graphics.DrawString("ชื่อสินค้า", stringFont, brush, new PointF(pX + 150, pY));
+                g.Graphics.DrawString("บาร์โค้ด", stringFont, brush, new PointF(pX + 395, pY));
+                //g.Graphics.DrawString("สถานะ", stringFont, brush, new PointF(pX + 500, pY));
+                g.Graphics.DrawString("หมายเหตุ", stringFont, brush, new PointF(pX + 550, pY));
+                pY += 23;
+                stringFont = new Font("DilleniaUPC", 15);
+
+                int sumPrice = 0;
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    int row = i + 1;
+                    g.Graphics.DrawString(row.ToString("#,##0") + ".", stringFont, brush, new PointF(pX, pY));
+
+
+                    g.Graphics.DrawString(dt.Rows[i]["name"].ToString(), stringFont, brush, new PointF(pX + 20, pY));
+                    g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 368, pY + 5, 150, 20);
+                    g.Graphics.DrawString(dt.Rows[i]["barcode"].ToString(), stringFont, brush, new PointF(pX + 370, pY));
+                    //g.Graphics.DrawString(dt.Rows[i]["st"].ToString(), stringFont, brush, new PointF(pX + 485, pY));
+                    g.Graphics.DrawString(dt.Rows[i]["comm"].ToString(), stringFont, brush, new PointF(pX + 500, pY));
+                    sumPrice += int.Parse(dt.Rows[i]["priceClaim"].ToString());
+                    //g.Graphics.DrawString(dt.Rows[i]["claimDate"].ToString(), stringFont, brush, new PointF(pX + 750, pY));
+                    //g.Graphics.DrawString(dt.Rows[i]["claimBy"].ToString(), stringFont, brush, new PointF(pX + 800, pY));
+                    pY += 23;
+                    //g.Graphics.DrawString("วันที่รับสินค้าเคลม", stringFont, brush, new PointF(pX + 20, pY));
+                    //g.Graphics.DrawString(dt.Rows[i]["receivedDate"].ToString(), stringFont, brush, new PointF(pX + 135, pY));
+                    //g.Graphics.DrawString("วันที่ทำการเคลม", stringFont, brush, new PointF(pX + 280, pY));
+                    //g.Graphics.DrawString(dt.Rows[i]["claimDate"].ToString(), stringFont, brush, new PointF(pX + 380, pY));
+                    //g.Graphics.DrawString("ผู้ทำการเคลมสินค้า", stringFont, brush, new PointF(pX + 520, pY));
+                    //g.Graphics.DrawString(dt.Rows[i]["claimBy"].ToString(), stringFont, brush, new PointF(pX + 640, pY));
+                    //pY += 23;
+
+                }
+
+                pY += 5;
+                stringFont = new Font("DilleniaUPC", 16, FontStyle.Bold);
+                g.Graphics.DrawString("รวม ลดหนี้/คืนเงิน = " + sumPrice.ToString("#,##0") + " บาท", stringFont, brush, new PointF(pX, pY));
+
+
+                pY += 20;
+            }
+            pY += 30;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("ผู้ทำการเคลมสินค้า ", stringFont, brush, new PointF(pX, pY));
+            //stringFont = new Font("DilleniaUPC", 18);
+            //measureString = dtHeader.Rows[0]["claimBy"].ToString();
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 80, pY));
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("ลงชื่อ...................................................... ", stringFont, brush, new PointF(pX + 150, pY));
+            pY += 25;
+
+
+        }
+
+        public static void PrintReportClaim(string data, string shop)
+        {
+            Param.Page = 0;
+            Param.d = 0;
+            DataTable dt = Util.DBQuery(string.Format(@"SELECT COUNT(*) cnt FROM BarcodeClaim WHERE orderNo  = '{0}'", data));
+
+            PaperSize paperSize = new PaperSize();
+            paperSize.RawKind = (int)PaperKind.A4;
+
+            PrintDocument pd = new PrintDocument();
+            pd.DefaultPageSettings.PaperSize = paperSize;
+            pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+            pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+
+            int count = int.Parse(dt.Rows[0]["cnt"].ToString());
+
+            for (int i = 1; i <= Math.Ceiling((float)count / Param.Num); i++)
+            {
+                //if (i > 1)
+                //{
+                //    Param.Page = Param.Page + 1;
+                //}
+
+                pd.PrintPage += (_, g) =>
+                {
+                    PrintReportClaim(g, data, shop);
+                };
+
+                pd.Print();
+                Param.Page += Param.Num;
+            }
+        }
+
+        private static void PrintReportClaim(PrintPageEventArgs g, string orderNo, string shopName)
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
+
+            DataTable dtHeader = Util.DBQuery(string.Format(@"
+                SELECT s.shopName, b.orderNo FROM BarcodeClaim b
+                LEFT JOIN Product p
+                ON p.product = b.product
+                LEFT JOIN Shop s
+                ON b.shop = s.shop
+                LEFT JOIN Employee e
+                ON b.claimBy = e.employeeId
+                WHERE b.orderNo = '{0}'
+                AND s.shopName = '{2}'
+                ", orderNo, Param.UserId, shopName));
+
+            var width = 800;
+            var gab = 20;
+
+            SolidBrush brush = new SolidBrush(Color.Black);
+            Font stringFont = new Font("DilleniaUPC", 6);
+
+            var pX = 0;
+            var pY = 5;
+
+            stringFont = new Font("DilleniaUPC", 22, FontStyle.Bold);
+            string measureString = "รายงานการเคลมสินค้า";
+            SizeF stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF((width - stringSize.Width + gab) / 2, pY + 5));
+            pY += 35;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("วันที่ ", stringFont, brush, new PointF(pX, pY));
+            stringFont = new Font("DilleniaUPC", 18);
+            measureString = DateTime.Now.ToString("dd/MM/yyyy");
+            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 40, pY));
+            pY += 25;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("เลขที่เคลม : ", stringFont, brush, new PointF(pX, pY));
+            stringFont = new Font("DilleniaUPC", 18);
+            measureString = dtHeader.Rows[0]["orderNo"].ToString();
+            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 80, pY));
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("จากสาขา : ", stringFont, brush, new PointF(pX + 250, pY));
+            stringFont = new Font("DilleniaUPC", 18);
+            measureString = dtHeader.Rows[0]["shopName"].ToString();
+            stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 320, pY));
+            pY += 40;
+
+            stringFont = new Font("DilleniaUPC", 15, FontStyle.Bold);
+            DataTable dt = Util.DBQuery(string.Format(@"
+                      SELECT  s.shopName, b.orderNo, p.name, b.barcode, receivedDate, receivedBy, b.status, claimDate, e.firstname claimBy, priceClaim, barcodeClaim, posClaim, comment, CASE WHEN  b.status= 1 THEN 'คืนสินค้า'  WHEN  b.status= 2 THEN 'เปลี่ยนสินค้า' WHEN  b.status= 3 THEN 'ลดหนี้/คืนเงิน' WHEN  b.status= '' THEN 'ยังไม่รับเข้า' ELSE 'ค้างส่ง' END st, CASE WHEN  b.status = 1 THEN comment WHEN  b.status= 2 THEN posClaim||'/'||barcodeClaim||' '||comment   WHEN  b.status= 3 THEN priceClaim||' '||comment  WHEN  b.status= '' THEN '' ELSE '' END comm FROM BarcodeClaim b
+                        LEFT JOIN Product p
+                        ON p.product = b.product
+                        LEFT JOIN Shop s
+                        ON b.shop = s.shop
+                        LEFT JOIN Employee e
+                        ON b.claimBy = e.employeeId
+                        WHERE b.orderNo = '{0}' 
+                        AND s.shopName = '{2}'
+                        ORDER BY p.name, b.barcode
+                        ", orderNo, Param.ShopId, shopName));
+            g.Graphics.DrawString("ที่", stringFont, brush, new PointF(pX, pY));
+
+            g.Graphics.DrawString("ชื่อสินค้า", stringFont, brush, new PointF(pX + 150, pY));
+            g.Graphics.DrawString("บาร์โค้ด", stringFont, brush, new PointF(pX + 395, pY));
+            g.Graphics.DrawString("สถานะ", stringFont, brush, new PointF(pX + 500, pY));
+            g.Graphics.DrawString("หมายเหตุ", stringFont, brush, new PointF(pX + 610, pY));
+            pY += 23;
+            stringFont = new Font("DilleniaUPC", 15);
+            int sumPrice = 0;
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                int row = i + 1;
+                g.Graphics.DrawString(row.ToString("#,##0")+".", stringFont, brush, new PointF(pX, pY));
+
+                
+                g.Graphics.DrawString(dt.Rows[i]["name"].ToString(), stringFont, brush, new PointF(pX + 20, pY));
+                g.Graphics.FillRectangle(new SolidBrush(Color.White), pX + 368, pY + 5, 150, 20);
+                g.Graphics.DrawString(dt.Rows[i]["barcode"].ToString(),stringFont, brush, new PointF(pX + 370, pY));
+                g.Graphics.DrawString(dt.Rows[i]["st"].ToString(), stringFont, brush, new PointF(pX + 485, pY));
+                g.Graphics.DrawString(dt.Rows[i]["comm"].ToString(), stringFont, brush, new PointF(pX + 570, pY));
+                sumPrice += int.Parse(dt.Rows[i]["priceClaim"].ToString());
+
+                //g.Graphics.DrawString(dt.Rows[i]["claimDate"].ToString(), stringFont, brush, new PointF(pX + 750, pY));
+                //g.Graphics.DrawString(dt.Rows[i]["claimBy"].ToString(), stringFont, brush, new PointF(pX + 800, pY));
+                pY += 23;
+                //g.Graphics.DrawString("วันที่รับสินค้าเคลม", stringFont, brush, new PointF(pX + 20, pY));
+                //g.Graphics.DrawString(dt.Rows[i]["receivedDate"].ToString(), stringFont, brush, new PointF(pX + 135, pY));
+                //g.Graphics.DrawString("วันที่ทำการเคลม", stringFont, brush, new PointF(pX + 280, pY));
+                //g.Graphics.DrawString(dt.Rows[i]["claimDate"].ToString(), stringFont, brush, new PointF(pX + 380, pY));
+                //g.Graphics.DrawString("ผู้ทำการเคลมสินค้า", stringFont, brush, new PointF(pX + 520, pY));
+                //g.Graphics.DrawString(dt.Rows[i]["claimBy"].ToString(), stringFont, brush, new PointF(pX + 640, pY));
+                //pY += 23;
+
+            }
+            pY += 5;
+            stringFont = new Font("DilleniaUPC", 16, FontStyle.Bold);
+            g.Graphics.DrawString("รวม ลดหนี้/คืนเงิน = "+ sumPrice.ToString("#,##0") + " บาท", stringFont, brush, new PointF(pX, pY));
+
+            pY += 30;
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("ผู้ทำการเคลมสินค้า ", stringFont, brush, new PointF(pX, pY));
+            //stringFont = new Font("DilleniaUPC", 18);
+            //measureString = dtHeader.Rows[0]["claimBy"].ToString();
+            //stringSize = g.Graphics.MeasureString(measureString, stringFont);
+            //g.Graphics.DrawString(measureString, stringFont, brush, new PointF(pX + 80, pY));
+
+            stringFont = new Font("DilleniaUPC", 18, FontStyle.Bold);
+            g.Graphics.DrawString("ลงชื่อ...................................................... ", stringFont, brush, new PointF(pX + 150, pY));
+            pY += 25;
         }
 
         public static void PrintAddress(PrintPageEventArgs g, string claimNo)

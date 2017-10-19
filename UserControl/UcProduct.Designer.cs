@@ -103,9 +103,10 @@
             this.navBarGroupControlContainer2 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.gbOrderNo = new DevExpress.XtraEditors.GroupControl();
+            this.cbNoStock = new DevExpress.XtraEditors.CheckEdit();
             this.cbbBrand = new DevExpress.XtraEditors.ComboBoxEdit();
             this.cbbCategory = new DevExpress.XtraEditors.ComboBoxEdit();
-            this.cbNoStock = new DevExpress.XtraEditors.CheckEdit();
+            this.cbStock = new DevExpress.XtraEditors.CheckEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.cbNoPrice = new DevExpress.XtraEditors.CheckEdit();
@@ -162,9 +163,10 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
             this.gbOrderNo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbStock.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).BeginInit();
@@ -181,11 +183,11 @@
             // 
             // clQty
             // 
-            clQty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             clQty.AppearanceCell.Options.UseFont = true;
             clQty.AppearanceCell.Options.UseTextOptions = true;
             clQty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            clQty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            clQty.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             clQty.AppearanceHeader.Options.UseFont = true;
             clQty.AppearanceHeader.Options.UseTextOptions = true;
             clQty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -199,7 +201,7 @@
             clQty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             clQty.Visible = true;
             clQty.VisibleIndex = 3;
-            clQty.Width = 50;
+            clQty.Width = 69;
             // 
             // panelControl4
             // 
@@ -283,9 +285,9 @@
             0,
             0,
             0});
-            this.nudPrice2.Location = new System.Drawing.Point(256, 77);
+            this.nudPrice2.Location = new System.Drawing.Point(256, 75);
             this.nudPrice2.Name = "nudPrice2";
-            this.nudPrice2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice2.Properties.Appearance.Options.UseFont = true;
             this.nudPrice2.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice2.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -300,7 +302,7 @@
             0,
             0,
             0});
-            this.nudPrice2.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice2.Size = new System.Drawing.Size(80, 24);
             this.nudPrice2.TabIndex = 8;
             this.nudPrice2.ValueChanged += new System.EventHandler(this.nudPrice2_ValueChanged);
             // 
@@ -311,9 +313,9 @@
             0,
             0,
             0});
-            this.nudPrice1.Location = new System.Drawing.Point(172, 77);
+            this.nudPrice1.Location = new System.Drawing.Point(172, 75);
             this.nudPrice1.Name = "nudPrice1";
-            this.nudPrice1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice1.Properties.Appearance.Options.UseFont = true;
             this.nudPrice1.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice1.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -328,7 +330,7 @@
             0,
             0,
             0});
-            this.nudPrice1.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice1.Size = new System.Drawing.Size(80, 24);
             this.nudPrice1.TabIndex = 7;
             this.nudPrice1.ValueChanged += new System.EventHandler(this.nudPrice1_ValueChanged);
             // 
@@ -339,9 +341,9 @@
             0,
             0,
             0});
-            this.nudPrice.Location = new System.Drawing.Point(88, 77);
+            this.nudPrice.Location = new System.Drawing.Point(88, 75);
             this.nudPrice.Name = "nudPrice";
-            this.nudPrice.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice.Properties.Appearance.Options.UseFont = true;
             this.nudPrice.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -361,13 +363,13 @@
             0,
             0,
             -2147483648});
-            this.nudPrice.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice.Size = new System.Drawing.Size(80, 24);
             this.nudPrice.TabIndex = 6;
             this.nudPrice.ValueChanged += new System.EventHandler(this.nudPrice_ValueChanged);
             // 
             // txtPrice2
             // 
-            this.txtPrice2.Location = new System.Drawing.Point(256, 50);
+            this.txtPrice2.Location = new System.Drawing.Point(256, 48);
             this.txtPrice2.Name = "txtPrice2";
             this.txtPrice2.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice2.Properties.Appearance.Options.UseFont = true;
@@ -379,7 +381,7 @@
             // 
             // txtPrice1
             // 
-            this.txtPrice1.Location = new System.Drawing.Point(172, 50);
+            this.txtPrice1.Location = new System.Drawing.Point(172, 48);
             this.txtPrice1.Name = "txtPrice1";
             this.txtPrice1.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice1.Properties.Appearance.Options.UseFont = true;
@@ -391,7 +393,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(88, 50);
+            this.txtPrice.Location = new System.Drawing.Point(88, 48);
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice.Properties.Appearance.Options.UseFont = true;
@@ -413,7 +415,7 @@
             // labelControl2
             // 
             this.labelControl2.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Location = new System.Drawing.Point(15, 80);
+            this.labelControl2.Location = new System.Drawing.Point(15, 78);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(68, 16);
             this.labelControl2.TabIndex = 1;
@@ -422,7 +424,7 @@
             // labelControl1
             // 
             this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Location = new System.Drawing.Point(17, 53);
+            this.labelControl1.Location = new System.Drawing.Point(17, 51);
             this.labelControl1.Name = "labelControl1";
             this.labelControl1.Size = new System.Drawing.Size(66, 16);
             this.labelControl1.TabIndex = 0;
@@ -482,6 +484,10 @@
             // 
             // productGridview
             // 
+            this.productGridview.Appearance.FocusedRow.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productGridview.Appearance.FocusedRow.Options.UseFont = true;
+            this.productGridview.Appearance.HeaderPanel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.productGridview.Appearance.HeaderPanel.Options.UseFont = true;
             this.productGridview.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNo,
             this.clProduct,
@@ -514,11 +520,11 @@
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceCell.Options.UseFont = true;
             this.clNo.AppearanceCell.Options.UseTextOptions = true;
             this.clNo.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -527,18 +533,19 @@
             this.clNo.Name = "clNo";
             this.clNo.OptionsColumn.AllowEdit = false;
             this.clNo.OptionsColumn.AllowMove = false;
+            this.clNo.OptionsColumn.FixedWidth = true;
             this.clNo.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.clNo.Visible = true;
             this.clNo.VisibleIndex = 0;
-            this.clNo.Width = 30;
+            this.clNo.Width = 42;
             // 
             // clProduct
             // 
-            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceCell.Options.UseFont = true;
             this.clProduct.AppearanceCell.Options.UseTextOptions = true;
             this.clProduct.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
-            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clProduct.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clProduct.AppearanceHeader.Options.UseFont = true;
             this.clProduct.AppearanceHeader.Options.UseTextOptions = true;
             this.clProduct.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -551,9 +558,9 @@
             // 
             // clSku
             // 
-            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSku.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSku.AppearanceCell.Options.UseFont = true;
-            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clSku.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSku.AppearanceHeader.Options.UseFont = true;
             this.clSku.AppearanceHeader.Options.UseTextOptions = true;
             this.clSku.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -564,12 +571,13 @@
             this.clSku.OptionsColumn.AllowMove = false;
             this.clSku.Visible = true;
             this.clSku.VisibleIndex = 1;
+            this.clSku.Width = 70;
             // 
             // clName
             // 
-            this.clName.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceCell.Options.UseFont = true;
-            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clName.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clName.AppearanceHeader.Options.UseFont = true;
             this.clName.AppearanceHeader.Options.UseTextOptions = true;
             this.clName.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -580,13 +588,13 @@
             this.clName.OptionsColumn.AllowMove = false;
             this.clName.Visible = true;
             this.clName.VisibleIndex = 2;
-            this.clName.Width = 151;
+            this.clName.Width = 250;
             // 
             // clCategory
             // 
-            this.clCategory.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCategory.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCategory.AppearanceCell.Options.UseFont = true;
-            this.clCategory.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCategory.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCategory.AppearanceHeader.Options.UseFont = true;
             this.clCategory.AppearanceHeader.Options.UseTextOptions = true;
             this.clCategory.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -597,13 +605,13 @@
             this.clCategory.OptionsColumn.AllowMove = false;
             this.clCategory.Visible = true;
             this.clCategory.VisibleIndex = 4;
-            this.clCategory.Width = 70;
+            this.clCategory.Width = 97;
             // 
             // clBrand
             // 
-            this.clBrand.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clBrand.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clBrand.AppearanceCell.Options.UseFont = true;
-            this.clBrand.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clBrand.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clBrand.AppearanceHeader.Options.UseFont = true;
             this.clBrand.AppearanceHeader.Options.UseTextOptions = true;
             this.clBrand.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -614,15 +622,15 @@
             this.clBrand.OptionsColumn.AllowMove = false;
             this.clBrand.Visible = true;
             this.clBrand.VisibleIndex = 5;
-            this.clBrand.Width = 70;
+            this.clBrand.Width = 97;
             // 
             // clWarranty
             // 
-            this.clWarranty.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clWarranty.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clWarranty.AppearanceCell.Options.UseFont = true;
             this.clWarranty.AppearanceCell.Options.UseTextOptions = true;
             this.clWarranty.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clWarranty.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clWarranty.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clWarranty.AppearanceHeader.Options.UseFont = true;
             this.clWarranty.AppearanceHeader.Options.UseTextOptions = true;
             this.clWarranty.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -636,15 +644,15 @@
             this.clWarranty.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.clWarranty.Visible = true;
             this.clWarranty.VisibleIndex = 6;
-            this.clWarranty.Width = 50;
+            this.clWarranty.Width = 69;
             // 
             // clCost
             // 
-            this.clCost.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCost.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCost.AppearanceCell.Options.UseFont = true;
             this.clCost.AppearanceCell.Options.UseTextOptions = true;
             this.clCost.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clCost.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clCost.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCost.AppearanceHeader.Options.UseFont = true;
             this.clCost.AppearanceHeader.Options.UseTextOptions = true;
             this.clCost.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -658,15 +666,15 @@
             this.clCost.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.clCost.Visible = true;
             this.clCost.VisibleIndex = 7;
-            this.clCost.Width = 60;
+            this.clCost.Width = 82;
             // 
             // clPrice
             // 
-            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceCell.Options.UseFont = true;
             this.clPrice.AppearanceCell.Options.UseTextOptions = true;
             this.clPrice.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice.AppearanceHeader.Options.UseFont = true;
             this.clPrice.AppearanceHeader.Options.UseTextOptions = true;
             this.clPrice.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -680,15 +688,15 @@
             this.clPrice.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.clPrice.Visible = true;
             this.clPrice.VisibleIndex = 8;
-            this.clPrice.Width = 59;
+            this.clPrice.Width = 81;
             // 
             // clPrice1
             // 
-            this.clPrice1.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice1.AppearanceCell.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice1.AppearanceCell.Options.UseFont = true;
             this.clPrice1.AppearanceCell.Options.UseTextOptions = true;
             this.clPrice1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clPrice1.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clPrice1.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clPrice1.AppearanceHeader.Options.UseFont = true;
             this.clPrice1.AppearanceHeader.Options.UseTextOptions = true;
             this.clPrice1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -702,7 +710,7 @@
             this.clPrice1.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.clPrice1.Visible = true;
             this.clPrice1.VisibleIndex = 9;
-            this.clPrice1.Width = 62;
+            this.clPrice1.Width = 95;
             // 
             // clPrice2
             // 
@@ -866,7 +874,7 @@
             // labelControl12
             // 
             this.labelControl12.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl12.Location = new System.Drawing.Point(528, 31);
+            this.labelControl12.Location = new System.Drawing.Point(528, 29);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Size = new System.Drawing.Size(57, 16);
             this.labelControl12.TabIndex = 30;
@@ -891,9 +899,9 @@
             0,
             0,
             0});
-            this.nudPrice7.Location = new System.Drawing.Point(508, 77);
+            this.nudPrice7.Location = new System.Drawing.Point(508, 75);
             this.nudPrice7.Name = "nudPrice7";
-            this.nudPrice7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice7.Properties.Appearance.Options.UseFont = true;
             this.nudPrice7.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice7.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -908,12 +916,12 @@
             0,
             0,
             0});
-            this.nudPrice7.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice7.Size = new System.Drawing.Size(80, 24);
             this.nudPrice7.TabIndex = 28;
             // 
             // txtPrice7
             // 
-            this.txtPrice7.Location = new System.Drawing.Point(508, 50);
+            this.txtPrice7.Location = new System.Drawing.Point(508, 48);
             this.txtPrice7.Name = "txtPrice7";
             this.txtPrice7.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice7.Properties.Appearance.Options.UseFont = true;
@@ -926,7 +934,7 @@
             // labelControl7
             // 
             this.labelControl7.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl7.Location = new System.Drawing.Point(358, 31);
+            this.labelControl7.Location = new System.Drawing.Point(358, 29);
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(25, 16);
             this.labelControl7.TabIndex = 26;
@@ -935,7 +943,7 @@
             // labelControl10
             // 
             this.labelControl10.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl10.Location = new System.Drawing.Point(444, 31);
+            this.labelControl10.Location = new System.Drawing.Point(444, 29);
             this.labelControl10.Name = "labelControl10";
             this.labelControl10.Size = new System.Drawing.Size(25, 16);
             this.labelControl10.TabIndex = 25;
@@ -972,9 +980,9 @@
             0,
             0,
             0});
-            this.nudPrice4.Location = new System.Drawing.Point(424, 77);
+            this.nudPrice4.Location = new System.Drawing.Point(424, 75);
             this.nudPrice4.Name = "nudPrice4";
-            this.nudPrice4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice4.Properties.Appearance.Options.UseFont = true;
             this.nudPrice4.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice4.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -989,7 +997,7 @@
             0,
             0,
             0});
-            this.nudPrice4.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice4.Size = new System.Drawing.Size(80, 24);
             this.nudPrice4.TabIndex = 22;
             this.nudPrice4.ValueChanged += new System.EventHandler(this.nudPrice4_ValueChanged);
             // 
@@ -1000,9 +1008,9 @@
             0,
             0,
             0});
-            this.nudPrice3.Location = new System.Drawing.Point(340, 77);
+            this.nudPrice3.Location = new System.Drawing.Point(340, 75);
             this.nudPrice3.Name = "nudPrice3";
-            this.nudPrice3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudPrice3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudPrice3.Properties.Appearance.Options.UseFont = true;
             this.nudPrice3.Properties.Appearance.Options.UseTextOptions = true;
             this.nudPrice3.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -1017,13 +1025,13 @@
             0,
             0,
             0});
-            this.nudPrice3.Size = new System.Drawing.Size(80, 22);
+            this.nudPrice3.Size = new System.Drawing.Size(80, 24);
             this.nudPrice3.TabIndex = 21;
             this.nudPrice3.ValueChanged += new System.EventHandler(this.nudPrice3_ValueChanged);
             // 
             // txtPrice4
             // 
-            this.txtPrice4.Location = new System.Drawing.Point(424, 50);
+            this.txtPrice4.Location = new System.Drawing.Point(424, 48);
             this.txtPrice4.Name = "txtPrice4";
             this.txtPrice4.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice4.Properties.Appearance.Options.UseFont = true;
@@ -1035,7 +1043,7 @@
             // 
             // txtPrice3
             // 
-            this.txtPrice3.Location = new System.Drawing.Point(340, 50);
+            this.txtPrice3.Location = new System.Drawing.Point(340, 48);
             this.txtPrice3.Name = "txtPrice3";
             this.txtPrice3.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrice3.Properties.Appearance.Options.UseFont = true;
@@ -1090,7 +1098,7 @@
             // labelControl6
             // 
             this.labelControl6.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl6.Location = new System.Drawing.Point(107, 31);
+            this.labelControl6.Location = new System.Drawing.Point(107, 29);
             this.labelControl6.Name = "labelControl6";
             this.labelControl6.Size = new System.Drawing.Size(24, 16);
             this.labelControl6.TabIndex = 15;
@@ -1099,7 +1107,7 @@
             // labelControl5
             // 
             this.labelControl5.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl5.Location = new System.Drawing.Point(190, 31);
+            this.labelControl5.Location = new System.Drawing.Point(190, 29);
             this.labelControl5.Name = "labelControl5";
             this.labelControl5.Size = new System.Drawing.Size(25, 16);
             this.labelControl5.TabIndex = 14;
@@ -1108,7 +1116,7 @@
             // labelControl4
             // 
             this.labelControl4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl4.Location = new System.Drawing.Point(276, 31);
+            this.labelControl4.Location = new System.Drawing.Point(276, 29);
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(25, 16);
             this.labelControl4.TabIndex = 13;
@@ -1197,82 +1205,102 @@
             // 
             // gbOrderNo
             // 
+            this.gbOrderNo.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbOrderNo.Appearance.Options.UseFont = true;
+            this.gbOrderNo.AppearanceCaption.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbOrderNo.AppearanceCaption.Options.UseFont = true;
+            this.gbOrderNo.Controls.Add(this.cbNoStock);
             this.gbOrderNo.Controls.Add(this.cbbBrand);
             this.gbOrderNo.Controls.Add(this.cbbCategory);
-            this.gbOrderNo.Controls.Add(this.cbNoStock);
+            this.gbOrderNo.Controls.Add(this.cbStock);
             this.gbOrderNo.Controls.Add(this.btnSearch);
             this.gbOrderNo.Controls.Add(this.txtSearch);
             this.gbOrderNo.Controls.Add(this.cbNoPrice);
             this.gbOrderNo.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbOrderNo.Location = new System.Drawing.Point(3, 3);
             this.gbOrderNo.Name = "gbOrderNo";
-            this.gbOrderNo.Size = new System.Drawing.Size(242, 157);
+            this.gbOrderNo.Size = new System.Drawing.Size(242, 238);
             this.gbOrderNo.TabIndex = 19;
             this.gbOrderNo.Text = "ค้นหาข้อมูล";
             // 
+            // cbNoStock
+            // 
+            this.cbNoStock.Location = new System.Drawing.Point(13, 195);
+            this.cbNoStock.Name = "cbNoStock";
+            this.cbNoStock.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNoStock.Properties.Appearance.Options.UseFont = true;
+            this.cbNoStock.Properties.Caption = "เฉพาะสินค้าที่ไม่มีในคลังสินค้า";
+            this.cbNoStock.Size = new System.Drawing.Size(210, 27);
+            this.cbNoStock.TabIndex = 15;
+            this.cbNoStock.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
+            // 
             // cbbBrand
             // 
-            this.cbbBrand.Location = new System.Drawing.Point(13, 49);
+            this.cbbBrand.Location = new System.Drawing.Point(13, 71);
             this.cbbBrand.Name = "cbbBrand";
-            this.cbbBrand.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbBrand.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbBrand.Properties.Appearance.Options.UseFont = true;
             this.cbbBrand.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbbBrand.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbbBrand.Size = new System.Drawing.Size(210, 22);
+            this.cbbBrand.Size = new System.Drawing.Size(210, 30);
             this.cbbBrand.TabIndex = 2;
             this.cbbBrand.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
             // 
             // cbbCategory
             // 
-            this.cbbCategory.Location = new System.Drawing.Point(13, 23);
+            this.cbbCategory.Location = new System.Drawing.Point(13, 35);
             this.cbbCategory.Name = "cbbCategory";
-            this.cbbCategory.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbCategory.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbCategory.Properties.Appearance.Options.UseFont = true;
             this.cbbCategory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.cbbCategory.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            this.cbbCategory.Size = new System.Drawing.Size(210, 22);
+            this.cbbCategory.Size = new System.Drawing.Size(210, 30);
             this.cbbCategory.TabIndex = 1;
             this.cbbCategory.SelectedIndexChanged += new System.EventHandler(this.btnSearch_Click);
             // 
-            // cbNoStock
+            // cbStock
             // 
-            this.cbNoStock.Location = new System.Drawing.Point(13, 121);
-            this.cbNoStock.Name = "cbNoStock";
-            this.cbNoStock.Properties.Caption = "สินค้าที่ไม่มีในคลังสินค้า";
-            this.cbNoStock.Size = new System.Drawing.Size(210, 19);
-            this.cbNoStock.TabIndex = 14;
-            this.cbNoStock.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
+            this.cbStock.Location = new System.Drawing.Point(13, 167);
+            this.cbStock.Name = "cbStock";
+            this.cbStock.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStock.Properties.Appearance.Options.UseFont = true;
+            this.cbStock.Properties.Caption = "เฉพาะสินค้าที่มีในคลังสินค้า";
+            this.cbStock.Size = new System.Drawing.Size(210, 27);
+            this.cbStock.TabIndex = 14;
+            this.cbStock.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
             // 
             // btnSearch
             // 
             this.btnSearch.AllowGlyphSkinning = DevExpress.Utils.DefaultBoolean.True;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(198, 74);
+            this.btnSearch.Location = new System.Drawing.Point(198, 104);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(25, 23);
+            this.btnSearch.Size = new System.Drawing.Size(25, 32);
             this.btnSearch.TabIndex = 10;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(13, 75);
+            this.txtSearch.Location = new System.Drawing.Point(13, 106);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearch.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSearch.Properties.Appearance.Options.UseFont = true;
             this.txtSearch.Properties.Appearance.Options.UseTextOptions = true;
             this.txtSearch.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.txtSearch.Size = new System.Drawing.Size(180, 22);
+            this.txtSearch.Size = new System.Drawing.Size(180, 30);
             this.txtSearch.TabIndex = 11;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             // 
             // cbNoPrice
             // 
-            this.cbNoPrice.Location = new System.Drawing.Point(13, 101);
+            this.cbNoPrice.Location = new System.Drawing.Point(13, 140);
             this.cbNoPrice.Name = "cbNoPrice";
+            this.cbNoPrice.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbNoPrice.Properties.Appearance.Options.UseFont = true;
             this.cbNoPrice.Properties.Caption = "สินค้าที่ยังไม่กำหนดราคาขาย";
-            this.cbNoPrice.Size = new System.Drawing.Size(210, 19);
+            this.cbNoPrice.Size = new System.Drawing.Size(210, 27);
             this.cbNoPrice.TabIndex = 13;
             this.cbNoPrice.CheckedChanged += new System.EventHandler(this.btnSearch_Click);
             // 
@@ -1475,9 +1503,10 @@
             this.panelControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
             this.gbOrderNo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbBrand.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbbCategory.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.cbNoStock.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cbStock.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cbNoPrice.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl13)).EndInit();
@@ -1565,7 +1594,7 @@
         private DevExpress.XtraEditors.PanelControl panelControl13;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.ComboBoxEdit cbbBrand;
-        private DevExpress.XtraEditors.CheckEdit cbNoStock;
+        private DevExpress.XtraEditors.CheckEdit cbStock;
         private DevExpress.XtraEditors.ComboBoxEdit cbbCategory;
         private DevExpress.XtraEditors.CheckEdit cbNoPrice;
         private DevExpress.XtraEditors.TextEdit txtSearch;
@@ -1590,5 +1619,6 @@
         private DevExpress.XtraEditors.TextEdit txtPrice7;
         private DevExpress.XtraGrid.Columns.GridColumn clPrice7;
         private DevExpress.XtraGrid.Columns.GridColumn clWebPrice7;
+        private DevExpress.XtraEditors.CheckEdit cbNoStock;
     }
 }

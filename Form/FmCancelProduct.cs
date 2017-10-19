@@ -39,24 +39,25 @@ namespace PowerPOS
 
                     if (dt.Rows.Count == 0)
                     {
-                        dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
-                        if (dt.Rows.Count == 0)
-                        {
-                            lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
-                            lblStatus.ForeColor = Color.Red;
-                        }
-                        else
-                        {
-                            Param.status = "Cancel";
-                            FmSelectProduct frm = new FmSelectProduct();
-                            var result = frm.ShowDialog(this);
-                            if (result == System.Windows.Forms.DialogResult.OK)
-                            {
-                                Param.UcSale.LoadData();
-                                txtBarcode.Text = "";
-                            }
+                        //dt = Util.DBQuery(string.Format(@"SELECT Barcode FROM Product WHERE Barcode LIKE '%{0}%' OR Name LIKE '%{0}%'", txtBarcode.Text));
+                        //if (dt.Rows.Count == 0)
+                        //{
+                        //    lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ";
+                        //    lblStatus.ForeColor = Color.Red;
+                        //}
+                        //else
+                        //{
+                        //    Param.status = "Cancel";
+                        //    FmSelectProduct frm = new FmSelectProduct();
+                        //    var result = frm.ShowDialog(this);
+                        //    if (result == System.Windows.Forms.DialogResult.OK)
+                        //    {
+                        //        Param.UcSale.LoadData();
+                        //        txtBarcode.Text = "";
+                        //    }
 
-                        }
+                        //}
+                        MessageBox.Show("กรุณากรอกบาร์โค้ด ที่ต้องการยกเลิกการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else
                     {

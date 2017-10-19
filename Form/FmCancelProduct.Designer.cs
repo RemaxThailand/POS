@@ -34,6 +34,7 @@
             this.lblStatus = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.txtBarcode = new DevExpress.XtraEditors.TextEdit();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtBarcode.Properties)).BeginInit();
@@ -41,6 +42,7 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.label1);
             this.panelControl1.Controls.Add(this.btnCancel);
             this.panelControl1.Controls.Add(this.lblStatus);
             this.panelControl1.Controls.Add(this.labelControl1);
@@ -48,58 +50,73 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(350, 84);
+            this.panelControl1.Size = new System.Drawing.Size(372, 117);
             this.panelControl1.TabIndex = 0;
             // 
             // btnCancel
             // 
-            this.btnCancel.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(272, 47);
+            this.btnCancel.Location = new System.Drawing.Point(294, 79);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(70, 31);
+            this.btnCancel.Size = new System.Drawing.Size(66, 31);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "ยกเลิก";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // lblStatus
             // 
-            this.lblStatus.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.Appearance.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(77, 47);
+            this.lblStatus.Location = new System.Drawing.Point(81, 80);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(130, 16);
+            this.lblStatus.Size = new System.Drawing.Size(126, 23);
             this.lblStatus.TabIndex = 2;
             this.lblStatus.Text = "ไม่พบข้อมูลสินค้าชิ้นนี้";
             this.lblStatus.Visible = false;
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Location = new System.Drawing.Point(15, 16);
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Location = new System.Drawing.Point(10, 46);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(53, 18);
+            this.labelControl1.Size = new System.Drawing.Size(65, 23);
             this.labelControl1.TabIndex = 1;
             this.labelControl1.Text = "Barcode";
             // 
             // txtBarcode
             // 
-            this.txtBarcode.Location = new System.Drawing.Point(77, 11);
+            this.txtBarcode.Location = new System.Drawing.Point(81, 40);
             this.txtBarcode.Name = "txtBarcode";
-            this.txtBarcode.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBarcode.Properties.Appearance.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBarcode.Properties.Appearance.Options.UseFont = true;
+            this.txtBarcode.Properties.Appearance.Options.UseTextOptions = true;
+            this.txtBarcode.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.txtBarcode.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Flat;
-            this.txtBarcode.Size = new System.Drawing.Size(265, 28);
+            this.txtBarcode.Size = new System.Drawing.Size(279, 34);
             this.txtBarcode.TabIndex = 0;
             this.txtBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBarcode_KeyDown);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Green;
+            this.label1.Location = new System.Drawing.Point(10, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(350, 26);
+            this.label1.TabIndex = 61;
+            this.label1.Text = "กรอกบาร์โค้ดที่ต้องการยกเลิกออกจากการขาย";
+            // 
             // FmCancelProduct
             // 
+            this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 84);
+            this.ClientSize = new System.Drawing.Size(372, 117);
             this.Controls.Add(this.panelControl1);
+            this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FmCancelProduct";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -120,5 +137,6 @@
         private DevExpress.XtraEditors.LabelControl lblStatus;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.TextEdit txtBarcode;
+        private System.Windows.Forms.Label label1;
     }
 }

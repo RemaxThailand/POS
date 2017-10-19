@@ -189,7 +189,8 @@ namespace PowerPOS
                             ON b.Product = p.product
                         LEFT JOIN ChangePrice cp
                         ON cp.product = p.product
-                        AND cp.SellNo = '{0}' ", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
+                        AND cp.SellNo = '{0}' 
+                        ORDER BY p.Name", Param.DeviceID, Param.ShopId, Param.SelectCustomerSellPrice == 0 ? "" : "" + Param.SelectCustomerSellPrice));
 
                 // _TABLE_SALE = Util.DBQuery(string.Format(@"SELECT product, name, Price, SUM (ProductCount) ProductCount , Price *  SUM (ProductCount) TotalPrice, sku FROM 
                 //    (SELECT p.product, p.Name, p.Price{2} PriceA, IFNULL(cp.priceChange, p.Price{2}) Price, ProductCount, p.sku
@@ -362,7 +363,7 @@ namespace PowerPOS
             if (productGridView.RowCount > 0)
             {
                 FmCancelProduct frm = new FmCancelProduct();
-                frm.Show();
+                frm.ShowDialog(this);
                 lblStatus.Visible = false;
             }
             else
@@ -480,7 +481,15 @@ namespace PowerPOS
                         SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
                         simpleSound.Play();
 
-                        MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        if (txtBarcode.Text == "")
+                        {
+                            MessageBox.Show("กรุณากรอกบาร์โค้ด ที่ต้องการทำการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
+                            MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+
 
                         //dt = Util.DBQuery(string.Format(@"SELECT Product, Barcode FROM Product WHERE SKU = '{0}'", txtBarcode.Text));
                         //Console.WriteLine(txtBarcode.Text + "" + Param.BarcodeNo + "" + dt.Rows.Count.ToString());
@@ -761,10 +770,17 @@ namespace PowerPOS
                     FROM Barcode b LEFT JOIN Product p ON b.product = p.Product WHERE b.Barcode = '{0}'", txtBarcodeReturn.Text));
                     if (dt.Rows.Count == 0)
                     {
-                            SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
-                            simpleSound.Play();
+                        SoundPlayer simpleSound = new SoundPlayer(@"Resources/Sound/ohno.wav");
+                        simpleSound.Play();
 
+                        if (txtBarcodeReturn.Text == "")
+                        {
+                            MessageBox.Show("กรุณากรอกบาร์โค้ด ที่ต้องการทำการรับคืน", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        else
+                        {
                             MessageBox.Show("ไม่พบข้อมูลสินค้าชิ้นนี้ในระบบ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                     }
                     else
                     {
@@ -785,7 +801,7 @@ namespace PowerPOS
                         {
                             lblStatusReturn.Text = "";
                             lblStatusReturn.ForeColor = Color.Red;
-                            MessageBox.Show("ไม่พบข้อมูลสินค้าหรือ สินค้าชิ้นนี้ยังไม่ได้ทำการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("ไม่พบข้อมูลสินค้า หรือสินค้าชิ้นนี้ยังไม่ได้ทำการขาย", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             lblWarranty.Visible = false;
                             lblStatusReturn.Visible = true;
                             txtBarcodeReturn.Enabled = true;
@@ -922,11 +938,6 @@ namespace PowerPOS
                 productGridControl.Visible = false;
                 returnGridControl.Visible = true;
             }
-        }
-
-        private void productGridControl_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void txtBarcode_KeyUp(object sender, KeyEventArgs e)

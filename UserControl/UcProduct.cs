@@ -207,13 +207,14 @@ namespace PowerPOS
                                                   SELECT Product, Cost, OperationCost, COUNT(*) ProductCount FROM Barcode WHERE ReceivedDate IS NOT NULL AND  sellNo = '' GROUP BY Product
                                               ) cnt
                                           ON p.product = cnt.Product
-                      WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5}
+                      WHERE (p.product LIKE '%{1}%' OR p.Name LIKE '%{1}%') {2} {3} {4} {5} {7}
                             GROUP BY p.product 
                             ORDER BY p.Category, p.Name", Param.ShopId, txtSearch.Text.Trim(),
                            (cbbCategory.SelectedIndex != 0) ? "AND c.Name  = '" + cbbCategory.SelectedItem.ToString() + "'" : "",
                            (cbbBrand.SelectedIndex != 0) ? "AND bb.Name = '" + cbbBrand.SelectedItem.ToString() + "'" : "",
                            (cbNoPrice.Checked) ? "AND (p.Price = 0 OR p.Price = '' OR p.Price = null)" : "",
-                           (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : "", Param.ShopCost
+                           (cbNoStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) = 0" : "", Param.ShopCost,
+                           (cbStock.Checked) ? "AND IFNULL(cnt.ProductCount, 0) > 0" : ""
                   ));
                     Console.WriteLine(DateTime.Now.ToString());
                     //}

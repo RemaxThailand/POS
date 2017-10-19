@@ -48,7 +48,6 @@
             this.dtpEndDate = new System.Windows.Forms.DateTimePicker();
             this.dtpStartDate = new System.Windows.Forms.DateTimePicker();
             this.cbPaid = new DevExpress.XtraEditors.CheckEdit();
-            this.comboBoxEdit1 = new DevExpress.XtraEditors.ComboBoxEdit();
             this.txtSearch = new DevExpress.XtraEditors.TextEdit();
             this.btnSearch = new DevExpress.XtraEditors.SimpleButton();
             this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
@@ -117,7 +116,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).BeginInit();
             this.gbOrderNo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cbPaid.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).BeginInit();
             this.navBarGroupControlContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).BeginInit();
@@ -346,7 +344,6 @@
             this.gbOrderNo.Controls.Add(this.dtpEndDate);
             this.gbOrderNo.Controls.Add(this.dtpStartDate);
             this.gbOrderNo.Controls.Add(this.cbPaid);
-            this.gbOrderNo.Controls.Add(this.comboBoxEdit1);
             this.gbOrderNo.Controls.Add(this.txtSearch);
             this.gbOrderNo.Controls.Add(this.btnSearch);
             this.gbOrderNo.Dock = System.Windows.Forms.DockStyle.Top;
@@ -380,15 +377,6 @@
             this.cbPaid.Size = new System.Drawing.Size(210, 20);
             this.cbPaid.TabIndex = 13;
             this.cbPaid.CheckedChanged += new System.EventHandler(this.cbPaid_CheckedChanged);
-            // 
-            // comboBoxEdit1
-            // 
-            this.comboBoxEdit1.Location = new System.Drawing.Point(-17, -17);
-            this.comboBoxEdit1.Name = "comboBoxEdit1";
-            this.comboBoxEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.comboBoxEdit1.Size = new System.Drawing.Size(100, 20);
-            this.comboBoxEdit1.TabIndex = 12;
             // 
             // txtSearch
             // 
@@ -1049,7 +1037,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gbOrderNo)).EndInit();
             this.gbOrderNo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.cbPaid.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSearch.Properties)).EndInit();
             this.navBarGroupControlContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl21)).EndInit();
@@ -1099,7 +1086,6 @@
         private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer2;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.GroupControl gbOrderNo;
-        private DevExpress.XtraEditors.ComboBoxEdit comboBoxEdit1;
         private DevExpress.XtraEditors.TextEdit txtSearch;
         private DevExpress.XtraEditors.SimpleButton btnSearch;
         private DevExpress.XtraEditors.PanelControl panelControl13;

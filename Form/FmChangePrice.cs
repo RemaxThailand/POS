@@ -103,7 +103,14 @@ namespace PowerPOS
             {
                 if (e.KeyCode == Keys.Return)
                 {
-                    btnSave_Click(sender, (e));
+                    if (txtCode.Text == "")
+                    {
+                        MessageBox.Show("กรุณากรอกรหัสสำหรับแก้ไขราคาสินค้า");
+                    }
+                    else
+                    { 
+                        btnSave_Click(sender, (e));
+                    }
                 }
             }
             catch (Exception ex)

@@ -16,7 +16,7 @@ namespace PowerPOS
     public partial class Main : Form
     {
         #region Parameter
-        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, ReportStock, Credit};
+        enum Screen { Sale, ReceiveProduct, Product, Customer, User, Brand, Category, Color, Report, ShopInfo, Config, Claim, Return, Stock, ReportStock, Credit, claimShop, claimReceived};
         XtraUserControl _USER_CONTROL;
         UcSale _UC_SALE;
         UcStock _UC_STOCK;
@@ -31,6 +31,9 @@ namespace PowerPOS
         UcCredit _UC_CREDIT;
         UcReportProduct _UC_REPORT_PORDUCT;
         UcAddDataClaim _UC_DATA_CLAIM;
+        UcClaimShop _UC_CLAIM_SHOP;
+        UcClaimReceived _UC_CLAIM_RECEIVED;
+
         #endregion
 
         public Main()
@@ -325,7 +328,7 @@ namespace PowerPOS
             {
                 AddPanel(Param.Screen.Config);
             }
-            else if (e.Element.Name == "navClaim")
+            else if (e.Element.Name == "navClaimData")
             {
                 AddPanel(Param.Screen.Claim);
             }
@@ -361,6 +364,20 @@ namespace PowerPOS
             else if (e.Element.Name == "navReport")
             {
                 AddPanel(Param.Screen.Report);
+            }
+            else if (e.Element.Name == "navClaimDataShop")
+            {
+                if (Param.ShopId == "66666666")
+                {
+                    AddPanel(Param.Screen.claimShop);
+                }
+            }
+            else if (e.Element.Name == "navClaimReceivedShop")
+            {
+                if (Param.ShopId == "66666666")
+                {
+                    AddPanel(Param.Screen.claimReceived);
+                }
             }
 
         }
@@ -439,6 +456,15 @@ namespace PowerPOS
                     if (_UC_REPORT_PORDUCT == null) _UC_REPORT_PORDUCT = new UcReportProduct();
                     _USER_CONTROL = _UC_REPORT_PORDUCT;
                     _UC_REPORT_PORDUCT.LoadData();
+                    break;
+                case Param.Screen.claimShop:
+                    if (_UC_CLAIM_SHOP == null) _UC_CLAIM_SHOP = new UcClaimShop();
+                    _USER_CONTROL = _UC_CLAIM_SHOP;
+                    _UC_CLAIM_SHOP.LoadData();
+                    break;
+                case Param.Screen.claimReceived:
+                    if (_UC_CLAIM_RECEIVED == null) _UC_CLAIM_RECEIVED = new UcClaimReceived();
+                    _USER_CONTROL = _UC_CLAIM_RECEIVED;
                     break;
             }
             if (!pnlMain.Contains(_USER_CONTROL))

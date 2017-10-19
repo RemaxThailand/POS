@@ -80,7 +80,6 @@
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.panelControl17 = new DevExpress.XtraEditors.PanelControl();
             this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
-            this.btnPrintClaim = new DevExpress.XtraEditors.SimpleButton();
             this.panelControl22 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl23 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl24 = new DevExpress.XtraEditors.PanelControl();
@@ -98,6 +97,7 @@
             this.labelControl4 = new DevExpress.XtraEditors.LabelControl();
             this.lblListCount = new DevExpress.XtraEditors.LabelControl();
             this.lblProductCount = new DevExpress.XtraEditors.LabelControl();
+            this.btnPrintClaim = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.navBarControl1)).BeginInit();
             this.navBarControl1.SuspendLayout();
             this.navBarGroupControlContainer2.SuspendLayout();
@@ -232,7 +232,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Appearance.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(31)))), ((int)(((byte)(53)))));
             this.btnCancel.Appearance.Options.UseFont = true;
             this.btnCancel.Appearance.Options.UseForeColor = true;
@@ -245,6 +245,7 @@
             this.btnCancel.Size = new System.Drawing.Size(194, 47);
             this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "ยกเลิกบิลขายสินค้า";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // panelControl12
             // 
@@ -304,6 +305,7 @@
             this.pictureEdit1.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Stretch;
             this.pictureEdit1.Size = new System.Drawing.Size(234, 350);
             this.pictureEdit1.TabIndex = 0;
+            this.pictureEdit1.Visible = false;
             // 
             // panelControl1
             // 
@@ -509,7 +511,7 @@
             // 
             // btnPrint
             // 
-            this.btnPrint.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrint.Appearance.Font = new System.Drawing.Font("Calibri", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrint.Appearance.Options.UseFont = true;
             this.btnPrint.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPrint.Image = ((System.Drawing.Image)(resources.GetObject("btnPrint.Image")));
@@ -536,6 +538,10 @@
             // 
             // reportGridView
             // 
+            this.reportGridView.Appearance.FocusedRow.Font = new System.Drawing.Font("Calibri", 12F);
+            this.reportGridView.Appearance.FocusedRow.Options.UseFont = true;
+            this.reportGridView.Appearance.HeaderPanel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reportGridView.Appearance.HeaderPanel.Options.UseFont = true;
             this.reportGridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.clNo,
             this.cllDate,
@@ -553,9 +559,9 @@
             // 
             // clNo
             // 
-            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNo.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceCell.Options.UseFont = true;
-            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNo.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNo.AppearanceHeader.Options.UseFont = true;
             this.clNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -572,9 +578,9 @@
             // 
             // cllDate
             // 
-            this.cllDate.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.cllDate.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cllDate.AppearanceCell.Options.UseFont = true;
-            this.cllDate.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.cllDate.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cllDate.AppearanceHeader.Options.UseFont = true;
             this.cllDate.AppearanceHeader.Options.UseTextOptions = true;
             this.cllDate.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -591,9 +597,9 @@
             // 
             // clSaleNo
             // 
-            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSaleNo.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleNo.AppearanceCell.Options.UseFont = true;
-            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clSaleNo.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clSaleNo.AppearanceHeader.Options.UseFont = true;
             this.clSaleNo.AppearanceHeader.Options.UseTextOptions = true;
             this.clSaleNo.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -610,9 +616,9 @@
             // 
             // clCustomer
             // 
-            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clCustomer.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCustomer.AppearanceCell.Options.UseFont = true;
-            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clCustomer.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clCustomer.AppearanceHeader.Options.UseFont = true;
             this.clCustomer.AppearanceHeader.Options.UseTextOptions = true;
             this.clCustomer.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -625,19 +631,19 @@
             this.clCustomer.OptionsColumn.FixedWidth = true;
             this.clCustomer.Visible = true;
             this.clCustomer.VisibleIndex = 3;
-            this.clCustomer.Width = 150;
+            this.clCustomer.Width = 160;
             // 
             // clMobile
             // 
-            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clMobile.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clMobile.AppearanceCell.Options.UseFont = true;
             this.clMobile.AppearanceCell.Options.UseTextOptions = true;
             this.clMobile.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clMobile.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clMobile.AppearanceHeader.Options.UseFont = true;
             this.clMobile.AppearanceHeader.Options.UseTextOptions = true;
             this.clMobile.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clMobile.Caption = "มือถือ";
+            this.clMobile.Caption = "โทรศัพท์";
             this.clMobile.FieldName = "Mobile";
             this.clMobile.Name = "clMobile";
             this.clMobile.OptionsColumn.AllowEdit = false;
@@ -646,15 +652,14 @@
             this.clMobile.OptionsColumn.FixedWidth = true;
             this.clMobile.Visible = true;
             this.clMobile.VisibleIndex = 4;
-            this.clMobile.Width = 70;
             // 
             // clTotal
             // 
-            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clTotal.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceCell.Options.UseFont = true;
             this.clTotal.AppearanceCell.Options.UseTextOptions = true;
             this.clTotal.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clTotal.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clTotal.AppearanceHeader.Options.UseFont = true;
             this.clTotal.AppearanceHeader.Options.UseTextOptions = true;
             this.clTotal.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -667,15 +672,14 @@
             this.clTotal.OptionsColumn.FixedWidth = true;
             this.clTotal.Visible = true;
             this.clTotal.VisibleIndex = 5;
-            this.clTotal.Width = 80;
             // 
             // clStatus
             // 
-            this.clStatus.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clStatus.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clStatus.AppearanceCell.Options.UseFont = true;
             this.clStatus.AppearanceCell.Options.UseTextOptions = true;
             this.clStatus.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.clStatus.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clStatus.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clStatus.AppearanceHeader.Options.UseFont = true;
             this.clStatus.AppearanceHeader.Options.UseTextOptions = true;
             this.clStatus.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -692,11 +696,11 @@
             // 
             // clDiscount
             // 
-            this.clDiscount.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clDiscount.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clDiscount.AppearanceCell.Options.UseFont = true;
             this.clDiscount.AppearanceCell.Options.UseTextOptions = true;
             this.clDiscount.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clDiscount.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clDiscount.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clDiscount.AppearanceHeader.Options.UseFont = true;
             this.clDiscount.AppearanceHeader.Options.UseTextOptions = true;
             this.clDiscount.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -709,15 +713,15 @@
             this.clDiscount.OptionsColumn.FixedWidth = true;
             this.clDiscount.Visible = true;
             this.clDiscount.VisibleIndex = 6;
-            this.clDiscount.Width = 70;
+            this.clDiscount.Width = 65;
             // 
             // clNet
             // 
-            this.clNet.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNet.AppearanceCell.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNet.AppearanceCell.Options.UseFont = true;
             this.clNet.AppearanceCell.Options.UseTextOptions = true;
             this.clNet.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
-            this.clNet.AppearanceHeader.Font = new System.Drawing.Font("Tahoma", 9.75F);
+            this.clNet.AppearanceHeader.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clNet.AppearanceHeader.Options.UseFont = true;
             this.clNet.AppearanceHeader.Options.UseTextOptions = true;
             this.clNet.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -730,7 +734,7 @@
             this.clNet.OptionsColumn.FixedWidth = true;
             this.clNet.Visible = true;
             this.clNet.VisibleIndex = 7;
-            this.clNet.Width = 100;
+            this.clNet.Width = 90;
             // 
             // panelControl10
             // 
@@ -785,27 +789,12 @@
             this.groupControl7.Controls.Add(this.panelControl23);
             this.groupControl7.Controls.Add(this.panelControl24);
             this.groupControl7.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupControl7.Location = new System.Drawing.Point(393, 2);
+            this.groupControl7.Location = new System.Drawing.Point(406, 2);
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.ShowCaption = false;
-            this.groupControl7.Size = new System.Drawing.Size(173, 43);
+            this.groupControl7.Size = new System.Drawing.Size(187, 43);
             this.groupControl7.TabIndex = 32;
             this.groupControl7.Text = "groupControl7";
-            // 
-            // btnPrintClaim
-            // 
-            this.btnPrintClaim.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrintClaim.Appearance.Options.UseFont = true;
-            this.btnPrintClaim.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnPrintClaim.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintClaim.Image")));
-            this.btnPrintClaim.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-            this.btnPrintClaim.Location = new System.Drawing.Point(0, 4);
-            this.btnPrintClaim.Name = "btnPrintClaim";
-            this.btnPrintClaim.Size = new System.Drawing.Size(163, 35);
-            this.btnPrintClaim.TabIndex = 0;
-            this.btnPrintClaim.Text = "พิมพ์ใบคุมสินค้าเคลม";
-            this.btnPrintClaim.Visible = false;
-            this.btnPrintClaim.Click += new System.EventHandler(this.btnPrintClaim_Click);
             // 
             // panelControl22
             // 
@@ -813,7 +802,7 @@
             this.panelControl22.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl22.Location = new System.Drawing.Point(0, 39);
             this.panelControl22.Name = "panelControl22";
-            this.panelControl22.Size = new System.Drawing.Size(163, 4);
+            this.panelControl22.Size = new System.Drawing.Size(177, 4);
             this.panelControl22.TabIndex = 20;
             // 
             // panelControl23
@@ -822,14 +811,14 @@
             this.panelControl23.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl23.Location = new System.Drawing.Point(0, 0);
             this.panelControl23.Name = "panelControl23";
-            this.panelControl23.Size = new System.Drawing.Size(163, 4);
+            this.panelControl23.Size = new System.Drawing.Size(177, 4);
             this.panelControl23.TabIndex = 19;
             // 
             // panelControl24
             // 
             this.panelControl24.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl24.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl24.Location = new System.Drawing.Point(163, 0);
+            this.panelControl24.Location = new System.Drawing.Point(177, 0);
             this.panelControl24.Name = "panelControl24";
             this.panelControl24.Size = new System.Drawing.Size(10, 43);
             this.panelControl24.TabIndex = 18;
@@ -845,20 +834,20 @@
             this.groupControl6.Location = new System.Drawing.Point(169, 2);
             this.groupControl6.Name = "groupControl6";
             this.groupControl6.ShowCaption = false;
-            this.groupControl6.Size = new System.Drawing.Size(224, 43);
+            this.groupControl6.Size = new System.Drawing.Size(237, 43);
             this.groupControl6.TabIndex = 31;
             this.groupControl6.Text = "groupControl6";
             // 
             // btnPrintA4
             // 
-            this.btnPrintA4.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintA4.Appearance.Font = new System.Drawing.Font("Calibri", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPrintA4.Appearance.Options.UseFont = true;
             this.btnPrintA4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnPrintA4.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintA4.Image")));
             this.btnPrintA4.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btnPrintA4.Location = new System.Drawing.Point(0, 4);
             this.btnPrintA4.Name = "btnPrintA4";
-            this.btnPrintA4.Size = new System.Drawing.Size(214, 35);
+            this.btnPrintA4.Size = new System.Drawing.Size(227, 35);
             this.btnPrintA4.TabIndex = 0;
             this.btnPrintA4.Text = "พิมพ์ใบเสร็จรับเงิน (ขนาด A4)";
             this.btnPrintA4.Click += new System.EventHandler(this.btnPrintA4_Click);
@@ -869,7 +858,7 @@
             this.panelControl15.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelControl15.Location = new System.Drawing.Point(0, 39);
             this.panelControl15.Name = "panelControl15";
-            this.panelControl15.Size = new System.Drawing.Size(214, 4);
+            this.panelControl15.Size = new System.Drawing.Size(227, 4);
             this.panelControl15.TabIndex = 20;
             // 
             // panelControl16
@@ -878,14 +867,14 @@
             this.panelControl16.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl16.Location = new System.Drawing.Point(0, 0);
             this.panelControl16.Name = "panelControl16";
-            this.panelControl16.Size = new System.Drawing.Size(214, 4);
+            this.panelControl16.Size = new System.Drawing.Size(227, 4);
             this.panelControl16.TabIndex = 19;
             // 
             // panelControl21
             // 
             this.panelControl21.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             this.panelControl21.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelControl21.Location = new System.Drawing.Point(214, 0);
+            this.panelControl21.Location = new System.Drawing.Point(227, 0);
             this.panelControl21.Name = "panelControl21";
             this.panelControl21.Size = new System.Drawing.Size(10, 43);
             this.panelControl21.TabIndex = 18;
@@ -982,6 +971,21 @@
             this.lblProductCount.Size = new System.Drawing.Size(27, 16);
             this.lblProductCount.TabIndex = 23;
             this.lblProductCount.Text = "0 ชิ้น";
+            // 
+            // btnPrintClaim
+            // 
+            this.btnPrintClaim.Appearance.Font = new System.Drawing.Font("Calibri", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrintClaim.Appearance.Options.UseFont = true;
+            this.btnPrintClaim.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnPrintClaim.Image = ((System.Drawing.Image)(resources.GetObject("btnPrintClaim.Image")));
+            this.btnPrintClaim.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btnPrintClaim.Location = new System.Drawing.Point(0, 4);
+            this.btnPrintClaim.Name = "btnPrintClaim";
+            this.btnPrintClaim.Size = new System.Drawing.Size(177, 35);
+            this.btnPrintClaim.TabIndex = 0;
+            this.btnPrintClaim.Text = "พิมพ์ใบคุมสินค้าเคลม";
+            this.btnPrintClaim.Visible = false;
+            this.btnPrintClaim.Click += new System.EventHandler(this.btnPrintClaim_Click);
             // 
             // UcReport
             // 
@@ -1122,10 +1126,10 @@
         private DevExpress.XtraGrid.Columns.GridColumn clDiscount;
         private DevExpress.XtraGrid.Columns.GridColumn clNet;
         private DevExpress.XtraEditors.GroupControl groupControl7;
-        private DevExpress.XtraEditors.SimpleButton btnPrintClaim;
         private DevExpress.XtraEditors.PanelControl panelControl22;
         private DevExpress.XtraEditors.PanelControl panelControl23;
         private DevExpress.XtraEditors.PanelControl panelControl24;
         protected DevExpress.XtraGrid.Views.Grid.GridView reportGridView;
+        private DevExpress.XtraEditors.SimpleButton btnPrintClaim;
     }
 }

@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.Globalization;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using System.Drawing.Printing;
 
 namespace PowerPOS
 {
@@ -43,6 +44,7 @@ namespace PowerPOS
         DateTime _receiveDate;
         DateTime _sentDate;
         string _claimNo;
+        string _CLAIM_NO;
         string[] image;
 
         public UcAddDataClaim()
@@ -91,7 +93,14 @@ namespace PowerPOS
 
         private void UcAddDataClaim_Load(object sender, EventArgs e)
         {
-            //if (Param.MemberType != "Shop" || Param.MemberType == "" || Param.MemberType == null)
+            if (Param.MemberType == "Shop" || Param.MemberType == "" || Param.MemberType == null)
+            {
+                panelControl1.Visible = false;
+                panelControl3.Visible = false;
+                label1.Visible = true;
+            }
+
+            //if (Param.ApiShopId != "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
             //{
             //    panelControl1.Visible = false;
             //    panelControl3.Visible = false;
@@ -116,6 +125,7 @@ namespace PowerPOS
             _FIRSTLOAD = true;
             splashScreenManager.ShowWaitForm();
             bwLoadProvince.RunWorkerAsync();
+            btnQuery_Click(sender, e);
         }
 
 
@@ -140,7 +150,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is : " + ex);
+                //MessageBox.Show("Error is : " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -351,7 +362,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is: " + ex);
+                //MessageBox.Show("Error is: " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -380,6 +392,32 @@ namespace PowerPOS
             {
                 splashScreenManager.ShowWaitForm();
                 bwClaimAdd.RunWorkerAsync();
+
+                //try
+                //{
+                //    if (_JSON_PROVINCE.result.Count > 0)
+                //    {
+                //        for (int i = 0; i < _JSON_PROVINCE.result.Count; i++)
+                //        {
+                //            comboProvince.Properties.Items.Add(_JSON_PROVINCE.result[i].name);
+                //        }
+
+
+                //        comboProvince.SelectedIndex = 0;
+                //        bwLoadDistrict.RunWorkerAsync();
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("กรุณาทำการปิดและเปิดหน้าต่างนี้ไหมอีกครั้ง");
+                //    }
+
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    //MessageBox.Show("Error is : " + ex);
+                //    Console.WriteLine("Error is: " + ex);
+                //}
             }
             else
             {
@@ -403,7 +441,21 @@ namespace PowerPOS
 
                     DateTime date = Convert.ToDateTime(addClaimGridView.GetRowCellValue(i, "sellDate").ToString());
                     string sellDate = date.ToString("MM/dd/yyyy");
-                    _JSON_CLAIMADD = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/add", "shop=" + Param.ApiShopId + "&from=" + "A" + "&barcode=" + addClaimGridView.GetRowCellValue(i, "barcode").ToString() + "&product=" + addClaimGridView.GetRowCellValue(i, "product").ToString() + "&description=" + addClaimGridView.GetRowCellValue(i, "description").ToString() + "&firstname=" + addClaimGridView.GetRowCellValue(i, "firstname").ToString() + "&lastname=" + addClaimGridView.GetRowCellValue(i, "lastname").ToString() + "&nickname=" + addClaimGridView.GetRowCellValue(i, "nickname").ToString() + "&address=" + addClaimGridView.GetRowCellValue(i, "address").ToString() + "&address2=" + addClaimGridView.GetRowCellValue(i, "address2").ToString() + "&province=" + addClaimGridView.GetRowCellValue(i, "province").ToString() + "&district=" + addClaimGridView.GetRowCellValue(i, "district").ToString() + "&subDistrict=" + addClaimGridView.GetRowCellValue(i, "subDistrict").ToString() + "&zipcode=" + addClaimGridView.GetRowCellValue(i, "zipcode").ToString() + "&tel=" + addClaimGridView.GetRowCellValue(i, "tel").ToString() + "&email=" + "-" + "&images=" + "-" + "&lastShop=" + addClaimGridView.GetRowCellValue(i, "lastShop").ToString() + "&sellNo=" + addClaimGridView.GetRowCellValue(i, "sellNo").ToString() + "&sellPrice=" + addClaimGridView.GetRowCellValue(i, "sellPrice").ToString() + "&usernameClaim=" + "claim" + "&customerLineId=" + addClaimGridView.GetRowCellValue(i, "lineId").ToString() + "&claimType=" + "-" + "&sellDate=" + sellDate));
+                    string returntype;
+                    if (rdbRS.Checked == true)
+                    {
+                        returntype = "RS";
+                    }
+                    else if (rdbRC.Checked == true)
+                    {
+                        returntype = "RC";
+                    }
+                    else
+                    {
+                        returntype = "RS";
+                    }
+
+                    _JSON_CLAIMADD = JsonConvert.DeserializeObject(Util.ApiProcess("/claim/addPos", "shop=" + Param.ApiShopId + "&from=" + "A" + "&barcode=" + addClaimGridView.GetRowCellValue(i, "barcode").ToString() + "&product=" + addClaimGridView.GetRowCellValue(i, "product").ToString() + "&description=" + addClaimGridView.GetRowCellValue(i, "description").ToString() + "&firstname=" + addClaimGridView.GetRowCellValue(i, "firstname").ToString() + "&lastname=" + addClaimGridView.GetRowCellValue(i, "lastname").ToString() + "&nickname=" + addClaimGridView.GetRowCellValue(i, "nickname").ToString() + "&address=" + addClaimGridView.GetRowCellValue(i, "address").ToString() + "&address2=" + addClaimGridView.GetRowCellValue(i, "address2").ToString() + "&province=" + addClaimGridView.GetRowCellValue(i, "province").ToString() + "&district=" + addClaimGridView.GetRowCellValue(i, "district").ToString() + "&subDistrict=" + addClaimGridView.GetRowCellValue(i, "subDistrict").ToString() + "&zipcode=" + addClaimGridView.GetRowCellValue(i, "zipcode").ToString() + "&tel=" + addClaimGridView.GetRowCellValue(i, "tel").ToString() + "&email=" + "-" + "&images=" + "-" + "&lastShop=" + addClaimGridView.GetRowCellValue(i, "lastShop").ToString() + "&sellNo=" + addClaimGridView.GetRowCellValue(i, "sellNo").ToString() + "&sellPrice=" + addClaimGridView.GetRowCellValue(i, "sellPrice").ToString() + "&usernameClaim=" + "claim" + "&customerLineId=" + addClaimGridView.GetRowCellValue(i, "lineId").ToString() + "&claimType=" + "-" + "&sellDate=" + sellDate+ "&returnType=" + returntype));
 
                     _SUCCESS = true;
                 }
@@ -412,7 +464,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is: " + ex);
+                //MessageBox.Show("Error is: " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -432,6 +485,8 @@ namespace PowerPOS
                 textAddress2.EditValue = "";
                 textSubDistrict.EditValue = "";
 
+                //splashScreenManager.ShowWaitForm();
+                comboProvince.SelectedIndex = 0;
                 bwLoadProvince.RunWorkerAsync();
                 checkSameDesc.Checked = false;
                 addClaimGridControl.DataSource = null;
@@ -443,6 +498,10 @@ namespace PowerPOS
                 lblProductName.Text = "-";
                 lblSellDate.Text = "-";
                 lblWarranty.Text = "-";
+                btnAdd.Enabled = false;
+                btnRemove.Enabled = false;
+                _TABLE_BARCODE.Clear();
+                rdbRS.Checked = true;
                 //this.Close();
             }
         }
@@ -464,7 +523,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is : " + ex);
+                //MessageBox.Show("Error is : " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -472,6 +532,7 @@ namespace PowerPOS
         {
             try
             {
+                comboProvince.Properties.Items.Clear();
                 if (_JSON_PROVINCE.result.Count > 0)
                 {
                     for (int i = 0; i < _JSON_PROVINCE.result.Count; i++)
@@ -479,20 +540,20 @@ namespace PowerPOS
                         comboProvince.Properties.Items.Add(_JSON_PROVINCE.result[i].name);
                     }
 
-
                     comboProvince.SelectedIndex = 0;
                     bwLoadDistrict.RunWorkerAsync();
+                    _FIRSTLOAD = false;
+
                 }
                 else
                 {
                     MessageBox.Show("กรุณาทำการปิดและเปิดหน้าต่างนี้ไหมอีกครั้ง");
                 }
-
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is : " + ex);
+                //MessageBox.Show("Error is : " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -506,7 +567,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is : " + ex);
+                //MessageBox.Show("Error is : " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -524,12 +586,10 @@ namespace PowerPOS
 
                     comboDistrict.SelectedIndex = comboDistrict.SelectedIndex + 1;
                     textZipcode.Text = _JSON_DISTRICT.result[comboDistrict.SelectedIndex].zipcode.ToString();
-                    //splashScreenManager.CloseWaitForm();
+                    splashScreenManager.CloseWaitForm();
                     _FIRSTLOAD = false;
 
                 }
-
-
                 else
                 {
                     MessageBox.Show("กรุณาทำการปิดและเปิดหน้าต่างนี้ไหมอีกครั้ง");
@@ -537,25 +597,41 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is : " + ex);
+                //MessageBox.Show("Error is : " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
         private void comboProvince_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!_FIRSTLOAD)
+            try
             {
-                comboDistrict.Properties.Items.Clear();
-                splashScreenManager.ShowWaitForm();
-                bwLoadDistrict.RunWorkerAsync();
+                if (!_FIRSTLOAD)
+                {
+                    comboDistrict.Properties.Items.Clear();
+                    splashScreenManager.ShowWaitForm();
+                    bwLoadDistrict.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
         private void comboDistrict_SelectedIndexChanged(object sender, EventArgs e)
         {
-             if (!_FIRSTLOAD)
+            try
             {
-                textZipcode.Text = _JSON_DISTRICT.result[comboDistrict.SelectedIndex].zipcode.ToString();
+                if (!_FIRSTLOAD)
+                {
+                    textZipcode.Text = _JSON_DISTRICT.result[comboDistrict.SelectedIndex].zipcode.ToString();
+                    splashScreenManager.CloseWaitForm();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -571,7 +647,7 @@ namespace PowerPOS
                 string _dateFrom = dateFrom.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _dateTo = dateTo.ToString("MM/dd/yyyy", new CultureInfo("en-US"));
                 string _shop = Param.ApiShopId;
-                if (_shop == "POWERDDH-8888-8888-B620-48D3B6489999" || _shop == "9D7B3665-D502-4E6C-8C08-891C9E6C96A8" || _shop == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6")
+                if (_shop == "POWERDDH-8888-8888-B620-48D3B6489999" || _shop == "9D7B3665-D502-4E6C-8C08-891C9E6C96A8" || _shop == "636C1CCE-5626-4AE0-B6D9-2A909BD37CF6" || _shop == "B2ED5F81-0FB5-4ACF-B0A1-385A806E0C2B")
                 {
                     _shop = "";
                 }
@@ -655,13 +731,15 @@ namespace PowerPOS
                         row[26] = _JSON_CLAIM.result[0][a].sellDate.ToString("dd/MM/yyyy");
                         row[27] = _JSON_CLAIM.result[0][a].price.ToString();
                         row[28] = _JSON_CLAIM.result[0][a].sku.ToString();
+                        row[29] = _JSON_CLAIM.result[0][a].returnType.ToString();
                         _TABLE_CLAIM.Rows.Add(row);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is: " + ex);
+                //MessageBox.Show("Error is: " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -675,7 +753,8 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is: " + ex);
+                //MessageBox.Show("Error is: " + ex);
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -746,7 +825,9 @@ namespace PowerPOS
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error is: " + ex);
+                //MessageBox.Show("Error is: " + ex);
+                Console.WriteLine("Error is: " + ex);
+
             }
         }
 
@@ -827,34 +908,62 @@ namespace PowerPOS
 
         private void textBarcodeWarr_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Return))
+            try
             {
-                splashScreenManager.ShowWaitForm();
-                bwWarrantyInfo.RunWorkerAsync();
+                if ((e.KeyCode == Keys.Return))
+                {
+                    splashScreenManager.ShowWaitForm();
+                    bwWarrantyInfo.RunWorkerAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
         private void textNo_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Return))
+            try
             {
-                btnQuery_Click(sender, e);
+                if ((e.KeyCode == Keys.Return))
+                {
+                    btnQuery_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
         private void barcode_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Return))
+            try
             {
-                btnQuery_Click(sender, e);
+                if ((e.KeyCode == Keys.Return))
+                {
+                    btnQuery_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
         private void textFirstname_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyCode == Keys.Return))
+            try
             {
-                btnQuery_Click(sender, e);
+                if ((e.KeyCode == Keys.Return))
+                {
+                    btnQuery_Click(sender, e);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error is: " + ex);
             }
         }
 
@@ -901,6 +1010,14 @@ namespace PowerPOS
                 lblSellPrice.Text = _CLAIM_SELECTED[27].ToString();
                 lblCProductCode.Text = _CLAIM_SELECTED[28].ToString();
                 lblCProductName.Text = _CLAIM_SELECTED[4].ToString();
+                if (_CLAIM_SELECTED[29].ToString() == "RC")
+                {
+                    lblreturn.Text = "ส่งตามที่อยู่ลูกค้า";
+                }
+                else
+                {
+                    lblreturn.Text = "ส่งกลับร้าน";
+                }
 
                 //if (_CLAIM_SELECTED[25].ToString() != "" && _CLAIM_SELECTED[25].ToString() != null)
                 //{
@@ -1073,6 +1190,38 @@ namespace PowerPOS
                         break;
                 }
             }
+        }
+
+        private void btnPrintClaim_Click(object sender, EventArgs e)
+        {
+            if (_CLAIM_NO != null)
+            {
+                Util.GetAddress(_CLAIM_NO, false);
+                btnPrintClaim.Enabled = false;
+
+                PaperSize paperSize = new PaperSize();
+                paperSize.RawKind = (int)PaperKind.A4;
+
+                PrintDocument pd = new PrintDocument();
+                pd.DefaultPageSettings.PaperSize = paperSize;
+                pd.PrintController = new System.Drawing.Printing.StandardPrintController();
+                //pd.PrinterSettings.PrinterName = ConfigurationManager.AppSettings["PrinterName"];
+                pd.PrinterSettings.PrinterName = Param.DevicePrinter;
+
+
+                pd.PrintPage += (_, g) =>
+                {
+                    Util.PrintClaim(g, _CLAIM_NO);
+                };
+                pd.Print();
+
+                btnPrintClaim.Enabled = true;
+            }
+        }
+
+        private void claimGridControl_MouseClick(object sender, MouseEventArgs e)
+        {
+            _CLAIM_NO = claimInfoGridView.GetRowCellDisplayText(claimInfoGridView.FocusedRowHandle, claimInfoGridView.Columns["claimNo"]);
         }
     }
 }
